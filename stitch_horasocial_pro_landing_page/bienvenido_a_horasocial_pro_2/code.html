@@ -140,9 +140,81 @@
         .animate-float {
             animation: float 6s ease-in-out infinite;
         }
+
+        /* === ANIMATED WAVES === */
+        .waves-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .wave-svg {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 200%;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+        }
+
+        .wave1 {
+            bottom: 0;
+            opacity: 0.18;
+            animation: waveMove 10s linear infinite;
+        }
+        .wave2 {
+            bottom: 20px;
+            opacity: 0.12;
+            animation: waveMove 14s linear infinite reverse;
+        }
+        .wave3 {
+            bottom: 40px;
+            opacity: 0.08;
+            animation: waveMove 18s linear infinite;
+        }
+        .wave4 {
+            bottom: 60px;
+            opacity: 0.06;
+            animation: waveMove 22s linear infinite reverse;
+        }
+
+        @keyframes waveMove {
+            0%   { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* Ensure main content sits above waves */
+        main {
+            position: relative;
+            z-index: 1;
+        }
     </style>
 </head>
 <body class="bg-surface font-body-md text-on-surface overflow-hidden">
+<!-- Animated Wave Background -->
+<div class="waves-container" aria-hidden="true">
+    <!-- Wave 1 -->
+    <svg class="wave-svg wave1" viewBox="0 0 1440 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+        <path d="M0,60 C240,100 480,20 720,60 C960,100 1200,20 1440,60 C1680,100 1920,20 2160,60 C2400,100 2640,20 2880,60 L2880,120 L0,120 Z" fill="#38bdf8"/>
+    </svg>
+    <!-- Wave 2 -->
+    <svg class="wave-svg wave2" viewBox="0 0 1440 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+        <path d="M0,70 C200,30 400,110 720,70 C1040,30 1200,110 1440,70 C1680,30 1900,110 2160,70 C2420,30 2640,110 2880,70 L2880,120 L0,120 Z" fill="#0ea5e9"/>
+    </svg>
+    <!-- Wave 3 -->
+    <svg class="wave-svg wave3" viewBox="0 0 1440 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+        <path d="M0,50 C360,90 720,10 1080,50 C1440,90 1800,10 2160,50 C2520,90 2880,10 3240,50 L3240,120 L0,120 Z" fill="#7dd3fc"/>
+    </svg>
+    <!-- Wave 4 -->
+    <svg class="wave-svg wave4" viewBox="0 0 1440 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+        <path d="M0,80 C180,40 540,120 900,80 C1260,40 1440,120 1800,80 C2160,40 2520,120 2880,80 L2880,120 L0,120 Z" fill="#bae6fd"/>
+    </svg>
+</div>
 <!-- Atmospheric Watermarks -->
 <div class="floating-icon top-10 left-10 text-[120px] material-symbols-outlined">settings</div>
 <div class="floating-icon bottom-10 right-10 text-[120px] material-symbols-outlined">school</div>
