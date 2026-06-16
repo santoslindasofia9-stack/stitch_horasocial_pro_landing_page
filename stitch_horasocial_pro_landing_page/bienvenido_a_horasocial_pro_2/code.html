@@ -114,61 +114,190 @@
     }
 
     body {
-        background: linear-gradient(170deg, #f7f9fb 0%, #eaf4fd 40%, #f0f7ff 70%, #f7f9fb 100%);
+        background: #f7f9fb;
         min-height: 100vh;
         overflow: hidden;
+        font-family: 'Inter', sans-serif;
     }
 
-    /* ---- Canvas sits behind everything ---- */
-    #wave-canvas {
+    /* ===== AMBIENT LIGHT ORBS ===== */
+    .ambient-bg {
         position: fixed;
         inset: 0;
-        width: 100%;
-        height: 100%;
         z-index: 0;
+        overflow: hidden;
         pointer-events: none;
     }
 
-    .floating-icon {
-        position: fixed;
-        opacity: 0.035;
-        user-select: none;
-        pointer-events: none;
-        z-index: 1;
+    .orb {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(80px);
+        will-change: transform;
     }
 
+    /* Orb 1 — Large, top-left, soft sky blue */
+    .orb-1 {
+        width: 420px;
+        height: 420px;
+        top: -8%;
+        left: -5%;
+        background: radial-gradient(circle, rgba(56,189,248,0.18) 0%, rgba(56,189,248,0) 70%);
+        animation: drift1 20s ease-in-out infinite;
+    }
+
+    /* Orb 2 — Medium, top-right, light teal */
+    .orb-2 {
+        width: 320px;
+        height: 320px;
+        top: 5%;
+        right: -8%;
+        background: radial-gradient(circle, rgba(14,165,233,0.14) 0%, rgba(14,165,233,0) 70%);
+        animation: drift2 25s ease-in-out infinite;
+    }
+
+    /* Orb 3 — Large, center, very soft lavender-blue */
+    .orb-3 {
+        width: 500px;
+        height: 500px;
+        top: 30%;
+        left: 25%;
+        background: radial-gradient(circle, rgba(125,211,252,0.12) 0%, rgba(186,230,253,0) 70%);
+        animation: drift3 30s ease-in-out infinite;
+    }
+
+    /* Orb 4 — Medium, bottom-left, cyan accent */
+    .orb-4 {
+        width: 350px;
+        height: 350px;
+        bottom: -5%;
+        left: -10%;
+        background: radial-gradient(circle, rgba(6,182,212,0.13) 0%, rgba(6,182,212,0) 70%);
+        animation: drift4 22s ease-in-out infinite;
+    }
+
+    /* Orb 5 — Small, bottom-right, soft blue */
+    .orb-5 {
+        width: 280px;
+        height: 280px;
+        bottom: 10%;
+        right: 5%;
+        background: radial-gradient(circle, rgba(56,189,248,0.10) 0%, rgba(56,189,248,0) 70%);
+        animation: drift5 18s ease-in-out infinite;
+    }
+
+    /* Orb 6 — Tiny accent, center-top */
+    .orb-6 {
+        width: 200px;
+        height: 200px;
+        top: 15%;
+        left: 50%;
+        background: radial-gradient(circle, rgba(186,230,253,0.15) 0%, rgba(186,230,253,0) 70%);
+        animation: drift6 24s ease-in-out infinite;
+    }
+
+    /* --- Slow, organic drift keyframes --- */
+    @keyframes drift1 {
+        0%, 100% { transform: translate(0, 0) scale(1); }
+        25%      { transform: translate(40px, 30px) scale(1.05); }
+        50%      { transform: translate(20px, 60px) scale(0.97); }
+        75%      { transform: translate(-20px, 25px) scale(1.03); }
+    }
+
+    @keyframes drift2 {
+        0%, 100% { transform: translate(0, 0) scale(1); }
+        25%      { transform: translate(-35px, 40px) scale(1.04); }
+        50%      { transform: translate(-50px, 15px) scale(0.96); }
+        75%      { transform: translate(-15px, -20px) scale(1.02); }
+    }
+
+    @keyframes drift3 {
+        0%, 100% { transform: translate(0, 0) scale(1); }
+        20%      { transform: translate(30px, -25px) scale(1.06); }
+        40%      { transform: translate(-20px, -40px) scale(0.95); }
+        60%      { transform: translate(-40px, 15px) scale(1.03); }
+        80%      { transform: translate(15px, 30px) scale(0.98); }
+    }
+
+    @keyframes drift4 {
+        0%, 100% { transform: translate(0, 0) scale(1); }
+        30%      { transform: translate(50px, -30px) scale(1.05); }
+        60%      { transform: translate(25px, -50px) scale(0.97); }
+        80%      { transform: translate(-10px, -20px) scale(1.02); }
+    }
+
+    @keyframes drift5 {
+        0%, 100% { transform: translate(0, 0) scale(1); }
+        25%      { transform: translate(-30px, -25px) scale(1.06); }
+        50%      { transform: translate(-15px, 20px) scale(0.95); }
+        75%      { transform: translate(20px, 10px) scale(1.03); }
+    }
+
+    @keyframes drift6 {
+        0%, 100% { transform: translate(0, 0) scale(1); }
+        33%      { transform: translate(-25px, 35px) scale(1.08); }
+        66%      { transform: translate(30px, -15px) scale(0.94); }
+    }
+
+    /* ===== CONTENT ===== */
     main {
         position: relative;
         z-index: 2;
     }
 
-    .btn-glow:active {
-        box-shadow: 0 0 20px rgba(56, 189, 248, 0.5);
-    }
-
     @keyframes float {
-        0%   { transform: translateY(0px); }
+        0%   { transform: translateY(0); }
         50%  { transform: translateY(-10px); }
-        100% { transform: translateY(0px); }
+        100% { transform: translateY(0); }
     }
 
     .animate-float {
         animation: float 6s ease-in-out infinite;
     }
 
+    .btn-primary {
+        padding: 16px 32px;
+        background: #131b2e;
+        color: #ffffff;
+        border-radius: 16px;
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-size: 20px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+        transition: transform 0.25s cubic-bezier(.4,0,.2,1), box-shadow 0.25s cubic-bezier(.4,0,.2,1);
+        box-shadow: 0 4px 20px rgba(19,27,46,0.18);
+    }
+
+    .btn-primary:hover {
+        transform: scale(1.02);
+        box-shadow: 0 8px 32px rgba(19,27,46,0.28);
+    }
+
+    .btn-primary:active {
+        transform: scale(0.98);
+        box-shadow: 0 2px 12px rgba(56,189,248,0.4);
+    }
+
     @keyframes spin { to { transform: rotate(360deg); } }
 </style>
 </head>
-<body class="font-body-md text-on-surface">
+<body>
 
-<!-- ===== ANIMATED WAVE CANVAS ===== -->
-<canvas id="wave-canvas"></canvas>
-
-<!-- Atmospheric Watermarks -->
-<div class="floating-icon material-symbols-outlined" style="top:40px; left:40px; font-size:100px;">settings</div>
-<div class="floating-icon material-symbols-outlined" style="bottom:40px; right:40px; font-size:100px;">school</div>
-<div class="floating-icon material-symbols-outlined" style="top:25%; right:24px; font-size:72px;">history_edu</div>
-<div class="floating-icon material-symbols-outlined" style="bottom:25%; left:24px; font-size:72px;">assignment_turned_in</div>
+<!-- ===== AMBIENT FLOATING ORBS ===== -->
+<div class="ambient-bg" aria-hidden="true">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+    <div class="orb orb-4"></div>
+    <div class="orb orb-5"></div>
+    <div class="orb orb-6"></div>
+</div>
 
 <!-- Main Container -->
 <main class="flex flex-col items-center justify-between min-h-screen w-full px-4 py-8 md:px-12">
@@ -176,8 +305,8 @@
     <!-- Top Section: Logo -->
     <header class="flex-1 flex items-center justify-center w-full max-w-md animate-float">
         <div class="relative group">
-            <!-- Soft glow behind logo -->
-            <div class="absolute -inset-6 rounded-full transition-opacity duration-700 opacity-15 group-hover:opacity-25" style="background: radial-gradient(circle, rgba(56,189,248,0.6), transparent 70%);"></div>
+            <!-- Soft ambient glow behind logo -->
+            <div class="absolute -inset-6 rounded-full transition-opacity duration-700 opacity-0 group-hover:opacity-100" style="background: radial-gradient(circle, rgba(56,189,248,0.15), transparent 70%);"></div>
             <img
                 alt="HORASOCIAL PRO Logo"
                 class="relative w-full max-w-[280px] h-auto object-contain transition-transform duration-500 group-hover:scale-105"
@@ -193,7 +322,7 @@
             Formando tu futuro,<br>
             <span style="color:#006591;">una hora a la vez.</span>
         </h1>
-        <p style="font-family:'Inter',sans-serif; font-size:16px; color:#45464d; max-width:280px; opacity:0.85; line-height:1.6;">
+        <p style="font-size:16px; color:#45464d; max-width:280px; opacity:0.85; line-height:1.6;">
             La gestión inteligente de tu servicio social escolar comienza aquí.
         </p>
     </section>
@@ -201,121 +330,25 @@
     <!-- Bottom Section: Actions -->
     <footer class="w-full max-w-md" style="margin-top:32px;">
         <div class="flex flex-col items-center w-full" style="gap:24px;">
-            <!-- Primary Button -->
-            <button
-                class="group relative w-full btn-glow"
-                onclick="handleNavigation()"
-                style="padding:16px 32px; background:#131b2e; color:#ffffff; border-radius:16px; font-family:'Plus Jakarta Sans',sans-serif; font-size:20px; font-weight:600; display:flex; align-items:center; justify-content:center; gap:8px; border:none; cursor:pointer; transition:transform 0.2s, box-shadow 0.2s; box-shadow: 0 4px 20px rgba(19,27,46,0.2);"
-                onmouseover="this.style.transform='scale(1.02)'; this.style.boxShadow='0 6px 28px rgba(19,27,46,0.3)';"
-                onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 4px 20px rgba(19,27,46,0.2)';"
-            >
+            <button class="btn-primary" onclick="handleNavigation()">
                 <span>Siguiente</span>
                 <span class="material-symbols-outlined" style="font-size:20px;">arrow_forward</span>
             </button>
-            <!-- Copyright -->
             <div class="flex flex-col items-center" style="gap:4px;">
-                <span style="font-family:'Inter',sans-serif; font-size:12px; font-weight:600; color:#76777d; opacity:0.6;">© 2024 HORASOCIAL PRO</span>
+                <span style="font-size:12px; font-weight:600; color:#76777d; opacity:0.6;">© 2024 HORASOCIAL PRO</span>
                 <div style="height:4px; width:48px; background:#c6c6cd; border-radius:9999px; opacity:0.3;"></div>
             </div>
         </div>
     </footer>
 </main>
 
-<!-- ===== ELEGANT WAVE ANIMATION ===== -->
 <script>
-(function() {
-    const canvas = document.getElementById('wave-canvas');
-    const ctx = canvas.getContext('2d');
-    let W, H;
-
-    function resize() {
-        W = canvas.width  = window.innerWidth;
-        H = canvas.height = window.innerHeight;
+    function handleNavigation() {
+        const btn = document.querySelector('.btn-primary');
+        btn.innerHTML = '<span class="material-symbols-outlined" style="animation:spin 0.8s linear infinite; display:inline-block;">progress_activity</span>';
+        setTimeout(() => {
+            console.log("Navigating to next screen...");
+        }, 800);
     }
-    resize();
-    window.addEventListener('resize', resize);
-
-    /*
-     * Each wave is a THIN, flowing line (stroke) — not a filled block.
-     * They're distributed across the full height of the screen
-     * with varying curvatures and speeds for an organic feel.
-     */
-    const wavelines = [
-        // Top area — very subtle
-        { y: 0.10, amp: 18, freq: 0.003, speed: 0.008, width: 1.2, color: 'rgba(56,189,248,0.10)', phase: 0 },
-        { y: 0.15, amp: 22, freq: 0.0025, speed: 0.006, width: 1.5, color: 'rgba(14,165,233,0.08)', phase: 2.1 },
-
-        // Upper-mid
-        { y: 0.28, amp: 25, freq: 0.0035, speed: 0.010, width: 1.8, color: 'rgba(56,189,248,0.12)', phase: 1.0 },
-        { y: 0.33, amp: 15, freq: 0.004,  speed: 0.007, width: 1.0, color: 'rgba(125,211,252,0.09)', phase: 3.8 },
-
-        // Middle
-        { y: 0.48, amp: 30, freq: 0.002,  speed: 0.005, width: 2.0, color: 'rgba(14,165,233,0.11)', phase: 0.5 },
-        { y: 0.53, amp: 20, freq: 0.003,  speed: 0.012, width: 1.4, color: 'rgba(56,189,248,0.08)', phase: 4.2 },
-
-        // Lower-mid
-        { y: 0.66, amp: 28, freq: 0.0028, speed: 0.009, width: 2.2, color: 'rgba(125,211,252,0.13)', phase: 1.7 },
-        { y: 0.72, amp: 18, freq: 0.0038, speed: 0.011, width: 1.3, color: 'rgba(14,165,233,0.07)', phase: 5.5 },
-
-        // Bottom area — slightly more visible
-        { y: 0.84, amp: 35, freq: 0.002,  speed: 0.007, width: 2.5, color: 'rgba(56,189,248,0.14)', phase: 2.8 },
-        { y: 0.90, amp: 22, freq: 0.003,  speed: 0.014, width: 1.6, color: 'rgba(186,230,253,0.12)', phase: 0.3 },
-        { y: 0.95, amp: 15, freq: 0.004,  speed: 0.009, width: 1.2, color: 'rgba(14,165,233,0.10)', phase: 4.7 },
-    ];
-
-    let t = 0;
-
-    function drawLine(wl) {
-        const baseY = H * wl.y;
-        ctx.beginPath();
-
-        for (let x = -10; x <= W + 10; x += 3) {
-            const y = baseY
-                + Math.sin(x * wl.freq + wl.phase + t * wl.speed) * wl.amp
-                + Math.sin(x * wl.freq * 2.3 + wl.phase * 0.7 + t * wl.speed * 0.4) * (wl.amp * 0.25)
-                + Math.cos(x * wl.freq * 0.5 + t * wl.speed * 1.3) * (wl.amp * 0.15);
-
-            if (x === -10) ctx.moveTo(x, y);
-            else ctx.lineTo(x, y);
-        }
-
-        ctx.strokeStyle = wl.color;
-        ctx.lineWidth = wl.width;
-        ctx.lineCap = 'round';
-        ctx.lineJoin = 'round';
-        ctx.stroke();
-    }
-
-    function render() {
-        ctx.clearRect(0, 0, W, H);
-        wavelines.forEach(wl => drawLine(wl));
-        t += 1;
-        requestAnimationFrame(render);
-    }
-
-    render();
-})();
-
-// ---- Navigation Handler ----
-function handleNavigation() {
-    const btn = document.querySelector('button');
-    btn.innerHTML = '<span class="material-symbols-outlined" style="animation:spin 0.8s linear infinite; display:inline-block;">progress_activity</span>';
-    setTimeout(() => {
-        console.log("Navigating to next screen...");
-    }, 800);
-}
-
-// ---- Parallax watermarks (Desktop) ----
-if (window.innerWidth > 768) {
-    document.addEventListener('mousemove', (e) => {
-        const icons = document.querySelectorAll('.floating-icon');
-        const x = e.clientX / window.innerWidth;
-        const y = e.clientY / window.innerHeight;
-        icons.forEach((icon, i) => {
-            const s = (i + 1) * 8;
-            icon.style.transform = `translate(${(x - 0.5) * s}px, ${(y - 0.5) * s}px)`;
-        });
-    });
-}
 </script>
 </body></html>
