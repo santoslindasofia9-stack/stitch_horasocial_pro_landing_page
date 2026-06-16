@@ -5,10 +5,9 @@
 <!-- Tailwind CSS with plugins -->
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <!-- Material Symbols Outlined -->
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
 <!-- Google Fonts: Plus Jakarta Sans & Inter -->
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
 <!-- Tailwind Theme Configuration -->
 <script id="tailwind-config">
       tailwind.config = {
@@ -108,183 +107,188 @@
       }
     </script>
 <style>
+        * { box-sizing: border-box; }
+
         .material-symbols-outlined {
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 48;
         }
-        
+
+        /* === WAVE CANVAS === */
+        #wave-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
         .bg-pattern {
-            background-color: #f7f9fb;
-            background-image: 
-                radial-gradient(circle at 10% 10%, rgba(15, 23, 42, 0.02) 0%, transparent 10%),
-                radial-gradient(circle at 90% 90%, rgba(15, 23, 42, 0.02) 0%, transparent 10%);
+            background-color: #f0f7ff;
             position: relative;
         }
 
         .floating-icon {
             position: absolute;
-            opacity: 0.03;
+            opacity: 0.04;
             user-select: none;
             pointer-events: none;
         }
 
         .btn-glow:active {
-            box-shadow: 0 0 15px rgba(56, 189, 248, 0.4);
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.5);
         }
-        
+
         @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
+            0%   { transform: translateY(0px); }
+            50%  { transform: translateY(-10px); }
             100% { transform: translateY(0px); }
         }
-        
+
         .animate-float {
             animation: float 6s ease-in-out infinite;
         }
 
-        /* === ANIMATED WAVES === */
-        .waves-container {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
-            overflow: hidden;
+        /* Content always above canvas */
+        body > *:not(#wave-canvas) {
+            position: relative;
+            z-index: 1;
         }
 
-        .wave-svg {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 200%;
-            animation-timing-function: linear;
-            animation-iteration-count: infinite;
-        }
-
-        .wave1 {
-            bottom: 0;
-            opacity: 0.18;
-            animation: waveMove 10s linear infinite;
-        }
-        .wave2 {
-            bottom: 20px;
-            opacity: 0.12;
-            animation: waveMove 14s linear infinite reverse;
-        }
-        .wave3 {
-            bottom: 40px;
-            opacity: 0.08;
-            animation: waveMove 18s linear infinite;
-        }
-        .wave4 {
-            bottom: 60px;
-            opacity: 0.06;
-            animation: waveMove 22s linear infinite reverse;
-        }
-
-        @keyframes waveMove {
-            0%   { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
-
-        /* Ensure main content sits above waves */
         main {
             position: relative;
             z-index: 1;
         }
     </style>
 </head>
-<body class="bg-surface font-body-md text-on-surface overflow-hidden">
-<!-- Animated Wave Background -->
-<div class="waves-container" aria-hidden="true">
-    <!-- Wave 1 -->
-    <svg class="wave-svg wave1" viewBox="0 0 1440 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-        <path d="M0,60 C240,100 480,20 720,60 C960,100 1200,20 1440,60 C1680,100 1920,20 2160,60 C2400,100 2640,20 2880,60 L2880,120 L0,120 Z" fill="#38bdf8"/>
-    </svg>
-    <!-- Wave 2 -->
-    <svg class="wave-svg wave2" viewBox="0 0 1440 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-        <path d="M0,70 C200,30 400,110 720,70 C1040,30 1200,110 1440,70 C1680,30 1900,110 2160,70 C2420,30 2640,110 2880,70 L2880,120 L0,120 Z" fill="#0ea5e9"/>
-    </svg>
-    <!-- Wave 3 -->
-    <svg class="wave-svg wave3" viewBox="0 0 1440 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-        <path d="M0,50 C360,90 720,10 1080,50 C1440,90 1800,10 2160,50 C2520,90 2880,10 3240,50 L3240,120 L0,120 Z" fill="#7dd3fc"/>
-    </svg>
-    <!-- Wave 4 -->
-    <svg class="wave-svg wave4" viewBox="0 0 1440 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-        <path d="M0,80 C180,40 540,120 900,80 C1260,40 1440,120 1800,80 C2160,40 2520,120 2880,80 L2880,120 L0,120 Z" fill="#bae6fd"/>
-    </svg>
-</div>
+<body class="bg-pattern font-body-md text-on-surface overflow-hidden" style="min-height:100vh;">
+
+<!-- ===== ANIMATED WAVE CANVAS ===== -->
+<canvas id="wave-canvas"></canvas>
+
 <!-- Atmospheric Watermarks -->
-<div class="floating-icon top-10 left-10 text-[120px] material-symbols-outlined">settings</div>
-<div class="floating-icon bottom-10 right-10 text-[120px] material-symbols-outlined">school</div>
-<div class="floating-icon top-1/4 right-5 text-[80px] material-symbols-outlined">history_edu</div>
-<div class="floating-icon bottom-1/4 left-5 text-[80px] material-symbols-outlined">assignment_turned_in</div>
+<div class="floating-icon top-10 left-10 text-[120px] material-symbols-outlined" style="position:fixed; z-index:1;">settings</div>
+<div class="floating-icon bottom-10 right-10 text-[120px] material-symbols-outlined" style="position:fixed; z-index:1;">school</div>
+<div class="floating-icon top-1/4 right-5 text-[80px] material-symbols-outlined" style="position:fixed; z-index:1;">history_edu</div>
+<div class="floating-icon bottom-1/4 left-5 text-[80px] material-symbols-outlined" style="position:fixed; z-index:1;">assignment_turned_in</div>
+
 <!-- Main Container -->
-<main class="flex flex-col items-center justify-between min-h-screen w-full px-margin-mobile py-xl md:px-margin-desktop bg-pattern">
+<main class="flex flex-col items-center justify-between min-h-screen w-full px-4 py-8 md:px-12" style="position:relative; z-index:2;">
 <!-- Top Section: Logo -->
 <header class="flex-1 flex items-center justify-center w-full max-w-md animate-float">
 <div class="relative group">
 <!-- Subtle background glow for logo -->
-<div class="absolute -inset-4 bg-secondary-container opacity-10 blur-2xl rounded-full group-hover:opacity-20 transition-opacity duration-700"></div>
-<img alt="HORASOCIAL PRO Logo" class="relative w-full max-w-[280px] h-auto object-contain transition-transform duration-500 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwMhl_DdmeafGOmiL2QLqeQV_Ut8aNvKKYwKjKUtrAMBSjpyGc1Acc5TCQm084EODuuIAA3GiusiDfLdXgW3DAC8tdYPa8R-TEraz_hHglTpuTQJRtfOJfW_OyF25795_lzWR3g1wKtd_0fCPC6QxHfyblbvKAQVJNcggVB3k8TYcOAOsA0lTgC8lQz0E1YRlDIn1zQ0vALf8l_40TC_X6xkuWE-o1qr0sdsv2THdAcTxAM9txnjL8N_7oSnlqsHLnXkvvL7tImO-s" style="aspect-ratio: 16/9; border: 3px solid #000000; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.25);">
+<div class="absolute -inset-4 opacity-20 blur-2xl rounded-full transition-opacity duration-700" style="background: radial-gradient(circle, #38bdf8, transparent);"></div>
+<img alt="HORASOCIAL PRO Logo" class="relative w-full max-w-[280px] h-auto object-contain transition-transform duration-500 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwMhl_DdmeafGOmiL2QLqeQV_Ut8aNvKKYwKjKUtrAMBSjpyGc1Acc5TCQm084EODuuIAA3GiusiDfLdXgW3DAC8tdYPa8R-TEraz_hHglTpuTQJRtfOJfW_OyF25795_lzWR3g1wKtd_0fCPC6QxHfyblbvKAQVJNcggVB3k8TYcOAOsA0lTgC8lQz0E1YRlDIn1zQ0vALf8l_40TC_X6xkuWE-o1qr0sdsv2THdAcTxAM9txnjL8N_7oSnlqsHLnXkvvL7tImO-s" style="aspect-ratio: 16/9; border: 3px solid #000000; border-radius: 16px; box-shadow: 0 4px 24px rgba(0,0,0,0.28);">
 </div>
 </header>
 <!-- Middle Section: Slogan -->
-<section class="flex-1 flex flex-col items-center justify-center text-center space-y-md w-full max-w-lg">
-<h1 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary-container leading-tight tracking-tight">
+<section class="flex-1 flex flex-col items-center justify-center text-center w-full max-w-lg" style="gap:16px;">
+<h1 style="font-family:'Plus Jakarta Sans',sans-serif; font-size:28px; font-weight:700; color:#131b2e; line-height:1.2; letter-spacing:-0.01em;">
                 Formando tu futuro,<br>
-<span class="text-secondary">una hora a la vez.</span>
+<span style="color:#006591;">una hora a la vez.</span>
 </h1>
-<p class="font-body-md text-body-md text-on-surface-variant max-w-[280px] opacity-80">
+<p style="font-family:'Inter',sans-serif; font-size:16px; color:#45464d; max-width:280px; opacity:0.85; line-height:1.6;">
                 La gestión inteligente de tu servicio social escolar comienza aquí.
             </p>
 </section>
 <!-- Bottom Section: Actions -->
-<footer class="w-full max-w-md mt-xl">
-<div class="flex flex-col items-center space-y-lg w-full">
+<footer class="w-full max-w-md" style="margin-top:32px;">
+<div class="flex flex-col items-center w-full" style="gap:24px;">
 <!-- Primary Button -->
-<button class="group relative w-full py-md px-xl bg-primary-container text-on-primary rounded-lg font-headline-sm flex items-center justify-center gap-sm overflow-hidden transition-all duration-300 hover:scale-[1.02] active:scale-95 btn-glow shadow-lg shadow-primary-container/10" onclick="handleNavigation()">
-<!-- Accent Glow Layer -->
-<div class="absolute inset-0 bg-secondary-container opacity-0 group-hover:opacity-10 transition-opacity"></div>
-<span class="relative z-10">Siguiente</span>
-<span class="relative z-10 material-symbols-outlined text-[20px]">arrow_forward</span>
+<button class="group relative w-full btn-glow" onclick="handleNavigation()" style="padding:16px 32px; background:#131b2e; color:#ffffff; border-radius:16px; font-family:'Plus Jakarta Sans',sans-serif; font-size:20px; font-weight:600; display:flex; align-items:center; justify-content:center; gap:8px; border:none; cursor:pointer; transition:transform 0.2s, box-shadow 0.2s; box-shadow: 0 4px 20px rgba(19,27,46,0.25);" onmouseover="this.style.transform='scale(1.02)'; this.style.boxShadow='0 6px 28px rgba(19,27,46,0.35)';" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 4px 20px rgba(19,27,46,0.25)';">
+<span>Siguiente</span>
+<span class="material-symbols-outlined" style="font-size:20px;">arrow_forward</span>
 </button>
 <!-- Small Copyright/Version Info -->
-<div class="flex flex-col items-center space-y-xs">
-<span class="font-label-sm text-label-sm text-outline opacity-60">© 2024 HORASOCIAL PRO</span>
-<div class="h-1 w-12 bg-outline-variant rounded-full opacity-30"></div>
+<div class="flex flex-col items-center" style="gap:4px;">
+<span style="font-family:'Inter',sans-serif; font-size:12px; font-weight:600; color:#76777d; opacity:0.6;">© 2024 HORASOCIAL PRO</span>
+<div style="height:4px; width:48px; background:#c6c6cd; border-radius:9999px; opacity:0.3;"></div>
 </div>
 </div>
 </footer>
 </main>
-<!-- Micro-interaction Script -->
+
+<!-- ===== WAVE ANIMATION SCRIPT ===== -->
 <script>
-        function handleNavigation() {
-            // Simple visual feedback before navigation intent
-            const btn = document.querySelector('button');
-            btn.innerHTML = '<span class="material-symbols-outlined animate-spin">progress_activity</span>';
-            
-            setTimeout(() => {
-                console.log("Navigating to next screen...");
-                // In a real app, this would be window.location.href or a router push
-            }, 800);
+    // ---- Canvas Wave Engine ----
+    const canvas = document.getElementById('wave-canvas');
+    const ctx = canvas.getContext('2d');
+
+    function resize() {
+        canvas.width  = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    // Wave definitions
+    const waves = [
+        { amplitude: 38, period: 0.012, speed: 0.018, yBase: 0.72, color: 'rgba(56,189,248,0.22)',  phase: 0 },
+        { amplitude: 28, period: 0.010, speed: 0.013, yBase: 0.76, color: 'rgba(14,165,233,0.18)',  phase: 1.8 },
+        { amplitude: 48, period: 0.008, speed: 0.009, yBase: 0.80, color: 'rgba(125,211,252,0.14)', phase: 3.5 },
+        { amplitude: 22, period: 0.015, speed: 0.022, yBase: 0.84, color: 'rgba(186,230,253,0.20)', phase: 5.2 },
+        { amplitude: 55, period: 0.006, speed: 0.006, yBase: 0.88, color: 'rgba(56,189,248,0.10)',  phase: 0.9 },
+    ];
+
+    let tick = 0;
+
+    function drawWave(wave) {
+        const W = canvas.width;
+        const H = canvas.height;
+        const baseY = H * wave.yBase;
+
+        ctx.beginPath();
+        ctx.moveTo(0, H);
+
+        for (let x = 0; x <= W; x += 2) {
+            const y = baseY
+                + Math.sin(x * wave.period + wave.phase + tick * wave.speed) * wave.amplitude
+                + Math.sin(x * wave.period * 1.7 + wave.phase * 1.3 + tick * wave.speed * 0.6) * (wave.amplitude * 0.4);
+            ctx.lineTo(x, y);
         }
 
-        // Add a parallax-like effect to watermarks on mouse move (Desktop Only)
-        if (window.innerWidth > 768) {
-            document.addEventListener('mousemove', (e) => {
-                const icons = document.querySelectorAll('.floating-icon');
-                const x = e.clientX / window.innerWidth;
-                const y = e.clientY / window.innerHeight;
-                
-                icons.forEach((icon, index) => {
-                    const speed = (index + 1) * 10;
-                    const xOffset = (x - 0.5) * speed;
-                    const yOffset = (y - 0.5) * speed;
-                    icon.style.transform = `translate(${xOffset}px, ${yOffset}px)`;
-                });
+        ctx.lineTo(W, H);
+        ctx.closePath();
+        ctx.fillStyle = wave.color;
+        ctx.fill();
+    }
+
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        waves.forEach(w => drawWave(w));
+        tick++;
+        requestAnimationFrame(animate);
+    }
+
+    animate();
+
+    // ---- Navigation Handler ----
+    function handleNavigation() {
+        const btn = document.querySelector('button');
+        btn.innerHTML = '<span class="material-symbols-outlined" style="animation:spin 0.8s linear infinite; display:inline-block;">progress_activity</span>';
+        setTimeout(() => {
+            console.log("Navigating to next screen...");
+        }, 800);
+    }
+
+    // ---- Parallax watermarks (Desktop only) ----
+    if (window.innerWidth > 768) {
+        document.addEventListener('mousemove', (e) => {
+            const icons = document.querySelectorAll('.floating-icon');
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+            icons.forEach((icon, index) => {
+                const speed = (index + 1) * 10;
+                icon.style.transform = `translate(${(x - 0.5) * speed}px, ${(y - 0.5) * speed}px)`;
             });
-        }
-    </script>
+        });
+    }
+
+    // Spin animation for loader
+    const style = document.createElement('style');
+    style.textContent = '@keyframes spin { to { transform: rotate(360deg); } }';
+    document.head.appendChild(style);
+</script>
 </body></html>
