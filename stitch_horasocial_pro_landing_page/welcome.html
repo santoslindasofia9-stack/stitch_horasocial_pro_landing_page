@@ -117,16 +117,21 @@
         .material-symbols-outlined {
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 48;
         }
-        /* Animated gradient background */
-        body {
-            background: linear-gradient(-45deg, #001e2c, #0a0f2c, #00d8ff, #001e2c);
-            background-size: 400% 400%;
-            animation: gradient 20s ease infinite;
+        /* Fluid wave background */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(circle at 50% 0%, #a0c8ff 0%, transparent 70%);
+            opacity: 0.25;
+            animation: wave 15s linear infinite;
+            pointer-events: none;
+            z-index: -1;
         }
-        @keyframes gradient {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        @keyframes wave {
+            0% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-10%) rotate(2deg); }
+            100% { transform: translateY(0) rotate(0deg); }
         }
         /* Glassmorphism wrapper for logo */
         .logo-glass {
@@ -162,6 +167,28 @@
         .text-highlight {
             color: #00d8ff; /* brand-cyan */
         }
+        /* Double‑border glass logo */
+        .logo-glass {
+            position: relative;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(12px);
+            border-radius: 1rem;
+            padding: 0.5rem;
+        }
+        .logo-glass::before {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border: 2px solid #0a0f2c; /* navy */
+            border-radius: 1.25rem;
+        }
+        .logo-glass::after {
+            content: '';
+            position: absolute;
+            inset: -8px;
+            border: 2px solid #00d8ff; /* cyan */
+            border-radius: 1.5rem;
+        }
         /* Reduce motion preference */
         @media (prefers-reduced-motion: reduce) {
             body { animation: none; }
@@ -180,7 +207,7 @@
 <div class="logo-glass flex items-center justify-center p-2 group">
 <!-- Subtle background glow for logo -->
 <div class="absolute -inset-4 bg-secondary-container opacity-10 blur-2xl rounded-full group-hover:opacity-20 transition-opacity duration-700"></div>
-<img alt="HORASOCIAL PRO Logo" class="relative w-full max-w-[336px] h-auto object-contain drop-shadow-sm transition-transform duration-500 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwMhl_DdmeafGOmiL2QLqeQV_Ut8aNvKKYwKjKUtrAMBSjpyGc1Acc5TCQm084EODuuIAA3GiusiDfLdXgW3DAC8tdYPa8R-TEraz_hHglTpuTQJRtfOJfW_OyF25795_lzWR3g1wKtd_0fCPC6QxHfyblbvKAQVJNcggVB3k8TYcOAOsA0lTgC8lQz0E1YRlDIn1zQ0vALf8l_40TC_X6xkuWE-o1qr0sdsv2THdAcTxAM9txnjL8N_7oSnlqsHLnXkvvL7tImO-s" style="aspect-ratio: 16/9;">
+<img alt="HORASOCIAL PRO Logo" class="relative w-full max-w-[380px] h-auto object-contain drop-shadow-sm transition-transform duration-500 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwMhl_DdmeafGOmiL2QLqeQV_Ut8aNvKKYwKjKUtrAMBSjpyGc1Acc5TCQm084EODuuIAA3GiusiDfLdXgW3DAC8tdYPa8R-TEraz_hHglTpuTQJRtfOJfW_OyF25795_lzWR3g1wKtd_0fCPC6QxHfyblbvKAQVJNcggVB3k8TYcOAOsA0lTgC8lQz0E1YRlDIn1zQ0vALf8l_40TC_X6xkuWE-o1qr0sdsv2THdAcTxAM9txnjL8N_7oSnlqsHLnXkvvL7tImO-s" style="aspect-ratio: 16/9;">
 </div>
 </header>
 <!-- Middle Section: Slogan -->
@@ -189,13 +216,13 @@
                 Formando tu futuro,<br>
 <span class="text-highlight">una hora a la vez.</span>
 </h1>
-<p class="font-body-md text-body-md text-on-surface-variant max-w-[280px] opacity-80">
+<p class="font-body-md text-body-md text-on-surface-variant max-w-[280px] opacity-90">
                 La gestión inteligente de tu servicio social escolar comienza aquí.
 </p>
 </section>
 <!-- Bottom Section: Actions -->
-<footer class="w-full max-w-md mt-xl">
-<div class="flex flex-col items-center space-y-lg w-full">
+<footer class="w-full max-w-md mt-4">
+<div class="flex flex-col items-center space-y-4 w-full">
 <!-- Primary Button -->
 <button class="btn-primary group relative w-full py-md px-xl font-headline-sm flex items-center justify-center gap-sm overflow-hidden transition-all duration-300" onclick="handleNavigation()">
 <!-- Accent Glow Layer -->
