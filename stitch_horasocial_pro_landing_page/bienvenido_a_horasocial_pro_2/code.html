@@ -107,188 +107,215 @@
       }
     </script>
 <style>
-        * { box-sizing: border-box; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 48;
-        }
+    .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 48;
+    }
 
-        /* === WAVE CANVAS === */
-        #wave-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            pointer-events: none;
-        }
+    body {
+        background: linear-gradient(170deg, #f7f9fb 0%, #eaf4fd 40%, #f0f7ff 70%, #f7f9fb 100%);
+        min-height: 100vh;
+        overflow: hidden;
+    }
 
-        .bg-pattern {
-            background-color: #f0f7ff;
-            position: relative;
-        }
+    /* ---- Canvas sits behind everything ---- */
+    #wave-canvas {
+        position: fixed;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+        pointer-events: none;
+    }
 
-        .floating-icon {
-            position: absolute;
-            opacity: 0.04;
-            user-select: none;
-            pointer-events: none;
-        }
+    .floating-icon {
+        position: fixed;
+        opacity: 0.035;
+        user-select: none;
+        pointer-events: none;
+        z-index: 1;
+    }
 
-        .btn-glow:active {
-            box-shadow: 0 0 15px rgba(56, 189, 248, 0.5);
-        }
+    main {
+        position: relative;
+        z-index: 2;
+    }
 
-        @keyframes float {
-            0%   { transform: translateY(0px); }
-            50%  { transform: translateY(-10px); }
-            100% { transform: translateY(0px); }
-        }
+    .btn-glow:active {
+        box-shadow: 0 0 20px rgba(56, 189, 248, 0.5);
+    }
 
-        .animate-float {
-            animation: float 6s ease-in-out infinite;
-        }
+    @keyframes float {
+        0%   { transform: translateY(0px); }
+        50%  { transform: translateY(-10px); }
+        100% { transform: translateY(0px); }
+    }
 
-        /* Content always above canvas */
-        body > *:not(#wave-canvas) {
-            position: relative;
-            z-index: 1;
-        }
+    .animate-float {
+        animation: float 6s ease-in-out infinite;
+    }
 
-        main {
-            position: relative;
-            z-index: 1;
-        }
-    </style>
+    @keyframes spin { to { transform: rotate(360deg); } }
+</style>
 </head>
-<body class="bg-pattern font-body-md text-on-surface overflow-hidden" style="min-height:100vh;">
+<body class="font-body-md text-on-surface">
 
 <!-- ===== ANIMATED WAVE CANVAS ===== -->
 <canvas id="wave-canvas"></canvas>
 
 <!-- Atmospheric Watermarks -->
-<div class="floating-icon top-10 left-10 text-[120px] material-symbols-outlined" style="position:fixed; z-index:1;">settings</div>
-<div class="floating-icon bottom-10 right-10 text-[120px] material-symbols-outlined" style="position:fixed; z-index:1;">school</div>
-<div class="floating-icon top-1/4 right-5 text-[80px] material-symbols-outlined" style="position:fixed; z-index:1;">history_edu</div>
-<div class="floating-icon bottom-1/4 left-5 text-[80px] material-symbols-outlined" style="position:fixed; z-index:1;">assignment_turned_in</div>
+<div class="floating-icon material-symbols-outlined" style="top:40px; left:40px; font-size:100px;">settings</div>
+<div class="floating-icon material-symbols-outlined" style="bottom:40px; right:40px; font-size:100px;">school</div>
+<div class="floating-icon material-symbols-outlined" style="top:25%; right:24px; font-size:72px;">history_edu</div>
+<div class="floating-icon material-symbols-outlined" style="bottom:25%; left:24px; font-size:72px;">assignment_turned_in</div>
 
 <!-- Main Container -->
-<main class="flex flex-col items-center justify-between min-h-screen w-full px-4 py-8 md:px-12" style="position:relative; z-index:2;">
-<!-- Top Section: Logo -->
-<header class="flex-1 flex items-center justify-center w-full max-w-md animate-float">
-<div class="relative group">
-<!-- Subtle background glow for logo -->
-<div class="absolute -inset-4 opacity-20 blur-2xl rounded-full transition-opacity duration-700" style="background: radial-gradient(circle, #38bdf8, transparent);"></div>
-<img alt="HORASOCIAL PRO Logo" class="relative w-full max-w-[280px] h-auto object-contain transition-transform duration-500 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwMhl_DdmeafGOmiL2QLqeQV_Ut8aNvKKYwKjKUtrAMBSjpyGc1Acc5TCQm084EODuuIAA3GiusiDfLdXgW3DAC8tdYPa8R-TEraz_hHglTpuTQJRtfOJfW_OyF25795_lzWR3g1wKtd_0fCPC6QxHfyblbvKAQVJNcggVB3k8TYcOAOsA0lTgC8lQz0E1YRlDIn1zQ0vALf8l_40TC_X6xkuWE-o1qr0sdsv2THdAcTxAM9txnjL8N_7oSnlqsHLnXkvvL7tImO-s" style="aspect-ratio: 16/9; border: 3px solid #000000; border-radius: 16px; box-shadow: 0 4px 24px rgba(0,0,0,0.28);">
-</div>
-</header>
-<!-- Middle Section: Slogan -->
-<section class="flex-1 flex flex-col items-center justify-center text-center w-full max-w-lg" style="gap:16px;">
-<h1 style="font-family:'Plus Jakarta Sans',sans-serif; font-size:28px; font-weight:700; color:#131b2e; line-height:1.2; letter-spacing:-0.01em;">
-                Formando tu futuro,<br>
-<span style="color:#006591;">una hora a la vez.</span>
-</h1>
-<p style="font-family:'Inter',sans-serif; font-size:16px; color:#45464d; max-width:280px; opacity:0.85; line-height:1.6;">
-                La gestión inteligente de tu servicio social escolar comienza aquí.
-            </p>
-</section>
-<!-- Bottom Section: Actions -->
-<footer class="w-full max-w-md" style="margin-top:32px;">
-<div class="flex flex-col items-center w-full" style="gap:24px;">
-<!-- Primary Button -->
-<button class="group relative w-full btn-glow" onclick="handleNavigation()" style="padding:16px 32px; background:#131b2e; color:#ffffff; border-radius:16px; font-family:'Plus Jakarta Sans',sans-serif; font-size:20px; font-weight:600; display:flex; align-items:center; justify-content:center; gap:8px; border:none; cursor:pointer; transition:transform 0.2s, box-shadow 0.2s; box-shadow: 0 4px 20px rgba(19,27,46,0.25);" onmouseover="this.style.transform='scale(1.02)'; this.style.boxShadow='0 6px 28px rgba(19,27,46,0.35)';" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 4px 20px rgba(19,27,46,0.25)';">
-<span>Siguiente</span>
-<span class="material-symbols-outlined" style="font-size:20px;">arrow_forward</span>
-</button>
-<!-- Small Copyright/Version Info -->
-<div class="flex flex-col items-center" style="gap:4px;">
-<span style="font-family:'Inter',sans-serif; font-size:12px; font-weight:600; color:#76777d; opacity:0.6;">© 2024 HORASOCIAL PRO</span>
-<div style="height:4px; width:48px; background:#c6c6cd; border-radius:9999px; opacity:0.3;"></div>
-</div>
-</div>
-</footer>
+<main class="flex flex-col items-center justify-between min-h-screen w-full px-4 py-8 md:px-12">
+
+    <!-- Top Section: Logo -->
+    <header class="flex-1 flex items-center justify-center w-full max-w-md animate-float">
+        <div class="relative group">
+            <!-- Soft glow behind logo -->
+            <div class="absolute -inset-6 rounded-full transition-opacity duration-700 opacity-15 group-hover:opacity-25" style="background: radial-gradient(circle, rgba(56,189,248,0.6), transparent 70%);"></div>
+            <img
+                alt="HORASOCIAL PRO Logo"
+                class="relative w-full max-w-[280px] h-auto object-contain transition-transform duration-500 group-hover:scale-105"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwMhl_DdmeafGOmiL2QLqeQV_Ut8aNvKKYwKjKUtrAMBSjpyGc1Acc5TCQm084EODuuIAA3GiusiDfLdXgW3DAC8tdYPa8R-TEraz_hHglTpuTQJRtfOJfW_OyF25795_lzWR3g1wKtd_0fCPC6QxHfyblbvKAQVJNcggVB3k8TYcOAOsA0lTgC8lQz0E1YRlDIn1zQ0vALf8l_40TC_X6xkuWE-o1qr0sdsv2THdAcTxAM9txnjL8N_7oSnlqsHLnXkvvL7tImO-s"
+                style="aspect-ratio: 16/9; border: 3px solid #000000; border-radius: 16px; box-shadow: 0 4px 24px rgba(0,0,0,0.22);"
+            >
+        </div>
+    </header>
+
+    <!-- Middle Section: Slogan -->
+    <section class="flex-1 flex flex-col items-center justify-center text-center w-full max-w-lg" style="gap:14px;">
+        <h1 style="font-family:'Plus Jakarta Sans',sans-serif; font-size:28px; font-weight:700; color:#131b2e; line-height:1.2; letter-spacing:-0.01em;">
+            Formando tu futuro,<br>
+            <span style="color:#006591;">una hora a la vez.</span>
+        </h1>
+        <p style="font-family:'Inter',sans-serif; font-size:16px; color:#45464d; max-width:280px; opacity:0.85; line-height:1.6;">
+            La gestión inteligente de tu servicio social escolar comienza aquí.
+        </p>
+    </section>
+
+    <!-- Bottom Section: Actions -->
+    <footer class="w-full max-w-md" style="margin-top:32px;">
+        <div class="flex flex-col items-center w-full" style="gap:24px;">
+            <!-- Primary Button -->
+            <button
+                class="group relative w-full btn-glow"
+                onclick="handleNavigation()"
+                style="padding:16px 32px; background:#131b2e; color:#ffffff; border-radius:16px; font-family:'Plus Jakarta Sans',sans-serif; font-size:20px; font-weight:600; display:flex; align-items:center; justify-content:center; gap:8px; border:none; cursor:pointer; transition:transform 0.2s, box-shadow 0.2s; box-shadow: 0 4px 20px rgba(19,27,46,0.2);"
+                onmouseover="this.style.transform='scale(1.02)'; this.style.boxShadow='0 6px 28px rgba(19,27,46,0.3)';"
+                onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 4px 20px rgba(19,27,46,0.2)';"
+            >
+                <span>Siguiente</span>
+                <span class="material-symbols-outlined" style="font-size:20px;">arrow_forward</span>
+            </button>
+            <!-- Copyright -->
+            <div class="flex flex-col items-center" style="gap:4px;">
+                <span style="font-family:'Inter',sans-serif; font-size:12px; font-weight:600; color:#76777d; opacity:0.6;">© 2024 HORASOCIAL PRO</span>
+                <div style="height:4px; width:48px; background:#c6c6cd; border-radius:9999px; opacity:0.3;"></div>
+            </div>
+        </div>
+    </footer>
 </main>
 
-<!-- ===== WAVE ANIMATION SCRIPT ===== -->
+<!-- ===== ELEGANT WAVE ANIMATION ===== -->
 <script>
-    // ---- Canvas Wave Engine ----
+(function() {
     const canvas = document.getElementById('wave-canvas');
     const ctx = canvas.getContext('2d');
+    let W, H;
 
     function resize() {
-        canvas.width  = window.innerWidth;
-        canvas.height = window.innerHeight;
+        W = canvas.width  = window.innerWidth;
+        H = canvas.height = window.innerHeight;
     }
     resize();
     window.addEventListener('resize', resize);
 
-    // Wave definitions
-    const waves = [
-        { amplitude: 38, period: 0.012, speed: 0.018, yBase: 0.72, color: 'rgba(56,189,248,0.22)',  phase: 0 },
-        { amplitude: 28, period: 0.010, speed: 0.013, yBase: 0.76, color: 'rgba(14,165,233,0.18)',  phase: 1.8 },
-        { amplitude: 48, period: 0.008, speed: 0.009, yBase: 0.80, color: 'rgba(125,211,252,0.14)', phase: 3.5 },
-        { amplitude: 22, period: 0.015, speed: 0.022, yBase: 0.84, color: 'rgba(186,230,253,0.20)', phase: 5.2 },
-        { amplitude: 55, period: 0.006, speed: 0.006, yBase: 0.88, color: 'rgba(56,189,248,0.10)',  phase: 0.9 },
+    /*
+     * Each wave is a THIN, flowing line (stroke) — not a filled block.
+     * They're distributed across the full height of the screen
+     * with varying curvatures and speeds for an organic feel.
+     */
+    const wavelines = [
+        // Top area — very subtle
+        { y: 0.10, amp: 18, freq: 0.003, speed: 0.008, width: 1.2, color: 'rgba(56,189,248,0.10)', phase: 0 },
+        { y: 0.15, amp: 22, freq: 0.0025, speed: 0.006, width: 1.5, color: 'rgba(14,165,233,0.08)', phase: 2.1 },
+
+        // Upper-mid
+        { y: 0.28, amp: 25, freq: 0.0035, speed: 0.010, width: 1.8, color: 'rgba(56,189,248,0.12)', phase: 1.0 },
+        { y: 0.33, amp: 15, freq: 0.004,  speed: 0.007, width: 1.0, color: 'rgba(125,211,252,0.09)', phase: 3.8 },
+
+        // Middle
+        { y: 0.48, amp: 30, freq: 0.002,  speed: 0.005, width: 2.0, color: 'rgba(14,165,233,0.11)', phase: 0.5 },
+        { y: 0.53, amp: 20, freq: 0.003,  speed: 0.012, width: 1.4, color: 'rgba(56,189,248,0.08)', phase: 4.2 },
+
+        // Lower-mid
+        { y: 0.66, amp: 28, freq: 0.0028, speed: 0.009, width: 2.2, color: 'rgba(125,211,252,0.13)', phase: 1.7 },
+        { y: 0.72, amp: 18, freq: 0.0038, speed: 0.011, width: 1.3, color: 'rgba(14,165,233,0.07)', phase: 5.5 },
+
+        // Bottom area — slightly more visible
+        { y: 0.84, amp: 35, freq: 0.002,  speed: 0.007, width: 2.5, color: 'rgba(56,189,248,0.14)', phase: 2.8 },
+        { y: 0.90, amp: 22, freq: 0.003,  speed: 0.014, width: 1.6, color: 'rgba(186,230,253,0.12)', phase: 0.3 },
+        { y: 0.95, amp: 15, freq: 0.004,  speed: 0.009, width: 1.2, color: 'rgba(14,165,233,0.10)', phase: 4.7 },
     ];
 
-    let tick = 0;
+    let t = 0;
 
-    function drawWave(wave) {
-        const W = canvas.width;
-        const H = canvas.height;
-        const baseY = H * wave.yBase;
-
+    function drawLine(wl) {
+        const baseY = H * wl.y;
         ctx.beginPath();
-        ctx.moveTo(0, H);
 
-        for (let x = 0; x <= W; x += 2) {
+        for (let x = -10; x <= W + 10; x += 3) {
             const y = baseY
-                + Math.sin(x * wave.period + wave.phase + tick * wave.speed) * wave.amplitude
-                + Math.sin(x * wave.period * 1.7 + wave.phase * 1.3 + tick * wave.speed * 0.6) * (wave.amplitude * 0.4);
-            ctx.lineTo(x, y);
+                + Math.sin(x * wl.freq + wl.phase + t * wl.speed) * wl.amp
+                + Math.sin(x * wl.freq * 2.3 + wl.phase * 0.7 + t * wl.speed * 0.4) * (wl.amp * 0.25)
+                + Math.cos(x * wl.freq * 0.5 + t * wl.speed * 1.3) * (wl.amp * 0.15);
+
+            if (x === -10) ctx.moveTo(x, y);
+            else ctx.lineTo(x, y);
         }
 
-        ctx.lineTo(W, H);
-        ctx.closePath();
-        ctx.fillStyle = wave.color;
-        ctx.fill();
+        ctx.strokeStyle = wl.color;
+        ctx.lineWidth = wl.width;
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+        ctx.stroke();
     }
 
-    function animate() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        waves.forEach(w => drawWave(w));
-        tick++;
-        requestAnimationFrame(animate);
+    function render() {
+        ctx.clearRect(0, 0, W, H);
+        wavelines.forEach(wl => drawLine(wl));
+        t += 1;
+        requestAnimationFrame(render);
     }
 
-    animate();
+    render();
+})();
 
-    // ---- Navigation Handler ----
-    function handleNavigation() {
-        const btn = document.querySelector('button');
-        btn.innerHTML = '<span class="material-symbols-outlined" style="animation:spin 0.8s linear infinite; display:inline-block;">progress_activity</span>';
-        setTimeout(() => {
-            console.log("Navigating to next screen...");
-        }, 800);
-    }
+// ---- Navigation Handler ----
+function handleNavigation() {
+    const btn = document.querySelector('button');
+    btn.innerHTML = '<span class="material-symbols-outlined" style="animation:spin 0.8s linear infinite; display:inline-block;">progress_activity</span>';
+    setTimeout(() => {
+        console.log("Navigating to next screen...");
+    }, 800);
+}
 
-    // ---- Parallax watermarks (Desktop only) ----
-    if (window.innerWidth > 768) {
-        document.addEventListener('mousemove', (e) => {
-            const icons = document.querySelectorAll('.floating-icon');
-            const x = e.clientX / window.innerWidth;
-            const y = e.clientY / window.innerHeight;
-            icons.forEach((icon, index) => {
-                const speed = (index + 1) * 10;
-                icon.style.transform = `translate(${(x - 0.5) * speed}px, ${(y - 0.5) * speed}px)`;
-            });
+// ---- Parallax watermarks (Desktop) ----
+if (window.innerWidth > 768) {
+    document.addEventListener('mousemove', (e) => {
+        const icons = document.querySelectorAll('.floating-icon');
+        const x = e.clientX / window.innerWidth;
+        const y = e.clientY / window.innerHeight;
+        icons.forEach((icon, i) => {
+            const s = (i + 1) * 8;
+            icon.style.transform = `translate(${(x - 0.5) * s}px, ${(y - 0.5) * s}px)`;
         });
-    }
-
-    // Spin animation for loader
-    const style = document.createElement('style');
-    style.textContent = '@keyframes spin { to { transform: rotate(360deg); } }';
-    document.head.appendChild(style);
+    });
+}
 </script>
 </body></html>
