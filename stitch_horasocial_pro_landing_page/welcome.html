@@ -169,12 +169,13 @@
         }
         /* Double‑border glass logo */
         .logo-glass {
-            position: relative;
-            background: rgba(255,255,255,0.1);
-            backdrop-filter: blur(12px);
-            border-radius: 1rem;
-            padding: 0.5rem;
-        }
+    position: relative;
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(12px);
+    border-radius: 1rem;
+    padding: 0.5rem;
+    border: 1px solid #000; /* thin black border */
+}
         .logo-glass::before {
             content: '';
             position: absolute;
@@ -191,8 +192,25 @@
         }
         /* Reduce motion preference */
         @media (prefers-reduced-motion: reduce) {
-            body { animation: none; }
-        }
+    body { animation: none; }
+}
+
+/* Additional wave background */
+body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(circle at 50% 100%, #c0e0ff 0%, transparent 70%);
+    opacity: 0.2;
+    animation: wave2 20s linear infinite;
+    pointer-events: none;
+    z-index: -1;
+}
+@keyframes wave2 {
+    0% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(10%) rotate(-2deg); }
+    100% { transform: translateY(0) rotate(0deg); }
+}
     </style>
 <body class="font-body-md text-on-surface overflow-hidden">
 <!-- Atmospheric Watermarks -->
