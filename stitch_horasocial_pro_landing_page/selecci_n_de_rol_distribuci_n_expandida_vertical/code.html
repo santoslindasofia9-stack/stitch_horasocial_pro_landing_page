@@ -54,38 +54,26 @@
 
         /* === TARJETAS DE ROL === */
         .roles-grid {
-            display: flex; flex-direction: column; gap: 14px; width: 100%; max-width: 340px;
+            display: flex; flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 20px; width: 100%; max-width: 520px; margin-top: 10px;
         }
         .role-card {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.5);
+            background: #ffffff;
             border-radius: 16px;
-            padding: 16px 20px;
-            display: flex; align-items: center; gap: 16px;
+            padding: 24px 16px;
+            display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px;
             cursor: pointer;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            border: 1px solid transparent;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             text-decoration: none;
-            color: #0c2340;
-            position: relative;
-            overflow: hidden;
-            border-bottom: 1px solid transparent;
-            border-right: 1px solid transparent;
+            color: #191c1e;
+            width: 140px;
+            height: 140px;
         }
         
-        .role-card::after {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-            transform: translateX(-100%); transition: transform 0.6s ease;
-        }
-        .role-card:hover::after { transform: translateX(100%); }
-
         .role-card:hover {
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 8px 24px rgba(12, 35, 64, 0.1);
-            background: rgba(255, 255, 255, 0.9);
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 10px 28px rgba(12, 35, 64, 0.12);
             border-color: rgba(57, 184, 253, 0.4);
         }
         .role-card:active {
@@ -93,22 +81,22 @@
         }
 
         .role-icon-wrapper {
-            width: 48px; height: 48px; border-radius: 12px;
+            width: 60px; height: 60px; border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            flex-shrink: 0;
+            transition: transform 0.3s ease;
         }
-        .role-icon-wrapper.estudiante { background: linear-gradient(135deg, #39b8fd, #006591); }
-        .role-icon-wrapper.profesor { background: linear-gradient(135deg, #a78bfa, #6d28d9); }
-        .role-icon-wrapper.admin { background: linear-gradient(135deg, #10b981, #047857); }
-        
-        .role-icon-wrapper .material-symbols-outlined { color: white; font-size: 24px; }
-        
-        .role-info { text-align: left; flex: 1; }
-        .role-info h3 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 17px; margin-bottom: 2px; }
-        .role-info p { font-size: 13px; color: #5a6370; }
+        .role-card:hover .role-icon-wrapper { transform: scale(1.08); }
 
-        .arrow-icon { color: #9ca3af; transition: transform 0.3s, color 0.3s; }
-        .role-card:hover .arrow-icon { transform: translateX(4px); color: #006591; }
+        .role-icon-wrapper.estudiante { background: #34bcfb; }
+        .role-icon-wrapper.profesor { background: #006591; }
+        .role-icon-wrapper.admin { background: #0f172a; }
+        
+        .role-icon-wrapper .material-symbols-outlined { color: white; font-size: 30px; transition: opacity 0.2s; }
+        
+        .role-info { text-align: center; }
+        .role-info h3 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 16px; font-weight: 700; margin: 0; }
+        .role-info p { display: none; }
 
         /* === FOOTER === */
         .footer-info { text-align: center; margin-top: auto; }
@@ -121,13 +109,20 @@
         .footer-line { width: 40px; height: 3px; background: #d1d5db; border-radius: 9999px; margin: 5px auto 0; opacity: 0.5; }
 
         /* === RESPONSIVO === */
+        @media (max-width: 480px) {
+            .roles-grid { gap: 12px; }
+            .role-card { width: 130px; height: 130px; padding: 16px 12px; gap: 12px; }
+            .role-icon-wrapper { width: 50px; height: 50px; }
+            .role-icon-wrapper .material-symbols-outlined { font-size: 26px; }
+            .role-info h3 { font-size: 14px; }
+        }
         @media (max-height: 640px) {
             .content-wrapper { gap: 16px; padding: 20px; }
             .logo-img { max-width: 110px; }
             .text-block h1 { font-size: 20px; }
-            .role-card { padding: 12px 16px; }
-            .role-icon-wrapper { width: 40px; height: 40px; }
-            .role-icon-wrapper .material-symbols-outlined { font-size: 20px; }
+            .role-card { height: 120px; gap: 10px; }
+            .role-icon-wrapper { width: 44px; height: 44px; }
+            .role-icon-wrapper .material-symbols-outlined { font-size: 24px; }
         }
     </style>
 </head>
@@ -159,7 +154,6 @@
                 <h3>Estudiante</h3>
                 <p>Registra tus horas</p>
             </div>
-            <span class="material-symbols-outlined arrow-icon">chevron_right</span>
         </button>
 
         <button class="role-card" onclick="selectRole('profesor', this)">
@@ -170,7 +164,6 @@
                 <h3>Profesor</h3>
                 <p>Supervisa a tus alumnos</p>
             </div>
-            <span class="material-symbols-outlined arrow-icon">chevron_right</span>
         </button>
 
         <button class="role-card" onclick="selectRole('admin', this)">
@@ -181,7 +174,6 @@
                 <h3>Administrador</h3>
                 <p>Gestiona la plataforma</p>
             </div>
-            <span class="material-symbols-outlined arrow-icon">chevron_right</span>
         </button>
     </div>
 
@@ -200,10 +192,15 @@
     function selectRole(role, btnElement) {
         console.log("Rol seleccionado: " + role);
         
-        // Efecto visual de carga
-        const icon = btnElement.querySelector('.arrow-icon');
-        icon.innerText = 'progress_activity';
-        icon.style.animation = 'spin 0.8s linear infinite';
+        // Efecto visual de carga en el ícono principal
+        const icon = btnElement.querySelector('.material-symbols-outlined');
+        // Transición de opacidad para cambiar el ícono
+        icon.style.opacity = '0';
+        setTimeout(() => {
+            icon.innerText = 'progress_activity';
+            icon.style.animation = 'spin 0.8s linear infinite';
+            icon.style.opacity = '1';
+        }, 150);
         
         // Deshabilitar todos los botones temporalmente
         document.querySelectorAll('.role-card').forEach(btn => btn.disabled = true);
