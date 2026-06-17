@@ -48,44 +48,14 @@
         padding-bottom: 40px;
     }
 
-    /* ---- Logo Block ---- */
-    .logo-container {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        animation: floatLogo 6s ease-in-out infinite;
+    @keyframes float {
+        0% { transform: translateY(0px); }
+        50% { transform: translateY(-10px); }
+        100% { transform: translateY(0px); }
     }
-
-    @keyframes floatLogo {
-        0%, 100% { transform: translateY(0); }
-        50%      { transform: translateY(-8px); }
-    }
-
-    .logo-frame {
-        position: relative;
-        display: inline-block;
-        padding: 4px;
-        border-radius: 20px;
-        background: linear-gradient(135deg, #0c2340 0%, #0ea5e9 50%, #0c2340 100%);
-        background-size: 200% 200%;
-        animation: borderShimmer 6s ease-in-out infinite;
-        box-shadow:
-            0 4px 24px rgba(12, 35, 64, 0.15),
-            0 1px 4px rgba(14, 165, 233, 0.10);
-    }
-
-    @keyframes borderShimmer {
-        0%, 100% { background-position: 0% 50%; }
-        50%      { background-position: 100% 50%; }
-    }
-
-    .logo-frame img {
-        display: block;
-        width: 320px;
-        max-width: 75vw;
-        height: auto;
-        border-radius: 16px;
-        background: #ffffff;
+    
+    .animate-float {
+        animation: float 6s ease-in-out infinite;
     }
 
     /* ---- Text Block (compact, unified) ---- */
@@ -172,18 +142,15 @@
 
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    /* ---- Responsive ---- */
     @media (min-height: 740px) {
         .content-wrapper { gap: 26px; }
         .text-block h1 { font-size: 30px; }
-        .logo-frame img { width: 360px; }
     }
 
     @media (max-height: 640px) {
         .content-wrapper { gap: 12px; padding-top: 20px; }
         .text-block h1 { font-size: 22px; }
         .text-block p { font-size: 13px; }
-        .logo-frame img { width: 240px; }
         .btn-next { padding: 12px 24px; font-size: 16px; }
     }
 </style>
@@ -201,15 +168,14 @@
      ============================================ -->
 <div class="content-wrapper">
 
-    <!-- Logo -->
-    <div class="logo-container">
-        <div class="logo-frame">
-            <img
-                alt="HORASOCIAL PRO — Gestión de Servicio Social Escolar"
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwMhl_DdmeafGOmiL2QLqeQV_Ut8aNvKKYwKjKUtrAMBSjpyGc1Acc5TCQm084EODuuIAA3GiusiDfLdXgW3DAC8tdYPa8R-TEraz_hHglTpuTQJRtfOJfW_OyF25795_lzWR3g1wKtd_0fCPC6QxHfyblbvKAQVJNcggVB3k8TYcOAOsA0lTgC8lQz0E1YRlDIn1zQ0vALf8l_40TC_X6xkuWE-o1qr0sdsv2THdAcTxAM9txnjL8N_7oSnlqsHLnXkvvL7tImO-s"
-            >
+    <!-- Top Section: Logo -->
+    <header class="flex-1 flex items-center justify-center w-full max-w-md animate-float">
+        <div class="relative group">
+            <!-- Subtle background glow for logo -->
+            <div class="absolute -inset-4 bg-[#39b8fd] opacity-10 blur-2xl rounded-full group-hover:opacity-20 transition-opacity duration-700"></div>
+            <img alt="HORASOCIAL PRO Logo" class="relative w-full max-w-[280px] h-auto object-contain transition-transform duration-500 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwMhl_DdmeafGOmiL2QLqeQV_Ut8aNvKKYwKjKUtrAMBSjpyGc1Acc5TCQm084EODuuIAA3GiusiDfLdXgW3DAC8tdYPa8R-TEraz_hHglTpuTQJRtfOJfW_OyF25795_lzWR3g1wKtd_0fCPC6QxHfyblbvKAQVJNcggVB3k8TYcOAOsA0lTgC8lQz0E1YRlDIn1zQ0vALf8l_40TC_X6xkuWE-o1qr0sdsv2THdAcTxAM9txnjL8N_7oSnlqsHLnXkvvL7tImO-s" style="aspect-ratio: 16/9; border: 3px solid #000000; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.25);">
         </div>
-    </div>
+    </header>
 
     <!-- Text Block -->
     <div class="text-block">
