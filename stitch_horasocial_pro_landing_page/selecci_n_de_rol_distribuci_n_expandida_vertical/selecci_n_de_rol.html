@@ -90,31 +90,58 @@
     align-items: center;
     justify-content: center;
     animation: float 6s ease-in-out infinite;
-    margin-bottom: 8px;
+    margin-bottom: 16px;
+    width: 100%;
   }
   @keyframes float { 
     0%, 100% { transform: translateY(0); } 
     50% { transform: translateY(-8px); } 
   }
 
+  .logo-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 320px;
+  }
+
+  .logo-glow {
+    position: absolute;
+    top: -12px;
+    left: -12px;
+    right: -12px;
+    bottom: -12px;
+    background: #38bdf8;
+    opacity: 0.25;
+    filter: blur(30px);
+    border-radius: 50%;
+    transition: opacity 0.6s ease;
+    pointer-events: none;
+  }
+
   .logo-img {
+    position: relative;
     width: 100%; 
-    max-width: 160px;
-    background: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 2px solid #000;
-    border-radius: 14px;
+    max-width: 280px; /* Increased from 160px */
+    background: #ffffff; /* pure white background to pop in dark theme */
+    padding: 8px 16px;
+    border: 3px solid #000;
+    border-radius: 16px;
     box-shadow: 
-      0 0 0 3px rgba(14, 165, 233, 0.4),
-      0 8px 24px rgba(0,0,0,0.3);
+      0 0 0 3px rgba(14, 165, 233, 0.3),
+      0 12px 32px rgba(0,0,0,0.4);
     transition: transform 0.4s ease, box-shadow 0.4s ease;
   }
-  .header-logo:hover .logo-img { 
-    transform: scale(1.05); 
+  .logo-wrapper:hover .logo-glow {
+    opacity: 0.4;
+  }
+  .logo-wrapper:hover .logo-img { 
+    transform: scale(1.04); 
     box-shadow: 
-      0 0 0 4px rgba(56, 189, 248, 0.6),
-      0 12px 32px rgba(0,0,0,0.4);
+      0 0 0 4px rgba(56, 189, 248, 0.5),
+      0 18px 48px rgba(0,0,0,0.5);
   }
 
   /* ===== TEXT BLOCK ===== */
@@ -306,7 +333,10 @@
   <main>
     <!-- Logo -->
     <header class="header-logo">
-        <img alt="HORASOCIAL PRO Logo" class="logo-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwMhl_DdmeafGOmiL2QLqeQV_Ut8aNvKKYwKjKUtrAMBSjpyGc1Acc5TCQm084EODuuIAA3GiusiDfLdXgW3DAC8tdYPa8R-TEraz_hHglTpuTQJRtfOJfW_OyF25795_lzWR3g1wKtd_0fCPC6QxHfyblbvKAQVJNcggVB3k8TYcOAOsA0lTgC8lQz0E1YRlDIn1zQ0vALf8l_40TC_X6xkuWE-o1qr0sdsv2THdAcTxAM9txnjL8N_7oSnlqsHLnXkvvL7tImO-s">
+        <div class="logo-wrapper">
+            <div class="logo-glow"></div>
+            <img alt="HORASOCIAL PRO Logo" class="logo-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwMhl_DdmeafGOmiL2QLqeQV_Ut8aNvKKYwKjKUtrAMBSjpyGc1Acc5TCQm084EODuuIAA3GiusiDfLdXgW3DAC8tdYPa8R-TEraz_hHglTpuTQJRtfOJfW_OyF25795_lzWR3g1wKtd_0fCPC6QxHfyblbvKAQVJNcggVB3k8TYcOAOsA0lTgC8lQz0E1YRlDIn1zQ0vALf8l_40TC_X6xkuWE-o1qr0sdsv2THdAcTxAM9txnjL8N_7oSnlqsHLnXkvvL7tImO-s">
+        </div>
     </header>
 
     <!-- Texto -->

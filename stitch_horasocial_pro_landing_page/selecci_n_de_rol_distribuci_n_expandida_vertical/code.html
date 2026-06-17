@@ -29,74 +29,187 @@
         .content-wrapper {
             position: relative; z-index: 2;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
-            flex: 1; padding: 40px 24px; gap: 36px;
+            flex: 1; padding: 40px 24px; gap: 48px; /* Increased gap for premium layout */
         }
 
         /* === LOGO Y ANIMACIONES === */
         .header-logo {
             display: flex; align-items: center; justify-content: center;
-            width: 100%; max-width: 300px;
+            width: 100%; max-width: 340px;
             animation: float 6s ease-in-out infinite;
         }
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+
+        .logo-wrapper { position: relative; display: flex; align-items: center; justify-content: center; }
+        
+        .logo-glow {
+            position: absolute; top: -16px; left: -16px; right: -16px; bottom: -16px;
+            background: #39b8fd; opacity: 0.12; filter: blur(40px); border-radius: 50%;
+            transition: opacity 0.7s;
+            pointer-events: none;
+        }
 
         .logo-img {
-            width: 100%; max-width: 220px;
-            border: 3px solid #000; border-radius: 14px; box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-            transition: transform 0.5s;
+            position: relative;
+            width: 100%; max-width: 290px; /* Increased from 220px */
+            border: 3px solid #000; border-radius: 16px;
+            background: #ffffff;
+            padding: 8px 16px;
+            box-shadow: 
+              0 8px 30px rgba(12, 35, 64, 0.15),
+              0 0 0 1px rgba(12, 35, 64, 0.05);
+            transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.5s;
         }
-        .header-logo:hover .logo-img { transform: scale(1.05); }
+        .logo-wrapper:hover .logo-glow { opacity: 0.22; }
+        .logo-wrapper:hover .logo-img { 
+            transform: scale(1.04); 
+            box-shadow: 
+              0 14px 40px rgba(12, 35, 64, 0.22),
+              0 0 0 2px rgba(57, 184, 253, 0.4);
+        }
 
         /* === TEXTOS === */
-        .text-block { text-align: center; max-width: 480px; margin-top: -8px; }
-        .text-block h1 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 28px; color: #0c2340; line-height: 1.25; margin-bottom: 8px; }
-        .text-block p { font-size: 15px; color: #5a6370; line-height: 1.5; }
-
-        /* === TARJETAS DE ROL === */
-        .roles-grid {
-            display: flex; flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 20px; width: 100%; max-width: 520px; margin-top: 10px;
+        .text-block { text-align: center; max-width: 500px; margin-top: -8px; }
+        .text-block h1 { 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            font-size: clamp(24px, 4.5vw, 32px); 
+            color: #0c2340; 
+            font-weight: 700;
+            line-height: 1.25; 
+            margin-bottom: 10px; 
+            letter-spacing: -0.01em;
         }
-        .role-card {
-            background: #ffffff;
-            border-radius: 16px;
-            padding: 24px 16px;
-            display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px;
-            cursor: pointer;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
-            border: 1px solid transparent;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            text-decoration: none;
-            color: #191c1e;
-            width: 140px;
-            height: 140px;
+        .text-block h1 span { color: #006591; }
+        .text-block p { font-size: 15px; color: #5a6370; line-height: 1.55; }
+
+        /* === TARJETAS DE ROL (FILA VERTICAL EXPANDIDA) === */
+        .roles-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            width: 100%;
+            max-width: 460px; /* Centered column, comfortable width */
+            margin-top: 10px;
         }
         
-        .role-card:hover {
-            transform: translateY(-4px) scale(1.02);
-            box-shadow: 0 10px 28px rgba(12, 35, 64, 0.12);
-            border-color: rgba(57, 184, 253, 0.4);
+        .role-card {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 18px 24px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 20px;
+            cursor: pointer;
+            box-shadow: 
+              0 4px 16px rgba(12, 35, 64, 0.04),
+              0 1px 2px rgba(12, 35, 64, 0.02);
+            border: 1.5px solid rgba(12, 35, 64, 0.05);
+            transition: all 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+            text-decoration: none;
+            color: #191c1e;
+            width: 100%;
+            height: auto;
+            text-align: left;
+            position: relative;
+            overflow: hidden;
+            outline: none;
         }
+        
+        .role-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+            pointer-events: none;
+        }
+        
+        .role-card:hover::before {
+            transform: translateX(100%);
+        }
+
+        .role-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 
+              0 12px 28px rgba(12, 35, 64, 0.10),
+              0 4px 8px rgba(12, 35, 64, 0.04);
+            border-color: rgba(57, 184, 253, 0.6);
+            background: #ffffff;
+        }
+        
         .role-card:active {
-            transform: translateY(0) scale(0.98);
+            transform: translateY(-1px) scale(0.99);
+            box-shadow: 0 6px 16px rgba(12, 35, 64, 0.08);
         }
 
         .role-icon-wrapper {
-            width: 60px; height: 60px; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
+            width: 54px;
+            height: 54px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             flex-shrink: 0;
-            transition: transform 0.3s ease;
+            transition: all 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
         }
-        .role-card:hover .role-icon-wrapper { transform: scale(1.08); }
+        
+        .role-card:hover .role-icon-wrapper {
+            transform: scale(1.05) rotate(3deg);
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
+        }
 
-        .role-icon-wrapper.estudiante { background: #34bcfb; }
-        .role-icon-wrapper.profesor { background: #006591; }
-        .role-icon-wrapper.admin { background: #0f172a; }
+        .role-icon-wrapper.estudiante { background: linear-gradient(135deg, #38bdf8, #0284c7); }
+        .role-icon-wrapper.profesor { background: linear-gradient(135deg, #c084fc, #7e22ce); }
+        .role-icon-wrapper.admin { background: linear-gradient(135deg, #475569, #0f172a); }
         
-        .role-icon-wrapper .material-symbols-outlined { color: white; font-size: 30px; transition: opacity 0.2s; }
+        .role-icon-wrapper .material-symbols-outlined {
+            color: #ffffff;
+            font-size: 26px;
+            font-variation-settings: 'FILL' 1, 'wght' 500;
+        }
         
-        .role-info { text-align: center; }
-        .role-info h3 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 16px; font-weight: 700; margin: 0; }
-        .role-info p { display: none; }
+        .role-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+        
+        .role-info h3 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 17px;
+            font-weight: 700;
+            color: #0c2340;
+            margin: 0;
+            transition: color 0.3s ease;
+        }
+        
+        .role-card:hover .role-info h3 {
+            color: #006591;
+        }
+        
+        .role-info p {
+            display: block;
+            font-size: 13.5px;
+            color: #5a6370;
+            font-weight: 400;
+            margin: 0;
+        }
+
+        .arrow-icon {
+            color: rgba(12, 35, 64, 0.25);
+            font-size: 24px;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+        
+        .role-card:hover .arrow-icon {
+            transform: translateX(5px);
+            color: #0284c7;
+        }
 
         /* === FOOTER === */
         .footer-info { text-align: center; padding-bottom: 24px; position: relative; z-index: 2; }
@@ -110,22 +223,19 @@
 
         /* === RESPONSIVO === */
         @media (max-width: 520px) {
-            .roles-grid { gap: 16px; }
-            .role-card { width: 140px; height: 140px; }
+            .roles-grid { max-width: 100%; padding: 0 8px; }
+            .role-card { padding: 16px 20px; gap: 16px; }
+            .role-icon-wrapper { width: 48px; height: 48px; border-radius: 12px; }
+            .role-icon-wrapper .material-symbols-outlined { font-size: 22px; }
+            .role-info h3 { font-size: 16px; }
+            .role-info p { font-size: 12.5px; }
         }
-        @media (max-width: 380px) {
-            .role-card { width: 120px; height: 120px; padding: 16px 12px; gap: 12px; }
-            .role-icon-wrapper { width: 50px; height: 50px; }
-            .role-icon-wrapper .material-symbols-outlined { font-size: 26px; }
-            .role-info h3 { font-size: 14px; }
-        }
-        @media (max-height: 700px) {
-            .content-wrapper { gap: 24px; padding: 20px; }
-            .logo-img { max-width: 160px; }
+        @media (max-height: 720px) {
+            .content-wrapper { gap: 24px; padding: 24px 16px; }
+            .logo-img { max-width: 230px; }
             .text-block h1 { font-size: 24px; }
-            .role-card { height: 120px; gap: 10px; }
-            .role-icon-wrapper { width: 44px; height: 44px; }
-            .role-icon-wrapper .material-symbols-outlined { font-size: 24px; }
+            .roles-grid { gap: 12px; }
+            .role-card { padding: 14px 18px; }
         }
     </style>
 </head>
@@ -138,12 +248,15 @@
 <div class="content-wrapper">
     <!-- Logo -->
     <header class="header-logo">
-        <img alt="HORASOCIAL PRO Logo Pequeño" class="logo-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwMhl_DdmeafGOmiL2QLqeQV_Ut8aNvKKYwKjKUtrAMBSjpyGc1Acc5TCQm084EODuuIAA3GiusiDfLdXgW3DAC8tdYPa8R-TEraz_hHglTpuTQJRtfOJfW_OyF25795_lzWR3g1wKtd_0fCPC6QxHfyblbvKAQVJNcggVB3k8TYcOAOsA0lTgC8lQz0E1YRlDIn1zQ0vALf8l_40TC_X6xkuWE-o1qr0sdsv2THdAcTxAM9txnjL8N_7oSnlqsHLnXkvvL7tImO-s">
+        <div class="logo-wrapper">
+            <div class="logo-glow"></div>
+            <img alt="HORASOCIAL PRO Logo" class="logo-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwMhl_DdmeafGOmiL2QLqeQV_Ut8aNvKKYwKjKUtrAMBSjpyGc1Acc5TCQm084EODuuIAA3GiusiDfLdXgW3DAC8tdYPa8R-TEraz_hHglTpuTQJRtfOJfW_OyF25795_lzWR3g1wKtd_0fCPC6QxHfyblbvKAQVJNcggVB3k8TYcOAOsA0lTgC8lQz0E1YRlDIn1zQ0vALf8l_40TC_X6xkuWE-o1qr0sdsv2THdAcTxAM9txnjL8N_7oSnlqsHLnXkvvL7tImO-s">
+        </div>
     </header>
 
     <!-- Texto -->
     <div class="text-block">
-        <h1>Elige cómo quieres ingresar</h1>
+        <h1>Elige cómo <span>quieres ingresar</span></h1>
         <p>Selecciona tu rol para acceder a las herramientas correspondientes a tu perfil.</p>
     </div>
 
@@ -157,6 +270,7 @@
                 <h3>Estudiante</h3>
                 <p>Registra tus horas</p>
             </div>
+            <span class="material-symbols-outlined arrow-icon">chevron_right</span>
         </button>
 
         <button class="role-card" onclick="selectRole('profesor', this)">
@@ -167,6 +281,7 @@
                 <h3>Profesor</h3>
                 <p>Supervisa a tus alumnos</p>
             </div>
+            <span class="material-symbols-outlined arrow-icon">chevron_right</span>
         </button>
 
         <button class="role-card" onclick="selectRole('admin', this)">
@@ -177,9 +292,8 @@
                 <h3>Administrador</h3>
                 <p>Gestiona la plataforma</p>
             </div>
+            <span class="material-symbols-outlined arrow-icon">chevron_right</span>
         </button>
-    </div>
-
     </div>
 </div>
 
@@ -197,15 +311,17 @@
     function selectRole(role, btnElement) {
         console.log("Rol seleccionado: " + role);
         
-        // Efecto visual de carga en el ícono principal
-        const icon = btnElement.querySelector('.material-symbols-outlined');
-        // Transición de opacidad para cambiar el ícono
-        icon.style.opacity = '0';
-        setTimeout(() => {
-            icon.innerText = 'progress_activity';
-            icon.style.animation = 'spin 0.8s linear infinite';
-            icon.style.opacity = '1';
-        }, 150);
+        // Efecto visual de carga en la flecha de la derecha
+        const arrow = btnElement.querySelector('.arrow-icon');
+        if (arrow) {
+            arrow.style.opacity = '0';
+            setTimeout(() => {
+                arrow.innerText = 'progress_activity';
+                arrow.style.animation = 'spin 0.8s linear infinite';
+                arrow.style.opacity = '1';
+                arrow.style.color = '#0284c7';
+            }, 150);
+        }
         
         // Deshabilitar todos los botones temporalmente
         document.querySelectorAll('.role-card').forEach(btn => btn.disabled = true);
