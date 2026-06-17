@@ -158,10 +158,9 @@
 <body>
 
 <!-- ============================================
-     WAVE ZÓCALO (Bottom 20%)
-     4 layered SVG waves: navy base + cyan overlays
+     BACKGROUND MESH WAVE (Canvas)
      ============================================ -->
-
+<canvas id="ribbon-canvas" style="position:fixed; top:0; left:0; width:100%; height:100%; z-index:0; pointer-events:none;"></canvas>
 
 <!-- ============================================
      MAIN CONTENT — Upper 80%
@@ -207,5 +206,63 @@
             console.log("Navigating to next screen...");
         }, 800);
     }
+
+    // --- Background Ribbon Mesh Animation ---
+    const canvas = document.getElementById('ribbon-canvas');
+    const ctx = canvas.getContext('2d');
+    let w, h;
+    let time = 0;
+
+    function init() {
+        w = canvas.width = window.innerWidth;
+        h = canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', init);
+    init();
+
+    function animate() {
+        ctx.clearRect(0, 0, w, h);
+        
+        const lines = 60; // Density of the mesh
+        
+        for (let i = 0; i < lines; i++) {
+            ctx.beginPath();
+            
+            // Gradient matching the image (Purple -> Blue -> Cyan -> Aqua)
+            const grad = ctx.createLinearGradient(0, 0, w, 0);
+            const alpha = 0.12 + (Math.sin(i * 0.1) * 0.05); // dynamic alpha for depth
+            grad.addColorStop(0, `rgba(167, 139, 250, ${alpha})`); // Soft purple
+            grad.addColorStop(0.35, `rgba(147, 197, 253, ${alpha})`); // Light blue
+            grad.addColorStop(0.65, `rgba(103, 232, 249, ${alpha})`); // Cyan
+            grad.addColorStop(1, `rgba(94, 234, 212, ${alpha})`); // Aqua/Teal
+            
+            ctx.strokeStyle = grad;
+            ctx.lineWidth = 0.8;
+            
+            // Normalize index for the spread offset
+            const normI = (i / lines) * 2 - 1; 
+            
+            for (let x = 0; x <= w; x += 10) {
+                const nx = x / w;
+                
+                // Base flowing motion path
+                const path1 = Math.sin(nx * 4 + time * 0.6) * (h * 0.15);
+                const path2 = Math.cos(nx * 2 - time * 0.4) * (h * 0.1);
+                
+                // Ribbon spread (creates the 3D twisting mesh effect)
+                const spread = Math.sin(nx * 3.5 - time * 0.8) * (h * 0.25) + 30;
+                
+                const y = h * 0.5 + path1 + path2 + (normI * spread);
+                
+                if (x === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+            }
+            ctx.stroke();
+        }
+        
+        time += 0.012; // Speed of animation
+        requestAnimationFrame(animate);
+    }
+    animate();
 </script>
 </body></html>
