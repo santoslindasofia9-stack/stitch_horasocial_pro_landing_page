@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HORASOCIAL PRO - Selección de Rol</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Plus+Jakarta+Sans:wght@600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* === RESET Y GLOBALES === */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            background: #fafbfc;
+            font-family: 'Inter', sans-serif;
+            color: #191c1e;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .material-symbols-outlined { font-variation-settings: 'FILL' 1, 'wght' 400; }
+
+        /* === LAYOUT PRINCIPAL === */
+        .content-wrapper {
+            position: relative; z-index: 2;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            flex: 1; padding: 30px 24px; gap: 24px;
+        }
+
+        /* === LOGO Y ANIMACIONES === */
+        .header-logo {
+            display: flex; align-items: center; justify-content: center;
+            width: 100%; max-width: 200px;
+            animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+
+        .logo-img {
+            width: 100%; max-width: 140px;
+            border: 2px solid #000; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: transform 0.5s;
+        }
+        .header-logo:hover .logo-img { transform: scale(1.05); }
+
+        /* === TEXTOS === */
+        .text-block { text-align: center; max-width: 400px; }
+        .text-block h1 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 24px; color: #0c2340; line-height: 1.25; margin-bottom: 6px; }
+        .text-block p { font-size: 14px; color: #5a6370; line-height: 1.5; }
+
+        /* === TARJETAS DE ROL === */
+        .roles-grid {
+            display: flex; flex-direction: column; gap: 14px; width: 100%; max-width: 340px;
+        }
+        .role-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 16px;
+            padding: 16px 20px;
+            display: flex; align-items: center; gap: 16px;
+            cursor: pointer;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+            color: #0c2340;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 1px solid transparent;
+            border-right: 1px solid transparent;
+        }
+        
+        .role-card::after {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transform: translateX(-100%); transition: transform 0.6s ease;
+        }
+        .role-card:hover::after { transform: translateX(100%); }
+
+        .role-card:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 24px rgba(12, 35, 64, 0.1);
+            background: rgba(255, 255, 255, 0.9);
+            border-color: rgba(57, 184, 253, 0.4);
+        }
+        .role-card:active {
+            transform: translateY(0) scale(0.98);
+        }
+
+        .role-icon-wrapper {
+            width: 48px; height: 48px; border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .role-icon-wrapper.estudiante { background: linear-gradient(135deg, #39b8fd, #006591); }
+        .role-icon-wrapper.profesor { background: linear-gradient(135deg, #a78bfa, #6d28d9); }
+        .role-icon-wrapper.admin { background: linear-gradient(135deg, #10b981, #047857); }
+        
+        .role-icon-wrapper .material-symbols-outlined { color: white; font-size: 24px; }
+        
+        .role-info { text-align: left; flex: 1; }
+        .role-info h3 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 17px; margin-bottom: 2px; }
+        .role-info p { font-size: 13px; color: #5a6370; }
+
+        .arrow-icon { color: #9ca3af; transition: transform 0.3s, color 0.3s; }
+        .role-card:hover .arrow-icon { transform: translateX(4px); color: #006591; }
+
+        /* === FOOTER === */
+        .footer-info { text-align: center; margin-top: auto; }
+        .footer-info p { font-size: 12px; color: #5a6370; margin-bottom: 4px; }
+        .footer-info a { color: #006591; text-decoration: none; font-weight: 600; }
+        .footer-info a:hover { text-decoration: underline; }
+        
+        .footer-bottom { margin-top: 12px; }
+        .footer-bottom span { font-size: 11px; font-weight: 600; color: #9ca3af; letter-spacing: 0.04em; }
+        .footer-line { width: 40px; height: 3px; background: #d1d5db; border-radius: 9999px; margin: 5px auto 0; opacity: 0.5; }
+
+        /* === RESPONSIVO === */
+        @media (max-height: 640px) {
+            .content-wrapper { gap: 16px; padding: 20px; }
+            .logo-img { max-width: 110px; }
+            .text-block h1 { font-size: 20px; }
+            .role-card { padding: 12px 16px; }
+            .role-icon-wrapper { width: 40px; height: 40px; }
+            .role-icon-wrapper .material-symbols-outlined { font-size: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- CANVA DEL FONDO ANIMADO -->
+<canvas id="ribbon-canvas" style="position:fixed; inset:0; z-index:0; pointer-events:none;"></canvas>
+
+<!-- CONTENIDO PRINCIPAL -->
+<div class="content-wrapper">
+    <!-- Logo -->
+    <header class="header-logo">
+        <img alt="HORASOCIAL PRO Logo Pequeño" class="logo-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwMhl_DdmeafGOmiL2QLqeQV_Ut8aNvKKYwKjKUtrAMBSjpyGc1Acc5TCQm084EODuuIAA3GiusiDfLdXgW3DAC8tdYPa8R-TEraz_hHglTpuTQJRtfOJfW_OyF25795_lzWR3g1wKtd_0fCPC6QxHfyblbvKAQVJNcggVB3k8TYcOAOsA0lTgC8lQz0E1YRlDIn1zQ0vALf8l_40TC_X6xkuWE-o1qr0sdsv2THdAcTxAM9txnjL8N_7oSnlqsHLnXkvvL7tImO-s">
+    </header>
+
+    <!-- Texto -->
+    <div class="text-block">
+        <h1>Elige cómo quieres ingresar</h1>
+        <p>Selecciona tu rol para acceder a las herramientas correspondientes a tu perfil.</p>
+    </div>
+
+    <!-- Tarjetas de Rol -->
+    <div class="roles-grid">
+        <button class="role-card" onclick="selectRole('estudiante')">
+            <div class="role-icon-wrapper estudiante">
+                <span class="material-symbols-outlined">school</span>
+            </div>
+            <div class="role-info">
+                <h3>Estudiante</h3>
+                <p>Registra tus horas</p>
+            </div>
+            <span class="material-symbols-outlined arrow-icon">chevron_right</span>
+        </button>
+
+        <button class="role-card" onclick="selectRole('profesor')">
+            <div class="role-icon-wrapper profesor">
+                <span class="material-symbols-outlined">group</span>
+            </div>
+            <div class="role-info">
+                <h3>Profesor</h3>
+                <p>Supervisa a tus alumnos</p>
+            </div>
+            <span class="material-symbols-outlined arrow-icon">chevron_right</span>
+        </button>
+
+        <button class="role-card" onclick="selectRole('admin')">
+            <div class="role-icon-wrapper admin">
+                <span class="material-symbols-outlined">verified_user</span>
+            </div>
+            <div class="role-info">
+                <h3>Administrador</h3>
+                <p>Gestiona la plataforma</p>
+            </div>
+            <span class="material-symbols-outlined arrow-icon">chevron_right</span>
+        </button>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer-info">
+        <p>¿Necesitas ayuda? <a href="#">Consulta nuestra guía de acceso</a></p>
+        <div class="footer-bottom">
+            <span>© 2026 HORASOCIAL PRO</span>
+            <div class="footer-line"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Navegación (Simulada para demostración)
+    function selectRole(role) {
+        console.log("Rol seleccionado: " + role);
+        // Aquí iría la lógica para redirigir según el rol seleccionado
+    }
+
+    // Animación del Fondo (Ondas)
+    const ctx = document.getElementById('ribbon-canvas').getContext('2d');
+    let w, h, time = 0;
+
+    function init() { w = ctx.canvas.width = window.innerWidth; h = ctx.canvas.height = window.innerHeight; }
+    window.addEventListener('resize', init); init();
+
+    function animate() {
+        ctx.clearRect(0, 0, w, h);
+        for (let i = 0; i < 60; i++) {
+            ctx.beginPath();
+            const grad = ctx.createLinearGradient(0, 0, w, 0), a = 0.12 + Math.sin(i * 0.1) * 0.05;
+            grad.addColorStop(0, `rgba(167, 139, 250, ${a})`); grad.addColorStop(0.35, `rgba(147, 197, 253, ${a})`);
+            grad.addColorStop(0.65, `rgba(103, 232, 249, ${a})`); grad.addColorStop(1, `rgba(94, 234, 212, ${a})`);
+            ctx.strokeStyle = grad; ctx.lineWidth = 0.8;
+            
+            for (let x = 0; x <= w; x += 10) {
+                const nx = x / w;
+                const spread = Math.sin(nx * 3.5 - time * 0.5) * (h * 0.25) + 30;
+                const y = h * 0.5 + Math.sin(nx * 4 + time * 0.4) * (h * 0.15) + Math.cos(nx * 2 - time * 0.25) * (h * 0.1) + ((i/60)*2-1) * spread;
+                x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+            }
+            ctx.stroke();
+        }
+        time += 0.004; requestAnimationFrame(animate);
+    }
+    animate();
+</script>
+
+</body>
+</html>
