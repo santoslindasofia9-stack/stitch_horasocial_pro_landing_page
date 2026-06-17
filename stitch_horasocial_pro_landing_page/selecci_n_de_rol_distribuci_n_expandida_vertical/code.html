@@ -29,28 +29,28 @@
         .content-wrapper {
             position: relative; z-index: 2;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
-            flex: 1; padding: 30px 24px; gap: 24px;
+            flex: 1; padding: 40px 24px; gap: 36px;
         }
 
         /* === LOGO Y ANIMACIONES === */
         .header-logo {
             display: flex; align-items: center; justify-content: center;
-            width: 100%; max-width: 200px;
+            width: 100%; max-width: 300px;
             animation: float 6s ease-in-out infinite;
         }
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
 
         .logo-img {
-            width: 100%; max-width: 140px;
-            border: 2px solid #000; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            width: 100%; max-width: 220px;
+            border: 3px solid #000; border-radius: 14px; box-shadow: 0 4px 20px rgba(0,0,0,0.15);
             transition: transform 0.5s;
         }
         .header-logo:hover .logo-img { transform: scale(1.05); }
 
         /* === TEXTOS === */
-        .text-block { text-align: center; max-width: 400px; }
-        .text-block h1 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 24px; color: #0c2340; line-height: 1.25; margin-bottom: 6px; }
-        .text-block p { font-size: 14px; color: #5a6370; line-height: 1.5; }
+        .text-block { text-align: center; max-width: 480px; margin-top: -8px; }
+        .text-block h1 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 28px; color: #0c2340; line-height: 1.25; margin-bottom: 8px; }
+        .text-block p { font-size: 15px; color: #5a6370; line-height: 1.5; }
 
         /* === TARJETAS DE ROL === */
         .roles-grid {
@@ -99,8 +99,8 @@
         .role-info p { display: none; }
 
         /* === FOOTER === */
-        .footer-info { text-align: center; margin-top: auto; }
-        .footer-info p { font-size: 12px; color: #5a6370; margin-bottom: 4px; }
+        .footer-info { text-align: center; padding-bottom: 24px; position: relative; z-index: 2; }
+        .footer-info p { font-size: 13px; color: #5a6370; margin-bottom: 6px; }
         .footer-info a { color: #006591; text-decoration: none; font-weight: 600; }
         .footer-info a:hover { text-decoration: underline; }
         
@@ -109,17 +109,20 @@
         .footer-line { width: 40px; height: 3px; background: #d1d5db; border-radius: 9999px; margin: 5px auto 0; opacity: 0.5; }
 
         /* === RESPONSIVO === */
-        @media (max-width: 480px) {
-            .roles-grid { gap: 12px; }
-            .role-card { width: 130px; height: 130px; padding: 16px 12px; gap: 12px; }
+        @media (max-width: 520px) {
+            .roles-grid { gap: 16px; }
+            .role-card { width: 140px; height: 140px; }
+        }
+        @media (max-width: 380px) {
+            .role-card { width: 120px; height: 120px; padding: 16px 12px; gap: 12px; }
             .role-icon-wrapper { width: 50px; height: 50px; }
             .role-icon-wrapper .material-symbols-outlined { font-size: 26px; }
             .role-info h3 { font-size: 14px; }
         }
-        @media (max-height: 640px) {
-            .content-wrapper { gap: 16px; padding: 20px; }
-            .logo-img { max-width: 110px; }
-            .text-block h1 { font-size: 20px; }
+        @media (max-height: 700px) {
+            .content-wrapper { gap: 24px; padding: 20px; }
+            .logo-img { max-width: 160px; }
+            .text-block h1 { font-size: 24px; }
             .role-card { height: 120px; gap: 10px; }
             .role-icon-wrapper { width: 44px; height: 44px; }
             .role-icon-wrapper .material-symbols-outlined { font-size: 24px; }
@@ -177,13 +180,15 @@
         </button>
     </div>
 
-    <!-- Footer -->
-    <div class="footer-info">
-        <p>¿Necesitas ayuda? <a href="#">Consulta nuestra guía de acceso</a></p>
-        <div class="footer-bottom">
-            <span>© 2026 HORASOCIAL PRO</span>
-            <div class="footer-line"></div>
-        </div>
+    </div>
+</div>
+
+<!-- Footer (Fuera del content-wrapper para centrado perfecto) -->
+<div class="footer-info">
+    <p>¿Necesitas ayuda? <a href="#">Consulta nuestra guía de acceso</a></p>
+    <div class="footer-bottom">
+        <span>© 2026 HORASOCIAL PRO</span>
+        <div class="footer-line"></div>
     </div>
 </div>
 
