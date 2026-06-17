@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>HORASOCIAL PRO - Selección de Rol</title>
+<!-- Google Fonts: Plus Jakarta Sans & Inter -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+
+<style>
+  /* ===== RESET & BASE ===== */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    width: 100%;
+    height: 100%;
+    font-family: 'Inter', sans-serif;
+    overflow: hidden;
+  }
+
+  /* ===== ANIMATED WAVE BACKGROUND ===== */
+  body {
+    background: #0b1a3b; /* deep navy base */
+    position: relative;
+    color: #ffffff;
+  }
+
+  /* Wave layer 1 – top */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    background:
+      radial-gradient(ellipse 120% 60% at 20% 10%,  #38bdf8cc 0%, transparent 60%),
+      radial-gradient(ellipse 100% 50% at 80% 80%,  #0ea5e9aa 0%, transparent 60%),
+      radial-gradient(ellipse 80%  40% at 50% 50%,  #7dd3fc66 0%, transparent 70%);
+    animation: waveTop 12s ease-in-out infinite alternate;
+    pointer-events: none;
+  }
+
+  /* Wave layer 2 – bottom */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    background:
+      radial-gradient(ellipse 110% 55% at 70% 0%,   #bae6fd88 0%, transparent 55%),
+      radial-gradient(ellipse 90%  45% at 10% 90%,  #0284c7aa 0%, transparent 60%),
+      radial-gradient(ellipse 100% 50% at 50% 100%, #38bdf8cc 0%, transparent 50%);
+    animation: waveBottom 16s ease-in-out infinite alternate-reverse;
+    pointer-events: none;
+  }
+
+  @keyframes waveTop {
+    0%   { transform: scale(1)    translateY(0%)   rotate(0deg); }
+    50%  { transform: scale(1.05) translateY(-4%)  rotate(1.5deg); }
+    100% { transform: scale(1)    translateY(2%)   rotate(-1deg); }
+  }
+
+  @keyframes waveBottom {
+    0%   { transform: scale(1)    translateY(0%)  rotate(0deg); }
+    50%  { transform: scale(1.06) translateY(4%)  rotate(-2deg); }
+    100% { transform: scale(1)    translateY(-2%) rotate(1deg); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    body::before, body::after { animation: none; }
+  }
+
+  /* ===== LAYOUT ===== */
+  main {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 32px 20px;
+    gap: 24px;
+  }
+
+  /* ===== LOGO ===== */
+  .header-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: float 6s ease-in-out infinite;
+    margin-bottom: 8px;
+  }
+  @keyframes float { 
+    0%, 100% { transform: translateY(0); } 
+    50% { transform: translateY(-8px); } 
+  }
+
+  .logo-img {
+    width: 100%; 
+    max-width: 160px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 2px solid #000;
+    border-radius: 14px;
+    box-shadow: 
+      0 0 0 3px rgba(14, 165, 233, 0.4),
+      0 8px 24px rgba(0,0,0,0.3);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+  }
+  .header-logo:hover .logo-img { 
+    transform: scale(1.05); 
+    box-shadow: 
+      0 0 0 4px rgba(56, 189, 248, 0.6),
+      0 12px 32px rgba(0,0,0,0.4);
+  }
+
+  /* ===== TEXT BLOCK ===== */
+  .text-block { 
+    text-align: center; 
+    max-width: 420px; 
+  }
+  .text-block h1 { 
+    font-family: 'Plus Jakarta Sans', sans-serif; 
+    font-size: clamp(20px, 4.5vw, 28px); 
+    color: #ffffff; 
+    line-height: 1.25; 
+    margin-bottom: 8px;
+    text-shadow: 0 2px 12px rgba(0,0,0,0.4);
+  }
+  .text-block h1 span {
+    color: #38bdf8;
+  }
+  .text-block p { 
+    font-size: clamp(13px, 3vw, 15px); 
+    color: rgba(255,255,255,0.78); 
+    line-height: 1.5; 
+  }
+
+  /* ===== ROLE CARDS ===== */
+  .roles-grid {
+    display: flex; 
+    flex-direction: column; 
+    gap: 16px; 
+    width: 100%; 
+    max-width: 380px;
+    margin-top: 10px;
+  }
+
+  .role-card {
+    background: rgba(11, 26, 59, 0.4);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 18px;
+    padding: 16px 20px;
+    display: flex; 
+    align-items: center; 
+    gap: 18px;
+    cursor: pointer;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    text-decoration: none;
+    color: #ffffff;
+    position: relative;
+    overflow: hidden;
+    text-align: left;
+  }
+
+  .role-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(120deg, transparent, rgba(255,255,255,0.05), transparent);
+    transform: translateX(-100%);
+    transition: transform 0.6s ease;
+  }
+  
+  .role-card:hover::before {
+    transform: translateX(100%);
+  }
+
+  .role-card:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.4);
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(56, 189, 248, 0.5);
+  }
+  
+  .role-card:active {
+    transform: translateY(0) scale(0.98);
+  }
+
+  .role-icon-wrapper {
+    width: 52px; 
+    height: 52px; 
+    border-radius: 14px;
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    flex-shrink: 0;
+  }
+  .role-icon-wrapper.estudiante { background: linear-gradient(135deg, #38bdf8, #0284c7); }
+  .role-icon-wrapper.profesor { background: linear-gradient(135deg, #c084fc, #7e22ce); }
+  .role-icon-wrapper.admin { background: linear-gradient(135deg, #34d399, #047857); }
+  
+  .role-icon-wrapper .material-symbols-outlined { 
+    color: #ffffff; 
+    font-size: 26px; 
+    font-variation-settings: 'FILL' 1, 'wght' 400;
+  }
+  
+  .role-info { flex: 1; }
+  .role-info h3 { 
+    font-family: 'Plus Jakarta Sans', sans-serif; 
+    font-size: 18px; 
+    margin-bottom: 3px; 
+    font-weight: 700;
+  }
+  .role-info p { 
+    font-size: 13px; 
+    color: rgba(255,255,255,0.7); 
+  }
+
+  .arrow-icon { 
+    color: rgba(255,255,255,0.3); 
+    transition: transform 0.3s ease, color 0.3s ease; 
+  }
+  .role-card:hover .arrow-icon { 
+    transform: translateX(6px); 
+    color: #38bdf8; 
+  }
+
+  /* ===== FOOTER ===== */
+  .footer-info { 
+    text-align: center; 
+    margin-top: 10px;
+  }
+  .footer-info p { 
+    font-size: 13px; 
+    color: rgba(255,255,255,0.6); 
+    margin-bottom: 6px; 
+  }
+  .footer-info a { 
+    color: #38bdf8; 
+    text-decoration: none; 
+    font-weight: 600; 
+    transition: color 0.2s ease;
+  }
+  .footer-info a:hover { 
+    color: #bae6fd;
+    text-decoration: underline; 
+  }
+  
+  .footer-bottom { 
+    margin-top: 16px; 
+  }
+  .footer-bottom span { 
+    font-size: 11px; 
+    font-weight: 600; 
+    color: rgba(255,255,255,0.3); 
+    letter-spacing: 0.05em; 
+  }
+  .footer-line { 
+    width: 40px; 
+    height: 3px; 
+    background: rgba(255,255,255,0.2); 
+    border-radius: 9999px; 
+    margin: 8px auto 0; 
+  }
+
+  /* ===== FLOATING WATERMARKS ===== */
+  .floating-icon {
+    position: fixed;
+    font-size: 100px;
+    color: rgba(255,255,255,0.03);
+    user-select: none;
+    pointer-events: none;
+    font-family: 'Material Symbols Outlined';
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 48;
+  }
+  
+  @media (max-height: 700px) {
+    main { gap: 16px; padding: 20px; }
+    .logo-img { max-width: 130px; }
+    .roles-grid { gap: 12px; }
+    .role-card { padding: 12px 16px; }
+    .role-icon-wrapper { width: 44px; height: 44px; }
+    .role-icon-wrapper .material-symbols-outlined { font-size: 22px; }
+    .role-info h3 { font-size: 16px; }
+  }
+</style>
+</head>
+
+<body>
+
+  <!-- Floating watermark icons -->
+  <span class="floating-icon" style="top:10%; left:5%">diversity_3</span>
+  <span class="floating-icon" style="bottom:8%; right:5%">co_present</span>
+  <span class="floating-icon" style="top:35%; right:3%; font-size:70px;">badge</span>
+  <span class="floating-icon" style="bottom:30%; left:3%; font-size:80px;">admin_panel_settings</span>
+
+  <main>
+    <!-- Logo -->
+    <header class="header-logo">
+        <img alt="HORASOCIAL PRO Logo" class="logo-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwMhl_DdmeafGOmiL2QLqeQV_Ut8aNvKKYwKjKUtrAMBSjpyGc1Acc5TCQm084EODuuIAA3GiusiDfLdXgW3DAC8tdYPa8R-TEraz_hHglTpuTQJRtfOJfW_OyF25795_lzWR3g1wKtd_0fCPC6QxHfyblbvKAQVJNcggVB3k8TYcOAOsA0lTgC8lQz0E1YRlDIn1zQ0vALf8l_40TC_X6xkuWE-o1qr0sdsv2THdAcTxAM9txnjL8N_7oSnlqsHLnXkvvL7tImO-s">
+    </header>
+
+    <!-- Texto -->
+    <div class="text-block">
+        <h1>Elige cómo <span>quieres ingresar</span></h1>
+        <p>Selecciona tu rol para acceder a las herramientas correspondientes a tu perfil.</p>
+    </div>
+
+    <!-- Tarjetas de Rol -->
+    <div class="roles-grid">
+        <button class="role-card" onclick="selectRole('estudiante', this)">
+            <div class="role-icon-wrapper estudiante">
+                <span class="material-symbols-outlined">school</span>
+            </div>
+            <div class="role-info">
+                <h3>Estudiante</h3>
+                <p>Registra tus horas</p>
+            </div>
+            <span class="material-symbols-outlined arrow-icon">chevron_right</span>
+        </button>
+
+        <button class="role-card" onclick="selectRole('profesor', this)">
+            <div class="role-icon-wrapper profesor">
+                <span class="material-symbols-outlined">group</span>
+            </div>
+            <div class="role-info">
+                <h3>Profesor</h3>
+                <p>Supervisa a tus alumnos</p>
+            </div>
+            <span class="material-symbols-outlined arrow-icon">chevron_right</span>
+        </button>
+
+        <button class="role-card" onclick="selectRole('admin', this)">
+            <div class="role-icon-wrapper admin">
+                <span class="material-symbols-outlined">verified_user</span>
+            </div>
+            <div class="role-info">
+                <h3>Administrador</h3>
+                <p>Gestiona la plataforma</p>
+            </div>
+            <span class="material-symbols-outlined arrow-icon">chevron_right</span>
+        </button>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer-info">
+        <p>¿Necesitas ayuda? <a href="#">Consulta nuestra guía de acceso</a></p>
+        <div class="footer-bottom">
+            <span>© 2026 HORASOCIAL PRO</span>
+            <div class="footer-line"></div>
+        </div>
+    </div>
+  </main>
+
+  <script>
+    // Navegación animada
+    function selectRole(role, btnElement) {
+        // Añadir feedback visual
+        const icon = btnElement.querySelector('.arrow-icon');
+        icon.style.transform = 'translateX(10px)';
+        icon.innerHTML = 'progress_activity';
+        icon.style.animation = 'spin 0.8s linear infinite';
+        
+        // Deshabilitar botones
+        document.querySelectorAll('.role-card').forEach(btn => btn.disabled = true);
+        
+        console.log("Rol seleccionado: " + role);
+        
+        setTimeout(() => {
+            // Aquí iría la lógica para redirigir según el rol seleccionado
+            console.log("Redirigiendo a " + role + "...");
+        }, 800);
+    }
+
+    // Parallax watermarks on desktop
+    if (window.innerWidth > 768) {
+      document.addEventListener('mousemove', (e) => {
+        const icons = document.querySelectorAll('.floating-icon');
+        const x = e.clientX / window.innerWidth;
+        const y = e.clientY / window.innerHeight;
+        icons.forEach((icon, i) => {
+          const s = (i + 1) * 8;
+          icon.style.transform = `translate(${(x - 0.5) * s}px, ${(y - 0.5) * s}px)`;
+        });
+      });
+    }
+  </script>
+  <style>
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+  </style>
+</body>
+</html>
