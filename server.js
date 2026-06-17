@@ -1,6 +1,7 @@
 const express = require('express');
 const mysql = require('mysql2');
 const path = require('path');
+const fs = require('fs');
 
 const app = express();
 const PORT = 3000;
@@ -29,7 +30,50 @@ db.connect((err) => {
         return;
     }
     console.log('Conexión exitosa a la base de datos MySQL.');
+    
+    // Crear tabla solicitudes_recuperacion si no existe
+    const createTableQuery = `
+        CREATE TABLE IF NOT EXISTS solicitudes_recuperacion (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            usuario VARCHAR(50) NOT NULL,
+            nombre_completo VARCHAR(150) NOT NULL,
+            telefono VARCHAR(20) NOT NULL,
+            curso VARCHAR(20) NOT NULL,
+            fecha_solicitud TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            estado ENUM('Pendiente', 'Autorizado') DEFAULT 'Pendiente'
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+    `;
+    db.query(createTableQuery, (tableErr) => {
+        if (tableErr) {
+            console.error('Error al verificar/crear la tabla solicitudes_recuperacion:', tableErr.message);
+        } else {
+            console.log('Tabla solicitudes_recuperacion verificada/creada correctamente.');
+        }
+    });
 });
+
+// Helper de persistencia local (fallback si MySQL está desconectado)
+const SOLICITUDES_FILE = path.join(__dirname, 'solicitudes_recuperacion.json');
+
+function getLocalRequests() {
+    try {
+        if (fs.existsSync(SOLICITUDES_FILE)) {
+            const data = fs.readFileSync(SOLICITUDES_FILE, 'utf8');
+            return JSON.parse(data || '[]');
+        }
+    } catch (err) {
+        console.error('Error leyendo archivo local de solicitudes:', err.message);
+    }
+    return [];
+}
+
+function saveLocalRequests(requests) {
+    try {
+        fs.writeFileSync(SOLICITUDES_FILE, JSON.stringify(requests, null, 2), 'utf8');
+    } catch (err) {
+        console.error('Error escribiendo archivo local de solicitudes:', err.message);
+    }
+}
 
 // Ruta de prueba para verificar que el servidor está conectado a la base de datos
 app.get('/api/test-db', (req, res) => {
@@ -39,6 +83,142 @@ app.get('/api/test-db', (req, res) => {
         }
         res.json({ message: 'Base de datos conectada correctamente', result: results[0].result });
     });
+});
+
+// ==========================================
+// ENDPOINTS PARA LA RECUPERACIÓN DE CONTRASEÑA
+// ==========================================
+
+// 1. Enviar solicitud de recuperación
+app.post('/api/recuperar-contrasena', (req, res) => {
+    const { usuario, nombre, telefono, curso } = req.body;
+    if (!usuario || !nombre || !telefono || !curso) {
+        return res.status(400).json({ error: 'Todos los campos son obligatorios' });
+    }
+
+    const dbConnected = db && db.state !== 'disconnected';
+    
+    const saveRequestToLocal = () => {
+        const requests = getLocalRequests();
+        const newRequest = {
+            id: Date.now(),
+            usuario,
+            nombre_completo: nombre,
+            telefono,
+            curso,
+            fecha_solicitud: new Date().toISOString(),
+            estado: 'Pendiente'
+        };
+        requests.push(newRequest);
+        saveLocalRequests(requests);
+        res.json({ success: true, message: 'Solicitud enviada a la administración (Modo local)', id: newRequest.id });
+    };
+
+    if (dbConnected) {
+        const query = 'INSERT INTO solicitudes_recuperacion (usuario, nombre_completo, telefono, curso, estado) VALUES (?, ?, ?, ?, ?)';
+        db.query(query, [usuario, nombre, telefono, curso, 'Pendiente'], (err, result) => {
+            if (err) {
+                console.error('Error insertando solicitud en MySQL, recurriendo a local:', err.message);
+                saveRequestToLocal();
+            } else {
+                res.json({ success: true, message: 'Solicitud enviada a la administración', id: result.insertId });
+            }
+        });
+    } else {
+        saveRequestToLocal();
+    }
+});
+
+// 2. Obtener solicitudes de recuperación
+app.get('/api/solicitudes-recuperacion', (req, res) => {
+    const dbConnected = db && db.state !== 'disconnected';
+    
+    if (dbConnected) {
+        db.query('SELECT * FROM solicitudes_recuperacion WHERE estado = "Pendiente" ORDER BY fecha_solicitud DESC', (err, results) => {
+            if (err) {
+                console.error('Error consultando MySQL, recurriendo a local:', err.message);
+                res.json(getLocalRequests().filter(r => r.estado === 'Pendiente'));
+            } else {
+                res.json(results);
+            }
+        });
+    } else {
+        res.json(getLocalRequests().filter(r => r.estado === 'Pendiente'));
+    }
+});
+
+// 3. Autorizar solicitud de recuperación
+app.post('/api/autorizar-solicitud', (req, res) => {
+    const { id, usuario } = req.body;
+    if (!id) {
+        return res.status(400).json({ error: 'ID de solicitud es requerido' });
+    }
+
+    const dbConnected = db && db.state !== 'disconnected';
+    
+    const updateRequestLocal = () => {
+        const requests = getLocalRequests();
+        const index = requests.findIndex(r => r.id === parseInt(id) || r.id === id);
+        if (index !== -1) {
+            requests[index].estado = 'Autorizado';
+            saveLocalRequests(requests);
+            res.json({ success: true, message: 'Solicitud autorizada en modo local. Contraseña restablecida a: 123456' });
+        } else {
+            res.status(404).json({ error: 'Solicitud no encontrada' });
+        }
+    };
+
+    if (dbConnected) {
+        db.query('UPDATE solicitudes_recuperacion SET estado = "Autorizado" WHERE id = ?', [id], (err, result) => {
+            if (err) {
+                console.error('Error actualizando solicitud en MySQL, recurriendo a local:', err.message);
+                updateRequestLocal();
+            } else {
+                if (usuario) {
+                    db.query('UPDATE usuarios_a SET password = ? WHERE nombre_usuario = ?', ['123456', usuario], (userErr) => {
+                        if (userErr) {
+                            console.error('Error al actualizar contraseña del usuario en base de datos:', userErr.message);
+                        } else {
+                            console.log(`Contraseña para usuario ${usuario} restablecida a "123456"`);
+                        }
+                    });
+                }
+                res.json({ success: true, message: 'Solicitud autorizada correctamente. Contraseña restablecida a: 123456' });
+            }
+        });
+    } else {
+        updateRequestLocal();
+    }
+});
+
+// 4. Ignorar/rechazar solicitud de recuperación
+app.post('/api/rechazar-solicitud', (req, res) => {
+    const { id } = req.body;
+    if (!id) {
+        return res.status(400).json({ error: 'ID de solicitud es requerido' });
+    }
+
+    const dbConnected = db && db.state !== 'disconnected';
+    
+    const deleteRequestLocal = () => {
+        let requests = getLocalRequests();
+        requests = requests.filter(r => r.id !== parseInt(id) && r.id !== id);
+        saveLocalRequests(requests);
+        res.json({ success: true, message: 'Solicitud ignorada correctamente' });
+    };
+
+    if (dbConnected) {
+        db.query('DELETE FROM solicitudes_recuperacion WHERE id = ?', [id], (err, result) => {
+            if (err) {
+                console.error('Error al eliminar solicitud en MySQL, recurriendo a local:', err.message);
+                deleteRequestLocal();
+            } else {
+                res.json({ success: true, message: 'Solicitud ignorada correctamente' });
+            }
+        });
+    } else {
+        deleteRequestLocal();
+    }
 });
 
 // ==========================================

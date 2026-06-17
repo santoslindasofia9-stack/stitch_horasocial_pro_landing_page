@@ -204,7 +204,7 @@
                         Alertas Recientes
                     </h3>
 </div>
-<div class="p-4 space-y-4 overflow-y-auto max-h-[600px]">
+<div class="p-4 space-y-4 overflow-y-auto max-h-[600px]" id="alertsContainer">
 <!-- Card 1 -->
 <div class="p-5 rounded-xl bg-slate-50 border-l-4 border-red-500 shadow-sm relative group cursor-pointer hover:bg-white transition-all">
 <div class="flex justify-between items-start mb-2">
@@ -267,6 +267,155 @@
 </div>
 </nav>
 <script>
+    // Fetch and render password recovery alerts
+    function loadRecoveryRequests() {
+        fetch('/api/solicitudes-recuperacion')
+            .then(res => res.json())
+            .then(requests => {
+                const container = document.getElementById('alertsContainer');
+                if (!container) return;
+                
+                // Remove existing recovery requests first to avoid duplicates
+                document.querySelectorAll('.recovery-request-card').forEach(el => el.remove());
+                
+                requests.forEach(req => {
+                    const card = document.createElement('div');
+                    card.className = 'recovery-request-card p-5 rounded-xl bg-sky-50 border-l-4 border-sky-500 shadow-sm relative group hover:bg-white transition-all duration-300';
+                    card.id = `recovery-req-${req.id}`;
+                    
+                    // Format time
+                    const dateObj = new Date(req.fecha_solicitud);
+                    const timeStr = dateObj.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                    
+                    card.innerHTML = `
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="text-[9px] font-bold uppercase tracking-wider bg-sky-500 text-white px-2 py-0.5 rounded flex items-center gap-1">
+                                <span class="material-symbols-outlined text-[10px]" style="font-variation-settings: 'FILL' 1;">key</span>
+                                Recuperación
+                            </span>
+                            <span class="text-[10px] text-slate-400">${timeStr}</span>
+                        </div>
+                        <p class="text-sm font-bold text-slate-800 mb-1">Restablecer Contraseña</p>
+                        <div class="text-[11px] text-slate-600 space-y-1 my-3 bg-white/60 p-2.5 rounded-lg border border-sky-100/50">
+                            <p><strong>Estudiante:</strong> ${req.nombre_completo}</p>
+                            <p><strong>Usuario:</strong> <span class="bg-sky-100 text-sky-800 px-1 py-0.5 rounded font-mono text-[10px]">${req.usuario}</span></p>
+                            <p><strong>Teléfono:</strong> ${req.telefono}</p>
+                            <p><strong>Curso:</strong> ${req.curso}</p>
+                        </div>
+                        <div class="grid grid-cols-2 gap-2" id="actions-${req.id}">
+                            <button onclick="autorizarSolicitud(${req.id}, '${req.usuario}')" class="py-2 bg-sky-600 hover:bg-sky-700 text-white rounded-lg text-[10px] font-bold transition-all transform active:scale-95 shadow-sm">
+                                Autorizar
+                            </button>
+                            <button onclick="rechazarSolicitud(${req.id})" class="py-2 bg-white border border-slate-200 text-slate-500 hover:bg-slate-50 hover:text-slate-700 rounded-lg text-[10px] font-bold transition-all transform active:scale-95">
+                                Ignorar
+                            </button>
+                        </div>
+                    `;
+                    
+                    // Prepend to top of the alerts list so they appear first
+                    container.insertBefore(card, container.firstChild);
+                });
+            })
+            .catch(err => console.error('Error cargando solicitudes:', err));
+    }
+
+    // Autorizar request
+    function autorizarSolicitud(id, usuario) {
+        const buttonsContainer = document.getElementById(`actions-${id}`);
+        if (buttonsContainer) {
+            buttonsContainer.innerHTML = `
+                <div class="col-span-2 flex items-center justify-center py-1 text-slate-500 text-[10px] font-semibold">
+                    <svg class="animate-spin -ml-1 mr-2 h-3 w-3 text-sky-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Procesando...
+                </div>
+            `;
+        }
+        
+        fetch('/api/autorizar-solicitud', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ id, usuario })
+        })
+        .then(res => res.json())
+        .then(data => {
+            showToast(`¡Usuario ${usuario} autorizado! Nueva contraseña: 123456`, 'success');
+            
+            const card = document.getElementById(`recovery-req-${id}`);
+            if (card) {
+                card.classList.add('opacity-0', 'scale-95');
+                setTimeout(() => card.remove(), 300);
+            }
+        })
+        .catch(err => {
+            console.error('Error al autorizar:', err);
+            showToast('Error al autorizar la solicitud', 'error');
+        });
+    }
+
+    // Ignorar request
+    function rechazarSolicitud(id) {
+        fetch('/api/rechazar-solicitud', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ id })
+        })
+        .then(res => res.json())
+        .then(data => {
+            showToast('Solicitud ignorada', 'info');
+            
+            const card = document.getElementById(`recovery-req-${id}`);
+            if (card) {
+                card.classList.add('opacity-0', 'scale-95');
+                setTimeout(() => card.remove(), 300);
+            }
+        })
+        .catch(err => {
+            console.error('Error al ignorar:', err);
+            showToast('Error al procesar la acción', 'error');
+        });
+    }
+
+    // Premium Toast helper
+    function showToast(message, type = 'success') {
+        const toast = document.createElement('div');
+        toast.className = `fixed bottom-28 right-8 z-50 flex items-center gap-2 px-5 py-3.5 rounded-xl text-xs font-bold shadow-lg transition-all duration-300 transform translate-y-4 opacity-0`;
+        
+        if (type === 'success') {
+            toast.className += ' bg-green-600 text-white';
+            toast.innerHTML = `<span class="material-symbols-outlined text-sm">check_circle</span> ${message}`;
+        } else if (type === 'error') {
+            toast.className += ' bg-red-600 text-white';
+            toast.innerHTML = `<span class="material-symbols-outlined text-sm">error</span> ${message}`;
+        } else {
+            toast.className += ' bg-slate-800 text-white';
+            toast.innerHTML = `<span class="material-symbols-outlined text-sm">info</span> ${message}`;
+        }
+        
+        document.body.appendChild(toast);
+        
+        requestAnimationFrame(() => {
+            toast.classList.remove('translate-y-4', 'opacity-0');
+        });
+        
+        setTimeout(() => {
+            toast.classList.add('translate-y-4', 'opacity-0');
+            setTimeout(() => toast.remove(), 300);
+        }, 4500);
+    }
+
+    // Load on init and poll every 5 seconds
+    document.addEventListener('DOMContentLoaded', () => {
+        loadRecoveryRequests();
+        setInterval(loadRecoveryRequests, 5000);
+    });
+
     // Subtle hover effect logic for action buttons
     document.querySelectorAll('button').forEach(btn => {
         btn.addEventListener('mousedown', () => btn.classList.add('scale-95'));

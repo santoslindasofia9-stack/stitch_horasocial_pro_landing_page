@@ -134,47 +134,138 @@
 <div class="glass-card w-full max-w-[440px] rounded-2xl shadow-[0px_4px_20px_rgba(15,23,42,0.05)] border border-white/50 p-lg md:p-xl relative overflow-hidden">
 <!-- Subtle Watermark -->
 <div class="absolute bottom-4 right-4 w-12 h-12 gear-watermark text-on-surface-variant/5"></div>
-<!-- Header Section -->
-<div class="flex flex-col items-center text-center mb-xl">
-<img alt="Horasocial Pro Institutional Logo" class="w-auto mb-md object-contain h-32" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDzHA6ZFqv_buT-Csu67WWFljjcjW2NHuCSy1BNOBjlKQVYmjFtOw3o8IQp77Y9ebhDaYwd5Jts5558Gq8-_folCkqms8wl-UDzZrz_D8smG3SmJguL8vHkFBcQCcz2chNlThAD5Z8CiapgKMmtG1UaL1I_LMLPziHj8J_NLY-V9vU2DU68CYAIhWptZXRGNc-J_W3oQlzpxWSiKGrP3Rn1w87UU5VQktTkj_DSWCiQn6WPFDSpojOe6JbltDVXSjUPC0IXy-ssM2-d">
-<h1 class="font-headline-md text-headline-md text-on-surface">
-                    Iniciar Sesión: <span class="text-celeste">Estudiante</span>
-</h1>
+<!-- Login Form Container -->
+<div id="loginFormContainer" class="transition-all duration-300 transform scale-100 opacity-100 flex flex-col h-full">
+  <!-- Header Section -->
+  <div class="flex flex-col items-center text-center mb-xl">
+    <img alt="Horasocial Pro Institutional Logo" class="w-auto mb-md object-contain h-32" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDzHA6ZFqv_buT-Csu67WWFljjcjW2NHuCSy1BNOBjlKQVYmjFtOw3o8IQp77Y9ebhDaYwd5Jts5558Gq8-_folCkqms8wl-UDzZrz_D8smG3SmJguL8vHkFBcQCcz2chNlThAD5Z8CiapgKMmtG1UaL1I_LMLPziHj8J_NLY-V9vU2DU68CYAIhWptZXRGNc-J_W3oQlzpxWSiKGrP3Rn1w87UU5VQktTkj_DSWCiQn6WPFDSpojOe6JbltDVXSjUPC0IXy-ssM2-d">
+    <h1 class="font-headline-md text-headline-md text-on-surface">
+      Iniciar Sesión: <span class="text-celeste">Estudiante</span>
+    </h1>
+  </div>
+  <!-- Login Form -->
+  <form class="space-y-xl" onsubmit="return false;">
+    <!-- User Field -->
+    <div class="space-y-xs">
+      <div class="relative group">
+        <div class="absolute inset-y-0 left-0 pl-md flex items-center pointer-events-none text-on-surface-variant group-focus-within:text-celeste transition-colors">
+          <span class="material-symbols-outlined">person</span>
+        </div>
+        <input class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg py-md pl-[48px] pr-md font-body-md text-on-surface placeholder:text-on-surface-variant/50 focus:ring-0 focus:border-celeste outline-none transition-all" placeholder="Usuario" type="text" id="usernameInput" required>
+      </div>
+    </div>
+    <!-- Password Field -->
+    <div class="space-y-xs">
+      <div class="relative group">
+        <div class="absolute inset-y-0 left-0 pl-md flex items-center pointer-events-none text-on-surface-variant group-focus-within:text-celeste transition-colors">
+          <span class="material-symbols-outlined">lock</span>
+        </div>
+        <input class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg py-md pl-[48px] pr-xl font-body-md text-on-surface placeholder:text-on-surface-variant/50 focus:ring-0 focus:border-celeste outline-none transition-all" id="passwordInput" placeholder="Contraseña" type="password" required>
+        <button class="absolute inset-y-0 right-0 pr-md flex items-center text-on-surface-variant hover:text-celeste transition-colors" onclick="togglePassword()" type="button">
+          <span class="material-symbols-outlined" id="eyeIcon">visibility</span>
+        </button>
+      </div>
+    </div>
+    <!-- Action Button -->
+    <button class="w-full bg-primary-container text-on-primary font-label-md text-label-md tracking-wide py-md rounded-lg shadow-sm hover:shadow-md hover:bg-primary transition-all duration-200 transform active:scale-[0.98]" type="submit" onclick="window.location.href='/estudiante/dashboard'">
+      INGRESAR
+    </button>
+    <!-- Forgot Password Link -->
+    <div class="text-center">
+      <button type="button" onclick="showRecoveryForm()" class="text-celeste font-label-md text-label-sm hover:underline underline-offset-4 transition-all focus:outline-none">
+        ¿Olvidaste tu contraseña?
+      </button>
+    </div>
+  </form>
 </div>
-<!-- Login Form -->
-<form class="space-y-xl">
-<!-- User Field -->
-<div class="space-y-xs">
-<div class="relative group">
-<div class="absolute inset-y-0 left-0 pl-md flex items-center pointer-events-none text-on-surface-variant group-focus-within:text-celeste transition-colors">
-<span class="material-symbols-outlined">person</span>
+
+<!-- Recovery Form Container -->
+<div id="recoveryFormContainer" class="hidden opacity-0 scale-95 transition-all duration-300 flex flex-col h-full">
+  <div class="flex flex-col items-center mb-md text-center">
+    <div class="w-12 h-12 rounded-full bg-celeste/20 flex items-center justify-center text-celeste mb-sm">
+      <span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">lock_reset</span>
+    </div>
+    <h2 class="font-headline-md text-headline-md text-on-surface">Recuperar Contraseña</h2>
+    <p class="text-label-sm text-on-surface-variant/70 mt-xs px-md">
+      Ingresa tus datos para solicitar el restablecimiento a la administración.
+    </p>
+  </div>
+  
+  <form id="recoveryForm" class="space-y-md" onsubmit="handleRecoverySubmit(event)">
+    <!-- Usuario input -->
+    <div class="space-y-xs">
+      <label class="text-[11px] font-bold text-slate-500 uppercase tracking-wide">Usuario</label>
+      <div class="relative group">
+        <div class="absolute inset-y-0 left-0 pl-md flex items-center pointer-events-none text-on-surface-variant group-focus-within:text-celeste transition-colors">
+          <span class="material-symbols-outlined">account_circle</span>
+        </div>
+        <input class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg py-md pl-[48px] pr-md font-body-md text-on-surface placeholder:text-on-surface-variant/50 focus:ring-0 focus:border-celeste outline-none transition-all" id="recoveryUsername" placeholder="Tu usuario" type="text" required>
+      </div>
+    </div>
+    
+    <!-- Nombre y Apellidos input -->
+    <div class="space-y-xs">
+      <label class="text-[11px] font-bold text-slate-500 uppercase tracking-wide">Nombres y Apellidos</label>
+      <div class="relative group">
+        <div class="absolute inset-y-0 left-0 pl-md flex items-center pointer-events-none text-on-surface-variant group-focus-within:text-celeste transition-colors">
+          <span class="material-symbols-outlined">person</span>
+        </div>
+        <input class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg py-md pl-[48px] pr-md font-body-md text-on-surface placeholder:text-on-surface-variant/50 focus:ring-0 focus:border-celeste outline-none transition-all" id="recoveryFullName" placeholder="Nombre completo" type="text" required>
+      </div>
+    </div>
+
+    <!-- Teléfono input -->
+    <div class="space-y-xs">
+      <label class="text-[11px] font-bold text-slate-500 uppercase tracking-wide">Número de Teléfono</label>
+      <div class="relative group">
+        <div class="absolute inset-y-0 left-0 pl-md flex items-center pointer-events-none text-on-surface-variant group-focus-within:text-celeste transition-colors">
+          <span class="material-symbols-outlined">phone</span>
+        </div>
+        <input class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg py-md pl-[48px] pr-md font-body-md text-on-surface placeholder:text-on-surface-variant/50 focus:ring-0 focus:border-celeste outline-none transition-all" id="recoveryPhone" placeholder="Ej: 3001234567" type="tel" required>
+      </div>
+    </div>
+
+    <!-- Curso input -->
+    <div class="space-y-xs">
+      <label class="text-[11px] font-bold text-slate-500 uppercase tracking-wide">Curso</label>
+      <div class="relative group">
+        <div class="absolute inset-y-0 left-0 pl-md flex items-center pointer-events-none text-on-surface-variant group-focus-within:text-celeste transition-colors">
+          <span class="material-symbols-outlined">school</span>
+        </div>
+        <input class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg py-md pl-[48px] pr-md font-body-md text-on-surface placeholder:text-on-surface-variant/50 focus:ring-0 focus:border-celeste outline-none transition-all" id="recoveryCourse" placeholder="Ej: 11-01" type="text" required>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="pt-sm space-y-md">
+      <button class="w-full bg-primary-container text-on-primary font-label-md text-label-md tracking-wide py-md rounded-lg shadow-sm hover:shadow-md hover:bg-primary transition-all duration-200 transform active:scale-[0.98]" type="submit">
+        ENVIAR SOLICITUD
+      </button>
+      
+      <div class="text-center">
+        <button type="button" onclick="hideRecoveryForm()" class="text-celeste font-label-md text-label-sm hover:underline underline-offset-4 transition-all focus:outline-none">
+          Volver al inicio de sesión
+        </button>
+      </div>
+    </div>
+  </form>
 </div>
-<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg py-md pl-[48px] pr-md font-body-md text-on-surface placeholder:text-on-surface-variant/50 focus:ring-0 focus:border-celeste outline-none transition-all" placeholder="Código o correo electrónico" type="text">
+
+<!-- Success State Container -->
+<div id="recoverySuccessContainer" class="hidden opacity-0 scale-95 transition-all duration-300 flex flex-col h-full py-md justify-center">
+  <div class="flex flex-col items-center text-center">
+    <div class="w-16 h-16 rounded-full bg-green-500/20 flex items-center justify-center text-green-500 mb-md animate-pulse">
+      <span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+    </div>
+    <h2 class="font-headline-md text-headline-md text-on-surface mb-sm">¡Solicitud Enviada!</h2>
+    <p class="text-body-md text-on-surface-variant/80 px-md mb-lg">
+      Tu solicitud de recuperación ha sido enviada a la administración. Un administrador la revisará para autorizar el restablecimiento.
+    </p>
+    <button type="button" onclick="backToLoginFromSuccess()" class="w-full bg-primary-container text-on-primary font-label-md text-label-md tracking-wide py-md rounded-lg shadow-sm hover:shadow-md hover:bg-primary transition-all duration-200 transform active:scale-[0.98]">
+      ENTENDIDO
+    </button>
+  </div>
 </div>
-</div>
-<!-- Password Field -->
-<div class="space-y-xs">
-<div class="relative group">
-<div class="absolute inset-y-0 left-0 pl-md flex items-center pointer-events-none text-on-surface-variant group-focus-within:text-celeste transition-colors">
-<span class="material-symbols-outlined">lock</span>
-</div>
-<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg py-md pl-[48px] pr-xl font-body-md text-on-surface placeholder:text-on-surface-variant/50 focus:ring-0 focus:border-celeste outline-none transition-all" id="passwordInput" placeholder="Contraseña" type="password">
-<button class="absolute inset-y-0 right-0 pr-md flex items-center text-on-surface-variant hover:text-celeste transition-colors" onclick="togglePassword()" type="button">
-<span class="material-symbols-outlined" id="eyeIcon">visibility</span>
-</button>
-</div>
-</div>
-<!-- Action Button -->
-<button class="w-full bg-primary-container text-on-primary font-label-md text-label-md tracking-wide py-md rounded-lg shadow-sm hover:shadow-md hover:bg-primary transition-all duration-200 transform active:scale-[0.98]" type="submit">
-                    INGRESAR
-                </button>
-<!-- Forgot Password Link -->
-<div class="text-center">
-<a class="text-celeste font-label-md text-label-sm hover:underline underline-offset-4 transition-all" href="#">
-                        ¿Olvidaste tu contraseña?
-                    </a>
-</div>
-</form>
 </div>
 <!-- Footer -->
 <footer class="w-full max-w-[440px] py-md flex flex-col items-center gap-sm z-10 bg-transparent" style="margin-top: 24px;">
@@ -199,6 +290,88 @@
                 passwordInput.type = 'password';
                 eyeIcon.textContent = 'visibility';
             }
+        }
+
+        function showRecoveryForm() {
+            const login = document.getElementById('loginFormContainer');
+            const recovery = document.getElementById('recoveryFormContainer');
+            
+            login.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                login.classList.add('hidden');
+                recovery.classList.remove('hidden');
+                recovery.offsetHeight; // Force reflow
+                recovery.classList.remove('scale-95', 'opacity-0');
+                recovery.classList.add('scale-100', 'opacity-100');
+            }, 150);
+        }
+
+        function hideRecoveryForm() {
+            const login = document.getElementById('loginFormContainer');
+            const recovery = document.getElementById('recoveryFormContainer');
+            
+            recovery.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                recovery.classList.add('hidden');
+                login.classList.remove('hidden');
+                login.offsetHeight; // Force reflow
+                login.classList.remove('scale-95', 'opacity-0');
+                login.classList.add('scale-100', 'opacity-100');
+            }, 150);
+        }
+
+        function backToLoginFromSuccess() {
+            const login = document.getElementById('loginFormContainer');
+            const success = document.getElementById('recoverySuccessContainer');
+            
+            success.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                success.classList.add('hidden');
+                login.classList.remove('hidden');
+                login.offsetHeight; // Force reflow
+                login.classList.remove('scale-95', 'opacity-0');
+                login.classList.add('scale-100', 'opacity-100');
+                document.getElementById('recoveryForm').reset();
+            }, 150);
+        }
+
+        function handleRecoverySubmit(event) {
+            event.preventDefault();
+            const usuario = document.getElementById('recoveryUsername').value;
+            const nombre = document.getElementById('recoveryFullName').value;
+            const telefono = document.getElementById('recoveryPhone').value;
+            const curso = document.getElementById('recoveryCourse').value;
+            
+            fetch('/api/recuperar-contrasena', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ usuario, nombre, telefono, curso })
+            })
+            .then(res => res.json())
+            .then(data => {
+                console.log('Recovery request submitted:', data);
+                showSuccessState();
+            })
+            .catch(err => {
+                console.warn('API error, showing offline success:', err);
+                showSuccessState();
+            });
+        }
+
+        function showSuccessState() {
+            const recovery = document.getElementById('recoveryFormContainer');
+            const success = document.getElementById('recoverySuccessContainer');
+            
+            recovery.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                recovery.classList.add('hidden');
+                success.classList.remove('hidden');
+                success.offsetHeight; // Force reflow
+                success.classList.remove('scale-95', 'opacity-0');
+                success.classList.add('scale-100', 'opacity-100');
+            }, 150);
         }
 
         // Simple subtle parallax for background blobs
