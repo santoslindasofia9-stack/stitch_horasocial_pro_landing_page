@@ -208,9 +208,9 @@
         // Deshabilitar todos los botones temporalmente
         document.querySelectorAll('.role-card').forEach(btn => btn.disabled = true);
         
-        // Simulación de redirección a la siguiente pantalla del dashboard (aún no creada)
+        // Redirección a la pantalla de Login a través de la ruta Express
         setTimeout(() => {
-            // window.location.href = '../siguiente_pantalla/code.html';
+            window.location.href = '/login';
         }, 800);
     }
 
