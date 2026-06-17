@@ -246,11 +246,11 @@
                 const nx = x / w;
                 
                 // Base flowing motion path
-                const path1 = Math.sin(nx * 4 + time * 0.6) * (h * 0.15);
-                const path2 = Math.cos(nx * 2 - time * 0.4) * (h * 0.1);
+                const path1 = Math.sin(nx * 4 + time * 0.4) * (h * 0.15);
+                const path2 = Math.cos(nx * 2 - time * 0.25) * (h * 0.1);
                 
                 // Ribbon spread (creates the 3D twisting mesh effect)
-                const spread = Math.sin(nx * 3.5 - time * 0.8) * (h * 0.25) + 30;
+                const spread = Math.sin(nx * 3.5 - time * 0.5) * (h * 0.25) + 30;
                 
                 const y = h * 0.5 + path1 + path2 + (normI * spread);
                 
@@ -260,7 +260,7 @@
             ctx.stroke();
         }
         
-        time += 0.012; // Speed of animation
+        time += 0.004; // Much slower speed for an elegant, tranquil flow
         requestAnimationFrame(animate);
     }
     animate();
