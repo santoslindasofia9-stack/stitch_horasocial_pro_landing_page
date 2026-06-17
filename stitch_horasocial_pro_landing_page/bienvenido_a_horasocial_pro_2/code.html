@@ -30,50 +30,7 @@
         min-height: 100vh;
     }
 
-    /* ============================================
-       WAVE ZÓCALO — Bottom 20% of viewport
-       ============================================ */
-    .wave-zocalo {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 22vh;
-        z-index: 0;
-        pointer-events: none;
-        overflow: hidden;
-    }
 
-    .wave-zocalo svg {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-    }
-
-    /* Subtle sway animations — almost imperceptible */
-    @keyframes sway1 {
-        0%, 100% { transform: translateX(0); }
-        50%      { transform: translateX(-12px); }
-    }
-    @keyframes sway2 {
-        0%, 100% { transform: translateX(0); }
-        50%      { transform: translateX(10px); }
-    }
-    @keyframes sway3 {
-        0%, 100% { transform: translateX(0); }
-        50%      { transform: translateX(-8px); }
-    }
-    @keyframes sway4 {
-        0%, 100% { transform: translateX(0); }
-        50%      { transform: translateX(14px); }
-    }
-
-    .wave-layer-1 { animation: sway1 12s ease-in-out infinite; }
-    .wave-layer-2 { animation: sway2 16s ease-in-out infinite; }
-    .wave-layer-3 { animation: sway3 20s ease-in-out infinite; }
-    .wave-layer-4 { animation: sway4 14s ease-in-out infinite; }
 
     /* ============================================
        MAIN CONTENT
@@ -88,8 +45,7 @@
         flex: 1;
         padding: 40px 24px 0;
         gap: 20px;
-        /* Push content to upper 80% */
-        padding-bottom: 22vh;
+        padding-bottom: 40px;
     }
 
     /* ---- Logo Block ---- */
@@ -238,28 +194,7 @@
      WAVE ZÓCALO (Bottom 20%)
      4 layered SVG waves: navy base + cyan overlays
      ============================================ -->
-<div class="wave-zocalo" aria-hidden="true">
 
-    <!-- Layer 1: Base — Navy institutional (most opaque) -->
-    <svg class="wave-layer-1" viewBox="0 0 1440 320" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M0,224 C180,280 360,160 540,200 C720,240 900,300 1080,260 C1260,220 1380,280 1440,260 L1440,320 L0,320 Z" fill="#0c2340" fill-opacity="0.92"/>
-    </svg>
-
-    <!-- Layer 2: Mid — Deep blue (semi-transparent) -->
-    <svg class="wave-layer-2" viewBox="0 0 1440 320" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M0,256 C240,200 400,290 640,250 C880,210 1040,280 1200,260 C1360,240 1440,270 1440,270 L1440,320 L0,320 Z" fill="#164e7a" fill-opacity="0.55"/>
-    </svg>
-
-    <!-- Layer 3: Upper — Sky blue (transparent, fresh) -->
-    <svg class="wave-layer-3" viewBox="0 0 1440 320" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M0,270 C200,230 480,290 720,260 C960,230 1120,275 1280,255 C1380,242 1440,268 1440,268 L1440,320 L0,320 Z" fill="#38bdf8" fill-opacity="0.30"/>
-    </svg>
-
-    <!-- Layer 4: Top — Soft cyan (lightest, youthful) -->
-    <svg class="wave-layer-4" viewBox="0 0 1440 320" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M0,285 C160,260 320,295 560,275 C800,255 960,290 1120,272 C1280,254 1440,280 1440,280 L1440,320 L0,320 Z" fill="#67e8f9" fill-opacity="0.20"/>
-    </svg>
-</div>
 
 <!-- ============================================
      MAIN CONTENT — Upper 80%
