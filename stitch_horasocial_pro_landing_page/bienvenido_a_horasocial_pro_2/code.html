@@ -1,194 +1,116 @@
-<!DOCTYPE html><html class="light" lang="es"><head>
-<meta charset="utf-8">
-<meta content="width=device-width, initial-scale=1.0" name="viewport">
-<title>HORASOCIAL PRO - Bienvenido</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
-<style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    .material-symbols-outlined {
-        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 48;
-    }
-
-    html, body {
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-        text-rendering: optimizeLegibility;
-    }
-
-    body {
-        background: #fafbfc;
-        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-        color: #191c1e;
-        display: flex;
-        flex-direction: column;
-        min-height: 100vh;
-    }
-
-
-
-    /* ============================================
-       MAIN CONTENT
-       ============================================ */
-    .content-wrapper {
-        position: relative;
-        z-index: 2;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        flex: 1;
-        padding: 40px 24px 0;
-        gap: 20px;
-        padding-bottom: 40px;
-    }
-
-    @keyframes float {
-        0% { transform: translateY(0px); }
-        50% { transform: translateY(-10px); }
-        100% { transform: translateY(0px); }
-    }
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HORASOCIAL PRO - Bienvenido</title>
     
-    .animate-float {
-        animation: float 6s ease-in-out infinite;
-    }
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Plus+Jakarta+Sans:wght@600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* === RESET Y GLOBALES === */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            background: #fafbfc;
+            font-family: 'Inter', sans-serif;
+            color: #191c1e;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
 
-    /* ---- Text Block (compact, unified) ---- */
-    .text-block {
-        text-align: center;
-        max-width: 380px;
-    }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400; }
 
-    .text-block h1 {
-        font-family: 'Plus Jakarta Sans', sans-serif;
-        font-size: 26px;
-        font-weight: 700;
-        color: #0c2340;
-        line-height: 1.25;
-        letter-spacing: -0.02em;
-        margin-bottom: 8px;
-    }
+        /* === LAYOUT PRINCIPAL === */
+        .content-wrapper {
+            position: relative; z-index: 2;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            flex: 1; padding: 40px 24px; gap: 20px;
+        }
 
-    .text-block h1 span {
-        color: #006591;
-    }
+        /* === LOGO Y ANIMACIONES === */
+        .header-logo {
+            flex: 1; display: flex; align-items: center; justify-content: center;
+            width: 100%; max-width: 448px;
+            animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
 
-    .text-block p {
-        font-size: 15px;
-        color: #5a6370;
-        line-height: 1.55;
-        max-width: 300px;
-        margin: 0 auto;
-    }
+        .logo-wrapper { position: relative; }
+        .logo-glow {
+            position: absolute; top: -16px; left: -16px; right: -16px; bottom: -16px;
+            background: #39b8fd; opacity: 0.1; filter: blur(40px); border-radius: 50%;
+            transition: opacity 0.7s;
+        }
+        .logo-img {
+            position: relative; width: 100%; max-width: 280px;
+            border: 3px solid #000; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+            transition: transform 0.5s;
+        }
+        .logo-wrapper:hover .logo-glow { opacity: 0.2; }
+        .logo-wrapper:hover .logo-img { transform: scale(1.05); }
 
-    /* ---- Button ---- */
-    .btn-next {
-        width: 100%;
-        max-width: 340px;
-        padding: 15px 32px;
-        background: #0c2340;
-        color: #ffffff;
-        border: none;
-        border-radius: 14px;
-        font-family: 'Plus Jakarta Sans', sans-serif;
-        font-size: 18px;
-        font-weight: 600;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
-        transition: transform 0.25s cubic-bezier(.4,0,.2,1), box-shadow 0.25s cubic-bezier(.4,0,.2,1);
-        box-shadow: 0 4px 18px rgba(12, 35, 64, 0.20);
-        margin-top: 4px;
-    }
+        /* === TEXTOS === */
+        .text-block { text-align: center; max-width: 380px; }
+        .text-block h1 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 26px; color: #0c2340; line-height: 1.25; margin-bottom: 8px; }
+        .text-block h1 span { color: #006591; }
+        .text-block p { font-size: 15px; color: #5a6370; line-height: 1.55; }
 
-    .btn-next:hover {
-        transform: scale(1.02);
-        box-shadow: 0 6px 28px rgba(12, 35, 64, 0.30);
-    }
+        /* === BOTÓN === */
+        .btn-next {
+            width: 100%; max-width: 340px; padding: 15px 32px; margin-top: 4px;
+            background: #0c2340; color: #fff; border: none; border-radius: 14px;
+            font-family: 'Plus Jakarta Sans', sans-serif; font-size: 18px; font-weight: 600;
+            display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer;
+            box-shadow: 0 4px 18px rgba(12, 35, 64, 0.20);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .btn-next:hover { transform: scale(1.02); box-shadow: 0 6px 28px rgba(12, 35, 64, 0.30); }
+        .btn-next:active { transform: scale(0.97); box-shadow: 0 2px 10px rgba(14, 165, 233, 0.35); }
 
-    .btn-next:active {
-        transform: scale(0.97);
-        box-shadow: 0 2px 10px rgba(14, 165, 233, 0.35);
-    }
+        /* === FOOTER === */
+        .footer-info { text-align: center; margin-top: 6px; }
+        .footer-info span { font-size: 11px; font-weight: 600; color: #9ca3af; letter-spacing: 0.04em; }
+        .footer-line { width: 40px; height: 3px; background: #d1d5db; border-radius: 9999px; margin: 5px auto 0; opacity: 0.5; }
 
-    /* ---- Footer ---- */
-    .footer-info {
-        text-align: center;
-        margin-top: 6px;
-    }
-
-    .footer-info span {
-        font-size: 11px;
-        font-weight: 600;
-        color: #9ca3af;
-        letter-spacing: 0.04em;
-    }
-
-    .footer-line {
-        width: 40px;
-        height: 3px;
-        background: #d1d5db;
-        border-radius: 9999px;
-        margin: 5px auto 0;
-        opacity: 0.5;
-    }
-
-    @keyframes spin { to { transform: rotate(360deg); } }
-
-    @media (min-height: 740px) {
-        .content-wrapper { gap: 26px; }
-        .text-block h1 { font-size: 30px; }
-    }
-
-    @media (max-height: 640px) {
-        .content-wrapper { gap: 12px; padding-top: 20px; }
-        .text-block h1 { font-size: 22px; }
-        .text-block p { font-size: 13px; }
-        .btn-next { padding: 12px 24px; font-size: 16px; }
-    }
-</style>
+        /* === RESPONSIVO === */
+        @media (max-height: 640px) {
+            .content-wrapper { gap: 12px; padding-top: 20px; }
+            .text-block h1 { font-size: 22px; }
+            .logo-img { max-width: 220px; }
+            .btn-next { padding: 12px 24px; font-size: 16px; }
+        }
+    </style>
 </head>
 <body>
 
-<!-- ============================================
-     BACKGROUND MESH WAVE (Canvas)
-     ============================================ -->
-<canvas id="ribbon-canvas" style="position:fixed; top:0; left:0; width:100%; height:100%; z-index:0; pointer-events:none;"></canvas>
+<!-- CANVA DEL FONDO ANIMADO -->
+<canvas id="ribbon-canvas" style="position:fixed; inset:0; z-index:0; pointer-events:none;"></canvas>
 
-<!-- ============================================
-     MAIN CONTENT — Upper 80%
-     ============================================ -->
+<!-- CONTENIDO PRINCIPAL -->
 <div class="content-wrapper">
-
-    <!-- Top Section: Logo -->
-    <header class="flex-1 flex items-center justify-center w-full max-w-md animate-float">
-        <div class="relative group">
-            <!-- Subtle background glow for logo -->
-            <div class="absolute -inset-4 bg-[#39b8fd] opacity-10 blur-2xl rounded-full group-hover:opacity-20 transition-opacity duration-700"></div>
-            <img alt="HORASOCIAL PRO Logo" class="relative w-full max-w-[280px] h-auto object-contain transition-transform duration-500 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwMhl_DdmeafGOmiL2QLqeQV_Ut8aNvKKYwKjKUtrAMBSjpyGc1Acc5TCQm084EODuuIAA3GiusiDfLdXgW3DAC8tdYPa8R-TEraz_hHglTpuTQJRtfOJfW_OyF25795_lzWR3g1wKtd_0fCPC6QxHfyblbvKAQVJNcggVB3k8TYcOAOsA0lTgC8lQz0E1YRlDIn1zQ0vALf8l_40TC_X6xkuWE-o1qr0sdsv2THdAcTxAM9txnjL8N_7oSnlqsHLnXkvvL7tImO-s" style="aspect-ratio: 16/9; border: 3px solid #000000; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.25);">
+    <!-- Logo -->
+    <header class="header-logo">
+        <div class="logo-wrapper">
+            <div class="logo-glow"></div>
+            <img alt="HORASOCIAL PRO Logo" class="logo-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwMhl_DdmeafGOmiL2QLqeQV_Ut8aNvKKYwKjKUtrAMBSjpyGc1Acc5TCQm084EODuuIAA3GiusiDfLdXgW3DAC8tdYPa8R-TEraz_hHglTpuTQJRtfOJfW_OyF25795_lzWR3g1wKtd_0fCPC6QxHfyblbvKAQVJNcggVB3k8TYcOAOsA0lTgC8lQz0E1YRlDIn1zQ0vALf8l_40TC_X6xkuWE-o1qr0sdsv2THdAcTxAM9txnjL8N_7oSnlqsHLnXkvvL7tImO-s">
         </div>
     </header>
 
-    <!-- Text Block -->
+    <!-- Texto -->
     <div class="text-block">
-        <h1>
-            Formando tu futuro,<br>
-            <span>una hora a la vez.</span>
-        </h1>
+        <h1>Formando tu futuro,<br><span>una hora a la vez.</span></h1>
         <p>La gestión inteligente de tu servicio social escolar comienza aquí.</p>
     </div>
 
-    <!-- Action Button -->
+    <!-- Botón -->
     <button class="btn-next" id="btn-siguiente" onclick="handleNavigation()">
         <span>Siguiente</span>
-        <span class="material-symbols-outlined" style="font-size:20px;">arrow_forward</span>
+        <span class="material-symbols-outlined" id="btn-icon">arrow_forward</span>
     </button>
 
     <!-- Footer -->
@@ -199,70 +121,42 @@
 </div>
 
 <script>
+    // Navegación
     function handleNavigation() {
-        const btn = document.getElementById('btn-siguiente');
-        btn.innerHTML = '<span class="material-symbols-outlined" style="animation:spin 0.8s linear infinite; display:inline-block; font-size:22px;">progress_activity</span>';
-        setTimeout(() => {
-            console.log("Navigating to next screen...");
-        }, 800);
+        document.getElementById('btn-icon').innerText = 'progress_activity';
+        document.getElementById('btn-icon').style.animation = 'spin 0.8s linear infinite';
+        setTimeout(() => console.log("Navegando..."), 800);
     }
 
-    // --- Background Ribbon Mesh Animation ---
-    const canvas = document.getElementById('ribbon-canvas');
-    const ctx = canvas.getContext('2d');
-    let w, h;
-    let time = 0;
+    // Animación del Fondo (Ondas)
+    const ctx = document.getElementById('ribbon-canvas').getContext('2d');
+    let w, h, time = 0;
 
-    function init() {
-        w = canvas.width = window.innerWidth;
-        h = canvas.height = window.innerHeight;
-    }
-    window.addEventListener('resize', init);
-    init();
+    function init() { w = ctx.canvas.width = window.innerWidth; h = ctx.canvas.height = window.innerHeight; }
+    window.addEventListener('resize', init); init();
 
     function animate() {
         ctx.clearRect(0, 0, w, h);
-        
-        const lines = 60; // Density of the mesh
-        
-        for (let i = 0; i < lines; i++) {
+        for (let i = 0; i < 60; i++) {
             ctx.beginPath();
-            
-            // Gradient matching the image (Purple -> Blue -> Cyan -> Aqua)
-            const grad = ctx.createLinearGradient(0, 0, w, 0);
-            const alpha = 0.12 + (Math.sin(i * 0.1) * 0.05); // dynamic alpha for depth
-            grad.addColorStop(0, `rgba(167, 139, 250, ${alpha})`); // Soft purple
-            grad.addColorStop(0.35, `rgba(147, 197, 253, ${alpha})`); // Light blue
-            grad.addColorStop(0.65, `rgba(103, 232, 249, ${alpha})`); // Cyan
-            grad.addColorStop(1, `rgba(94, 234, 212, ${alpha})`); // Aqua/Teal
-            
-            ctx.strokeStyle = grad;
-            ctx.lineWidth = 0.8;
-            
-            // Normalize index for the spread offset
-            const normI = (i / lines) * 2 - 1; 
+            const grad = ctx.createLinearGradient(0, 0, w, 0), a = 0.12 + Math.sin(i * 0.1) * 0.05;
+            grad.addColorStop(0, `rgba(167, 139, 250, ${a})`); grad.addColorStop(0.35, `rgba(147, 197, 253, ${a})`);
+            grad.addColorStop(0.65, `rgba(103, 232, 249, ${a})`); grad.addColorStop(1, `rgba(94, 234, 212, ${a})`);
+            ctx.strokeStyle = grad; ctx.lineWidth = 0.8;
             
             for (let x = 0; x <= w; x += 10) {
                 const nx = x / w;
-                
-                // Base flowing motion path
-                const path1 = Math.sin(nx * 4 + time * 0.4) * (h * 0.15);
-                const path2 = Math.cos(nx * 2 - time * 0.25) * (h * 0.1);
-                
-                // Ribbon spread (creates the 3D twisting mesh effect)
                 const spread = Math.sin(nx * 3.5 - time * 0.5) * (h * 0.25) + 30;
-                
-                const y = h * 0.5 + path1 + path2 + (normI * spread);
-                
-                if (x === 0) ctx.moveTo(x, y);
-                else ctx.lineTo(x, y);
+                const y = h * 0.5 + Math.sin(nx * 4 + time * 0.4) * (h * 0.15) + Math.cos(nx * 2 - time * 0.25) * (h * 0.1) + ((i/60)*2-1) * spread;
+                x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
             }
             ctx.stroke();
         }
-        
-        time += 0.004; // Much slower speed for an elegant, tranquil flow
-        requestAnimationFrame(animate);
+        time += 0.004; requestAnimationFrame(animate);
     }
     animate();
 </script>
-</body></html>
+
+<style>@keyframes spin { to { transform: rotate(360deg); } }</style>
+</body>
+</html>
