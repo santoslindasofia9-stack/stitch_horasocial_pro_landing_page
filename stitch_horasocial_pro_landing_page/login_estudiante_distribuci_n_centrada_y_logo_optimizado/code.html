@@ -393,6 +393,7 @@
     </footer>
 
     <script>
+        // Navegación entre secciones internas de la tarjeta
         function switchSection(sectionId) {
             document.querySelectorAll('.card-section').forEach(section => {
                 section.classList.remove('active');
@@ -404,6 +405,7 @@
             }
         }
 
+        // Mostrar / ocultar contraseña
         function togglePassword() {
             const passwordInput = document.getElementById('password-input');
             const passwordToggle = document.getElementById('password-toggle');
@@ -417,15 +419,16 @@
             }
         }
 
-        // Redirección directa al Dashboard
+        // Redirección hacia el dashboard de estudiante
         function handleLogin(event) {
             event.preventDefault(); 
             console.log("Iniciando sesión...");
             
-            // Apunta a la carpeta del dashboard de estudiante
+            // Apunta a la carpeta corregida del dashboard
             window.location.href = '../dashboard_estudiante_navegaci_n_optimizada/code.html';
         }
 
+        // Captura y envío del formulario de recuperación
         function handleRecoverySubmit(event) {
             event.preventDefault();
 
@@ -442,7 +445,7 @@
             event.target.reset();
         }
 
-        // Animación del Fondo
+        // Animación del Fondo (Ondas)
         const ctx = document.getElementById('ribbon-canvas').getContext('2d');
         let w, h, time = 0;
 
