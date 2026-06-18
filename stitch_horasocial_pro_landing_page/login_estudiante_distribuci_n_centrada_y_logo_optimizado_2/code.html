@@ -4,11 +4,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HORASOCIAL PRO - Iniciar Sesión Estudiante</title>
-    
     <!-- Fuentes e Iconos -->
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700&display=swap" rel="stylesheet">
-    
+
     <style>
         /* === RESET Y GLOBALES === */
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -305,192 +304,185 @@
     </style>
 </head>
 <body>
-
-<!-- CANVA DEL FONDO ANIMADO -->
-<canvas id="ribbon-canvas" style="position:fixed; inset:0; z-index:0; pointer-events:none;"></canvas>
-
-<!-- TARJETA CONTENEDORA -->
-<main class="login-card">
+    <!-- CANVA DEL FONDO ANIMADO -->
+    <canvas id="ribbon-canvas" style="position:fixed; inset:0; z-index:0; pointer-events:none;"></canvas>
     
-    <!-- Logo común para todas las vistas -->
-    <div class="card-logo">
-        <img alt="HORASOCIAL PRO Logo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwMhl_DdmeafGOmiL2QLqeQV_Ut8aNvKKYwKjKUtrAMBSjpyGc1Acc5TCQm084EODuuIAA3GiusiDfLdXgW3DAC8tdYPa8R-TEraz_hHglTpuTQJRtfOJfW_OyF25795_lzWR3g1wKtd_0fCPC6QxHfyblbvKAQVJNcggVB3k8TYcOAOsA0lTgC8lQz0E1YRlDIn1zQ0vALf8l_40TC_X6xkuWE-o1qr0sdsv2THdAcTxAM9txnjL8N_7oSnlqsHLnXkvvL7tImO-s">
-    </div>
-
-    <!-- 1. SECCIÓN: INICIO DE SESIÓN -->
-    <section id="section-login" class="card-section active">
-        <h1 class="card-title">Iniciar Sesión: <span>Estudiante</span></h1>
-        
-        <form class="form-container" onsubmit="handleLogin(event)">
-            <div class="input-group">
-                <span class="material-symbols-outlined input-icon">person</span>
-                <input type="text" class="input-field" placeholder="Usuario" required autocomplete="username">
-            </div>
-
-            <div class="input-group">
-                <span class="material-symbols-outlined input-icon">lock</span>
-                <input type="password" id="password-input" class="input-field" placeholder="Contraseña" required autocomplete="current-password">
-                <span class="material-symbols-outlined toggle-password" id="password-toggle" onclick="togglePassword()">visibility</span>
-            </div>
-
-            <!-- Un solo botón estilizado sin duplicación -->
-            <button type="submit" class="btn-submit">INGRESAR</button>
-        </form>
-
-        <div class="card-bottom">
-            <button class="text-link" onclick="switchSection('section-recovery')">¿Olvidaste tu contraseña?</button>
-            <span class="material-symbols-outlined settings-icon">settings</span>
+    <!-- TARJETA CONTENEDORA -->
+    <main class="login-card">
+        <!-- Logo común para todas las vistas -->
+        <div class="card-logo">
+            <img alt="HORASOCIAL PRO Logo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwMhl_DdmeafGOmiL2QLqeQV_Ut8aNvKKYwKjKUtrAMBSjpyGc1Acc5TCQm084EODuuIAA3GiusiDfLdXgW3DAC8tdYPa8R-TEraz_hHglTpuTQJRtfOJfW_OyF25795_lzWR3g1wKtd_0fCPC6QxHfyblbvKAQVJNcggVB3k8TYcOAOsA0lTgC8lQz0E1YRlDIn1zQ0vALf8l_40TC_X6xkuWE-o1qr0sdsv2THdAcTxAM9txnjL8N_7oSnlqsHLnXkvvL7tImO-s">
         </div>
-    </section>
 
-    <!-- 2. SECCIÓN: RECUPERACIÓN DE CONTRASEÑA -->
-    <section id="section-recovery" class="card-section">
-        <h1 class="card-title">Recuperar <span>Acceso</span></h1>
-        <p class="card-subtitle">Ingresa tus datos escolares para enviar una solicitud de restablecimiento al administrador.</p>
-        
-        <form class="form-container" onsubmit="handleRecoverySubmit(event)">
-            <!-- Nombre Completo -->
-            <div class="input-group">
-                <span class="material-symbols-outlined input-icon">badge</span>
-                <input type="text" id="recovery-name" class="input-field" placeholder="Nombre completo" required>
+        <!-- 1. SECCIÓN: INICIO DE SESIÓN -->
+        <section id="section-login" class="card-section active">
+            <h1 class="card-title">Iniciar Sesión: <span>Estudiante</span></h1>
+            
+            <form class="form-container" onsubmit="handleLogin(event)">
+                <div class="input-group">
+                    <span class="material-symbols-outlined input-icon">person</span>
+                    <input type="text" class="input-field" placeholder="Usuario" required autocomplete="username">
+                </div>
+
+                <div class="input-group">
+                    <span class="material-symbols-outlined input-icon">lock</span>
+                    <input type="password" id="password-input" class="input-field" placeholder="Contraseña" required autocomplete="current-password">
+                    <span class="material-symbols-outlined toggle-password" id="password-toggle" onclick="togglePassword()">visibility</span>
+                </div>
+
+                <button type="submit" class="btn-submit">INGRESAR</button>
+            </form>
+
+            <div class="card-bottom">
+                <button class="text-link" onclick="switchSection('section-recovery')">¿Olvidaste tu contraseña?</button>
+                <span class="material-symbols-outlined settings-icon">settings</span>
             </div>
+        </section>
 
-            <!-- Teléfono -->
-            <div class="input-group">
-                <span class="material-symbols-outlined input-icon">call</span>
-                <input type="tel" id="recovery-phone" class="input-field" placeholder="Teléfono" required>
+        <!-- 2. SECCIÓN: RECUPERACIÓN DE CONTRASEÑA -->
+        <section id="section-recovery" class="card-section">
+            <h1 class="card-title">Recuperar <span>Acceso</span></h1>
+            <p class="card-subtitle">Ingresa tus datos escolares para enviar una solicitud de restablecimiento al administrador.</p>
+            
+            <form class="form-container" onsubmit="handleRecoverySubmit(event)">
+                <div class="input-group">
+                    <span class="material-symbols-outlined input-icon">badge</span>
+                    <input type="text" id="recovery-name" class="input-field" placeholder="Nombre completo" required>
+                </div>
+
+                <div class="input-group">
+                    <span class="material-symbols-outlined input-icon">call</span>
+                    <input type="tel" id="recovery-phone" class="input-field" placeholder="Teléfono" required>
+                </div>
+
+                <div class="input-group">
+                    <span class="material-symbols-outlined input-icon">school</span>
+                    <input type="text" id="recovery-course" class="input-field" placeholder="Curso (ej. 11-01)" required>
+                </div>
+
+                <button type="submit" class="btn-submit">ENVIAR SOLICITUD</button>
+            </form>
+
+            <div class="card-bottom">
+                <button class="text-link" onclick="switchSection('section-login')">Volver al inicio de sesión</button>
             </div>
+        </section>
 
-            <!-- Curso -->
-            <div class="input-group">
-                <span class="material-symbols-outlined input-icon">school</span>
-                <input type="text" id="recovery-course" class="input-field" placeholder="Curso (ej. 11-01)" required>
+        <!-- 3. SECCIÓN: CONFIRMACIÓN DE ENVÍO -->
+        <section id="section-success" class="card-section">
+            <div class="success-wrapper">
+                <div class="success-icon-circle">
+                    <span class="material-symbols-outlined">check_circle</span>
+                </div>
+                <h2 class="success-title">Solicitud Enviada</h2>
+                <p class="success-description">Los datos se han registrado. El administrador verificará la información para autorizar el restablecimiento.</p>
             </div>
+            
+            <button class="btn-submit" onclick="switchSection('section-login')">VOLVER AL INICIO</button>
+        </section>
+    </main>
 
-            <button type="submit" class="btn-submit">ENVIAR SOLICITUD</button>
-        </form>
-
-        <div class="card-bottom">
-            <button class="text-link" onclick="switchSection('section-login')">Volver al inicio de sesión</button>
+    <!-- FOOTER DE LA PÁGINA -->
+    <footer class="page-footer">
+        <p class="footer-copyright">© 2026 Horasocial Pro. Professional Social Service Management.</p>
+        <div class="footer-links">
+            <a href="#">Privacidad</a>
+            <a href="#">Soporte</a>
+            <a href="#">Términos</a>
         </div>
-    </section>
+    </footer>
 
-    <!-- 3. SECCIÓN: CONFIRMACIÓN DE ENVÍO -->
-    <section id="section-success" class="card-section">
-        <div class="success-wrapper">
-            <div class="success-icon-circle">
-                <span class="material-symbols-outlined">check_circle</span>
-            </div>
-            <h2 class="success-title">Solicitud Enviada</h2>
-            <p class="success-description">Los datos se han registrado. El administrador verificará la información para autorizar el restablecimiento.</p>
-        </div>
-        
-        <button class="btn-submit" onclick="switchSection('section-login')">VOLVER AL INICIO</button>
-    </section>
-
-</main>
-
-<!-- FOOTER DE LA PÁGINA -->
-<footer class="page-footer">
-    <p class="footer-copyright">© 2026 Horasocial Pro. Professional Social Service Management.</p>
-    <div class="footer-links">
-        <a href="#">Privacidad</a>
-        <a href="#">Soporte</a>
-        <a href="#">Términos</a>
-    </div>
-</footer>
-
-<script>
-    // Navegación entre secciones internas de la tarjeta
-    function switchSection(sectionId) {
-        document.querySelectorAll('.card-section').forEach(section => {
-            section.classList.remove('active');
-        });
-        
-        const targetSection = document.getElementById(sectionId);
-        if (targetSection) {
-            targetSection.classList.add('active');
-        }
-    }
-
-    // Mostrar / ocultar contraseña
-    function togglePassword() {
-        const passwordInput = document.getElementById('password-input');
-        const passwordToggle = document.getElementById('password-toggle');
-        
-        if (passwordInput.type === 'password') {
-            passwordInput.type = 'text';
-            passwordToggle.textContent = 'visibility_off';
-        } else {
-            passwordInput.type = 'password';
-            passwordToggle.textContent = 'visibility';
-        }
-    }
-
-    // Redirección directa hacia la carpeta correcta sin el número 2
-    function handleLogin(event) {
-        event.preventDefault(); 
-        console.log("Iniciando sesión...");
-        
-        window.location.href = '../dashboard_estudiante_navegaci_n_optimizada/code.html';
-    }
-
-    // Captura y envío del formulario de recuperación
-    function handleRecoverySubmit(event) {
-        event.preventDefault();
-
-        const data = {
-            nombre: document.getElementById('recovery-name').value,
-            telefono: document.getElementById('recovery-phone').value,
-            curso: document.getElementById('recovery-course').value,
-            fecha: new Date().toISOString()
-        };
-
-        console.log("Datos listos para enviar a administración:", data);
-
-        switchSection('section-success');
-        event.target.reset();
-    }
-
-    // Animación del Fondo (Ondas)
-    const ctx = document.getElementById('ribbon-canvas').getContext('2d');
-    let w, h, time = 0;
-
-    function init() { 
-        w = ctx.canvas.width = window.innerWidth; 
-        h = ctx.canvas.height = window.innerHeight; 
-    }
-    window.addEventListener('resize', init); 
-    init();
-
-    function animate() {
-        ctx.clearRect(0, 0, w, h);
-        for (let i = 0; i < 60; i++) {
-            ctx.beginPath();
-            const grad = ctx.createLinearGradient(0, 0, w, 0);
-            const a = 0.12 + Math.sin(i * 0.1) * 0.05;
+    <script>
+        // Navegación entre secciones internas de la tarjeta
+        function switchSection(sectionId) {
+            document.querySelectorAll('.card-section').forEach(section => {
+                section.classList.remove('active');
+            });
             
-            grad.addColorStop(0, `rgba(167, 139, 250, ${a})`); 
-            grad.addColorStop(0.35, `rgba(147, 197, 253, ${a})`);
-            grad.addColorStop(0.65, `rgba(103, 232, 249, ${a})`); 
-            grad.addColorStop(1, `rgba(94, 234, 212, ${a})`);
-            
-            ctx.strokeStyle = grad; 
-            ctx.lineWidth = 0.8;
-            
-            for (let x = 0; x <= w; x += 10) {
-                const nx = x / w;
-                const spread = Math.sin(nx * 3.5 - time * 0.5) * (h * 0.25) + 30;
-                const y = h * 0.5 + Math.sin(nx * 4 + time * 0.4) * (h * 0.15) + Math.cos(nx * 2 - time * 0.25) * (h * 0.1) + ((i/60)*2-1) * spread;
-                x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+            const targetSection = document.getElementById(sectionId);
+            if (targetSection) {
+                targetSection.classList.add('active');
             }
-            ctx.stroke();
         }
-        time += 0.004; 
-        requestAnimationFrame(animate);
-    }
-    animate();
-</script>
 
+        // Mostrar / ocultar contraseña
+        function togglePassword() {
+            const passwordInput = document.getElementById('password-input');
+            const passwordToggle = document.getElementById('password-toggle');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                passwordToggle.textContent = 'visibility_off';
+            } else {
+                passwordInput.type = 'password';
+                passwordToggle.textContent = 'visibility';
+            }
+        }
+
+        // Redirección hacia el dashboard de estudiante
+        function handleLogin(event) {
+            event.preventDefault(); 
+            console.log("Iniciando sesión...");
+            
+            // Apunta a la carpeta corregida del dashboard
+            window.location.href = '../dashboard_estudiante_navegaci_n_optimizada/code.html';
+        }
+
+        // Captura y envío del formulario de recuperación
+        function handleRecoverySubmit(event) {
+            event.preventDefault();
+
+            const data = {
+                nombre: document.getElementById('recovery-name').value,
+                telefono: document.getElementById('recovery-phone').value,
+                curso: document.getElementById('recovery-course').value,
+                fecha: new Date().toISOString()
+            };
+
+            console.log("Datos listos para enviar a administración:", data);
+
+            switchSection('section-success');
+            event.target.reset();
+        }
+
+        // Animación del Fondo (Ondas)
+        const ctx = document.getElementById('ribbon-canvas').getContext('2d');
+        let w, h, time = 0;
+
+        function init() { 
+            w = ctx.canvas.width = window.innerWidth; 
+            h = ctx.canvas.height = window.innerHeight; 
+        }
+        window.addEventListener('resize', init); 
+        init();
+
+        function animate() {
+            ctx.clearRect(0, 0, w, h);
+            for (let i = 0; i < 60; i++) {
+                ctx.beginPath();
+                const grad = ctx.createLinearGradient(0, 0, w, 0);
+                const a = 0.12 + Math.sin(i * 0.1) * 0.05;
+                
+                grad.addColorStop(0, `rgba(167, 139, 250, ${a})`); 
+                grad.addColorStop(0.35, `rgba(147, 197, 253, ${a})`);
+                grad.addColorStop(0.65, `rgba(103, 232, 249, ${a})`); 
+                grad.addColorStop(1, `rgba(94, 234, 212, ${a})`);
+                
+                ctx.strokeStyle = grad; 
+                ctx.lineWidth = 0.8;
+                
+                for (let x = 0; x <= w; x += 10) {
+                    const nx = x / w;
+                    const spread = Math.sin(nx * 3.5 - time * 0.5) * (h * 0.25) + 30;
+                    const y = h * 0.5 + Math.sin(nx * 4 + time * 0.4) * (h * 0.15) + Math.cos(nx * 2 - time * 0.25) * (h * 0.1) + ((i/60)*2-1) * spread;
+                    x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+                }
+                ctx.stroke();
+            }
+            time += 0.004; 
+            requestAnimationFrame(animate);
+        }
+        animate();
+    </script>
 </body>
 </html>
