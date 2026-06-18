@@ -258,9 +258,29 @@
         .particle {
             position: fixed;
             border-radius: 50%;
-            opacity: 0.03;
             pointer-events: none;
             z-index: 0;
+            filter: blur(1px);
+        }
+
+        /* Particle float animation */
+        @keyframes float-particle {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+                opacity: 0.08;
+            }
+            25% {
+                transform: translate(var(--tx1), var(--ty1)) scale(1.1);
+                opacity: 0.12;
+            }
+            50% {
+                transform: translate(var(--tx2), var(--ty2)) scale(0.9);
+                opacity: 0.06;
+            }
+            75% {
+                transform: translate(var(--tx3), var(--ty3)) scale(1.05);
+                opacity: 0.1;
+            }
         }
 
         /* ===== BADGES ===== */
@@ -297,7 +317,7 @@
 <body class="pb-24">
 
     <!-- Floating Background Particles -->
-    <div id="particles" class="fixed inset-0 pointer-events-none z-0"></div>
+    <div id="particles" class="fixed inset-0 pointer-events-none z-0 overflow-hidden"></div>
 
     <!-- Header -->
     <header class="app-header fixed top-0 w-full z-50 h-16 flex items-center justify-between px-4 sm:px-6 lg:px-8">
@@ -490,11 +510,7 @@
         <section class="animate-fade-up animate-delay-300 pt-4">
             <div class="glass-card rounded-2xl p-5">
                 <h3 class="font-display font-bold text-hs-primary text-sm mb-4 uppercase tracking-wider">Acciones Rápidas</h3>
-                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                    <button class="btn-outline flex flex-col items-center gap-2 p-4 rounded-xl bg-white/50">
-                        <span class="material-symbols-outlined text-hs-secondary text-xl">add_task</span>
-                        <span class="text-xs font-medium text-hs-primary">Nueva Actividad</span>
-                    </button>
+                <div class="grid grid-cols-3 gap-3">
                     <button class="btn-outline flex flex-col items-center gap-2 p-4 rounded-xl bg-white/50">
                         <span class="material-symbols-outlined text-hs-secondary text-xl">history</span>
                         <span class="text-xs font-medium text-hs-primary">Historial</span>
@@ -547,33 +563,60 @@
         // ===== PARTICLES BACKGROUND =====
         function createParticles() {
             const container = document.getElementById('particles');
-            const colors = ['#39b8fd', '#0ea5e9', '#0284c7', '#0f172a'];
+            const particleCount = 25;
             
-            for (let i = 0; i < 15; i++) {
+            for (let i = 0; i < particleCount; i++) {
                 const particle = document.createElement('div');
                 particle.className = 'particle';
-                const size = Math.random() * 100 + 50;
+                
+                // Random size between 40px and 180px
+                const size = Math.random() * 140 + 40;
                 particle.style.width = size + 'px';
                 particle.style.height = size + 'px';
-                particle.style.background = colors[Math.floor(Math.random() * colors.length)];
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.top = Math.random() * 100 + '%';
-                particle.style.animation = `float ${Math.random() * 20 + 10}s infinite ease-in-out`;
-                particle.style.animationDelay = Math.random() * 5 + 's';
+                
+                // Celeste color with varying opacity
+                const opacity = Math.random() * 0.06 + 0.04; // 0.04 to 0.10
+                particle.style.background = `radial-gradient(circle, rgba(57, 184, 253, ${opacity}) 0%, rgba(57, 184, 253, 0) 70%)`;
+                
+                // Position: distributed across the entire viewport
+                // Use a grid-like distribution with randomness for aesthetic spacing
+                const gridX = (i % 5) / 5; // 0, 0.2, 0.4, 0.6, 0.8
+                const gridY = Math.floor(i / 5) / 5; // 0, 0.2, 0.4, 0.6, 0.8
+                
+                // Add randomness to grid position
+                const randomOffsetX = (Math.random() - 0.5) * 25; // ±12.5% variation
+                const randomOffsetY = (Math.random() - 0.5) * 25;
+                
+                const left = ((gridX * 100) + randomOffsetX + 10) % 100;
+                const top = ((gridY * 100) + randomOffsetY + 10) % 100;
+                
+                particle.style.left = left + '%';
+                particle.style.top = top + '%';
+                
+                // Movement variables for animation
+                const tx1 = (Math.random() - 0.5) * 60 + 'px';
+                const ty1 = (Math.random() - 0.5) * 60 + 'px';
+                const tx2 = (Math.random() - 0.5) * 80 + 'px';
+                const ty2 = (Math.random() - 0.5) * 80 + 'px';
+                const tx3 = (Math.random() - 0.5) * 50 + 'px';
+                const ty3 = (Math.random() - 0.5) * 50 + 'px';
+                
+                particle.style.setProperty('--tx1', tx1);
+                particle.style.setProperty('--ty1', ty1);
+                particle.style.setProperty('--tx2', tx2);
+                particle.style.setProperty('--ty2', ty2);
+                particle.style.setProperty('--tx3', tx3);
+                particle.style.setProperty('--ty3', ty3);
+                
+                // Animation duration and delay
+                const duration = Math.random() * 15 + 20; // 20-35 seconds
+                const delay = Math.random() * -30; // Start at random point in animation
+                particle.style.animation = `float-particle ${duration}s ease-in-out infinite`;
+                particle.style.animationDelay = delay + 's';
+                
                 container.appendChild(particle);
             }
         }
-
-        // Add float animation
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes float {
-                0%, 100% { transform: translate(0, 0) scale(1); }
-                33% { transform: translate(${Math.random() * 100 - 50}px, ${Math.random() * 100 - 50}px) scale(1.1); }
-                66% { transform: translate(${Math.random() * 100 - 50}px, ${Math.random() * 100 - 50}px) scale(0.9); }
-            }
-        `;
-        document.head.appendChild(style);
 
         createParticles();
 
