@@ -58,7 +58,7 @@
         
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #f0f9ff 0%, #f8fafc 50%, #ffffff 100%);
+            background: #f0f9ff;
             min-height: 100vh;
             color: #0f172a;
             overflow-x: hidden;
@@ -73,12 +73,128 @@
             font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
         }
 
+        /* ===== SERENE BACKGROUND ===== */
+        .serene-bg {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        /* Soft gradient orbs that drift slowly */
+        .aurora-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.4;
+            animation: drift 25s ease-in-out infinite;
+        }
+
+        .aurora-orb-1 {
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(57, 184, 253, 0.3) 0%, rgba(135, 206, 250, 0.1) 50%, transparent 70%);
+            top: -10%;
+            left: -10%;
+            animation-delay: 0s;
+            animation-duration: 30s;
+        }
+
+        .aurora-orb-2 {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(14, 165, 233, 0.25) 0%, rgba(186, 230, 253, 0.1) 50%, transparent 70%);
+            bottom: 10%;
+            right: -5%;
+            animation-delay: -10s;
+            animation-duration: 35s;
+        }
+
+        .aurora-orb-3 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(2, 132, 199, 0.2) 0%, rgba(224, 242, 254, 0.08) 50%, transparent 70%);
+            top: 40%;
+            left: 30%;
+            animation-delay: -20s;
+            animation-duration: 28s;
+        }
+
+        .aurora-orb-4 {
+            width: 350px;
+            height: 350px;
+            background: radial-gradient(circle, rgba(186, 230, 253, 0.25) 0%, rgba(240, 249, 255, 0.1) 50%, transparent 70%);
+            bottom: -5%;
+            left: 20%;
+            animation-delay: -5s;
+            animation-duration: 32s;
+        }
+
+        @keyframes drift {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+            }
+            25% {
+                transform: translate(40px, -30px) scale(1.1);
+            }
+            50% {
+                transform: translate(-20px, 50px) scale(0.95);
+            }
+            75% {
+                transform: translate(30px, 20px) scale(1.05);
+            }
+        }
+
+        /* Gentle floating particles like dust in sunlight */
+        .serene-particle {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(57, 184, 253, 0.6) 0%, rgba(57, 184, 253, 0) 70%);
+            animation: float-gentle 20s ease-in-out infinite;
+        }
+
+        @keyframes float-gentle {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+                opacity: 0.3;
+            }
+            33% {
+                transform: translate(var(--tx1), var(--ty1)) scale(1.2);
+                opacity: 0.5;
+            }
+            66% {
+                transform: translate(var(--tx2), var(--ty2)) scale(0.8);
+                opacity: 0.2;
+            }
+        }
+
+        /* Subtle wave lines */
+        .wave-line {
+            position: absolute;
+            width: 200%;
+            height: 2px;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(57, 184, 253, 0.08) 20%, 
+                rgba(57, 184, 253, 0.15) 50%, 
+                rgba(57, 184, 253, 0.08) 80%, 
+                transparent 100%
+            );
+            animation: wave-flow 15s linear infinite;
+        }
+
+        @keyframes wave-flow {
+            0% { transform: translateX(-50%); }
+            100% { transform: translateX(0%); }
+        }
+
         /* ===== GLASS MORPHISM ===== */
         .glass-panel {
-            background: rgba(255, 255, 255, 0.7);
+            background: rgba(255, 255, 255, 0.75);
             backdrop-filter: blur(20px) saturate(180%);
             -webkit-backdrop-filter: blur(20px) saturate(180%);
-            border: 1px solid rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.6);
             box-shadow: 0 2px 15px -3px rgba(15, 23, 42, 0.07), 0 10px 20px -2px rgba(15, 23, 42, 0.04);
         }
 
@@ -246,42 +362,13 @@
 
         /* ===== ANIMATIONS ===== */
         @keyframes shimmer {
-            0% { background-position: -200% 0; }
-            100% { background-position: 200% 0; }
+            0% { backgroundPosition: '-200% 0'; }
+            100% { backgroundPosition: '200% 0'; }
         }
 
         .animate-delay-100 { animation-delay: 100ms; }
         .animate-delay-200 { animation-delay: 200ms; }
         .animate-delay-300 { animation-delay: 300ms; }
-
-        /* ===== FLOATING PARTICLES ===== */
-        .particle {
-            position: fixed;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 0;
-            filter: blur(1px);
-        }
-
-        /* Particle float animation */
-        @keyframes float-particle {
-            0%, 100% {
-                transform: translate(0, 0) scale(1);
-                opacity: 0.08;
-            }
-            25% {
-                transform: translate(var(--tx1), var(--ty1)) scale(1.1);
-                opacity: 0.12;
-            }
-            50% {
-                transform: translate(var(--tx2), var(--ty2)) scale(0.9);
-                opacity: 0.06;
-            }
-            75% {
-                transform: translate(var(--tx3), var(--ty3)) scale(1.05);
-                opacity: 0.1;
-            }
-        }
 
         /* ===== BADGES ===== */
         .badge {
@@ -311,13 +398,28 @@
         @media (max-width: 640px) {
             .glass-card { padding: 20px; }
             .progress-text { font-size: 36px; }
+            .aurora-orb { filter: blur(60px); }
         }
     </style>
 </head>
 <body class="pb-24">
 
-    <!-- Floating Background Particles -->
-    <div id="particles" class="fixed inset-0 pointer-events-none z-0 overflow-hidden"></div>
+    <!-- Serene Background -->
+    <div class="serene-bg">
+        <!-- Soft aurora orbs drifting -->
+        <div class="aurora-orb aurora-orb-1"></div>
+        <div class="aurora-orb aurora-orb-2"></div>
+        <div class="aurora-orb aurora-orb-3"></div>
+        <div class="aurora-orb aurora-orb-4"></div>
+        
+        <!-- Gentle wave lines -->
+        <div class="wave-line" style="top: 20%; animation-delay: 0s;"></div>
+        <div class="wave-line" style="top: 45%; animation-delay: -5s; opacity: 0.6;"></div>
+        <div class="wave-line" style="top: 70%; animation-delay: -10s; opacity: 0.4;"></div>
+        
+        <!-- Floating particles container -->
+        <div id="serene-particles"></div>
+    </div>
 
     <!-- Header -->
     <header class="app-header fixed top-0 w-full z-50 h-16 flex items-center justify-between px-4 sm:px-6 lg:px-8">
@@ -560,65 +662,46 @@
     </nav>
 
     <script>
-        // ===== PARTICLES BACKGROUND =====
-        function createParticles() {
-            const container = document.getElementById('particles');
-            const particleCount = 25;
+        // ===== SERENE PARTICLES =====
+        function createSereneParticles() {
+            const container = document.getElementById('serene-particles');
+            const particleCount = 20;
             
             for (let i = 0; i < particleCount; i++) {
                 const particle = document.createElement('div');
-                particle.className = 'particle';
+                particle.className = 'serene-particle';
                 
-                // Random size between 40px and 180px
-                const size = Math.random() * 140 + 40;
+                // Small size for dust-like effect
+                const size = Math.random() * 6 + 2; // 2px to 8px
                 particle.style.width = size + 'px';
                 particle.style.height = size + 'px';
                 
-                // Celeste color with varying opacity
-                const opacity = Math.random() * 0.06 + 0.04; // 0.04 to 0.10
-                particle.style.background = `radial-gradient(circle, rgba(57, 184, 253, ${opacity}) 0%, rgba(57, 184, 253, 0) 70%)`;
+                // Position: scattered across viewport
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
                 
-                // Position: distributed across the entire viewport
-                // Use a grid-like distribution with randomness for aesthetic spacing
-                const gridX = (i % 5) / 5; // 0, 0.2, 0.4, 0.6, 0.8
-                const gridY = Math.floor(i / 5) / 5; // 0, 0.2, 0.4, 0.6, 0.8
-                
-                // Add randomness to grid position
-                const randomOffsetX = (Math.random() - 0.5) * 25; // ±12.5% variation
-                const randomOffsetY = (Math.random() - 0.5) * 25;
-                
-                const left = ((gridX * 100) + randomOffsetX + 10) % 100;
-                const top = ((gridY * 100) + randomOffsetY + 10) % 100;
-                
-                particle.style.left = left + '%';
-                particle.style.top = top + '%';
-                
-                // Movement variables for animation
-                const tx1 = (Math.random() - 0.5) * 60 + 'px';
-                const ty1 = (Math.random() - 0.5) * 60 + 'px';
-                const tx2 = (Math.random() - 0.5) * 80 + 'px';
-                const ty2 = (Math.random() - 0.5) * 80 + 'px';
-                const tx3 = (Math.random() - 0.5) * 50 + 'px';
-                const ty3 = (Math.random() - 0.5) * 50 + 'px';
+                // Movement variables
+                const tx1 = (Math.random() - 0.5) * 100 + 'px';
+                const ty1 = (Math.random() - 0.5) * 80 + 'px';
+                const tx2 = (Math.random() - 0.5) * 120 + 'px';
+                const ty2 = (Math.random() - 0.5) * 100 + 'px';
                 
                 particle.style.setProperty('--tx1', tx1);
                 particle.style.setProperty('--ty1', ty1);
                 particle.style.setProperty('--tx2', tx2);
                 particle.style.setProperty('--ty2', ty2);
-                particle.style.setProperty('--tx3', tx3);
-                particle.style.setProperty('--ty3', ty3);
                 
-                // Animation duration and delay
-                const duration = Math.random() * 15 + 20; // 20-35 seconds
-                const delay = Math.random() * -30; // Start at random point in animation
-                particle.style.animation = `float-particle ${duration}s ease-in-out infinite`;
+                // Slow, gentle animation
+                const duration = Math.random() * 20 + 25; // 25-45 seconds
+                const delay = Math.random() * -40;
+                particle.style.animation = `float-gentle ${duration}s ease-in-out infinite`;
                 particle.style.animationDelay = delay + 's';
                 
                 container.appendChild(particle);
             }
         }
 
-        createParticles();
+        createSereneParticles();
 
         // ===== PROGRESS ANIMATION =====
         window.addEventListener('load', () => {
