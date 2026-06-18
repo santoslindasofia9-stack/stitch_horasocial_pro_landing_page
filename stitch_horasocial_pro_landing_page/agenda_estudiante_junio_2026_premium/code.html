@@ -1,219 +1,579 @@
 <!DOCTYPE html>
-
-<html class="light" lang="es"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Agenda del Estudiante</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<style>
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-        }
-        .active-icon {
-            font-variation-settings: 'FILL' 1;
-        }
-        body {
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #f7f9fb 0%, #eef6ff 100%);
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
-        .glass-card {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-        }
-        .blob {
-            position: fixed;
-            z-index: -1;
-            filter: blur(80px);
-            border-radius: 50%;
-        }
-        .title-premium {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            color: #001e2c; /* Dark navy blue */
-        }
-    </style>
-<script id="tailwind-config">
+<html class="light" lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Agenda del Estudiante - Horasocial Pro</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet">
+    
+    <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
             theme: {
                 extend: {
-                    "colors": {
-                        "sky-blue": "#38bdf8",
-                        "primary": "#001e2c",
-                        "on-surface": "#191c1e",
-                        "background": "#f7f9fb",
-                        "outline": "#76777d",
-                        "outline-variant": "#c6c6cd"
+                    colors: {
+                        "hs-primary": "#0f172a",
+                        "hs-secondary": "#39b8fd",
+                        "hs-accent": "#006591",
+                        "hs-surface": "#f8fafc",
+                        "hs-card": "#ffffff",
+                        "hs-muted": "#64748b",
+                        "hs-border": "#e2e8f0",
+                        "hs-success": "#10b981",
+                        "hs-warning": "#f59e0b",
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Plus Jakarta Sans', 'sans-serif'],
                     }
                 }
             }
         }
     </script>
-</head>
-<body class="bg-background text-on-surface">
-<!-- Background Aesthetic Blobs -->
-<div class="blob bg-sky-blue/30 w-[400px] h-[400px] -top-20 -left-10 animate-pulse"></div>
-<div class="blob bg-primary/5 w-[500px] h-[500px] -bottom-32 -right-32"></div>
-<!-- Top App Bar -->
-<header class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md shadow-sm h-16 flex items-center justify-between px-6">
-<div class="flex items-center gap-3">
-<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-white shadow-sm">
-<img alt="Student Profile Photo" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDR1UDIqc2bsTcZnWFGDQm5MJhYSoO021Y_T61MlNe_n_jva9xZgrk2nkpy0AdR71x0_2V0iX8PZtaM2oH5T8hp4mi394gRuqq08u2L2iePfFKJn5NcxrKKEEryF6deoRD5gBSHohBlz7Dp8WGBylO3qVZyGjZftVAz203oGGCV8KwpnJzNkuNDho_2enUnPZ9g1IY4rmUsNp3-2B2RCo7vr2rtAAcvz2i2CKFkvkXvIRDUHN-fXqkLxydWJPwJreI__l8nykS9ViVg"/>
-</div>
-<h1 class="title-premium font-bold text-lg" style="font-family: 'Poppins', 'Plus Jakarta Sans', sans-serif;">Mi Agenda</h1>
-</div>
-<button class="text-primary hover:bg-gray-100 p-2 rounded-full transition-colors active:scale-95">
-<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
-</button>
-</header>
-<main class="pt-24 pb-32 px-6 max-w-2xl mx-auto">
-<!-- Calendar Section -->
-<section class="mb-8">
-<div class="glass-card rounded-[2rem] p-6 shadow-sm">
-<div class="flex items-center justify-between mb-6">
-<h2 class="title-premium font-bold text-xl">Junio 2026</h2>
-<div class="flex gap-2">
-<button class="p-2 hover:bg-white rounded-full transition-colors"><span class="material-symbols-outlined text-primary">chevron_left</span></button>
-<button class="p-2 hover:bg-white rounded-full transition-colors"><span class="material-symbols-outlined text-primary">chevron_right</span></button>
-</div>
-</div>
-<!-- Calendar Grid -->
-<div class="grid grid-cols-7 gap-y-4 text-center"><!-- Weekdays -->
-<div class="text-outline font-medium text-xs uppercase">Lu</div>
-<div class="text-outline font-medium text-xs uppercase">Ma</div>
-<div class="text-outline font-medium text-xs uppercase">Mi</div>
-<div class="text-outline font-medium text-xs uppercase">Ju</div>
-<div class="text-outline font-medium text-xs uppercase">Vi</div>
-<div class="text-sky-blue font-medium text-xs uppercase">Sa</div>
-<div class="text-sky-blue font-medium text-xs uppercase">Do</div>
-<!-- Days -->
-<div class="py-2 text-on-surface font-medium relative">1</div>
-<div class="py-2 text-on-surface font-medium relative">2</div>
-<div class="py-2 text-on-surface font-medium relative">3</div>
-<div class="py-2 text-on-surface font-medium relative">4</div>
-<div class="py-2 text-on-surface font-medium relative">5<span class="absolute bottom-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-sky-blue rounded-full"></span></div>
-<div class="py-2 text-sky-blue font-medium relative">6</div>
-<div class="py-2 text-sky-blue font-medium relative">7</div>
-<div class="py-2 text-on-surface font-medium relative">8</div>
-<div class="py-2 text-on-surface font-medium relative">9</div>
-<div class="py-2 text-on-surface font-medium relative">10</div>
-<div class="flex items-center justify-center">
-<div class="w-10 h-10 flex items-center justify-center bg-sky-blue/20 text-sky-blue rounded-full font-bold shadow-sm">11</div>
-</div>
-<div class="py-2 text-on-surface font-medium relative">12<span class="absolute bottom-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-sky-blue rounded-full"></span></div>
-<div class="py-2 text-sky-blue font-medium relative">13</div>
-<div class="py-2 text-sky-blue font-medium relative">14</div>
-<div class="py-2 text-on-surface font-medium relative">15</div>
-<div class="py-2 text-on-surface font-medium relative">16</div>
-<div class="py-2 text-on-surface font-medium relative">17</div>
-<div class="py-2 text-on-surface font-medium relative">18</div>
-<div class="py-2 text-on-surface font-medium relative">19</div>
-<div class="py-2 text-sky-blue font-medium relative">20<span class="absolute bottom-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-sky-blue rounded-full"></span></div>
-<div class="py-2 text-sky-blue font-medium relative">21</div>
-<div class="py-2 text-on-surface font-medium relative">22</div>
-<div class="py-2 text-on-surface font-medium relative">23</div>
-<div class="py-2 text-on-surface font-medium relative">24</div>
-<div class="py-2 text-on-surface font-medium relative">25</div>
-<div class="py-2 text-on-surface font-medium relative">26</div>
-<div class="py-2 text-sky-blue font-medium relative">27</div>
-<div class="py-2 text-sky-blue font-medium relative">28<span class="absolute bottom-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-sky-blue rounded-full"></span></div>
-<div class="py-2 text-on-surface font-medium relative">29</div>
-<div class="py-2 text-on-surface font-medium relative">30</div>
-<div class="py-2 text-outline-variant">1</div>
-<div class="py-2 text-outline-variant">2</div>
-<div class="py-2 text-outline-variant">3</div>
-<div class="py-2 text-outline-variant">4</div>
-<div class="py-2 text-outline-variant">5</div></div>
-</div>
-</section>
-<!-- Activities Section -->
-<section>
-<div class="flex items-center justify-between mb-4">
-<h3 class="title-premium font-bold text-lg">Actividades del Día</h3>
-<span class="text-sm font-medium text-outline">Hoy, 11 Oct</span>
-</div>
-<div class="space-y-4"><!-- Activity Card: Campaña Ambiental -->
-<div class="bg-white rounded-2xl p-6 shadow-sm border border-sky-blue/30 flex gap-4 items-start">
-<div class="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-white">
-<span class="material-symbols-outlined text-[24px]">assignment</span>
-</div>
-<div class="flex-1">
-<div class="flex justify-between items-start">
-<h4 class="title-premium font-bold text-base">Campaña Ambiental</h4>
-<span class="px-2.5 py-0.5 bg-sky-blue/10 text-sky-blue rounded-full text-[10px] font-bold uppercase tracking-wider">Confirmado</span>
-</div>
-<div class="mt-2 space-y-1">
-<div class="flex items-center gap-2 text-outline text-sm">
-<span class="material-symbols-outlined text-base text-sky-blue">location_on</span>
-<span>Campus Principal, Zona Verde</span>
-</div>
-<div class="flex items-center gap-2 text-outline text-sm">
-<span class="material-symbols-outlined text-base text-sky-blue">schedule</span>
-<span>09:00 AM - 01:00 PM</span>
-</div>
-</div>
-</div>
-</div>
-<div class="bg-white/40 backdrop-blur-sm rounded-3xl p-6 border-2 border-dashed border-sky-blue/20 flex flex-col items-center justify-center py-8">
-<p class="text-outline text-sm font-medium">¿Tienes más horas por cumplir?</p>
-<button class="mt-2 text-sky-blue font-bold text-sm flex items-center gap-1 hover:underline">
-    Ver vacantes disponibles
-    <span class="material-symbols-outlined text-base">arrow_forward</span>
-</button>
-</div></div>
-</section>
-</main>
-<!-- Bottom Navigation Bar -->
-<nav class="fixed bottom-0 w-full z-50 bg-white border-t border-gray-100 flex justify-around items-center pt-3 pb-8 px-4 shadow-lg">
-<!-- Dashboard -->
-<a class="flex flex-col items-center justify-center text-gray-400 hover:text-sky-blue transition-colors" href="#">
-<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
-<span class="text-[11px] font-medium mt-1">Inicio</span>
-</a>
-<!-- Agenda (Active) -->
-<a class="flex flex-col items-center justify-center text-sky-blue" href="#">
-<span class="material-symbols-outlined active-icon" data-icon="event_note">event_note</span>
-<span class="text-[11px] font-bold mt-1">Agenda</span>
-</a>
-<!-- Registration -->
-<a class="flex flex-col items-center justify-center text-gray-400 hover:text-sky-blue transition-colors" href="#">
-<span class="material-symbols-outlined" data-icon="app_registration">app_registration</span>
-<span class="text-[11px] font-medium mt-1">Registro</span>
-</a>
-<!-- Messages -->
-<a class="flex flex-col items-center justify-center text-gray-400 hover:text-sky-blue transition-colors" href="#">
-<span class="material-symbols-outlined" data-icon="forum">forum</span>
-<span class="text-[11px] font-medium mt-1">Mensajes</span>
-</a>
-</nav>
-<script>
-    // Premium interactive feedback for calendar days
-    document.querySelectorAll('.grid-cols-7 > div:not(.text-xs)').forEach(day => {
-        day.addEventListener('click', function() {
-            if (this.innerText && !this.classList.contains('text-outline-variant')) {
-                document.querySelectorAll('.bg-sky-blue\\/20').forEach(el => {
-                    el.classList.remove('bg-sky-blue/20', 'text-sky-blue', 'rounded-full', 'font-bold', 'w-10', 'h-10', 'shadow-sm', 'flex', 'items-center', 'justify-center');
-                });
-                
-                // Reset styling for other days
-                document.querySelectorAll('.grid-cols-7 > div:not(.text-xs)').forEach(d => {
-                    if(!d.querySelector('.bg-sky-blue\\/20')) {
-                        d.classList.remove('text-sky-blue', 'font-bold');
-                    }
-                });
+    <style>
+        * { -webkit-tap-highlight-color: transparent; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f0f9ff 0%, #f8fafc 50%, #ffffff 100%);
+            min-height: 100vh;
+            color: #0f172a;
+            overflow-x: hidden;
+        }
 
-                // Apply active style
-                const wrapper = document.createElement('div');
-                wrapper.className = 'w-10 h-10 flex items-center justify-center bg-sky-blue/20 text-sky-blue rounded-full font-bold shadow-sm';
-                wrapper.innerHTML = this.innerHTML;
-                this.innerHTML = '';
-                this.appendChild(wrapper);
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            transition: font-variation-settings 0.2s ease;
+        }
+        .material-symbols-outlined.filled {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        /* Serene Background */
+        .serene-bg {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .aurora-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.4;
+            animation: drift 25s ease-in-out infinite;
+        }
+
+        .aurora-orb-1 {
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(57, 184, 253, 0.3) 0%, rgba(135, 206, 250, 0.1) 50%, transparent 70%);
+            top: -10%;
+            left: -10%;
+            animation-delay: 0s;
+            animation-duration: 30s;
+        }
+
+        .aurora-orb-2 {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(14, 165, 233, 0.25) 0%, rgba(186, 230, 253, 0.1) 50%, transparent 70%);
+            bottom: 10%;
+            right: -5%;
+            animation-delay: -10s;
+            animation-duration: 35s;
+        }
+
+        .aurora-orb-3 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(2, 132, 199, 0.2) 0%, rgba(224, 242, 254, 0.08) 50%, transparent 70%);
+            top: 40%;
+            left: 30%;
+            animation-delay: -20s;
+            animation-duration: 28s;
+        }
+
+        .aurora-orb-4 {
+            width: 350px;
+            height: 350px;
+            background: radial-gradient(circle, rgba(186, 230, 253, 0.25) 0%, rgba(240, 249, 255, 0.1) 50%, transparent 70%);
+            bottom: -5%;
+            left: 20%;
+            animation-delay: -5s;
+            animation-duration: 32s;
+        }
+
+        @keyframes drift {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(40px, -30px) scale(1.1); }
+            50% { transform: translate(-20px, 50px) scale(0.95); }
+            75% { transform: translate(30px, 20px) scale(1.05); }
+        }
+
+        .wave-line {
+            position: absolute;
+            width: 200%;
+            height: 3px;
+            border-radius: 999px;
+            animation: wave-flow 15s linear infinite;
+        }
+
+        .wave-line-1 {
+            top: 20%;
+            background: linear-gradient(90deg, transparent 0%, rgba(57, 184, 253, 0.2) 15%, rgba(57, 184, 253, 0.35) 30%, rgba(57, 184, 253, 0.45) 50%, rgba(57, 184, 253, 0.35) 70%, rgba(57, 184, 253, 0.2) 85%, transparent 100%);
+            box-shadow: 0 0 12px rgba(57, 184, 253, 0.15);
+            animation-delay: 0s;
+        }
+
+        .wave-line-2 {
+            top: 45%;
+            background: linear-gradient(90deg, transparent 0%, rgba(14, 165, 233, 0.15) 20%, rgba(14, 165, 233, 0.3) 40%, rgba(14, 165, 233, 0.4) 50%, rgba(14, 165, 233, 0.3) 60%, rgba(14, 165, 233, 0.15) 80%, transparent 100%);
+            box-shadow: 0 0 10px rgba(14, 165, 233, 0.1);
+            animation-delay: -5s;
+            opacity: 0.85;
+        }
+
+        .wave-line-3 {
+            top: 70%;
+            background: linear-gradient(90deg, transparent 0%, rgba(2, 132, 199, 0.12) 25%, rgba(2, 132, 199, 0.25) 45%, rgba(2, 132, 199, 0.35) 50%, rgba(2, 132, 199, 0.25) 55%, rgba(2, 132, 199, 0.12) 75%, transparent 100%);
+            box-shadow: 0 0 8px rgba(2, 132, 199, 0.08);
+            animation-delay: -10s;
+            opacity: 0.7;
+        }
+
+        .wave-line-4 {
+            top: 35%;
+            background: linear-gradient(90deg, transparent 0%, rgba(135, 206, 250, 0.1) 20%, rgba(135, 206, 250, 0.2) 50%, rgba(135, 206, 250, 0.1) 80%, transparent 100%);
+            box-shadow: 0 0 6px rgba(135, 206, 250, 0.08);
+            animation-delay: -7s;
+            animation-duration: 20s;
+            opacity: 0.6;
+        }
+
+        .wave-line-5 {
+            top: 85%;
+            background: linear-gradient(90deg, transparent 0%, rgba(186, 230, 253, 0.08) 30%, rgba(186, 230, 253, 0.18) 50%, rgba(186, 230, 253, 0.08) 70%, transparent 100%);
+            box-shadow: 0 0 6px rgba(186, 230, 253, 0.06);
+            animation-delay: -12s;
+            animation-duration: 18s;
+            opacity: 0.5;
+        }
+
+        @keyframes wave-flow {
+            0% { transform: translateX(-50%); }
+            100% { transform: translateX(0%); }
+        }
+
+        /* Glass Cards */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px) saturate(150%);
+            -webkit-backdrop-filter: blur(16px) saturate(150%);
+            border: 1px solid rgba(226, 232, 240, 0.6);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(15, 23, 42, 0.1), 0 8px 10px -6px rgba(15, 23, 42, 0.05);
+            border-color: rgba(57, 184, 253, 0.3);
+        }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 2px 15px -3px rgba(15, 23, 42, 0.07), 0 10px 20px -2px rgba(15, 23, 42, 0.04);
+        }
+
+        /* Header */
+        .app-header {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border-bottom: 1px solid rgba(226, 232, 240, 0.6);
+        }
+
+        /* Navigation */
+        .nav-item {
+            position: relative;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .nav-item.active {
+            color: #39b8fd;
+        }
+
+        .nav-item.active::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 24px;
+            height: 3px;
+            background: #39b8fd;
+            border-radius: 999px;
+        }
+
+        .nav-item:hover:not(.active) {
+            color: #0f172a;
+            transform: translateY(-2px);
+        }
+
+        /* Calendar */
+        .calendar-day {
+            position: relative;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border-radius: 999px;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+        }
+
+        .calendar-day:hover:not(.active):not(.empty) {
+            background: rgba(57, 184, 253, 0.1);
+        }
+
+        .calendar-day.active {
+            background: rgba(57, 184, 253, 0.2);
+            color: #0284c7;
+            font-weight: 700;
+            box-shadow: 0 0 0 2px rgba(57, 184, 253, 0.3);
+        }
+
+        .calendar-day.has-event::after {
+            content: '';
+            position: absolute;
+            bottom: 4px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 4px;
+            background: #39b8fd;
+            border-radius: 50%;
+        }
+
+        .calendar-day.weekend {
+            color: #39b8fd;
+        }
+
+        .calendar-day.empty {
+            color: #cbd5e1;
+        }
+
+        /* Activity Cards */
+        .activity-card {
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(226, 232, 240, 0.6);
+            transition: all 0.3s ease;
+        }
+
+        .activity-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.08);
+            border-color: rgba(57, 184, 253, 0.3);
+        }
+
+        /* Badge */
+        .badge {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            padding: 4px 12px;
+            border-radius: 999px;
+        }
+
+        .badge-blue {
+            background: rgba(57, 184, 253, 0.1);
+            color: #0284c7;
+        }
+
+        .badge-green {
+            background: rgba(16, 185, 129, 0.1);
+            color: #059669;
+        }
+
+        .badge-amber {
+            background: rgba(245, 158, 11, 0.1);
+            color: #d97706;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 999px;
+        }
+
+        /* Animations */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-fade-up {
+            animation: fadeUp 0.6s ease-out forwards;
+        }
+
+        .animate-delay-100 { animation-delay: 100ms; }
+        .animate-delay-200 { animation-delay: 200ms; }
+    </style>
+</head>
+<body class="pb-24">
+
+    <!-- Serene Background -->
+    <div class="serene-bg">
+        <div class="aurora-orb aurora-orb-1"></div>
+        <div class="aurora-orb aurora-orb-2"></div>
+        <div class="aurora-orb aurora-orb-3"></div>
+        <div class="aurora-orb aurora-orb-4"></div>
+        <div class="wave-line wave-line-1"></div>
+        <div class="wave-line wave-line-2"></div>
+        <div class="wave-line wave-line-3"></div>
+        <div class="wave-line wave-line-4"></div>
+        <div class="wave-line wave-line-5"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="app-header fixed top-0 w-full z-50 h-16 flex items-center justify-between px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center gap-3">
+            <div class="bg-gradient-to-br from-hs-primary to-hs-accent p-2 rounded-xl shadow-lg shadow-hs-secondary/20">
+                <span class="material-symbols-outlined text-white text-lg">school</span>
+            </div>
+            <div class="flex flex-col">
+                <span class="font-display font-bold text-hs-primary text-sm leading-tight">Horasocial Pro</span>
+                <span class="text-[10px] text-hs-muted font-medium tracking-wider uppercase">Estudiante</span>
+            </div>
+        </div>
+        <div class="flex items-center gap-3">
+            <button class="relative p-2.5 rounded-xl hover:bg-hs-secondary/10 transition-all active:scale-95 group">
+                <span class="material-symbols-outlined text-hs-muted group-hover:text-hs-secondary transition-colors">notifications</span>
+                <span class="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full ring-2 ring-white animate-pulse"></span>
+            </button>
+            <div class="flex items-center gap-2 pl-2 border-l border-hs-border">
+                <div class="w-9 h-9 rounded-full overflow-hidden ring-2 ring-hs-secondary/20 ring-offset-2">
+                    <img alt="Alex" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDR1UDIqc2bsTcZnWFGDQm5MJhYSoO021Y_T61MlNe_n_jva9xZgrk2nkpy0AdR71x0_2V0iX8PZtaM2oH5T8hp4mi394gRuqq08u2L2iePfFKJn5NcxrKKEEryF6deoRD5gBSHohBlz7Dp8WGBylO3qVZyGjZftVAz203oGGCV8KwpnJzNkuNDho_2enUnPZ9g1IY4rmUsNp3-2B2RCo7vr2rtAAcvz2i2CKFkvkXvIRDUHN-fXqkLxydWJPwJreI__l8nykS9ViVg">
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="relative z-10 pt-20 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto space-y-6">
+
+        <!-- Welcome -->
+        <section class="animate-fade-up">
+            <div class="flex items-end justify-between">
+                <div>
+                    <p class="text-hs-muted text-sm font-medium mb-1">Planifica tu tiempo</p>
+                    <h1 class="font-display text-3xl sm:text-4xl font-bold text-hs-primary tracking-tight">
+                        Mi <span class="text-transparent bg-clip-text bg-gradient-to-r from-hs-secondary to-hs-accent">Agenda</span>
+                    </h1>
+                </div>
+                <div class="hidden sm:block text-right">
+                    <p class="text-xs text-hs-muted">Junio 2026</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Calendar Section -->
+        <section class="animate-fade-up animate-delay-100">
+            <div class="glass-card rounded-2xl p-6 shadow-sm">
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="font-display font-bold text-xl text-hs-primary">Junio 2026</h2>
+                    <div class="flex gap-2">
+                        <button class="p-2 hover:bg-hs-secondary/10 rounded-full transition-colors active:scale-95">
+                            <span class="material-symbols-outlined text-hs-primary">chevron_left</span>
+                        </button>
+                        <button class="p-2 hover:bg-hs-secondary/10 rounded-full transition-colors active:scale-95">
+                            <span class="material-symbols-outlined text-hs-primary">chevron_right</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Weekdays -->
+                <div class="grid grid-cols-7 gap-y-4 text-center mb-2">
+                    <div class="text-hs-muted font-medium text-xs uppercase tracking-wider">Lu</div>
+                    <div class="text-hs-muted font-medium text-xs uppercase tracking-wider">Ma</div>
+                    <div class="text-hs-muted font-medium text-xs uppercase tracking-wider">Mi</div>
+                    <div class="text-hs-muted font-medium text-xs uppercase tracking-wider">Ju</div>
+                    <div class="text-hs-muted font-medium text-xs uppercase tracking-wider">Vi</div>
+                    <div class="text-hs-secondary font-medium text-xs uppercase tracking-wider">Sa</div>
+                    <div class="text-hs-secondary font-medium text-xs uppercase tracking-wider">Do</div>
+                </div>
+
+                <!-- Days -->
+                <div class="grid grid-cols-7 gap-y-2 text-center">
+                    <div class="calendar-day empty">1</div>
+                    <div class="calendar-day empty">2</div>
+                    <div class="calendar-day empty">3</div>
+                    <div class="calendar-day">4</div>
+                    <div class="calendar-day has-event">5</div>
+                    <div class="calendar-day weekend">6</div>
+                    <div class="calendar-day weekend">7</div>
+                    <div class="calendar-day">8</div>
+                    <div class="calendar-day">9</div>
+                    <div class="calendar-day">10</div>
+                    <div class="calendar-day active">11</div>
+                    <div class="calendar-day has-event">12</div>
+                    <div class="calendar-day weekend">13</div>
+                    <div class="calendar-day weekend">14</div>
+                    <div class="calendar-day">15</div>
+                    <div class="calendar-day">16</div>
+                    <div class="calendar-day">17</div>
+                    <div class="calendar-day">18</div>
+                    <div class="calendar-day">19</div>
+                    <div class="calendar-day weekend has-event">20</div>
+                    <div class="calendar-day weekend">21</div>
+                    <div class="calendar-day">22</div>
+                    <div class="calendar-day">23</div>
+                    <div class="calendar-day">24</div>
+                    <div class="calendar-day">25</div>
+                    <div class="calendar-day">26</div>
+                    <div class="calendar-day weekend">27</div>
+                    <div class="calendar-day weekend has-event">28</div>
+                    <div class="calendar-day">29</div>
+                    <div class="calendar-day">30</div>
+                    <div class="calendar-day empty">1</div>
+                    <div class="calendar-day empty">2</div>
+                    <div class="calendar-day empty">3</div>
+                    <div class="calendar-day empty">4</div>
+                    <div class="calendar-day empty">5</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Activities Section -->
+        <section class="animate-fade-up animate-delay-200">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="font-display font-bold text-lg text-hs-primary">Actividades del Día</h3>
+                <span class="text-sm font-medium text-hs-muted">Hoy, 11 Jun</span>
+            </div>
+
+            <div class="space-y-4">
+                <!-- Activity Card: Campaña Ambiental -->
+                <div class="activity-card rounded-2xl p-5 flex gap-4 items-start">
+                    <div class="w-12 h-12 rounded-full bg-gradient-to-br from-hs-primary to-hs-accent flex items-center justify-center text-white shadow-lg flex-shrink-0">
+                        <span class="material-symbols-outlined text-xl">assignment</span>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <div class="flex justify-between items-start gap-2">
+                            <h4 class="font-display font-bold text-base text-hs-primary">Campaña Ambiental</h4>
+                            <span class="badge badge-green flex-shrink-0">Confirmado</span>
+                        </div>
+                        <div class="mt-2 space-y-1">
+                            <div class="flex items-center gap-2 text-hs-muted text-sm">
+                                <span class="material-symbols-outlined text-base text-hs-secondary">location_on</span>
+                                <span>Campus Principal, Zona Verde</span>
+                            </div>
+                            <div class="flex items-center gap-2 text-hs-muted text-sm">
+                                <span class="material-symbols-outlined text-base text-hs-secondary">schedule</span>
+                                <span>09:00 AM - 01:00 PM</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Empty State / CTA -->
+                <div class="glass-card rounded-2xl p-6 border-2 border-dashed border-hs-secondary/20 flex flex-col items-center justify-center py-8 text-center">
+                    <div class="w-12 h-12 rounded-full bg-hs-secondary/10 flex items-center justify-center mb-3">
+                        <span class="material-symbols-outlined text-hs-secondary text-xl">search</span>
+                    </div>
+                    <p class="text-hs-muted text-sm font-medium">¿Tienes más horas por cumplir?</p>
+                    <button class="mt-2 text-hs-secondary font-bold text-sm flex items-center gap-1 hover:underline transition-all">
+                        Ver vacantes disponibles
+                        <span class="material-symbols-outlined text-base">arrow_forward</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Upcoming Events -->
+        <section class="animate-fade-up animate-delay-200">
+            <h3 class="font-display font-bold text-lg text-hs-primary mb-4">Próximos Eventos</h3>
+            <div class="space-y-3">
+                <div class="glass-card rounded-xl p-4 flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-xl bg-amber-500/10 flex items-center justify-center flex-shrink-0">
+                        <span class="material-symbols-outlined text-amber-600 text-xl">calculate</span>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <p class="font-semibold text-hs-primary text-sm">Tutoría de Matemáticas</p>
+                        <p class="text-xs text-hs-muted">Mañana, 15:00 - 17:00</p>
+                    </div>
+                    <span class="badge badge-amber">2h</span>
+                </div>
+
+                <div class="glass-card rounded-xl p-4 flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center flex-shrink-0">
+                        <span class="material-symbols-outlined text-emerald-600 text-xl">volunteer_activism</span>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <p class="font-semibold text-hs-primary text-sm">Campaña de Reciclaje</p>
+                        <p class="text-xs text-hs-muted">Sáb 28 Oct, 08:00 - 12:00</p>
+                    </div>
+                    <span class="badge badge-green">4h</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Bottom Navigation - EXACTLY SAME AS DASHBOARD -->
+    <nav class="fixed bottom-0 left-0 w-full glass-panel border-t border-hs-border/50 z-50 pb-safe">
+        <div class="flex justify-around items-center h-16 px-4 max-w-lg mx-auto">
+            <a onclick="window.location.href='/estudiante/dashboard'" class="nav-item flex flex-col items-center gap-1 py-2 px-4 text-hs-muted">
+                <span class="material-symbols-outlined text-xl">dashboard</span>
+                <span class="text-[10px] font-medium">Dashboard</span>
+            </a>
+            <a class="nav-item active flex flex-col items-center gap-1 py-2 px-4">
+                <span class="material-symbols-outlined text-xl filled">calendar_month</span>
+                <span class="text-[10px] font-semibold">Agenda</span>
+            </a>
+            <a class="nav-item flex flex-col items-center gap-1 py-2 px-4 text-hs-muted">
+                <span class="material-symbols-outlined text-xl">add_circle</span>
+                <span class="text-[10px] font-medium">Registro</span>
+            </a>
+            <a class="nav-item flex flex-col items-center gap-1 py-2 px-4 text-hs-muted">
+                <span class="material-symbols-outlined text-xl">chat_bubble</span>
+                <span class="text-[10px] font-medium">Mensajes</span>
+            </a>
+        </div>
+    </nav>
+
+    <script>
+        // Calendar interaction
+        document.querySelectorAll('.calendar-day:not(.empty)').forEach(day => {
+            day.addEventListener('click', function() {
+                document.querySelectorAll('.calendar-day').forEach(d => d.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Scroll header effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('.app-header');
+            if (window.pageYOffset > 50) {
+                header.style.boxShadow = '0 4px 20px -2px rgba(15, 23, 42, 0.08)';
+            } else {
+                header.style.boxShadow = 'none';
             }
         });
-    });
-</script>
-</body></html>
+    </script>
+</body>
+</html>
