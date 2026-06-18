@@ -2,323 +2,623 @@
 <html class="light" lang="es">
 <head>
     <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>Horasocial Pro - Student Dashboard</title>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+    <title>Horasocial Pro - Dashboard Estudiante</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet">
     
     <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
             theme: {
                 extend: {
-                    "colors": {
-                        "tertiary-fixed": "#c4e7ff",
-                        "surface-container-highest": "#e0e3e5",
-                        "primary-fixed": "#dae2fd",
-                        "on-surface-variant": "#45464d",
-                        "tertiary-container": "#001e2c",
-                        "surface": "#f7f9fb",
-                        "inverse-primary": "#bec6e0",
-                        "on-tertiary-fixed-variant": "#004c69",
-                        "on-primary-container": "#7c839b",
-                        "on-background": "#191c1e",
-                        "on-tertiary-fixed": "#001e2c",
-                        "on-secondary-container": "#004666",
-                        "on-secondary-fixed": "#001e2f",
-                        "background": "#f7f9fb",
-                        "surface-container-low": "#f2f4f6",
-                        "on-primary": "#ffffff",
-                        "surface-container": "#eceef0",
-                        "primary-container": "#131b2e",
-                        "on-primary-fixed": "#131b2e",
-                        "surface-variant": "#e0e3e5",
-                        "surface-container-lowest": "#ffffff",
-                        "secondary-fixed": "#c9e6ff",
-                        "primary": "#000000",
-                        "secondary": "#006591",
-                        "outline": "#76777d",
-                        "secondary-fixed-dim": "#89ceff",
-                        "on-error": "#ffffff",
-                        "tertiary-fixed-dim": "#7bd0ff",
-                        "secondary-container": "#39b8fd",
-                        "error-container": "#ffdad6",
-                        "surface-dim": "#d8dadc",
-                        "on-tertiary-container": "#008ebf",
-                        "on-tertiary": "#ffffff",
-                        "on-primary-fixed-variant": "#3f465c",
-                        "outline-variant": "#c6c6cd",
-                        "on-secondary": "#ffffff",
-                        "on-secondary-fixed-variant": "#004c6e",
-                        "surface-tint": "#565e74",
-                        "tertiary": "#000000",
-                        "inverse-surface": "#2d3133",
-                        "inverse-on-surface": "#eff1f3",
-                        "primary-fixed-dim": "#bec6e0",
-                        "error": "#ba1a1a",
-                        "surface-bright": "#f7f9fb",
-                        "on-surface": "#191c1e",
-                        "surface-container-high": "#e6e8ea",
-                        "on-error-container": "#93000a"
+                    colors: {
+                        "hs-primary": "#0f172a",
+                        "hs-secondary": "#39b8fd",
+                        "hs-accent": "#006591",
+                        "hs-surface": "#f8fafc",
+                        "hs-card": "#ffffff",
+                        "hs-muted": "#64748b",
+                        "hs-border": "#e2e8f0",
+                        "hs-success": "#10b981",
+                        "hs-warning": "#f59e0b",
                     },
-                    "borderRadius": {
-                        "DEFAULT": "0.25rem",
-                        "lg": "0.5rem",
-                        "xl": "0.75rem",
-                        "full": "9999px",
-                        "3xl": "1.5rem"
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Plus Jakarta Sans', 'sans-serif'],
                     },
-                    "spacing": {
-                        "unit": "4px",
-                        "margin-desktop": "48px",
-                        "xs": "4px",
-                        "gutter": "24px",
-                        "md": "16px",
-                        "xl": "32px",
-                        "lg": "24px",
-                        "margin-mobile": "16px",
-                        "sm": "8px"
+                    boxShadow: {
+                        'soft': '0 2px 15px -3px rgba(15, 23, 42, 0.07), 0 10px 20px -2px rgba(15, 23, 42, 0.04)',
+                        'glow': '0 0 20px rgba(57, 184, 253, 0.15)',
+                        'elevated': '0 20px 25px -5px rgba(15, 23, 42, 0.1), 0 8px 10px -6px rgba(15, 23, 42, 0.05)',
                     },
-                    "fontFamily": {
-                        "label-md": ["Inter"],
-                        "headline-lg": ["Plus Jakarta Sans"],
-                        "body-lg": ["Inter"],
-                        "headline-sm": ["Plus Jakarta Sans"],
-                        "label-sm": ["Inter"],
-                        "display-lg": ["Plus Jakarta Sans"],
-                        "headline-lg-mobile": ["Plus Jakarta Sans"],
-                        "body-md": ["Inter"],
-                        "headline-md": ["Plus Jakarta Sans"]
+                    animation: {
+                        'fade-up': 'fadeUp 0.6s ease-out forwards',
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'shimmer': 'shimmer 2s linear infinite',
                     },
-                    "fontSize": {
-                        "label-md": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.01em", "fontWeight": "500"}],
-                        "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}],
-                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
-                        "headline-sm": ["20px", {"lineHeight": "1.4", "fontWeight": "600"}],
-                        "label-sm": ["12px", {"lineHeight": "1.2", "fontWeight": "600"}],
-                        "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
-                        "headline-lg-mobile": ["28px", {"lineHeight": "1.2", "fontWeight": "600"}],
-                        "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
-                        "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}]
+                    keyframes: {
+                        fadeUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        shimmer: {
+                            '0%': { backgroundPosition: '-200% 0' },
+                            '100%': { backgroundPosition: '200% 0' },
+                        }
                     }
                 },
             },
         }
     </script>
     <style>
-        body { font-family: 'Inter', sans-serif; }
-        h1, h2, h3, .font-jakarta { font-family: 'Plus Jakarta Sans', sans-serif; }
+        /* ===== RESET & BASE ===== */
+        * { -webkit-tap-highlight-color: transparent; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f0f9ff 0%, #f8fafc 50%, #ffffff 100%);
+            min-height: 100vh;
+            color: #0f172a;
+            overflow-x: hidden;
+        }
+
+        /* ===== MATERIAL SYMBOLS ===== */
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            transition: font-variation-settings 0.2s ease;
+        }
+        .material-symbols-outlined.filled {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        /* ===== GLASS MORPHISM ===== */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 2px 15px -3px rgba(15, 23, 42, 0.07), 0 10px 20px -2px rgba(15, 23, 42, 0.04);
+        }
+
         .glass-card {
-            background: rgba(255, 255, 255, 0.6);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px) saturate(150%);
+            -webkit-backdrop-filter: blur(16px) saturate(150%);
+            border: 1px solid rgba(226, 232, 240, 0.6);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .custom-shadow {
-            box-shadow: 0 4px 20px rgba(15, 23, 42, 0.05);
+
+        .glass-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(15, 23, 42, 0.1), 0 8px 10px -6px rgba(15, 23, 42, 0.05);
+            border-color: rgba(57, 184, 253, 0.3);
         }
-        .nav-shadow {
-            box-shadow: 0 -4px 20px rgba(15, 23, 42, 0.05);
+
+        /* ===== PROGRESS BAR ===== */
+        .progress-track {
+            background: linear-gradient(90deg, #e2e8f0 0%, #f1f5f9 100%);
+            border-radius: 999px;
+            overflow: hidden;
+            position: relative;
         }
-        .bg-gear-pattern {
-            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 5c-1.38 0-2.5 1.12-2.5 2.5V10c-1.12.18-2.2.5-3.23.95l-1.77-1.77c-.98-.98-2.56-.98-3.54 0s-.98 2.56 0 3.54l1.77 1.77c-.45 1.03-.77 2.11-.95 3.23H17.5c-1.38 0-2.5 1.12-2.5 2.5s1.12 2.5 2.5 2.5h2.28c.18 1.12.5 2.2.95 3.23l-1.77 1.77c-.98.98-.98 2.56 0 3.54s2.56.98 3.54 0l1.77-1.77c1.03.45 2.11.77 3.23.95v2.28c0 1.38 1.12 2.5 2.5 2.5s2.5-1.12 2.5-2.5v-2.28c1.12-.18 2.2-.5 3.23-.95l1.77 1.77c.98.98 2.56.98 3.54 0s.98-2.56 0-3.54l-1.77-1.77c.45-1.03.77-2.11.95-3.23h2.28c1.38 0 2.5-1.12 2.5-2.5s-1.12-2.5-2.5-2.5h-2.28c-.18-1.12-.5-2.2-.95-3.23l1.77-1.77c.98-.98.98-2.56 0-3.54s-2.56-.98-3.54 0l-1.77 1.77c-1.03-.45-2.11-.77-3.23-.95V7.5C32.5 6.12 31.38 5 30 5zm0 10c8.28 0 15 6.72 15 15s-6.72 15-15 15-15-6.72-15-15 6.72-15 15-15z' fill='%230f172a' fill-opacity='0.02' fill-rule='evenodd'/%3E%3C/svg%3E");
+
+        .progress-fill {
+            background: linear-gradient(90deg, #39b8fd 0%, #0ea5e9 50%, #0284c7 100%);
+            border-radius: 999px;
+            position: relative;
+            overflow: hidden;
+            transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            background-size: 200% 100%;
+            animation: shimmer 2s linear infinite;
+        }
+
+        /* ===== ACTIVITY CARDS ===== */
+        .activity-card {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .activity-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(180deg, #39b8fd, #0ea5e9);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .activity-card:hover::before {
+            opacity: 1;
+        }
+
+        .activity-card .icon-box {
+            transition: all 0.3s ease;
+        }
+
+        .activity-card:hover .icon-box {
+            transform: scale(1.1) rotate(-5deg);
+            box-shadow: 0 0 20px rgba(57, 184, 253, 0.3);
+        }
+
+        /* ===== NAVIGATION ===== */
+        .nav-item {
+            position: relative;
+            transition: all 0.2s ease;
+        }
+
+        .nav-item.active {
+            color: #39b8fd;
+        }
+
+        .nav-item.active::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 24px;
+            height: 3px;
+            background: #39b8fd;
+            border-radius: 999px;
+        }
+
+        .nav-item:hover:not(.active) {
+            color: #0f172a;
+            transform: translateY(-2px);
+        }
+
+        /* ===== HEADER ===== */
+        .app-header {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border-bottom: 1px solid rgba(226, 232, 240, 0.6);
+        }
+
+        /* ===== BUTTONS ===== */
+        .btn-primary {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px -5px rgba(15, 23, 42, 0.3);
+        }
+
+        .btn-outline {
+            border: 1.5px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+
+        .btn-outline:hover {
+            border-color: #39b8fd;
+            color: #39b8fd;
+            background: rgba(57, 184, 253, 0.05);
+        }
+
+        /* ===== SCROLLBAR ===== */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+
+        .animate-delay-100 { animation-delay: 100ms; }
+        .animate-delay-200 { animation-delay: 200ms; }
+        .animate-delay-300 { animation-delay: 300ms; }
+
+        /* ===== FLOATING PARTICLES ===== */
+        .particle {
+            position: fixed;
+            border-radius: 50%;
+            opacity: 0.03;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* ===== BADGES ===== */
+        .badge {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            padding: 4px 12px;
+            border-radius: 999px;
+        }
+
+        .badge-blue {
+            background: rgba(57, 184, 253, 0.1);
+            color: #0284c7;
+        }
+
+        .badge-green {
+            background: rgba(16, 185, 129, 0.1);
+            color: #059669;
+        }
+
+        .badge-amber {
+            background: rgba(245, 158, 11, 0.1);
+            color: #d97706;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 640px) {
+            .glass-card { padding: 20px; }
+            .progress-text { font-size: 36px; }
         }
     </style>
 </head>
-<body class="bg-surface min-h-screen pb-32 bg-gear-pattern">
-    <!-- Top AppBar -->
-    <header class="fixed top-0 w-full z-50 bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-md shadow-sm h-16 flex items-center justify-between px-margin-mobile">
+<body class="pb-24">
+
+    <!-- Floating Background Particles -->
+    <div id="particles" class="fixed inset-0 pointer-events-none z-0"></div>
+
+    <!-- Header -->
+    <header class="app-header fixed top-0 w-full z-50 h-16 flex items-center justify-between px-4 sm:px-6 lg:px-8">
         <div class="flex items-center gap-3">
-            <div class="bg-primary p-1.5 rounded-lg">
-                <span class="material-symbols-outlined text-white text-[20px]" data-icon="school">school</span>
+            <div class="bg-gradient-to-br from-hs-primary to-hs-accent p-2 rounded-xl shadow-lg shadow-hs-secondary/20">
+                <span class="material-symbols-outlined text-white text-lg">school</span>
             </div>
-            <span class="font-headline-md text-headline-md text-primary font-bold tracking-tight">Horasocial Pro</span>
+            <div class="flex flex-col">
+                <span class="font-display font-bold text-hs-primary text-sm leading-tight">Horasocial Pro</span>
+                <span class="text-[10px] text-hs-muted font-medium tracking-wider uppercase">Estudiante</span>
+            </div>
         </div>
-        <div class="flex items-center gap-4">
-            <button class="relative p-2 rounded-full hover:bg-surface-container-high transition-colors active:scale-95">
-                <span class="material-symbols-outlined text-on-surface-variant" data-icon="notifications">notifications</span>
-                <span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full border-2 border-surface"></span>
+        
+        <div class="flex items-center gap-3">
+            <button class="relative p-2.5 rounded-xl hover:bg-hs-secondary/10 transition-all active:scale-95 group">
+                <span class="material-symbols-outlined text-hs-muted group-hover:text-hs-secondary transition-colors">notifications</span>
+                <span class="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full ring-2 ring-white animate-pulse"></span>
             </button>
-            <div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary-fixed shadow-sm">
-                <img alt="Student Profile Photo" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAkrvKQnHDlPMp7705qkei2xMqO9j7nDyJNByTpol_9iPrHSNhSXYWXlhueFZ9ic7OytKS8XSdTeToTk7ayz-V5Oyo76Cpw6PHxP603EzdcFUinIZWqOQuniASrkw0Q-EnlOpQUxk9tKmy2R4kjEz6VhWwDXgau308W60bq0icqQmnE0nh0o2ZMN-BJy5MlblaPQ5vHpBrKtFeM0RsI3hjdiptdSppJVvFzTc9nI-FsTOhkaypT5uWixNDK5cIKnJCkBq76dU3FhXMi">
+            
+            <div class="flex items-center gap-2 pl-2 border-l border-hs-border">
+                <div class="w-9 h-9 rounded-full overflow-hidden ring-2 ring-hs-secondary/20 ring-offset-2">
+                    <img alt="Alex" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAkrvKQnHDlPMp7705qkei2xMqO9j7nDyJNByTpol_9iPrHSNhSXYWXlhueFZ9ic7OytKS8XSdTeToTk7ayz-V5Oyo76Cpw6PHxP603EzdcFUinIZWqOQuniASrkw0Q-EnlOpQUxk9tKmy2R4kjEz6VhWwDXgau308W60bq0icqQmnE0nh0o2ZMN-BJy5MlblaPQ5vHpBrKtFeM0RsI3hjdiptdSppJVvFzTc9nI-FsTOhkaypT5uWixNDK5cIKnJCkBq76dU3FhXMi">
+                </div>
+                <div class="hidden sm:flex flex-col">
+                    <span class="text-xs font-semibold text-hs-primary">Alex Martínez</span>
+                    <span class="text-[10px] text-hs-muted">11° Grado</span>
+                </div>
             </div>
         </div>
     </header>
 
-    <!-- Main Content Canvas -->
-    <main class="pt-24 px-margin-mobile max-w-4xl mx-auto space-y-xl pb-32">
-        <!-- Greeting Header -->
-        <section class="animate-in fade-in slide-in-from-bottom-4 duration-700">
-            <h1 class="font-headline-lg-mobile text-headline-lg-mobile text-primary font-bold">¡Hola, Alex!</h1>
-            <p class="text-on-surface-variant font-body-md text-body-md mt-1">Tu progreso de servicio social hoy.</p>
+    <!-- Main Content -->
+    <main class="relative z-10 pt-20 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto space-y-6">
+
+        <!-- Welcome Section -->
+        <section class="animate-fade-up">
+            <div class="flex items-end justify-between">
+                <div>
+                    <p class="text-hs-muted text-sm font-medium mb-1">Bienvenido de vuelta</p>
+                    <h1 class="font-display text-3xl sm:text-4xl font-bold text-hs-primary tracking-tight">
+                        ¡Hola, <span class="text-transparent bg-clip-text bg-gradient-to-r from-hs-secondary to-hs-accent">Alex</span>!
+                    </h1>
+                </div>
+                <div class="hidden sm:block text-right">
+                    <p class="text-xs text-hs-muted">Miércoles, 18 de Junio</p>
+                    <p class="text-sm font-semibold text-hs-primary">2026</p>
+                </div>
+            </div>
         </section>
 
-        <!-- Progress Section -->
-        <section class="animate-in fade-in slide-in-from-bottom-6 duration-700 delay-100">
-            <div class="glass-card rounded-3xl p-lg relative overflow-hidden custom-shadow">
-                <div class="absolute -right-10 -top-10 w-40 h-40 bg-secondary-container/20 rounded-full blur-3xl"></div>
+        <!-- Progress Card -->
+        <section class="animate-fade-up animate-delay-100">
+            <div class="glass-card rounded-2xl p-6 sm:p-8 relative overflow-hidden">
+                <!-- Decorative gradient orb -->
+                <div class="absolute -right-20 -top-20 w-64 h-64 bg-gradient-to-br from-hs-secondary/20 to-hs-accent/10 rounded-full blur-3xl pointer-events-none"></div>
+                
                 <div class="relative z-10">
-                    <div class="flex justify-between items-end mb-4">
+                    <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6">
                         <div>
-                            <span class="text-label-sm font-label-sm text-secondary uppercase tracking-wider">Servicio Social</span>
-                            <h2 class="font-headline-sm text-headline-sm text-primary-container mt-1">Has cumplido 40 de 80 horas</h2>
+                            <div class="flex items-center gap-2 mb-2">
+                                <span class="material-symbols-outlined text-hs-secondary text-sm">timer</span>
+                                <span class="text-xs font-semibold text-hs-secondary uppercase tracking-wider">Servicio Social</span>
+                            </div>
+                            <h2 class="font-display text-xl font-bold text-hs-primary">
+                                Has cumplido <span class="text-hs-secondary">40</span> de <span class="text-hs-primary">80</span> horas
+                            </h2>
                         </div>
                         <div class="text-right">
-                            <span class="text-display-lg font-display-lg text-primary tracking-tighter">50<span class="text-headline-md">%</span></span>
+                            <div class="flex items-baseline gap-1 justify-end">
+                                <span class="font-display text-5xl font-bold text-hs-primary tracking-tighter">50</span>
+                                <span class="font-display text-2xl font-bold text-hs-muted">%</span>
+                            </div>
+                            <p class="text-xs text-hs-muted mt-1">Progreso total</p>
                         </div>
                     </div>
-                    <div class="w-full h-4 bg-surface-container rounded-full overflow-hidden">
-                        <div class="h-full bg-secondary-container w-1/2 rounded-full transition-all duration-1000 ease-out relative">
-                            <div class="absolute inset-0 bg-gradient-to-r from-transparent to-white/30"></div>
-                        </div>
+
+                    <div class="progress-track h-3 mb-4">
+                        <div class="progress-fill h-full" style="width: 50%"></div>
                     </div>
-                    <div class="flex justify-between mt-4">
+
+                    <div class="flex items-center justify-between">
                         <div class="flex items-center gap-2">
-                            <span class="material-symbols-outlined text-secondary text-sm" data-icon="task_alt">task_alt</span>
-                            <span class="text-label-md font-label-md text-on-surface-variant">Próxima meta: 60h</span>
+                            <span class="material-symbols-outlined text-hs-success text-sm">trending_up</span>
+                            <span class="text-sm text-hs-muted">Próxima meta: <span class="font-semibold text-hs-primary">60h</span></span>
                         </div>
-                        <button class="text-secondary font-label-md hover:underline flex items-center gap-1 active:scale-95">
-                            Ver detalles <span class="material-symbols-outlined text-sm" data-icon="chevron_right">chevron_right</span>
+                        <button class="flex items-center gap-1 text-sm font-semibold text-hs-secondary hover:text-hs-accent transition-colors group">
+                            Ver detalles 
+                            <span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
                         </button>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Activity List Section -->
-        <section class="space-y-lg animate-in fade-in slide-in-from-bottom-8 duration-700 delay-200">
-            <div class="flex items-center justify-between">
-                <h2 class="font-headline-sm text-headline-sm text-primary-container">Tus Actividades</h2>
-                <button class="text-on-surface-variant font-label-md hover:text-primary transition-colors">Ver todas</button>
+        <!-- Activities Header -->
+        <section class="animate-fade-up animate-delay-200 flex items-center justify-between pt-2">
+            <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-hs-primary">format_list_bulleted</span>
+                <h2 class="font-display text-lg font-bold text-hs-primary">Tus Actividades</h2>
+            </div>
+            <button class="text-sm font-medium text-hs-muted hover:text-hs-secondary transition-colors">
+                Ver todas
+            </button>
+        </section>
+
+        <!-- Activities Grid -->
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-4 animate-fade-up animate-delay-300">
+            
+            <!-- Activity 1 -->
+            <div class="glass-card activity-card rounded-2xl p-5 cursor-pointer">
+                <div class="flex items-start justify-between mb-4">
+                    <div class="icon-box p-3 rounded-xl bg-gradient-to-br from-hs-secondary/10 to-hs-accent/5 text-hs-secondary">
+                        <span class="material-symbols-outlined text-xl">library_books</span>
+                    </div>
+                    <span class="badge badge-blue">En curso</span>
+                </div>
+                <h3 class="font-display font-bold text-hs-primary text-lg mb-3">Apoyo en Biblioteca</h3>
+                <div class="space-y-2">
+                    <div class="flex items-center gap-2 text-sm text-hs-muted">
+                        <span class="material-symbols-outlined text-base">calendar_today</span>
+                        <span>24 de Oct, 2023</span>
+                    </div>
+                    <div class="flex items-center gap-2 text-sm text-hs-muted">
+                        <span class="material-symbols-outlined text-base">schedule</span>
+                        <span>09:00 - 13:00 <span class="font-semibold text-hs-primary">(4h)</span></span>
+                    </div>
+                </div>
+                <div class="mt-4 pt-4 border-t border-hs-border/50 flex items-center justify-between">
+                    <div class="flex -space-x-2">
+                        <div class="w-6 h-6 rounded-full bg-hs-secondary/20 border-2 border-white"></div>
+                        <div class="w-6 h-6 rounded-full bg-hs-accent/20 border-2 border-white"></div>
+                    </div>
+                    <span class="text-xs text-hs-muted">2 participantes</span>
+                </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
-                <!-- Activity Card 1 -->
-                <div class="bg-surface-container-lowest p-lg rounded-3xl custom-shadow hover:bg-surface-container-low transition-all duration-300 group">
-                    <div class="flex items-start justify-between">
-                        <div class="p-3 bg-secondary-container/10 rounded-2xl group-hover:bg-secondary-container group-hover:text-white transition-colors duration-300">
-                            <span class="material-symbols-outlined text-secondary group-hover:text-white" data-icon="library_books">library_books</span>
-                        </div>
-                        <div class="px-3 py-1 bg-tertiary-fixed rounded-full text-on-tertiary-fixed-variant font-label-sm text-label-sm">
-                            En curso
-                        </div>
+            <!-- Activity 2 -->
+            <div class="glass-card activity-card rounded-2xl p-5 cursor-pointer">
+                <div class="flex items-start justify-between mb-4">
+                    <div class="icon-box p-3 rounded-xl bg-gradient-to-br from-amber-500/10 to-orange-500/5 text-amber-600">
+                        <span class="material-symbols-outlined text-xl">calculate</span>
                     </div>
-                    <div class="mt-md">
-                        <h3 class="font-headline-sm text-headline-sm text-primary">Apoyo en Biblioteca</h3>
-                        <div class="flex flex-col gap-1 mt-2">
-                            <div class="flex items-center gap-2 text-on-surface-variant">
-                                <span class="material-symbols-outlined text-sm" data-icon="calendar_today">calendar_today</span>
-                                <span class="font-label-md text-label-md">24 de Oct, 2023</span>
-                            </div>
-                            <div class="flex items-center gap-2 text-on-surface-variant">
-                                <span class="material-symbols-outlined text-sm" data-icon="schedule">schedule</span>
-                                <span class="font-label-md text-label-md">09:00 - 13:00 (4h)</span>
-                            </div>
-                        </div>
+                    <span class="badge badge-amber">Mañana</span>
+                </div>
+                <h3 class="font-display font-bold text-hs-primary text-lg mb-3">Tutoría de Matemáticas</h3>
+                <div class="space-y-2">
+                    <div class="flex items-center gap-2 text-sm text-hs-muted">
+                        <span class="material-symbols-outlined text-base">calendar_today</span>
+                        <span>25 de Oct, 2023</span>
+                    </div>
+                    <div class="flex items-center gap-2 text-sm text-hs-muted">
+                        <span class="material-symbols-outlined text-base">schedule</span>
+                        <span>15:00 - 17:00 <span class="font-semibold text-hs-primary">(2h)</span></span>
                     </div>
                 </div>
-
-                <!-- Activity Card 2 -->
-                <div class="bg-surface-container-lowest p-lg rounded-3xl custom-shadow hover:bg-surface-container-low transition-all duration-300 group">
-                    <div class="flex items-start justify-between">
-                        <div class="p-3 bg-tertiary-fixed/30 rounded-2xl group-hover:bg-tertiary-container group-hover:text-white transition-colors duration-300">
-                            <span class="material-symbols-outlined text-on-tertiary-container group-hover:text-white" data-icon="calculate">calculate</span>
-                        </div>
-                        <div class="px-3 py-1 bg-surface-container-highest rounded-full text-on-surface-variant font-label-sm text-label-sm">
-                            Mañana
-                        </div>
+                <div class="mt-4 pt-4 border-t border-hs-border/50 flex items-center justify-between">
+                    <div class="flex -space-x-2">
+                        <div class="w-6 h-6 rounded-full bg-amber-500/20 border-2 border-white"></div>
                     </div>
-                    <div class="mt-md">
-                        <h3 class="font-headline-sm text-headline-sm text-primary">Tutoría de Matemáticas</h3>
-                        <div class="flex flex-col gap-1 mt-2">
-                            <div class="flex items-center gap-2 text-on-surface-variant">
-                                <span class="material-symbols-outlined text-sm" data-icon="calendar_today">calendar_today</span>
-                                <span class="font-label-md text-label-md">25 de Oct, 2023</span>
-                            </div>
-                            <div class="flex items-center gap-2 text-on-surface-variant">
-                                <span class="material-symbols-outlined text-sm" data-icon="schedule">schedule</span>
-                                <span class="font-label-md text-label-md">15:00 - 17:00 (2h)</span>
-                            </div>
-                        </div>
-                    </div>
+                    <span class="text-xs text-hs-muted">1 participante</span>
                 </div>
+            </div>
 
-                <!-- Activity Card 3 -->
-                <div class="md:col-span-2 bg-surface-container-lowest p-lg rounded-3xl custom-shadow hover:bg-surface-container-low transition-all duration-300 flex flex-col md:flex-row md:items-center justify-between group gap-lg">
-                    <div class="flex items-center gap-lg">
-                        <div class="p-4 bg-error-container/20 rounded-2xl group-hover:bg-error group-hover:text-white transition-colors duration-300">
-                            <span class="material-symbols-outlined text-error group-hover:text-white" data-icon="volunteer_activism">volunteer_activism</span>
+            <!-- Activity 3 - Featured -->
+            <div class="md:col-span-2 glass-card activity-card rounded-2xl p-5 sm:p-6 cursor-pointer relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-emerald-500/10 to-transparent rounded-bl-full pointer-events-none"></div>
+                
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 relative z-10">
+                    <div class="flex items-center gap-4">
+                        <div class="icon-box p-4 rounded-2xl bg-gradient-to-br from-emerald-500/10 to-teal-500/5 text-emerald-600">
+                            <span class="material-symbols-outlined text-2xl">volunteer_activism</span>
                         </div>
                         <div>
-                            <h3 class="font-headline-sm text-headline-sm text-primary">Campaña de Reciclaje</h3>
-                            <p class="text-on-surface-variant font-body-md text-body-md">Sábado 28 de Oct • Campus Principal</p>
+                            <div class="flex items-center gap-2 mb-1">
+                                <h3 class="font-display font-bold text-hs-primary text-lg">Campaña de Reciclaje</h3>
+                                <span class="badge badge-green">Abierto</span>
+                            </div>
+                            <p class="text-sm text-hs-muted">Sábado 28 de Oct • Campus Principal • 08:00 - 12:00</p>
                         </div>
                     </div>
-                    <button class="bg-primary text-white px-lg py-md rounded-2xl font-label-md text-label-md active:scale-95">
+                    <button class="btn-primary text-white px-6 py-3 rounded-xl font-semibold text-sm whitespace-nowrap shadow-lg shadow-hs-primary/20">
                         Inscribirme
                     </button>
                 </div>
+            </div>
 
-                <div class="flex justify-center mt-xl mb-[100px] md:col-span-2">
-                    <button id="btn-cerrar-sesion" class="flex items-center justify-center gap-2 px-xl py-md border border-[#1E293B] rounded-full text-[#1E293B] font-label-md text-label-md hover:bg-surface-container-low active:scale-95 transition-all w-[70%]">
-                        <span class="material-symbols-outlined text-[18px]">logout</span>
-                        <span>Cerrar Sesión</span>
+        </section>
+
+        <!-- Quick Actions -->
+        <section class="animate-fade-up animate-delay-300 pt-4">
+            <div class="glass-card rounded-2xl p-5">
+                <h3 class="font-display font-bold text-hs-primary text-sm mb-4 uppercase tracking-wider">Acciones Rápidas</h3>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                    <button class="btn-outline flex flex-col items-center gap-2 p-4 rounded-xl bg-white/50">
+                        <span class="material-symbols-outlined text-hs-secondary text-xl">add_task</span>
+                        <span class="text-xs font-medium text-hs-primary">Nueva Actividad</span>
+                    </button>
+                    <button class="btn-outline flex flex-col items-center gap-2 p-4 rounded-xl bg-white/50">
+                        <span class="material-symbols-outlined text-hs-secondary text-xl">history</span>
+                        <span class="text-xs font-medium text-hs-primary">Historial</span>
+                    </button>
+                    <button class="btn-outline flex flex-col items-center gap-2 p-4 rounded-xl bg-white/50">
+                        <span class="material-symbols-outlined text-hs-secondary text-xl">file_download</span>
+                        <span class="text-xs font-medium text-hs-primary">Certificado</span>
+                    </button>
+                    <button class="btn-outline flex flex-col items-center gap-2 p-4 rounded-xl bg-white/50">
+                        <span class="material-symbols-outlined text-hs-secondary text-xl">help</span>
+                        <span class="text-xs font-medium text-hs-primary">Ayuda</span>
                     </button>
                 </div>
             </div>
         </section>
 
-        <!-- Academic Gear Decoration -->
-        <div class="hidden md:block absolute right-0 top-1/2 -translate-y-1/2 opacity-5 pointer-events-none transform rotate-12 scale-150">
-            <span class="material-symbols-outlined text-[300px]" data-icon="settings">settings</span>
-        </div>
+        <!-- Logout -->
+        <section class="animate-fade-up animate-delay-300 pb-8">
+            <button id="btn-cerrar-sesion" class="w-full btn-outline flex items-center justify-center gap-2 py-4 rounded-xl text-hs-muted hover:text-red-500 hover:border-red-200 hover:bg-red-50 transition-all">
+                <span class="material-symbols-outlined text-lg">logout</span>
+                <span class="font-medium text-sm">Cerrar Sesión</span>
+            </button>
+        </section>
+
     </main>
 
-    <!-- Bottom Navigation Bar -->
-    <nav class="fixed bottom-0 left-0 w-full bg-white/80 backdrop-blur-md border-t border-outline-variant/30 nav-shadow z-50">
-        <div class="flex justify-around items-center h-20 px-margin-mobile pb-safe">
-            <a class="flex flex-col items-center gap-1 text-secondary" href="#">
-                <span class="material-symbols-outlined text-[24px]">dashboard</span>
-                <span class="font-label-sm text-label-sm font-bold">Dashboard</span>
+    <!-- Bottom Navigation -->
+    <nav class="fixed bottom-0 left-0 w-full glass-panel border-t border-hs-border/50 z-50 pb-safe">
+        <div class="flex justify-around items-center h-16 px-4 max-w-lg mx-auto">
+            <a href="#" class="nav-item active flex flex-col items-center gap-1 py-2 px-4">
+                <span class="material-symbols-outlined text-xl filled">dashboard</span>
+                <span class="text-[10px] font-semibold">Dashboard</span>
             </a>
-            <a class="flex flex-col items-center gap-1 text-on-surface-variant" href="#">
-                <span class="material-symbols-outlined text-[24px]">calendar_month</span>
-                <span class="font-label-sm text-label-sm">Agenda</span>
+            <a href="#" class="nav-item flex flex-col items-center gap-1 py-2 px-4 text-hs-muted">
+                <span class="material-symbols-outlined text-xl">calendar_month</span>
+                <span class="text-[10px] font-medium">Agenda</span>
             </a>
-            <a class="flex flex-col items-center gap-1 text-on-surface-variant" href="#">
-                <span class="material-symbols-outlined text-[24px]">add_circle</span>
-                <span class="font-label-sm text-label-sm">Registro</span>
+            <a href="#" class="nav-item flex flex-col items-center gap-1 py-2 px-4 text-hs-muted">
+                <span class="material-symbols-outlined text-xl">add_circle</span>
+                <span class="text-[10px] font-medium">Registro</span>
             </a>
-            <a class="flex flex-col items-center gap-1 text-on-surface-variant" href="#">
-                <span class="material-symbols-outlined text-[24px]">chat_bubble</span>
-                <span class="font-label-sm text-label-sm">Mensajes</span>
+            <a href="#" class="nav-item flex flex-col items-center gap-1 py-2 px-4 text-hs-muted">
+                <span class="material-symbols-outlined text-xl">chat_bubble</span>
+                <span class="text-[10px] font-medium">Mensajes</span>
             </a>
         </div>
     </nav>
 
     <script>
-        // Micro-interaction for activity cards
-        document.querySelectorAll('.custom-shadow').forEach(card => {
-            card.addEventListener('mouseenter', () => {
-                card.style.transform = 'translateY(-4px)';
-            });
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = 'translateY(0)';
+        // ===== PARTICLES BACKGROUND =====
+        function createParticles() {
+            const container = document.getElementById('particles');
+            const colors = ['#39b8fd', '#0ea5e9', '#0284c7', '#0f172a'];
+            
+            for (let i = 0; i < 15; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                const size = Math.random() * 100 + 50;
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animation = `float ${Math.random() * 20 + 10}s infinite ease-in-out`;
+                particle.style.animationDelay = Math.random() * 5 + 's';
+                container.appendChild(particle);
+            }
+        }
+
+        // Add float animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes float {
+                0%, 100% { transform: translate(0, 0) scale(1); }
+                33% { transform: translate(${Math.random() * 100 - 50}px, ${Math.random() * 100 - 50}px) scale(1.1); }
+                66% { transform: translate(${Math.random() * 100 - 50}px, ${Math.random() * 100 - 50}px) scale(0.9); }
+            }
+        `;
+        document.head.appendChild(style);
+
+        createParticles();
+
+        // ===== PROGRESS ANIMATION =====
+        window.addEventListener('load', () => {
+            const progressFill = document.querySelector('.progress-fill');
+            if (progressFill) {
+                progressFill.style.width = '0%';
+                setTimeout(() => {
+                    progressFill.style.width = '50%';
+                }, 300);
+            }
+        });
+
+        // ===== NAVIGATION INTERACTIONS =====
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', (e) => {
+                document.querySelectorAll('.nav-item').forEach(n => {
+                    n.classList.remove('active');
+                    n.querySelector('.material-symbols-outlined').classList.remove('filled');
+                });
+                e.currentTarget.classList.add('active');
+                e.currentTarget.querySelector('.material-symbols-outlined').classList.add('filled');
             });
         });
 
-        // Add subtle parallax effect to background gear
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            document.body.style.backgroundPositionY = -(scrolled * 0.1) + 'px';
-        });
-
-        // Evento para el botón de cerrar sesión
+        // ===== LOGOUT =====
         document.getElementById('btn-cerrar-sesion').addEventListener('click', () => {
-    // Usa ruta absoluta con / al inicio
-    window.location.href = '/login';
-});
+            window.location.href = '/login';
+        });
+
+        // ===== SCROLL EFFECTS =====
+        let lastScroll = 0;
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            const header = document.querySelector('.app-header');
+            
+            if (currentScroll > 50) {
+                header.style.boxShadow = '0 4px 20px -2px rgba(15, 23, 42, 0.08)';
+            } else {
+                header.style.boxShadow = 'none';
+            }
+            
+            lastScroll = currentScroll;
+        });
     </script>
 </body>
 </html>
