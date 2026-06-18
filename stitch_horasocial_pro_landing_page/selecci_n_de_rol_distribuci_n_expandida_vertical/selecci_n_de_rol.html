@@ -124,8 +124,8 @@
   .logo-img {
     position: relative;
     width: 100%; 
-    max-width: 280px; /* Increased from 160px */
-    background: #ffffff; /* pure white background to pop in dark theme */
+    max-width: 280px; 
+    background: #ffffff; 
     padding: 8px 16px;
     border: 3px solid #000;
     border-radius: 16px;
@@ -167,7 +167,6 @@
   }
 
   /* ===== ROLE CARDS ===== */
-  /* ===== ROLE CARDS (FILA HORIZONTAL PREMIUM) ===== */
   .roles-grid {
     display: flex; 
     flex-direction: row; 
@@ -184,7 +183,7 @@
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 24px; /* Smooth rounded corners matching the user image */
+    border-radius: 24px; 
     padding: 32px 20px;
     display: flex; 
     flex-direction: column;
@@ -277,7 +276,7 @@
   }
   
   .role-info p { 
-    display: none; /* Hide descriptions for horizontal layout */
+    display: none; 
   }
 
   /* ===== FOOTER ===== */
@@ -437,7 +436,7 @@
   </main>
 
   <script>
-    // Navegación animada
+    // Navegación animada y redirección
     function selectRole(role, btnElement) {
         // Añadir feedback visual en el ícono circular central
         const icon = btnElement.querySelector('.role-icon-wrapper .material-symbols-outlined');
@@ -456,8 +455,13 @@
         console.log("Rol seleccionado: " + role);
         
         setTimeout(() => {
-            // Aquí iría la lógica para redirigir según el rol seleccionado (ej. window.location.href = '/login')
-            console.log("Redirigiendo a " + role + "...");
+            // Lógica para redirigir según el rol seleccionado
+            if (role === 'estudiante') {
+                // Sube un nivel e ingresa a la carpeta corregida del login
+                window.location.href = '../login_estudiante_distribuci_n_centrada_y_logo_optimizado/code.html';
+            } else {
+                console.log("Redirigiendo a " + role + "...");
+            }
         }, 800);
     }
 
