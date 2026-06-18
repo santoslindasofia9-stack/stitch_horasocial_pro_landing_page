@@ -239,6 +239,18 @@ app.get('/seleccion-rol', (req, res) => {
 app.get('/login', (req, res) => {
     res.sendFile(path.join(__dirname, 'stitch_horasocial_pro_landing_page', 'login_estudiante_distribuci_n_centrada_y_logo_optimizado_2', 'code.html'));
 });
+// --- RUTA SOBRE / AYUDA ---
+app.get('/sobre', (req, res) => {
+    res.sendFile(path.join(__dirname, 'stitch_horasocial_pro_landing_page', 'sobre_horasocial_pro_identidad_y_prop_sito', 'code.html'));
+});
+// --- RUTA AGENDA ESTUDIANTE ---
+app.get('/estudiante/agenda', (req, res) => {
+    res.sendFile(path.join(__dirname, 'stitch_horasocial_pro_landing_page', 'agenda_estudiante_junio_2026_premium', 'code.html'));
+});
+// --- RUTA REGISTRO ESTUDIANTE ---
+app.get('/estudiante/registro', (req, res) => {
+    res.sendFile(path.join(__dirname, 'stitch_horasocial_pro_landing_page', 'registro_de_asistencia_horasocial_pro', 'code.html'));
+});
 
 // --- RUTAS DEL ESTUDIANTE ---
 app.get('/estudiante/dashboard', (req, res) => {
