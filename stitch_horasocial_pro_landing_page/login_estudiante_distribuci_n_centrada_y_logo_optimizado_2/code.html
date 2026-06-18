@@ -29,7 +29,7 @@
 
         .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400; }
 
-        /* === CONTENEDOR DE LA TARJETA (LOGIN) === */
+        /* === CONTENEDOR DE LA TARJETA === */
         .login-card {
             position: relative;
             z-index: 2;
@@ -42,7 +42,6 @@
             margin: auto 0;
             display: flex;
             flex-direction: column;
-            align-items: center;
             gap: 24px;
         }
 
@@ -52,7 +51,7 @@
             max-width: 180px;
             display: flex;
             justify-content: center;
-            margin-bottom: 8px;
+            margin: 0 auto;
         }
         .card-logo img {
             width: 100%;
@@ -60,7 +59,26 @@
             object-fit: contain;
         }
 
-        /* === TÍTULO === */
+        /* === SECCIONES INTERNAS (LOGIN / RECUPERACIÓN / ÉXITO) === */
+        .card-section {
+            display: none;
+            flex-direction: column;
+            gap: 24px;
+            width: 100%;
+        }
+
+        /* Clase activa para mostrar con animación de entrada */
+        .card-section.active {
+            display: flex;
+            animation: fadeIn 0.35s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* === TITULOS === */
         .card-title {
             font-family: 'Plus Jakarta Sans', sans-serif;
             font-size: 22px;
@@ -72,15 +90,22 @@
             color: #39b8fd;
         }
 
-        /* === FORMULARIO === */
-        .login-form {
+        .card-subtitle {
+            font-size: 14px;
+            color: #5a6370;
+            text-align: center;
+            line-height: 1.5;
+            margin-top: -12px;
+        }
+
+        /* === FORMULARIOS === */
+        .form-container {
             width: 100%;
             display: flex;
             flex-direction: column;
             gap: 16px;
         }
 
-        /* Contenedor de inputs */
         .input-group {
             position: relative;
             width: 100%;
@@ -119,7 +144,6 @@
             box-shadow: 0 0 0 4px rgba(57, 184, 253, 0.1);
         }
 
-        /* Ocultar/Mostrar Contraseña */
         .toggle-password {
             position: absolute;
             right: 16px;
@@ -127,17 +151,13 @@
             font-size: 20px;
             cursor: pointer;
             user-select: none;
-            transition: color 0.2s;
-        }
-        .toggle-password:hover {
-            color: #4b5563;
         }
 
-        /* Botón Ingresar */
+        /* Botones */
         .btn-submit {
             width: 100%;
             height: 52px;
-            background-color: #0f172a; /* Azul muy oscuro / casi negro */
+            background-color: #0f172a;
             color: #ffffff;
             border: none;
             border-radius: 12px;
@@ -158,7 +178,7 @@
             transform: scale(0.98);
         }
 
-        /* === ENLACES Y CONFIGURACIÓN EN LA TARJETA === */
+        /* === CONFIGURACIÓN Y ENLACES DE ABAJO === */
         .card-bottom {
             position: relative;
             width: 100%;
@@ -168,15 +188,19 @@
             margin-top: 8px;
         }
 
-        .forgot-link {
+        .text-link {
             font-size: 13px;
             color: #39b8fd;
             text-decoration: none;
             font-weight: 500;
             transition: color 0.2s;
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-family: inherit;
         }
 
-        .forgot-link:hover {
+        .text-link:hover {
             text-decoration: underline;
             color: #2563eb;
         }
@@ -193,6 +217,45 @@
         .settings-icon:hover {
             color: #9ca3af;
             transform: rotate(45deg);
+        }
+
+        /* === SECCIÓN DE ÉXITO === */
+        .success-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 16px;
+            padding: 10px 0;
+        }
+
+        .success-icon-circle {
+            width: 64px;
+            height: 64px;
+            background-color: #f0fdf4;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #16a34a;
+        }
+
+        .success-icon-circle span {
+            font-size: 36px;
+            font-variation-settings: 'wght' 500;
+        }
+
+        .success-title {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            color: #111827;
+        }
+
+        .success-description {
+            font-size: 14px;
+            color: #4b5563;
+            line-height: 1.5;
         }
 
         /* === FOOTER DE LA PÁGINA === */
@@ -223,7 +286,6 @@
             color: #6b7280;
             text-decoration: none;
             font-weight: 500;
-            transition: color 0.2s;
         }
 
         .footer-links a:hover {
@@ -248,40 +310,84 @@
 <!-- CANVA DEL FONDO ANIMADO -->
 <canvas id="ribbon-canvas" style="position:fixed; inset:0; z-index:0; pointer-events:none;"></canvas>
 
-<!-- CONTENEDOR DE LA TARJETA DE LOGIN -->
+<!-- TARJETA CONTENEDORA -->
 <main class="login-card">
-    <!-- Logo -->
+    
+    <!-- Logo común para todas las vistas -->
     <div class="card-logo">
         <img alt="HORASOCIAL PRO Logo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwMhl_DdmeafGOmiL2QLqeQV_Ut8aNvKKYwKjKUtrAMBSjpyGc1Acc5TCQm084EODuuIAA3GiusiDfLdXgW3DAC8tdYPa8R-TEraz_hHglTpuTQJRtfOJfW_OyF25795_lzWR3g1wKtd_0fCPC6QxHfyblbvKAQVJNcggVB3k8TYcOAOsA0lTgC8lQz0E1YRlDIn1zQ0vALf8l_40TC_X6xkuWE-o1qr0sdsv2THdAcTxAM9txnjL8N_7oSnlqsHLnXkvvL7tImO-s">
     </div>
 
-    <!-- Título -->
-    <h1 class="card-title">Iniciar Sesión: <span>Estudiante</span></h1>
+    <!-- 1. SECCIÓN: INICIO DE SESIÓN -->
+    <section id="section-login" class="card-section active">
+        <h1 class="card-title">Iniciar Sesión: <span>Estudiante</span></h1>
+        
+        <form class="form-container" onsubmit="handleLogin(event)">
+            <div class="input-group">
+                <span class="material-symbols-outlined input-icon">person</span>
+                <input type="text" class="input-field" placeholder="Usuario" required autocomplete="username">
+            </div>
 
-    <!-- Formulario -->
-    <form class="login-form" onsubmit="handleLogin(event)">
-        <!-- Usuario -->
-        <div class="input-group">
-            <span class="material-symbols-outlined input-icon">person</span>
-            <input type="text" class="input-field" placeholder="Usuario" required autocomplete="username">
+            <div class="input-group">
+                <span class="material-symbols-outlined input-icon">lock</span>
+                <input type="password" id="password-input" class="input-field" placeholder="Contraseña" required autocomplete="current-password">
+                <span class="material-symbols-outlined toggle-password" id="password-toggle" onclick="togglePassword()">visibility</span>
+            </div>
+
+            <button type="submit" class="btn-submit">INGRESAR</button>
+        </form>
+
+        <div class="card-bottom">
+            <button class="text-link" onclick="switchSection('section-recovery')">¿Olvidaste tu contraseña?</button>
+            <span class="material-symbols-outlined settings-icon">settings</span>
         </div>
+    </section>
 
-        <!-- Contraseña -->
-        <div class="input-group">
-            <span class="material-symbols-outlined input-icon">lock</span>
-            <input type="password" id="password-input" class="input-field" placeholder="Contraseña" required autocomplete="current-password">
-            <span class="material-symbols-outlined toggle-password" id="password-toggle" onclick="togglePassword()">visibility</span>
+    <!-- 2. SECCIÓN: RECUPERACIÓN DE CONTRASEÑA -->
+    <section id="section-recovery" class="card-section">
+        <h1 class="card-title">Recuperar <span>Acceso</span></h1>
+        <p class="card-subtitle">Ingresa tus datos escolares para enviar una solicitud de restablecimiento al administrador.</p>
+        
+        <form class="form-container" onsubmit="handleRecoverySubmit(event)">
+            <!-- Nombre Completo -->
+            <div class="input-group">
+                <span class="material-symbols-outlined input-icon">badge</span>
+                <input type="text" id="recovery-name" class="input-field" placeholder="Nombre completo" required>
+            </div>
+
+            <!-- Teléfono -->
+            <div class="input-group">
+                <span class="material-symbols-outlined input-icon">call</span>
+                <input type="tel" id="recovery-phone" class="input-field" placeholder="Teléfono" required>
+            </div>
+
+            <!-- Curso -->
+            <div class="input-group">
+                <span class="material-symbols-outlined input-icon">school</span>
+                <input type="text" id="recovery-course" class="input-field" placeholder="Curso (ej. 11-01)" required>
+            </div>
+
+            <button type="submit" class="btn-submit">ENVIAR SOLICITUD</button>
+        </form>
+
+        <div class="card-bottom">
+            <button class="text-link" onclick="switchSection('section-login')">Volver al inicio de sesión</button>
         </div>
+    </section>
 
-        <!-- Botón Ingresar -->
-        <button type="submit" class="btn-submit">INGRESAR</button>
-    </form>
+    <!-- 3. SECCIÓN: CONFIRMACIÓN DE ENVÍO -->
+    <section id="section-success" class="card-section">
+        <div class="success-wrapper">
+            <div class="success-icon-circle">
+                <span class="material-symbols-outlined">check_circle</span>
+            </div>
+            <h2 class="success-title">Solicitud Enviada</h2>
+            <p class="success-description">Los datos se han registrado. El administrador verificará la información para autorizar el restablecimiento.</p>
+        </div>
+        
+        <button class="btn-submit" onclick="switchSection('section-login')">VOLVER AL INICIO</button>
+    </section>
 
-    <!-- Enlaces y Configuración inferior -->
-    <div class="card-bottom">
-        <a href="#" class="forgot-link">¿Olvidaste tu contraseña?</a>
-        <span class="material-symbols-outlined settings-icon">settings</span>
-    </div>
 </main>
 
 <!-- FOOTER DE LA PÁGINA -->
@@ -295,7 +401,21 @@
 </footer>
 
 <script>
-    // Función para mostrar / ocultar la contraseña
+    // Navegación entre secciones internas de la tarjeta
+    function switchSection(sectionId) {
+        // Ocultar todas las secciones
+        document.querySelectorAll('.card-section').forEach(section => {
+            section.classList.remove('active');
+        });
+        
+        // Mostrar la seleccionada
+        const targetSection = document.getElementById(sectionId);
+        if (targetSection) {
+            targetSection.classList.add('active');
+        }
+    }
+
+    // Mostrar / ocultar contraseña
     function togglePassword() {
         const passwordInput = document.getElementById('password-input');
         const passwordToggle = document.getElementById('password-toggle');
@@ -309,11 +429,43 @@
         }
     }
 
-    // Evento de ejemplo para el envío del formulario
+    // Simulación del login
     function handleLogin(event) {
         event.preventDefault();
-        // Aquí puedes colocar tu lógica de autenticación o redirección
-        console.log("Intentando iniciar sesión...");
+        console.log("Iniciando sesión...");
+    }
+
+    // Captura y envío del formulario de recuperación
+    function handleRecoverySubmit(event) {
+        event.preventDefault();
+
+        // Recolección de datos del formulario
+        const data = {
+            nombre: document.getElementById('recovery-name').value,
+            telefono: document.getElementById('recovery-phone').value,
+            curso: document.getElementById('recovery-course').value,
+            fecha: new Date().toISOString()
+        };
+
+        // Aquí realizarás tu llamada de red (fetch) a tu servidor backend
+        console.log("Datos listos para enviar a administración:", data);
+
+        /*
+        Ejemplo de integración futura con tu API:
+        fetch('/api/solicitudes-recuperacion', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        })
+        .then(res => res.json())
+        .then(result => { ... })
+        */
+
+        // Transición directa al mensaje de éxito
+        switchSection('section-success');
+        
+        // Opcional: Limpiar formulario después de enviar
+        event.target.reset();
     }
 
     // Animación del Fondo (Ondas)
