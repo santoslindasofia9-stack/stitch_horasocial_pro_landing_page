@@ -59,7 +59,7 @@
             object-fit: contain;
         }
 
-        /* === SECCIONES INTERNAS (LOGIN / RECUPERACIÓN / ÉXITO) === */
+        /* === SECCIONES INTERNAS === */
         .card-section {
             display: none;
             flex-direction: column;
@@ -67,7 +67,6 @@
             width: 100%;
         }
 
-        /* Clase activa para mostrar con animación de entrada */
         .card-section.active {
             display: flex;
             animation: fadeIn 0.35s ease forwards;
@@ -153,7 +152,7 @@
             user-select: none;
         }
 
-        /* Botones */
+        /* Boton Principal */
         .btn-submit {
             width: 100%;
             height: 52px;
@@ -178,7 +177,7 @@
             transform: scale(0.98);
         }
 
-        /* === CONFIGURACIÓN Y ENLACES DE ABAJO === */
+        /* === CONFIGURACIÓN Y ENLACES === */
         .card-bottom {
             position: relative;
             width: 100%;
@@ -334,6 +333,7 @@
                 <span class="material-symbols-outlined toggle-password" id="password-toggle" onclick="togglePassword()">visibility</span>
             </div>
 
+            <!-- Botón original estilizado -->
             <button type="submit" class="btn-submit">INGRESAR</button>
         </form>
 
@@ -403,12 +403,10 @@
 <script>
     // Navegación entre secciones internas de la tarjeta
     function switchSection(sectionId) {
-        // Ocultar todas las secciones
         document.querySelectorAll('.card-section').forEach(section => {
             section.classList.remove('active');
         });
         
-        // Mostrar la seleccionada
         const targetSection = document.getElementById(sectionId);
         if (targetSection) {
             targetSection.classList.add('active');
@@ -429,17 +427,19 @@
         }
     }
 
-    // Simulación del login
+    // Manejo de redirección tras validar campos en el inicio de sesión
     function handleLogin(event) {
-        event.preventDefault();
+        event.preventDefault(); // Evita que se recargue la página automáticamente
         console.log("Iniciando sesión...");
+        
+        // Redirige al Dashboard de Estudiante una vez validados los campos
+        window.location.href = '../dashboard_estudiante_navegaci_n_optimizada_2/code.html';
     }
 
     // Captura y envío del formulario de recuperación
     function handleRecoverySubmit(event) {
         event.preventDefault();
 
-        // Recolección de datos del formulario
         const data = {
             nombre: document.getElementById('recovery-name').value,
             telefono: document.getElementById('recovery-phone').value,
@@ -447,24 +447,9 @@
             fecha: new Date().toISOString()
         };
 
-        // Aquí realizarás tu llamada de red (fetch) a tu servidor backend
         console.log("Datos listos para enviar a administración:", data);
 
-        /*
-        Ejemplo de integración futura con tu API:
-        fetch('/api/solicitudes-recuperacion', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data)
-        })
-        .then(res => res.json())
-        .then(result => { ... })
-        */
-
-        // Transición directa al mensaje de éxito
         switchSection('section-success');
-        
-        // Opcional: Limpiar formulario después de enviar
         event.target.reset();
     }
 
