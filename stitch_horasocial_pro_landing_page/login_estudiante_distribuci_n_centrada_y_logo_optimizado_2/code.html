@@ -421,14 +421,11 @@
 
         // Redirección hacia el dashboard de estudiante
         function handleLogin(event) {
-            event.preventDefault(); 
-            console.log("Iniciando sesión...");
-            
-            // Apunta a la carpeta corregida del dashboard
-         window.location.href = './dashboard_estudiante_navegaci_n_optimizada/code.html';
-         window.location.href = 'dashboard_estudiante_navegaci_n_optimizada/code.html';
-        }
-
+    event.preventDefault(); 
+    console.log("Iniciando sesión...");
+    // Usa ruta absoluta con / al inicio
+    window.location.href = '/dashboard_estudiante_navegaci_n_optimizada/code.html';
+}
         // Captura y envío del formulario de recuperación
         function handleRecoverySubmit(event) {
             event.preventDefault();
