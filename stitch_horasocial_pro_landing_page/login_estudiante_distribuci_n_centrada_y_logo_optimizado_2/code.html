@@ -429,10 +429,10 @@
 
     // Manejo de redirección tras validar campos en el inicio de sesión
     function handleLogin(event) {
-        event.preventDefault(); // Evita que se recargue la página automáticamente
+        event.preventDefault(); 
         console.log("Iniciando sesión...");
         
-        // Redirige al Dashboard de Estudiante una vez validados los campos
+        // Redirige al Dashboard de Estudiante (comprueba si la carpeta termina en _2 o no)
         window.location.href = '../dashboard_estudiante_navegaci_n_optimizada_2/code.html';
     }
 
