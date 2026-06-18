@@ -252,7 +252,8 @@
                         Inscribirme
                     </button>
 </div><div class="flex justify-center mt-xl mb-[100px]">
-  <button class="flex items-center justify-center gap-2 px-xl py-md border border-[#1E293B] rounded-full text-[#1E293B] font-label-md text-label-md hover:bg-surface-container-low active:scale-95 transition-all w-[70%]">
+  <!-- Botón Cerrar Sesión con función inteligente -->
+  <button id="btn-cerrar-sesion" class="flex items-center justify-center gap-2 px-xl py-md border border-[#1E293B] rounded-full text-[#1E293B] font-label-md text-label-md hover:bg-surface-container-low active:scale-95 transition-all w-[70%]">
     <span class="material-symbols-outlined text-[18px]">logout</span>
     <span class="">Cerrar Sesión</span>
   </button>
@@ -299,6 +300,16 @@
         window.addEventListener('scroll', () => {
             const scrolled = window.pageYOffset;
             document.body.style.backgroundPositionY = -(scrolled * 0.1) + 'px';
+        });
+
+        // Manejo de Cerrar Sesión adaptable al tipo de servidor local de VS Code
+        document.getElementById('btn-cerrar-sesion').addEventListener('click', () => {
+            const path = window.location.pathname;
+            if (path.includes('/stitch_horasocial_pro_landing_page/')) {
+                window.location.href = '../login_estudiante_distribuci_n_centrada_y_logo_optimizado_2/code.html';
+            } else {
+                window.location.href = '../../stitch_horasocial_pro_landing_page/login_estudiante_distribuci_n_centrada_y_logo_optimizado_2/code.html';
+            }
         });
     </script>
 
