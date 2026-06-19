@@ -3,8 +3,9 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
-    <title>Dashboard - Horasocial Pro</title>
+    <title>Horasocial Pro - Dashboard Estudiante</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet">
     
@@ -23,14 +24,33 @@
                         "hs-border": "#e2e8f0",
                         "hs-success": "#10b981",
                         "hs-warning": "#f59e0b",
-                        "hs-danger": "#ef4444",
                     },
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
                         display: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'soft': '0 2px 15px -3px rgba(15, 23, 42, 0.07), 0 10px 20px -2px rgba(15, 23, 42, 0.04)',
+                        'glow': '0 0 20px rgba(57, 184, 253, 0.15)',
+                        'elevated': '0 20px 25px -5px rgba(15, 23, 42, 0.1), 0 8px 10px -6px rgba(15, 23, 42, 0.05)',
+                    },
+                    animation: {
+                        'fade-up': 'fadeUp 0.6s ease-out forwards',
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'shimmer': 'shimmer 2s linear infinite',
+                    },
+                    keyframes: {
+                        fadeUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        shimmer: {
+                            '0%': { backgroundPosition: '-200% 0' },
+                            '100%': { backgroundPosition: '200% 0' },
+                        }
                     }
-                }
-            }
+                },
+            },
         }
     </script>
     <style>
@@ -38,7 +58,7 @@
         
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #f0f9ff 0%, #f8fafc 50%, #ffffff 100%);
+            background: #f0f9ff;
             min-height: 100vh;
             color: #0f172a;
             overflow-x: hidden;
@@ -52,7 +72,6 @@
             font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
         }
 
-        /* Serene Background */
         .serene-bg {
             position: fixed;
             inset: 0;
@@ -192,11 +211,134 @@
             border-color: rgba(57, 184, 253, 0.3);
         }
 
-        .app-header {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(20px) saturate(180%);
-            -webkit-backdrop-filter: blur(20px) saturate(180%);
-            border-bottom: 1px solid rgba(226, 232, 240, 0.6);
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.5);
+            backdrop-filter: blur(8px);
+            z-index: 100;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-container {
+            background: white;
+            border-radius: 24px;
+            width: 100%;
+            max-width: 480px;
+            max-height: 85vh;
+            overflow-y: auto;
+            box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.25);
+            transform: scale(0.95);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active .modal-container {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        .modal-header {
+            padding: 24px 24px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .modal-body {
+            padding: 20px 24px;
+        }
+
+        .modal-footer {
+            padding: 0 24px 24px;
+            display: flex;
+            gap: 12px;
+        }
+
+        .modal-close {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f1f5f9;
+            color: #64748b;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .modal-close:hover {
+            background: #e2e8f0;
+            color: #0f172a;
+        }
+
+        .progress-track {
+            background: linear-gradient(90deg, #e2e8f0 0%, #f1f5f9 100%);
+            border-radius: 999px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #39b8fd 0%, #0ea5e9 50%, #0284c7 100%);
+            border-radius: 999px;
+            position: relative;
+            overflow: hidden;
+            transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            background-size: 200% 100%;
+            animation: shimmer 2s linear infinite;
+        }
+
+        .activity-card {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .activity-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(180deg, #39b8fd, #0ea5e9);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .activity-card:hover::before {
+            opacity: 1;
+        }
+
+        .activity-card .icon-box {
+            transition: all 0.3s ease;
+        }
+
+        .activity-card:hover .icon-box {
+            transform: scale(1.1) rotate(-5deg);
+            box-shadow: 0 0 20px rgba(57, 184, 253, 0.3);
         }
 
         .nav-item {
@@ -226,152 +368,160 @@
             transform: translateY(-2px);
         }
 
-        .stat-card {
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(16px);
-            border: 1px solid rgba(226, 232, 240, 0.6);
-            border-radius: 20px;
-            padding: 20px;
+        .app-header {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border-bottom: 1px solid rgba(226, 232, 240, 0.6);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
             transition: all 0.3s ease;
-        }
-
-        .stat-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 24px -8px rgba(15, 23, 42, 0.08);
-        }
-
-        .activity-card {
-            background: rgba(255, 255, 255, 0.9);
-            border: 1px solid rgba(226, 232, 240, 0.6);
-            border-radius: 16px;
-            padding: 16px;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .activity-card:hover {
-            border-color: rgba(57, 184, 253, 0.3);
-            box-shadow: 0 8px 20px -4px rgba(15, 23, 42, 0.06);
-        }
-
-        .progress-bar {
-            height: 8px;
-            border-radius: 999px;
-            background: rgba(226, 232, 240, 0.5);
+            position: relative;
             overflow: hidden;
         }
 
-        .progress-fill {
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
             height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px -5px rgba(15, 23, 42, 0.3);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #39b8fd 0%, #0ea5e9 100%);
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px -5px rgba(57, 184, 253, 0.4);
+        }
+
+        .btn-outline {
+            border: 1.5px solid #e2e8f0;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .btn-outline:hover {
+            border-color: #39b8fd;
+            color: #39b8fd;
+            background: rgba(57, 184, 253, 0.05);
+        }
+
+        .btn-danger {
+            background: #fef2f2;
+            color: #ef4444;
+            border: 1.5px solid #fecaca;
+            transition: all 0.3s ease;
+        }
+
+        .btn-danger:hover {
+            background: #fee2e2;
+            border-color: #ef4444;
+        }
+
+        .badge {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            padding: 4px 12px;
             border-radius: 999px;
-            transition: width 0.5s ease;
         }
 
-        .animate-fade-up {
-            animation: fadeUp 0.6s ease-out forwards;
+        .badge-blue {
+            background: rgba(57, 184, 253, 0.1);
+            color: #0284c7;
         }
 
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        .badge-green {
+            background: rgba(16, 185, 129, 0.1);
+            color: #059669;
+        }
+
+        .badge-amber {
+            background: rgba(245, 158, 11, 0.1);
+            color: #d97706;
+        }
+
+        .badge-purple {
+            background: rgba(139, 92, 246, 0.1);
+            color: #7c3aed;
+        }
+
+        .history-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+
+        .history-table th {
+            text-align: left;
+            padding: 12px 16px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .history-table td {
+            padding: 16px;
+            font-size: 14px;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .history-table tr:hover td {
+            background: #f8fafc;
+        }
+
+        .success-check {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            animation: scaleIn 0.5s ease;
+        }
+
+        @keyframes scaleIn {
+            0% { transform: scale(0); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes shimmer {
+            0% { backgroundPosition: '-200% 0'; }
+            100% { backgroundPosition: '200% 0'; }
         }
 
         .animate-delay-100 { animation-delay: 100ms; }
         .animate-delay-200 { animation-delay: 200ms; }
         .animate-delay-300 { animation-delay: 300ms; }
 
-        /* Logout button styles */
-        .logout-btn {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 16px;
-            border-radius: 12px;
-            color: #64748b;
-            transition: all 0.2s ease;
-            cursor: pointer;
-            border: none;
-            background: transparent;
-            font-size: 14px;
-            font-weight: 500;
-        }
-
-        .logout-btn:hover {
-            background: rgba(239, 68, 68, 0.08);
-            color: #dc2626;
-        }
-
-        .logout-btn:active {
-            transform: scale(0.95);
-        }
-
-        /* User menu dropdown */
-        .user-menu {
-            position: relative;
-        }
-
-        .user-menu-dropdown {
-            position: absolute;
-            top: calc(100% + 8px);
-            right: 0;
-            background: white;
-            border-radius: 16px;
-            box-shadow: 0 20px 50px -10px rgba(15, 23, 42, 0.2);
-            border: 1px solid rgba(226, 232, 240, 0.8);
-            padding: 8px;
-            min-width: 200px;
-            z-index: 50;
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(-10px) scale(0.95);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .user-menu-dropdown.active {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0) scale(1);
-        }
-
-        .menu-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 10px 12px;
-            border-radius: 10px;
-            color: #0f172a;
-            font-size: 14px;
-            font-weight: 500;
-            transition: all 0.2s ease;
-            cursor: pointer;
-            width: 100%;
-            border: none;
-            background: transparent;
-            text-align: left;
-        }
-
-        .menu-item:hover {
-            background: rgba(57, 184, 253, 0.08);
-            color: #0284c7;
-        }
-
-        .menu-item.danger:hover {
-            background: rgba(239, 68, 68, 0.08);
-            color: #dc2626;
-        }
-
-        ::-webkit-scrollbar {
-            width: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #cbd5e1;
-            border-radius: 999px;
-        }
-
         @media (max-width: 640px) {
+            .glass-card { padding: 20px; }
+            .modal-container { max-height: 90vh; border-radius: 20px; }
             .aurora-orb { filter: blur(60px); }
         }
     </style>
@@ -402,44 +552,18 @@
                 <span class="text-[10px] text-hs-muted font-medium tracking-wider uppercase">Estudiante</span>
             </div>
         </div>
-        
-        <!-- Right side: Notifications + User Menu with Logout -->
         <div class="flex items-center gap-3">
-            <!-- Notifications -->
             <button class="relative p-2.5 rounded-xl hover:bg-hs-secondary/10 transition-all active:scale-95 group">
                 <span class="material-symbols-outlined text-hs-muted group-hover:text-hs-secondary transition-colors">notifications</span>
                 <span class="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full ring-2 ring-white animate-pulse"></span>
             </button>
-            
-            <!-- User Menu with Logout -->
-            <div class="user-menu" id="user-menu">
-                <button onclick="toggleUserMenu()" class="flex items-center gap-2 pl-2 border-l border-hs-border hover:bg-hs-surface/50 rounded-xl transition-all p-1">
-                    <div class="w-9 h-9 rounded-full overflow-hidden ring-2 ring-hs-secondary/20 ring-offset-2">
-                        <img alt="Alex" class="w-full h-full object-cover" src="https://ui-avatars.com/api/?name=Alex+Student&background=39b8fd&color=fff">
-                    </div>
-                    <span class="material-symbols-outlined text-hs-muted text-sm hidden sm:block">expand_more</span>
-                </button>
-                
-                <!-- Dropdown Menu -->
-                <div class="user-menu-dropdown" id="user-menu-dropdown">
-                    <div class="px-3 py-2 border-b border-hs-border/50 mb-1">
-                        <p class="font-semibold text-sm text-hs-primary">Alex Student</p>
-                        <p class="text-xs text-hs-muted">alex@universidad.edu</p>
-                    </div>
-                    <button class="menu-item">
-                        <span class="material-symbols-outlined text-hs-muted text-lg">person</span>
-                        Mi Perfil
-                    </button>
-                    <button class="menu-item">
-                        <span class="material-symbols-outlined text-hs-muted text-lg">settings</span>
-                        Configuración
-                    </button>
-                    <div class="border-t border-hs-border/50 my-1"></div>
-                    <!-- ===== BOTÓN CERRAR SESIÓN ===== -->
-                    <button onclick="logout()" class="menu-item danger">
-                        <span class="material-symbols-outlined text-red-500 text-lg">logout</span>
-                        <span class="text-red-500">Cerrar sesión</span>
-                    </button>
+            <div class="flex items-center gap-2 pl-2 border-l border-hs-border">
+                <div class="w-9 h-9 rounded-full overflow-hidden ring-2 ring-hs-secondary/20 ring-offset-2">
+                    <img alt="Alex" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAkrvKQnHDlPMp7705qkei2xMqO9j7nDyJNByTpol_9iPrHSNhSXYWXlhueFZ9ic7OytKS8XSdTeToTk7ayz-V5Oyo76Cpw6PHxP603EzdcFUinIZWqOQuniASrkw0Q-EnlOpQUxk9tKmy2R4kjEz6VhWwDXgau308W60bq0icqQmnE0nh0o2ZMN-BJy5MlblaPQ5vHpBrKtFeM0RsI3hjdiptdSppJVvFzTc9nI-FsTOhkaypT5uWixNDK5cIKnJCkBq76dU3FhXMi">
+                </div>
+                <div class="hidden sm:flex flex-col">
+                    <span class="text-xs font-semibold text-hs-primary">Alex Martínez</span>
+                    <span class="text-[10px] text-hs-muted">11° Grado</span>
                 </div>
             </div>
         </div>
@@ -454,216 +578,791 @@
                 <div>
                     <p class="text-hs-muted text-sm font-medium mb-1">Bienvenido de vuelta</p>
                     <h1 class="font-display text-3xl sm:text-4xl font-bold text-hs-primary tracking-tight">
-                        Dashboard <span class="text-transparent bg-clip-text bg-gradient-to-r from-hs-secondary to-hs-accent">Estudiante</span>
+                        ¡Hola, <span class="text-transparent bg-clip-text bg-gradient-to-r from-hs-secondary to-hs-accent">Alex</span>!
                     </h1>
                 </div>
                 <div class="hidden sm:block text-right">
-                    <p class="text-xs text-hs-muted" id="current-date">Junio 2026</p>
+                    <p class="text-xs text-hs-muted">Miércoles, 18 de Junio</p>
+                    <p class="text-sm font-semibold text-hs-primary">2026</p>
                 </div>
             </div>
         </section>
 
-        <!-- Stats Cards -->
+        <!-- Progress Card -->
         <section class="animate-fade-up animate-delay-100">
-            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
-                <!-- Horas Acumuladas -->
-                <div class="stat-card">
-                    <div class="flex items-center justify-between mb-3">
-                        <div class="p-2 rounded-lg bg-hs-secondary/10">
-                            <span class="material-symbols-outlined text-hs-secondary text-lg">timer</span>
+            <div class="glass-card rounded-2xl p-6 sm:p-8 relative overflow-hidden">
+                <div class="absolute -right-20 -top-20 w-64 h-64 bg-gradient-to-br from-hs-secondary/20 to-hs-accent/10 rounded-full blur-3xl pointer-events-none"></div>
+                <div class="relative z-10">
+                    <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6">
+                        <div>
+                            <div class="flex items-center gap-2 mb-2">
+                                <span class="material-symbols-outlined text-hs-secondary text-sm">timer</span>
+                                <span class="text-xs font-semibold text-hs-secondary uppercase tracking-wider">Servicio Social</span>
+                            </div>
+                            <h2 class="font-display text-xl font-bold text-hs-primary">
+                                Has cumplido <span class="text-hs-secondary">40</span> de <span class="text-hs-primary">80</span> horas
+                            </h2>
                         </div>
-                        <span class="text-xs font-medium text-hs-success bg-emerald-50 px-2 py-1 rounded-full">+12h este mes</span>
-                    </div>
-                    <p class="text-2xl font-display font-bold text-hs-primary">48<span class="text-sm font-normal text-hs-muted">/120h</span></p>
-                    <p class="text-xs text-hs-muted mt-1">Horas acumuladas</p>
-                    <div class="mt-3 progress-bar">
-                        <div class="progress-fill bg-gradient-to-r from-hs-secondary to-hs-accent" style="width: 40%"></div>
-                    </div>
-                </div>
-
-                <!-- Asistencias -->
-                <div class="stat-card">
-                    <div class="flex items-center justify-between mb-3">
-                        <div class="p-2 rounded-lg bg-emerald-50">
-                            <span class="material-symbols-outlined text-emerald-600 text-lg">check_circle</span>
+                        <div class="text-right">
+                            <div class="flex items-baseline gap-1 justify-end">
+                                <span class="font-display text-5xl font-bold text-hs-primary tracking-tighter">50</span>
+                                <span class="font-display text-2xl font-bold text-hs-muted">%</span>
+                            </div>
+                            <p class="text-xs text-hs-muted mt-1">Progreso total</p>
                         </div>
                     </div>
-                    <p class="text-2xl font-display font-bold text-hs-primary">24</p>
-                    <p class="text-xs text-hs-muted mt-1">Asistencias totales</p>
-                    <div class="mt-3 flex gap-1">
-                        <div class="h-1.5 flex-1 bg-emerald-500 rounded-full"></div>
-                        <div class="h-1.5 flex-1 bg-emerald-500 rounded-full"></div>
-                        <div class="h-1.5 flex-1 bg-emerald-500 rounded-full"></div>
-                        <div class="h-1.5 flex-1 bg-hs-border/50 rounded-full"></div>
+                    <div class="progress-track h-3 mb-4">
+                        <div class="progress-fill h-full" style="width: 50%"></div>
                     </div>
-                </div>
-
-                <!-- Faltas -->
-                <div class="stat-card">
-                    <div class="flex items-center justify-between mb-3">
-                        <div class="p-2 rounded-lg bg-red-50">
-                            <span class="material-symbols-outlined text-red-500 text-lg">cancel</span>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-hs-success text-sm">trending_up</span>
+                            <span class="text-sm text-hs-muted">Próxima meta: <span class="font-semibold text-hs-primary">60h</span></span>
                         </div>
-                        <span class="text-xs font-medium text-red-600 bg-red-50 px-2 py-1 rounded-full">2 injustificadas</span>
-                    </div>
-                    <p class="text-2xl font-display font-bold text-hs-primary">5</p>
-                    <p class="text-xs text-hs-muted mt-1">Faltas totales</p>
-                    <div class="mt-3 flex gap-1">
-                        <div class="h-1.5 flex-1 bg-red-500 rounded-full"></div>
-                        <div class="h-1.5 flex-1 bg-amber-500 rounded-full"></div>
-                        <div class="h-1.5 flex-1 bg-hs-border/50 rounded-full"></div>
-                        <div class="h-1.5 flex-1 bg-hs-border/50 rounded-full"></div>
-                    </div>
-                </div>
-
-                <!-- Tasa de asistencia -->
-                <div class="stat-card">
-                    <div class="flex items-center justify-between mb-3">
-                        <div class="p-2 rounded-lg bg-purple-50">
-                            <span class="material-symbols-outlined text-purple-600 text-lg">trending_up</span>
-                        </div>
-                    </div>
-                    <p class="text-2xl font-display font-bold text-hs-primary">82.8%</p>
-                    <p class="text-xs text-hs-muted mt-1">Tasa de asistencia</p>
-                    <div class="mt-3 progress-bar">
-                        <div class="progress-fill bg-gradient-to-r from-purple-500 to-purple-600" style="width: 82.8%"></div>
+                        <button onclick="openModal('modal-detalles')" class="flex items-center gap-1 text-sm font-semibold text-hs-secondary hover:text-hs-accent transition-colors group">
+                            Ver detalles 
+                            <span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                        </button>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Quick Actions -->
-        <section class="animate-fade-up animate-delay-200">
-            <div class="glass-card rounded-2xl p-5">
-                <h3 class="font-display font-bold text-hs-primary text-sm mb-4 uppercase tracking-wider">Acciones Rápidas</h3>
-                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                    <a href="/estudiante/registro" class="btn-outline flex flex-col items-center gap-2 p-4 rounded-xl border border-hs-border hover:border-hs-secondary transition-all">
-                        <span class="material-symbols-outlined text-hs-secondary text-xl">add_circle</span>
-                        <span class="text-xs font-medium text-hs-primary">Registrar</span>
-                    </a>
-                    <a href="/estudiante/agenda" class="btn-outline flex flex-col items-center gap-2 p-4 rounded-xl border border-hs-border hover:border-hs-secondary transition-all">
-                        <span class="material-symbols-outlined text-hs-secondary text-xl">calendar_month</span>
-                        <span class="text-xs font-medium text-hs-primary">Agenda</span>
-                    </a>
-                    <a href="/estudiante/mensajes" class="btn-outline flex flex-col items-center gap-2 p-4 rounded-xl border border-hs-border hover:border-hs-secondary transition-all">
-                        <span class="material-symbols-outlined text-hs-secondary text-xl">chat_bubble</span>
-                        <span class="text-xs font-medium text-hs-primary">Mensajes</span>
-                    </a>
-                    <button onclick="openVacantes()" class="btn-outline flex flex-col items-center gap-2 p-4 rounded-xl border border-hs-border hover:border-hs-secondary transition-all">
-                        <span class="material-symbols-outlined text-hs-secondary text-xl">search</span>
-                        <span class="text-xs font-medium text-hs-primary">Vacantes</span>
+        <!-- Activities -->
+        <section class="animate-fade-up animate-delay-200 flex items-center justify-between pt-2">
+            <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-hs-primary">format_list_bulleted</span>
+                <h2 class="font-display text-lg font-bold text-hs-primary">Tus Actividades</h2>
+            </div>
+            <button class="text-sm font-medium text-hs-muted hover:text-hs-secondary transition-colors">Ver todas</button>
+        </section>
+
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-4 animate-fade-up animate-delay-300">
+            <!-- Activity 1 -->
+            <div class="glass-card activity-card rounded-2xl p-5 cursor-pointer">
+                <div class="flex items-start justify-between mb-4">
+                    <div class="icon-box p-3 rounded-xl bg-gradient-to-br from-hs-secondary/10 to-hs-accent/5 text-hs-secondary">
+                        <span class="material-symbols-outlined text-xl">library_books</span>
+                    </div>
+                    <span class="badge badge-blue">En curso</span>
+                </div>
+                <h3 class="font-display font-bold text-hs-primary text-lg mb-3">Apoyo en Biblioteca</h3>
+                <div class="space-y-2">
+                    <div class="flex items-center gap-2 text-sm text-hs-muted">
+                        <span class="material-symbols-outlined text-base">calendar_today</span>
+                        <span>24 de Oct, 2023</span>
+                    </div>
+                    <div class="flex items-center gap-2 text-sm text-hs-muted">
+                        <span class="material-symbols-outlined text-base">schedule</span>
+                        <span>09:00 - 13:00 <span class="font-semibold text-hs-primary">(4h)</span></span>
+                    </div>
+                </div>
+                <div class="mt-4 pt-4 border-t border-hs-border/50 flex items-center justify-between">
+                    <div class="flex -space-x-2">
+                        <div class="w-6 h-6 rounded-full bg-hs-secondary/20 border-2 border-white"></div>
+                        <div class="w-6 h-6 rounded-full bg-hs-accent/20 border-2 border-white"></div>
+                    </div>
+                    <span class="text-xs text-hs-muted">2 participantes</span>
+                </div>
+            </div>
+
+            <!-- Activity 2 -->
+            <div class="glass-card activity-card rounded-2xl p-5 cursor-pointer">
+                <div class="flex items-start justify-between mb-4">
+                    <div class="icon-box p-3 rounded-xl bg-gradient-to-br from-amber-500/10 to-orange-500/5 text-amber-600">
+                        <span class="material-symbols-outlined text-xl">calculate</span>
+                    </div>
+                    <span class="badge badge-amber">Mañana</span>
+                </div>
+                <h3 class="font-display font-bold text-hs-primary text-lg mb-3">Tutoría de Matemáticas</h3>
+                <div class="space-y-2">
+                    <div class="flex items-center gap-2 text-sm text-hs-muted">
+                        <span class="material-symbols-outlined text-base">calendar_today</span>
+                        <span>25 de Oct, 2023</span>
+                    </div>
+                    <div class="flex items-center gap-2 text-sm text-hs-muted">
+                        <span class="material-symbols-outlined text-base">schedule</span>
+                        <span>15:00 - 17:00 <span class="font-semibold text-hs-primary">(2h)</span></span>
+                    </div>
+                </div>
+                <div class="mt-4 pt-4 border-t border-hs-border/50 flex items-center justify-between">
+                    <div class="flex -space-x-2">
+                        <div class="w-6 h-6 rounded-full bg-amber-500/20 border-2 border-white"></div>
+                    </div>
+                    <span class="text-xs text-hs-muted">1 participante</span>
+                </div>
+            </div>
+
+            <!-- Activity 3 - Featured -->
+            <div class="md:col-span-2 glass-card activity-card rounded-2xl p-5 sm:p-6 relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-emerald-500/10 to-transparent rounded-bl-full pointer-events-none"></div>
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 relative z-10">
+                    <div class="flex items-center gap-4">
+                        <div class="icon-box p-4 rounded-2xl bg-gradient-to-br from-emerald-500/10 to-teal-500/5 text-emerald-600">
+                            <span class="material-symbols-outlined text-2xl">volunteer_activism</span>
+                        </div>
+                        <div>
+                            <div class="flex items-center gap-2 mb-1">
+                                <h3 class="font-display font-bold text-hs-primary text-lg">Campaña de Reciclaje</h3>
+                                <span class="badge badge-green">Abierto</span>
+                            </div>
+                            <p class="text-sm text-hs-muted">Sábado 28 de Oct • Campus Principal • 08:00 - 12:00</p>
+                        </div>
+                    </div>
+                    <button onclick="openModal('modal-inscripcion')" class="btn-primary text-white px-6 py-3 rounded-xl font-semibold text-sm whitespace-nowrap shadow-lg shadow-hs-primary/20">
+                        Inscribirme
                     </button>
                 </div>
             </div>
         </section>
 
-        <!-- Recent Activity -->
-        <section class="animate-fade-up animate-delay-300">
-            <div class="flex items-center justify-between mb-4">
-                <h3 class="font-display font-bold text-lg text-hs-primary">Actividad Reciente</h3>
-                <a href="/estudiante/registro" class="text-sm font-medium text-hs-secondary hover:text-hs-accent transition-colors">Ver todo</a>
-            </div>
-            
-            <div class="space-y-3">
-                <div class="activity-card flex items-center gap-4">
-                    <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-hs-secondary to-hs-accent flex items-center justify-center text-white shadow-lg flex-shrink-0">
-                        <span class="material-symbols-outlined text-xl">check_circle</span>
-                    </div>
-                    <div class="flex-1 min-w-0">
-                        <div class="flex justify-between items-start gap-2">
-                            <h4 class="font-display font-bold text-sm text-hs-primary">Tutoría de Matemáticas</h4>
-                            <span class="badge bg-emerald-50 text-emerald-700 text-[10px] px-2 py-0.5 rounded-full font-semibold flex-shrink-0">Confirmado</span>
-                        </div>
-                        <p class="text-xs text-hs-muted mt-1">14 Jun 2026 • 15:00 - 17:00 • Biblioteca Central</p>
-                    </div>
-                </div>
-
-                <div class="activity-card flex items-center gap-4">
-                    <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-500 to-orange-500 flex items-center justify-center text-white shadow-lg flex-shrink-0">
-                        <span class="material-symbols-outlined text-xl">pending</span>
-                    </div>
-                    <div class="flex-1 min-w-0">
-                        <div class="flex justify-between items-start gap-2">
-                            <h4 class="font-display font-bold text-sm text-hs-primary">Campaña Ambiental</h4>
-                            <span class="badge bg-amber-50 text-amber-700 text-[10px] px-2 py-0.5 rounded-full font-semibold flex-shrink-0">Pendiente</span>
-                        </div>
-                        <p class="text-xs text-hs-muted mt-1">18 Jun 2026 • 09:00 - 12:00 • Campus Principal</p>
-                    </div>
-                </div>
-
-                <div class="activity-card flex items-center gap-4">
-                    <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-violet-500 flex items-center justify-center text-white shadow-lg flex-shrink-0">
-                        <span class="material-symbols-outlined text-xl">event_available</span>
-                    </div>
-                    <div class="flex-1 min-w-0">
-                        <div class="flex justify-between items-start gap-2">
-                            <h4 class="font-display font-bold text-sm text-hs-primary">Taller de Liderazgo</h4>
-                            <span class="badge bg-hs-secondary/10 text-hs-secondary text-[10px] px-2 py-0.5 rounded-full font-semibold flex-shrink-0">Inscrito</span>
-                        </div>
-                        <p class="text-xs text-hs-muted mt-1">25 Jun 2026 • 14:00 - 17:00 • Auditorio Principal</p>
-                    </div>
+        <!-- Quick Actions -->
+        <section class="animate-fade-up animate-delay-300 pt-4">
+            <div class="glass-card rounded-2xl p-5">
+                <h3 class="font-display font-bold text-hs-primary text-sm mb-4 uppercase tracking-wider">Acciones Rápidas</h3>
+                <div class="grid grid-cols-3 gap-3">
+                    <button onclick="openModal('modal-historial')" class="btn-outline flex flex-col items-center gap-2 p-4 rounded-xl">
+                        <span class="material-symbols-outlined text-hs-secondary text-xl">history</span>
+                        <span class="text-xs font-medium text-hs-primary">Historial</span>
+                    </button>
+                    <button onclick="generarCertificado()" class="btn-outline flex flex-col items-center gap-2 p-4 rounded-xl">
+                        <span class="material-symbols-outlined text-hs-secondary text-xl">file_download</span>
+                        <span class="text-xs font-medium text-hs-primary">Certificado</span>
+                    </button>
+                    <button onclick="openModal('modal-ayuda')" class="btn-outline flex flex-col items-center gap-2 p-4 rounded-xl">
+                        <span class="material-symbols-outlined text-hs-secondary text-xl">help</span>
+                        <span class="text-xs font-medium text-hs-primary">Ayuda</span>
+                    </button>
                 </div>
             </div>
         </section>
+
+        <!-- Logout -->
+        <section class="animate-fade-up animate-delay-300 pb-8">
+            <button id="btn-cerrar-sesion" class="w-full btn-outline flex items-center justify-center gap-2 py-4 rounded-xl text-hs-muted hover:text-red-500 hover:border-red-200 hover:bg-red-50 transition-all">
+                <span class="material-symbols-outlined text-lg">logout</span>
+                <span class="font-medium text-sm">Cerrar Sesión</span>
+            </button>
+        </section>
     </main>
 
-    <!-- Bottom Navigation -->
+    <!-- Bottom Navigation - UPDATED WITH AGENDA LINK -->
     <nav class="fixed bottom-0 left-0 w-full glass-panel border-t border-hs-border/50 z-50 pb-safe">
         <div class="flex justify-around items-center h-16 px-4 max-w-lg mx-auto">
             <a class="nav-item active flex flex-col items-center gap-1 py-2 px-4">
                 <span class="material-symbols-outlined text-xl filled">dashboard</span>
                 <span class="text-[10px] font-semibold">Dashboard</span>
             </a>
-            <a href="/estudiante/agenda" class="nav-item flex flex-col items-center gap-1 py-2 px-4 text-hs-muted">
+            <a onclick="window.location.href='/estudiante/agenda'" class="nav-item flex flex-col items-center gap-1 py-2 px-4 text-hs-muted">
                 <span class="material-symbols-outlined text-xl">calendar_month</span>
                 <span class="text-[10px] font-medium">Agenda</span>
             </a>
-            <a href="/estudiante/registro" class="nav-item flex flex-col items-center gap-1 py-2 px-4 text-hs-muted">
-                <span class="material-symbols-outlined text-xl">add_circle</span>
-                <span class="text-[10px] font-medium">Registro</span>
-            </a>
-            <a href="/estudiante/mensajes" class="nav-item flex flex-col items-center gap-1 py-2 px-4 text-hs-muted">
-                <span class="material-symbols-outlined text-xl">chat_bubble</span>
-                <span class="text-[10px] font-medium">Mensajes</span>
-            </a>
+            <!-- ✅ DESPUÉS -->
+<a onclick="window.location.href='/estudiante/registro'" class="nav-item flex flex-col items-center gap-1 py-2 px-4 text-hs-muted">
+    <span class="material-symbols-outlined text-xl">add_circle</span>
+    <span class="text-[10px] font-medium">Registro</span>
+</a>
+          <a href="/estudiante/mensajes" class="nav-item flex flex-col items-center gap-1 py-2 px-4 text-hs-muted">
+    <span class="material-symbols-outlined text-xl">chat_bubble</span>
+    <span class="text-[10px] font-medium">Mensajes</span>
+</a>
         </div>
     </nav>
 
+    <!-- ========================================== -->
+    <!-- MODALS -->
+    <!-- ========================================== -->
+
+    <!-- MODAL 1: Ver Detalles -->
+    <div id="modal-detalles" class="modal-overlay" onclick="closeModalOnOverlay(event, 'modal-detalles')">
+        <div class="modal-container">
+            <div class="modal-header">
+                <div class="flex items-center gap-3">
+                    <div class="p-2 rounded-xl bg-hs-secondary/10">
+                        <span class="material-symbols-outlined text-hs-secondary">analytics</span>
+                    </div>
+                    <div>
+                        <h3 class="font-display font-bold text-hs-primary">Resumen de Horas</h3>
+                        <p class="text-xs text-hs-muted">Tu progreso detallado</p>
+                    </div>
+                </div>
+                <button class="modal-close" onclick="closeModal('modal-detalles')">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+            <div class="modal-body space-y-4">
+                <div class="grid grid-cols-2 gap-3">
+                    <div class="bg-gradient-to-br from-hs-secondary/10 to-hs-accent/5 rounded-xl p-4 text-center">
+                        <p class="text-2xl font-bold text-hs-secondary">40h</p>
+                        <p class="text-xs text-hs-muted mt-1">Completadas</p>
+                    </div>
+                    <div class="bg-gradient-to-br from-amber-500/10 to-orange-500/5 rounded-xl p-4 text-center">
+                        <p class="text-2xl font-bold text-amber-600">40h</p>
+                        <p class="text-xs text-hs-muted mt-1">Pendientes</p>
+                    </div>
+                    <div class="bg-gradient-to-br from-emerald-500/10 to-teal-500/5 rounded-xl p-4 text-center">
+                        <p class="text-2xl font-bold text-emerald-600">12</p>
+                        <p class="text-xs text-hs-muted mt-1">Actividades</p>
+                    </div>
+                    <div class="bg-gradient-to-br from-purple-500/10 to-violet-500/5 rounded-xl p-4 text-center">
+                        <p class="text-2xl font-bold text-purple-600">4.2</p>
+                        <p class="text-xs text-hs-muted mt-1">Promedio h/día</p>
+                    </div>
+                </div>
+                <div class="bg-hs-surface rounded-xl p-4">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-sm font-medium text-hs-primary">Progreso semanal</span>
+                        <span class="text-sm font-bold text-hs-secondary">75%</span>
+                    </div>
+                    <div class="progress-track h-2">
+                        <div class="progress-fill h-full" style="width: 75%"></div>
+                    </div>
+                    <p class="text-xs text-hs-muted mt-2">Esta semana: 12h de 16h planificadas</p>
+                </div>
+                <div class="space-y-2">
+                    <p class="text-sm font-semibold text-hs-primary mb-3">Próximos hitos</p>
+                    <div class="flex items-center gap-3 p-3 rounded-xl bg-hs-surface">
+                        <div class="w-10 h-10 rounded-full bg-hs-secondary/10 flex items-center justify-center">
+                            <span class="material-symbols-outlined text-hs-secondary text-sm">flag</span>
+                        </div>
+                        <div class="flex-1">
+                            <p class="text-sm font-medium text-hs-primary">50% completado</p>
+                            <p class="text-xs text-hs-muted">Faltan 10 horas</p>
+                        </div>
+                        <span class="badge badge-blue">Próximo</span>
+                    </div>
+                    <div class="flex items-center gap-3 p-3 rounded-xl bg-hs-surface opacity-60">
+                        <div class="w-10 h-10 rounded-full bg-hs-muted/10 flex items-center justify-center">
+                            <span class="material-symbols-outlined text-hs-muted text-sm">workspace_premium</span>
+                        </div>
+                        <div class="flex-1">
+                            <p class="text-sm font-medium text-hs-primary">Certificación</p>
+                            <p class="text-xs text-hs-muted">Al completar 80h</p>
+                        </div>
+                        <span class="badge badge-purple">Bloqueado</span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button onclick="closeModal('modal-detalles')" class="flex-1 btn-outline py-3 rounded-xl font-semibold text-sm">Cerrar</button>
+                <button onclick="generarCertificado(); closeModal('modal-detalles');" class="flex-1 btn-primary text-white py-3 rounded-xl font-semibold text-sm">Descargar PDF</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 2: Inscripción -->
+    <div id="modal-inscripcion" class="modal-overlay" onclick="closeModalOnOverlay(event, 'modal-inscripcion')">
+        <div class="modal-container">
+            <div id="inscripcion-step-1">
+                <div class="modal-header">
+                    <div class="flex items-center gap-3">
+                        <div class="p-2 rounded-xl bg-emerald-500/10">
+                            <span class="material-symbols-outlined text-emerald-600">volunteer_activism</span>
+                        </div>
+                        <div>
+                            <h3 class="font-display font-bold text-hs-primary">Inscribirme</h3>
+                            <p class="text-xs text-hs-muted">Campaña de Reciclaje</p>
+                        </div>
+                    </div>
+                    <button class="modal-close" onclick="closeModal('modal-inscripcion')">
+                        <span class="material-symbols-outlined">close</span>
+                    </button>
+                </div>
+                <div class="modal-body space-y-4">
+                    <div class="bg-gradient-to-br from-emerald-500/5 to-teal-500/5 rounded-xl p-4 border border-emerald-500/20">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="material-symbols-outlined text-emerald-600 text-sm">info</span>
+                            <span class="text-sm font-semibold text-hs-primary">Detalles de la actividad</span>
+                        </div>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex justify-between">
+                                <span class="text-hs-muted">Fecha:</span>
+                                <span class="font-medium text-hs-primary">Sábado, 28 de Octubre 2023</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-hs-muted">Horario:</span>
+                                <span class="font-medium text-hs-primary">08:00 - 12:00 (4h)</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-hs-muted">Lugar:</span>
+                                <span class="font-medium text-hs-primary">Campus Principal</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-hs-muted">Horas otorgadas:</span>
+                                <span class="font-bold text-emerald-600">4 horas</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-amber-50 rounded-xl p-4 border border-amber-200">
+                        <div class="flex items-start gap-2">
+                            <span class="material-symbols-outlined text-amber-600 text-sm mt-0.5">warning</span>
+                            <div>
+                                <p class="text-sm font-medium text-amber-800">Importante</p>
+                                <p class="text-xs text-amber-700 mt-1">Debes llegar 15 minutos antes. Trae ropa cómoda y botella de agua.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button onclick="closeModal('modal-inscripcion')" class="flex-1 btn-outline py-3 rounded-xl font-semibold text-sm">Cancelar</button>
+                    <button onclick="confirmarInscripcion()" class="flex-1 btn-secondary py-3 rounded-xl font-semibold text-sm">Confirmar inscripción</button>
+                </div>
+            </div>
+
+            <div id="inscripcion-step-2" class="hidden">
+                <div class="modal-body text-center py-8">
+                    <div class="success-check">
+                        <span class="material-symbols-outlined text-white text-3xl">check</span>
+                    </div>
+                    <h3 class="font-display font-bold text-hs-primary text-xl mb-2">¡Inscripción exitosa!</h3>
+                    <p class="text-sm text-hs-muted mb-6">Te has inscrito en la Campaña de Reciclaje</p>
+                    <div class="bg-hs-surface rounded-xl p-4 text-left space-y-2">
+                        <div class="flex items-center gap-2 text-sm">
+                            <span class="material-symbols-outlined text-hs-secondary text-base">calendar_today</span>
+                            <span class="text-hs-muted">Sábado 28 de Oct • 08:00 - 12:00</span>
+                        </div>
+                        <div class="flex items-center gap-2 text-sm">
+                            <span class="material-symbols-outlined text-hs-secondary text-base">location_on</span>
+                            <span class="text-hs-muted">Campus Principal</span>
+                        </div>
+                        <div class="flex items-center gap-2 text-sm">
+                            <span class="material-symbols-outlined text-emerald-600 text-base">schedule</span>
+                            <span class="text-hs-muted">4 horas de servicio social</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button onclick="closeModal('modal-inscripcion')" class="flex-1 btn-primary text-white py-3 rounded-xl font-semibold text-sm">Entendido</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 3: Historial -->
+    <div id="modal-historial" class="modal-overlay" onclick="closeModalOnOverlay(event, 'modal-historial')">
+        <div class="modal-container" style="max-width: 560px;">
+            <div class="modal-header">
+                <div class="flex items-center gap-3">
+                    <div class="p-2 rounded-xl bg-hs-secondary/10">
+                        <span class="material-symbols-outlined text-hs-secondary">history</span>
+                    </div>
+                    <div>
+                        <h3 class="font-display font-bold text-hs-primary">Historial de Actividades</h3>
+                        <p class="text-xs text-hs-muted">Registro de tus horas sociales</p>
+                    </div>
+                </div>
+                <button class="modal-close" onclick="closeModal('modal-historial')">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+            <div class="modal-body" style="padding: 0;">
+                <div class="overflow-x-auto">
+                    <table class="history-table">
+                        <thead>
+                            <tr>
+                                <th>Actividad</th>
+                                <th>Fecha</th>
+                                <th>Horas</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="flex items-center gap-2">
+                                        <span class="material-symbols-outlined text-hs-secondary text-sm">library_books</span>
+                                        <span class="font-medium text-sm">Apoyo Biblioteca</span>
+                                    </div>
+                                </td>
+                                <td class="text-hs-muted">24 Oct 2023</td>
+                                <td class="font-semibold text-hs-primary">4h</td>
+                                <td><span class="badge badge-blue">En curso</span></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="flex items-center gap-2">
+                                        <span class="material-symbols-outlined text-amber-600 text-sm">calculate</span>
+                                        <span class="font-medium text-sm">Tutoría Matemáticas</span>
+                                    </div>
+                                </td>
+                                <td class="text-hs-muted">18 Oct 2023</td>
+                                <td class="font-semibold text-hs-primary">2h</td>
+                                <td><span class="badge badge-green">Completado</span></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="flex items-center gap-2">
+                                        <span class="material-symbols-outlined text-emerald-600 text-sm">park</span>
+                                        <span class="font-medium text-sm">Reforestación</span>
+                                    </div>
+                                </td>
+                                <td class="text-hs-muted">10 Oct 2023</td>
+                                <td class="font-semibold text-hs-primary">6h</td>
+                                <td><span class="badge badge-green">Completado</span></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="flex items-center gap-2">
+                                        <span class="material-symbols-outlined text-purple-600 text-sm">book_2</span>
+                                        <span class="font-medium text-sm">Donación Libros</span>
+                                    </div>
+                                </td>
+                                <td class="text-hs-muted">02 Oct 2023</td>
+                                <td class="font-semibold text-hs-primary">3h</td>
+                                <td><span class="badge badge-green">Completado</span></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="flex items-center gap-2">
+                                        <span class="material-symbols-outlined text-hs-secondary text-sm">cleaning_services</span>
+                                        <span class="font-medium text-sm">Limpieza Comunitaria</span>
+                                    </div>
+                                </td>
+                                <td class="text-hs-muted">25 Sep 2023</td>
+                                <td class="font-semibold text-hs-primary">5h</td>
+                                <td><span class="badge badge-green">Completado</span></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="flex items-center gap-2">
+                                        <span class="material-symbols-outlined text-hs-secondary text-sm">sports</span>
+                                        <span class="font-medium text-sm">Organización Evento</span>
+                                    </div>
+                                </td>
+                                <td class="text-hs-muted">15 Sep 2023</td>
+                                <td class="font-semibold text-hs-primary">4h</td>
+                                <td><span class="badge badge-green">Completado</span></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="flex items-center gap-2">
+                                        <span class="material-symbols-outlined text-hs-secondary text-sm">school</span>
+                                        <span class="font-medium text-sm">Orientación Estudiantes</span>
+                                    </div>
+                                </td>
+                                <td class="text-hs-muted">08 Sep 2023</td>
+                                <td class="font-semibold text-hs-primary">3h</td>
+                                <td><span class="badge badge-green">Completado</span></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="flex items-center gap-2">
+                                        <span class="material-symbols-outlined text-hs-secondary text-sm">eco</span>
+                                        <span class="font-medium text-sm">Huerta Escolar</span>
+                                    </div>
+                                </td>
+                                <td class="text-hs-muted">01 Sep 2023</td>
+                                <td class="font-semibold text-hs-primary">4h</td>
+                                <td><span class="badge badge-green">Completado</span></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="flex items-center gap-2">
+                                        <span class="material-symbols-outlined text-hs-secondary text-sm">group</span>
+                                        <span class="font-medium text-sm">Taller de Liderazgo</span>
+                                    </div>
+                                </td>
+                                <td class="text-hs-muted">20 Ago 2023</td>
+                                <td class="font-semibold text-hs-primary">2h</td>
+                                <td><span class="badge badge-green">Completado</span></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="flex items-center gap-2">
+                                        <span class="material-symbols-outlined text-hs-secondary text-sm">recycling</span>
+                                        <span class="font-medium text-sm">Reciclaje Papel</span>
+                                    </div>
+                                </td>
+                                <td class="text-hs-muted">12 Ago 2023</td>
+                                <td class="font-semibold text-hs-primary">3h</td>
+                                <td><span class="badge badge-green">Completado</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="p-4 bg-hs-surface border-t border-hs-border">
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm text-hs-muted">Total registrado:</span>
+                        <span class="text-lg font-bold text-hs-primary">40 horas</span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button onclick="generarCertificado(); closeModal('modal-historial');" class="flex-1 btn-primary text-white py-3 rounded-xl font-semibold text-sm flex items-center justify-center gap-2">
+                    <span class="material-symbols-outlined text-sm">download</span>
+                    Descargar certificado
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 4: Ayuda / Sobre Horasocial Pro -->
+    <div id="modal-ayuda" class="modal-overlay" onclick="closeModalOnOverlay(event, 'modal-ayuda')">
+        <div class="modal-container" style="max-width: 520px;">
+            <div class="modal-header">
+                <div class="flex items-center gap-3">
+                    <div class="p-2 rounded-xl bg-hs-secondary/10">
+                        <span class="material-symbols-outlined text-hs-secondary">help</span>
+                    </div>
+                    <div>
+                        <h3 class="font-display font-bold text-hs-primary">Sobre Horasocial Pro</h3>
+                        <p class="text-xs text-hs-muted">Conoce nuestra plataforma</p>
+                    </div>
+                </div>
+                <button class="modal-close" onclick="closeModal('modal-ayuda')">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+            <div class="modal-body space-y-5">
+                <div class="text-center space-y-3">
+                    <div class="w-16 h-16 bg-gradient-to-br from-hs-primary to-hs-accent rounded-2xl flex items-center justify-center mx-auto shadow-lg shadow-hs-secondary/20">
+                        <span class="material-symbols-outlined text-white text-3xl">school</span>
+                    </div>
+                    <h2 class="font-display text-2xl font-bold text-hs-primary">Formando líderes.<br><span class="text-hs-secondary">Trackeando tu impacto.</span></h2>
+                    <p class="text-sm text-hs-muted leading-relaxed">
+                        HORASOCIAL PRO es la plataforma líder para la gestión y seguimiento del servicio social escolar, diseñada para conectar estudiantes con impacto real.
+                    </p>
+                </div>
+
+                <div class="space-y-3">
+                    <p class="text-xs font-semibold text-hs-secondary uppercase tracking-widest">Nuestros Pilares</p>
+                    
+                    <div class="space-y-3">
+                        <div class="flex items-start gap-3 p-3 rounded-xl bg-hs-surface">
+                            <div class="w-10 h-10 rounded-lg bg-hs-secondary/10 flex items-center justify-center flex-shrink-0">
+                                <span class="material-symbols-outlined text-hs-secondary text-lg">history</span>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-hs-primary text-sm">Transparencia</p>
+                                <p class="text-xs text-hs-muted mt-1">Tracking en real-time de cada hora de servicio, asegurando la validez y el cumplimiento de los requisitos académicos.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-3 p-3 rounded-xl bg-hs-surface">
+                            <div class="w-10 h-10 rounded-lg bg-hs-secondary/10 flex items-center justify-center flex-shrink-0">
+                                <span class="material-symbols-outlined text-hs-secondary text-lg">school</span>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-hs-primary text-sm">Eficiencia</p>
+                                <p class="text-xs text-hs-muted mt-1">Simplified digital documentation. Olvídate del papeleo excesivo; automatizamos la generación de reportes y certificados oficiales.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-3 p-3 rounded-xl bg-hs-surface">
+                            <div class="w-10 h-10 rounded-lg bg-hs-secondary/10 flex items-center justify-center flex-shrink-0">
+                                <span class="material-symbols-outlined text-hs-secondary text-lg">bar_chart</span>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-hs-primary text-sm">Impacto</p>
+                                <p class="text-xs text-hs-muted mt-1">Visualizing the social change created. Dashboards interactivos que muestran el valor tangible generado en la comunidad.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gradient-to-br from-hs-primary to-hs-accent rounded-2xl p-5 text-center space-y-3">
+                    <p class="text-white font-display font-bold text-lg">¿Listo para transformar el servicio social?</p>
+                    <p class="text-white/80 text-xs">Únete a cientos de instituciones que ya están digitalizando su impacto social con HORASOCIAL PRO.</p>
+                    <button onclick="closeModal('modal-ayuda'); openModal('modal-detalles');" class="w-full bg-hs-secondary text-white py-3 rounded-xl font-semibold text-sm hover:shadow-lg hover:shadow-hs-secondary/30 transition-all">
+                        Ver mi progreso
+                    </button>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button onclick="closeModal('modal-ayuda')" class="flex-1 btn-outline py-3 rounded-xl font-semibold text-sm">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
     <script>
-        // ===== USER MENU TOGGLE =====
-        function toggleUserMenu() {
-            const dropdown = document.getElementById('user-menu-dropdown');
-            dropdown.classList.toggle('active');
+        // ===== MODAL SYSTEM =====
+        function openModal(id) {
+            const modal = document.getElementById(id);
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
         }
 
-        // Close menu when clicking outside
-        document.addEventListener('click', (e) => {
-            const menu = document.getElementById('user-menu');
-            const dropdown = document.getElementById('user-menu-dropdown');
-            if (!menu.contains(e.target)) {
-                dropdown.classList.remove('active');
+        function closeModal(id) {
+            const modal = document.getElementById(id);
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+            
+            if (id === 'modal-inscripcion') {
+                setTimeout(() => {
+                    document.getElementById('inscripcion-step-1').classList.remove('hidden');
+                    document.getElementById('inscripcion-step-2').classList.add('hidden');
+                }, 300);
+            }
+        }
+
+        function closeModalOnOverlay(event, id) {
+            if (event.target === event.currentTarget) {
+                closeModal(id);
+            }
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.modal-overlay.active').forEach(modal => {
+                    modal.classList.remove('active');
+                });
+                document.body.style.overflow = '';
             }
         });
 
-        // ===== CERRAR SESIÓN =====
-        function logout() {
-            // Limpiar datos de sesión
-            localStorage.removeItem('selectedRole');
-            localStorage.removeItem('userToken');
-            localStorage.removeItem('userData');
-            // Agrega aquí cualquier otra variable de sesión que uses
-            
-            // Redirigir a selección de rol
-            // AJUSTA ESTA RUTA según donde esté tu archivo de selección de rol:
-            window.location.href = '/seleccion_rol.html';
-            
-            // Si tu archivo está en la misma carpeta:
-            // window.location.href = 'seleccion_rol.html';
-            
-            // Si está en una carpeta diferente:
-            // window.location.href = '../seleccion_rol.html';
-            // window.location.href = '/auth/seleccion_rol.html';
+        // ===== INSCRIPCION =====
+        function confirmarInscripcion() {
+            document.getElementById('inscripcion-step-1').classList.add('hidden');
+            document.getElementById('inscripcion-step-2').classList.remove('hidden');
         }
+
+        // ===== GENERAR CERTIFICADO PDF =====
+        function generarCertificado() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            
+            doc.setFillColor(15, 23, 42);
+            doc.rect(0, 0, 210, 40, 'F');
+            
+            doc.setTextColor(57, 184, 253);
+            doc.setFontSize(24);
+            doc.setFont('helvetica', 'bold');
+            doc.text('HORASOCIAL PRO', 105, 25, { align: 'center' });
+            
+            doc.setTextColor(255, 255, 255);
+            doc.setFontSize(12);
+            doc.setFont('helvetica', 'normal');
+            doc.text('Certificado de Servicio Social', 105, 32, { align: 'center' });
+            
+            doc.setTextColor(15, 23, 42);
+            doc.setFontSize(14);
+            doc.setFont('helvetica', 'bold');
+            doc.text('CERTIFICADO DE PARTICIPACION', 105, 60, { align: 'center' });
+            
+            doc.setFontSize(11);
+            doc.setFont('helvetica', 'normal');
+            doc.setTextColor(100, 116, 139);
+            
+            const text = `Se certifica que ALEX MARTINEZ, estudiante de 11° Grado, ha completado 40 horas de servicio social durante el periodo academico 2023-2024.`;
+            
+            const splitText = doc.splitTextToSize(text, 170);
+            doc.text(splitText, 105, 75, { align: 'center' });
+            
+            doc.setFillColor(240, 249, 255);
+            doc.roundedRect(20, 100, 170, 50, 5, 5, 'F');
+            
+            doc.setTextColor(15, 23, 42);
+            doc.setFontSize(12);
+            doc.setFont('helvetica', 'bold');
+            doc.text('RESUMEN DE HORAS', 105, 115, { align: 'center' });
+            
+            doc.setFontSize(10);
+            doc.setFont('helvetica', 'normal');
+            doc.setTextColor(100, 116, 139);
+            
+            doc.text('Horas completadas:', 40, 128);
+            doc.setTextColor(57, 184, 253);
+            doc.setFont('helvetica', 'bold');
+            doc.text('40h', 85, 128);
+            
+            doc.setTextColor(100, 116, 139);
+            doc.setFont('helvetica', 'normal');
+            doc.text('Horas pendientes:', 110, 128);
+            doc.setTextColor(245, 158, 11);
+            doc.setFont('helvetica', 'bold');
+            doc.text('40h', 155, 128);
+            
+            doc.setTextColor(100, 116, 139);
+            doc.setFont('helvetica', 'normal');
+            doc.text('Total requerido:', 40, 138);
+            doc.setTextColor(15, 23, 42);
+            doc.setFont('helvetica', 'bold');
+            doc.text('80h', 85, 138);
+            
+            doc.setTextColor(100, 116, 139);
+            doc.setFont('helvetica', 'normal');
+            doc.text('Progreso:', 110, 138);
+            doc.setTextColor(16, 185, 129);
+            doc.setFont('helvetica', 'bold');
+            doc.text('50%', 155, 138);
+            
+            doc.setTextColor(15, 23, 42);
+            doc.setFontSize(12);
+            doc.setFont('helvetica', 'bold');
+            doc.text('ACTIVIDADES REALIZADAS', 20, 170);
+            
+            const activities = [
+                ['Apoyo en Biblioteca', '24 Oct 2023', '4h'],
+                ['Tutoria de Matematicas', '18 Oct 2023', '2h'],
+                ['Reforestacion', '10 Oct 2023', '6h'],
+                ['Donacion de Libros', '02 Oct 2023', '3h'],
+                ['Limpieza Comunitaria', '25 Sep 2023', '5h'],
+                ['Organizacion de Evento', '15 Sep 2023', '4h'],
+                ['Orientacion a Estudiantes', '08 Sep 2023', '3h'],
+                ['Huerta Escolar', '01 Sep 2023', '4h'],
+                ['Taller de Liderazgo', '20 Ago 2023', '2h'],
+                ['Reciclaje de Papel', '12 Ago 2023', '3h']
+            ];
+            
+            let y = 185;
+            doc.setFontSize(9);
+            activities.forEach((act, i) => {
+                if (i % 2 === 0) {
+                    doc.setFillColor(248, 250, 252);
+                    doc.rect(20, y - 5, 170, 12, 'F');
+                }
+                doc.setTextColor(15, 23, 42);
+                doc.setFont('helvetica', 'bold');
+                doc.text(act[0], 25, y);
+                doc.setFont('helvetica', 'normal');
+                doc.setTextColor(100, 116, 139);
+                doc.text(act[1], 120, y);
+                doc.setTextColor(57, 184, 253);
+                doc.setFont('helvetica', 'bold');
+                doc.text(act[2], 175, y);
+                y += 12;
+            });
+            
+            doc.setDrawColor(57, 184, 253);
+            doc.setLineWidth(0.5);
+            doc.line(20, 270, 190, 270);
+            
+            doc.setTextColor(100, 116, 139);
+            doc.setFontSize(8);
+            doc.setFont('helvetica', 'normal');
+            doc.text('Documento generado el 18 de junio de 2026 • Horasocial Pro', 105, 278, { align: 'center' });
+            doc.text('Este certificado es valido para fines academicos.', 105, 283, { align: 'center' });
+            
+            doc.save('certificado-servicio-social-alex-martinez.pdf');
+        }
+
+        // ===== PROGRESS ANIMATION =====
+        window.addEventListener('load', () => {
+            const progressFill = document.querySelector('.progress-fill');
+            if (progressFill) {
+                progressFill.style.width = '0%';
+                setTimeout(() => {
+                    progressFill.style.width = '50%';
+                }, 300);
+            }
+        });
+
+        // ===== NAVIGATION =====
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', (e) => {
+                document.querySelectorAll('.nav-item').forEach(n => {
+                    n.classList.remove('active');
+                    n.querySelector('.material-symbols-outlined').classList.remove('filled');
+                });
+                e.currentTarget.classList.add('active');
+                e.currentTarget.querySelector('.material-symbols-outlined').classList.add('filled');
+            });
+        });
+
+        // ===== LOGOUT =====
+        document.getElementById('btn-cerrar-sesion').addEventListener('click', () => {
+            window.location.href = '/login';
+        });
 
         // ===== SCROLL HEADER =====
         window.addEventListener('scroll', () => {
@@ -674,11 +1373,6 @@
                 header.style.boxShadow = 'none';
             }
         });
-
-        // ===== INIT =====
-        const hoy = new Date();
-        const meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
-        document.getElementById('current-date').textContent = `${meses[hoy.getMonth()]} ${hoy.getFullYear()}`;
     </script>
 </body>
 </html>
