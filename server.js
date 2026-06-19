@@ -307,3 +307,17 @@ app.get('/admin/mensajes', (req, res) => {
 app.listen(PORT, () => {
     console.log(`Servidor de Horas Sociales corriendo en http://localhost:${PORT}`);
 });
+function logout() {
+    // Limpiar datos de sesión (opcional, si usas localStorage)
+    localStorage.removeItem('selectedRole');
+    localStorage.removeItem('userToken');
+    // Agrega aquí cualquier otra variable de sesión que uses
+    
+    // Redirigir a selección de rol
+    window.location.href = '/seleccion_rol.html';
+    
+    // Si tu archivo de selección de rol tiene otro nombre o está en otra carpeta, ajusta la ruta:
+    // window.location.href = 'seleccion_rol.html';
+    // window.location.href = '/rol/seleccion.html';
+    // window.location.href = '../seleccion_rol.html';
+}
