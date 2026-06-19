@@ -757,15 +757,14 @@
                 <span class="material-symbols-outlined text-xl">calendar_month</span>
                 <span class="text-[10px] font-medium">Agenda</span>
             </a>
-            <!-- ✅ DESPUÉS -->
-<a onclick="window.location.href='/estudiante/registro'" class="nav-item flex flex-col items-center gap-1 py-2 px-4 text-hs-muted">
-    <span class="material-symbols-outlined text-xl">add_circle</span>
-    <span class="text-[10px] font-medium">Registro</span>
-</a>
-          <a href="/estudiante/mensajes" class="nav-item flex flex-col items-center gap-1 py-2 px-4 text-hs-muted">
-    <span class="material-symbols-outlined text-xl">chat_bubble</span>
-    <span class="text-[10px] font-medium">Mensajes</span>
-</a>
+            <a onclick="window.location.href='/estudiante/registro'" class="nav-item flex flex-col items-center gap-1 py-2 px-4 text-hs-muted">
+                <span class="material-symbols-outlined text-xl">add_circle</span>
+                <span class="text-[10px] font-medium">Registro</span>
+            </a>
+            <a href="/estudiante/mensajes" class="nav-item flex flex-col items-center gap-1 py-2 px-4 text-hs-muted">
+                <span class="material-symbols-outlined text-xl">chat_bubble</span>
+                <span class="text-[10px] font-medium">Mensajes</span>
+            </a>
         </div>
     </nav>
 
@@ -1169,10 +1168,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button onclick="logout()" class="...">
-    <span class="material-symbols-outlined">logout</span>
-    Cerrar sesión
-</button>
+                <button onclick="closeModal('modal-ayuda')" class="flex-1 btn-outline py-3 rounded-xl font-semibold text-sm">Cerrar</button>
+            </div>
         </div>
     </div>
 
@@ -1361,9 +1358,9 @@
             });
         });
 
-        // ===== LOGOUT =====
+        // ===== LOGOUT (REDIRIGE A SELECCIÓN DE ROL) =====
         document.getElementById('btn-cerrar-sesion').addEventListener('click', () => {
-            window.location.href = '/login';
+            window.location.href = 'seleccion_de_rol_distribucion_expandida_vertical.html';
         });
 
         // ===== SCROLL HEADER =====
