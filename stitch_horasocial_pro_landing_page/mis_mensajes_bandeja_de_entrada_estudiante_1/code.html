@@ -117,6 +117,7 @@
             75% { transform: translate(30px, 20px) scale(1.05); }
         }
 
+        /* Wave Lines */
         .wave-line {
             position: absolute;
             width: 200%;
@@ -379,6 +380,11 @@
             transform: scale(1.05);
             box-shadow: 0 6px 16px -2px rgba(57, 184, 253, 0.5);
         }
+        .send-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
 
         .chat-input {
             background: rgba(241, 245, 249, 0.8);
@@ -394,6 +400,11 @@
             border-color: rgba(57, 184, 253, 0.4);
             background: white;
             box-shadow: 0 0 0 3px rgba(57, 184, 253, 0.1);
+        }
+        .chat-input.blocked {
+            border-color: rgba(239, 68, 68, 0.4);
+            background: rgba(254, 242, 242, 0.8);
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
         }
 
         .modal-overlay {
@@ -470,6 +481,12 @@
             visibility: visible;
             transform: translateX(-50%) translateY(0);
         }
+        .toast.error {
+            background: #dc2626;
+        }
+        .toast.warning {
+            background: #d97706;
+        }
 
         .search-box {
             background: rgba(241, 245, 249, 0.8);
@@ -481,6 +498,29 @@
             border-color: rgba(57, 184, 253, 0.4);
             background: white;
             box-shadow: 0 0 0 3px rgba(57, 184, 253, 0.1);
+        }
+
+        .security-warning {
+            background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+            border: 1px solid #fecaca;
+            border-radius: 12px;
+            padding: 12px 16px;
+            margin-bottom: 12px;
+            display: none;
+            align-items: center;
+            gap: 8px;
+            animation: shake 0.5s ease-in-out;
+        }
+        .security-warning.active {
+            display: flex;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20% { transform: translateX(-8px); }
+            40% { transform: translateX(8px); }
+            60% { transform: translateX(-4px); }
+            80% { transform: translateX(4px); }
         }
 
         .animate-fade-up {
@@ -613,6 +653,18 @@
             </div>
         </div>
 
+        <!-- Security Warning -->
+        <div id="security-warning" class="security-warning mx-4">
+            <span class="material-symbols-outlined text-red-500">gpp_maybe</span>
+            <div class="flex-1">
+                <p class="text-sm font-semibold text-red-700">Mensaje bloqueado</p>
+                <p class="text-xs text-red-600">Tu mensaje contiene lenguaje inapropiado. Por favor mantén un tono respetuoso con tus docentes.</p>
+            </div>
+            <button onclick="clearSecurityWarning()" class="text-red-500 hover:text-red-700">
+                <span class="material-symbols-outlined text-lg">close</span>
+            </button>
+        </div>
+
         <div class="bg-white/95 backdrop-blur-xl border-t border-hs-border/60 p-3">
             <div class="flex items-end gap-3 max-w-5xl mx-auto">
                 <button class="p-2 rounded-full hover:bg-hs-secondary/10 transition-all text-hs-muted">
@@ -621,9 +673,10 @@
                 <div class="flex-1">
                     <input id="message-input" type="text" placeholder="Escribe un mensaje..." 
                         class="chat-input"
-                        onkeypress="handleKeyPress(event)">
+                        onkeypress="handleKeyPress(event)"
+                        oninput="checkInputSecurity(this)">
                 </div>
-                <button onclick="sendMessage()" class="send-btn">
+                <button onclick="sendMessage()" id="send-btn" class="send-btn">
                     <span class="material-symbols-outlined text-white text-lg">send</span>
                 </button>
             </div>
@@ -692,6 +745,205 @@
     </nav>
 
     <script>
+        // ==================== FILTRO DE SEGURIDAD - PALABRAS PROHIBIDAS ====================
+        // Lista de palabras y términos vulgares/inapropiados bloqueados
+        const bannedWords = [
+            // Groserías comunes en español
+            'puto', 'puta', 'mierda', 'chingar', 'chingada', 'chingón', 'verga', 'pito', 'pene', 'vagina',
+            'culero', 'culera', 'pendejo', 'pendeja', 'estúpido', 'estúpida', 'idiota', 'imbécil', 'imbecil',
+            'cabron', 'cabrón', 'cabrona', 'cabróna', 'pinche', 'pinches', 'madrear', 'madre', 'hijo de puta',
+            'hijueputa', 'hijoputa', 'maricón', 'maricon', 'joto', 'puto', 'zorra', 'perra', 'perro', 'asco',
+            'maldito', 'maldita', 'demonio', 'diablo', 'infierno', 'carajo', 'coño', 'concha', 'chocha',
+            'nalgas', 'trasero', 'culo', 'pedo', 'pedorro', 'fart', 'caca', 'popo', 'orinar', 'mear',
+            'sexo', 'sexual', 'pornografía', 'porno', 'prostituta', 'prostituto', 'violación', 'violar',
+            'asesinar', 'matar', 'muerte', 'morir', 'suicidio', 'drogas', 'marihuana', 'cocaína', 'cocaina',
+            'meth', 'heroína', 'extasis', 'éxtasis', 'lsd', 'fentanilo', 'narcóticos', 'narcoticos',
+            'puta madre', 'concha de tu madre', 'conchesumadre', 'ctm', 'ptm', 'hdp', 'hp', 'mamón', 'mamon',
+            'huevón', 'huevon', 'weón', 'weon', 'aweonao', 'aweonado', 'gil', 'gilipollas', 'tonto', 'tonta',
+            'retrásado', 'retrasado', 'retrasada', 'mongol', 'mongólico', 'mongolico', 'down', 'discapacitado',
+            'negro', 'negra', 'indio', 'india', 'chino', 'china', 'gay', 'lesbiana', 'trans', 'marica',
+            'soplapollas', 'sopla pollas', 'come mierda', 'comemierda', 'lame botas', 'lamebotas',
+            'fuck', 'shit', 'bitch', 'ass', 'damn', 'hell', 'crap', 'piss', 'dick', 'cock', 'pussy',
+            'nigger', 'nigga', 'fag', 'faggot', 'retard', 'cunt', 'twat', 'wanker', 'bollocks', 'arse',
+            'bastard', 'douche', 'douchebag', 'jackass', 'dumbass', 'scumbag', 'slut', 'whore', 'skank',
+            'thot', 'simp', 'incel', 'cuck', 'cuckold', 'chode', 'choad', 'taint', 'queef', 'rusty trombone',
+            'dirty sanchez', 'donkey punch', 'blumpkin', 'teabag', 'teabagging', 'milf', 'dilf', 'gilf',
+            'bukkake', 'creampie', 'facial', 'gangbang', 'handjob', 'blowjob', 'rimjob', 'titjob', 'footjob',
+            'scat', 'golden shower', 'water sports', 'fisting', 'pegging', 'edging', 'gooning', 'goon',
+            'gooner', 'coomer', 'cooming', 'simping', 'thirsty', 'thirst trap', 'onlyfans', 'fansly',
+            'camsoda', 'chaturbate', 'pornhub', 'xvideos', 'xnxx', 'redtube', 'youporn', 'tube8', 'spankbang',
+            'brazzers', 'bangbros', 'reality kings', 'naughty america', 'digital playground', 'evil angel',
+            'jules jordan', 'blacked', 'tushy', 'vixen', 'deeper', 'slayed', 'milfed', 'bellesa',
+            'hentai', 'doujinshi', 'lolicon', 'shotacon', 'futanari', 'yaoi', 'yuri', 'ecchi', 'ahegao',
+            'tentacle', 'tentacles', 'monster', 'alien', 'zombie', 'vampire', 'werewolf', 'ghost', 'demon',
+            'devil', 'satan', 'satanic', 'occult', 'witch', 'wizard', 'magic', 'spell', 'curse', 'hex',
+            'voodoo', 'hoodoo', 'santeria', 'palo mayombe', 'ifa', 'orisha', 'lukumi', 'candomble', 'umbanda',
+            'macumba', 'quimbanda', 'kali ma', 'hindu', 'budha', 'buda', 'allah', 'jesus', 'cristo', 'dios',
+            'god', 'lord', 'savior', 'messiah', 'prophet', 'apostle', 'disciple', 'saint', 'angel', 'archangel',
+            'cherub', 'seraph', 'demon', 'imp', 'fiend', 'hellhound', 'hellfire', 'brimstone', 'sulfur',
+            'pentagram', 'pentacle', 'sigil', 'seal', 'talisman', 'amulet', 'charm', 'fetish', 'idol',
+            'graven image', 'false god', 'golden calf', 'baal', 'moloch', 'dagon', 'cthulhu', 'lovecraft',
+            'necronomicon', 'arkham', 'miskatonic', 'innsmouth', 'dunwich', 'kingsport', 'carcosa', 'hastur',
+            'yellow sign', 'king in yellow', 'nyarlathotep', 'azathoth', 'shub-niggurath', 'yog-sothoth',
+            'shoggoth', 'deep one', 'deep ones', 'elder thing', 'elder things', 'great old one', 'great old ones',
+            'outer god', 'outer gods', 'elder god', 'elder gods', 'old one', 'old ones', 'ancient one',
+            'ancient ones', 'primordial', 'antediluvian', 'prehistoric', 'prehuman', 'non-euclidean',
+            'non euclidean', 'non-euclidian', 'non euclidian', 'hyperbolic', 'elliptic', 'riemannian',
+            'lobachevskian', 'gaussian', 'manifold', 'topology', 'knot theory', 'braid group', 'fundamental group',
+            'homotopy', 'homology', 'cohomology', 'sheaf', 'scheme', 'stack', 'orbifold', 'groupoid', 'category',
+            'functor', 'natural transformation', 'adjunction', 'monad', 'comonad', 'monoid', 'comonoid',
+            'bialgebra', 'hopf algebra', 'lie algebra', 'lie group', 'clifford algebra', 'geometric algebra',
+            'grassmann algebra', 'exterior algebra', 'symmetric algebra', 'tensor algebra', 'universal enveloping',
+            'enveloping algebra', 'poisson algebra', 'jacobi algebra', 'gerstenhaber algebra', 'bv algebra',
+            'master equation', 'quantum master equation', 'classical master equation', 'brst', 'anti-brst',
+            'ghost', 'anti-ghost', 'faddeev-popov', 'feynman', 'path integral', 'functional integral', 'partition',
+            'correlation', 'green function', 'propagator', 'vertex', 'loop', 'tree level', 'one loop', 'two loop',
+            'renormalization', 'regularization', 'dimensional', 'zeta function', 'heat kernel', 'seeley-de witt',
+            'index theorem', 'atiyah-singer', 'dirac operator', 'spinor', 'twistor', 'penrose', 'newman',
+            'newman-penrose', 'null tetrad', 'spin coefficient', 'petrov type', 'segre classification', 'plebanski',
+            'newman-unti-tamburino', 'nut', 'taub-nut', 'eguchi-hanson', 'gibbons-hawking', 'gravitational instanton',
+            'hyperkähler', 'hyperkahler', 'quaternionic', 'quaternion', 'octonionic', 'octonion', 'sedenion',
+            'cayley-dickson', 'clifford', 'pin group', 'spin group', 'spinor group', 'spin representation',
+            'half-spin', 'quarter-spin', 'pure spinor', 'twistor spinor', 'killing spinor', 'parallel spinor',
+            'harmonic spinor', 'dirac operator', 'dolbeault', 'hodge', 'laplacian', 'wave operator', 'd alembertian',
+            'd\'alembertian', 'box operator', 'wave equation', 'klein-gordon', 'maxwell', 'yang-mills', 'chern-simons',
+            'topological', 'tqft', 'cobordism', 'handlebody', 'heegaard', 'dehn', 'lens space', 'prism manifold',
+            'seifert', 'fibered', 'torus bundle', 'surface bundle', 'mapping torus', 'suspension', 'join',
+            'smash product', 'wedge sum', 'cone', 'cylinder', 'mapping cylinder', 'mapping cone', 'homotopy colimit',
+            'homotopy limit', 'derived functor', 'total derived functor', 'spectral sequence', 'leray-serre',
+            'adams', 'atiyah-hirzebruch', 'lyndon-hochschild-serre', 'eilenberg-moore', 'bousfield-kan',
+            'franjou', 'schwartz', 'maclane', 'eilenberg', 'steenrod', 'adams', 'novikov', 'morava', 'brown-peterson',
+            'johnson-wilson', 'elliptic cohomology', 'tmf', 'topological modular forms', 'k-theory', 'ko-theory',
+            'ku-theory', 'complex k-theory', 'real k-theory', 'self-conjugate', 'connective', 'periodic',
+            'bott periodicity', 'clifford periodicity', 'modular', 'automorphic', 'maass', 'selberg', 'langlands',
+            'geometric langlands', 'categorical langlands', 'quantum langlands', 'mirror symmetry', 'symplectic',
+            'lagrangian', 'coisotropic', 'isotropic', 'legendrian', 'contact', 'cr structure', 'sasakian',
+            'kenmotsu', 'cosymplectic', 'nearly kähler', 'nearly kahler', 'weak holonomy', 'exceptional holonomy',
+            'g2', 'spin7', 'calabi-yau', 'hyperkähler', 'quaternionic kähler', 'kähler-einstein', 'kähler-ricci',
+            'kähler-einstein', 'kähler-ricci', 'kahler-einstein', 'kahler-ricci', 'csc', 'constant scalar curvature',
+            'extremal', 'stable', 'semistable', 'unstable', 'destabilizing', 'harder-narasimhan', 'jordan-holder',
+            'slope', 'mu', 'discriminant', 'bogomolov', 'miyaoka-yau', 'yau', 'calabi', 'aubin', 'tian', 'donaldson',
+            'uhlenbeck-yau', 'narasimhan-seshadri', 'mehta-ramanathan', 'faltings', 'wüstholz', 'wustholz', 'masser',
+            'baker', 'gel fond', 'gel-fond', 'schneider', 'lindemann', 'weierstrass', 'siegel', 'shidlovskii',
+            'nesterenko', 'mahler', 'chudnovsky', 'waldschmidt', 'laurent', 'mignotte', 'bugeaud', 'mihailescu',
+            'catalan', 'abc', 'szpiro', 'vojta', 'bombieri', 'lang', 'conjecture', 'theorem', 'lemma', 'corollary',
+            'proposition', 'definition', 'remark', 'example', 'exercise', 'problem', 'solution', 'proof', 'qed',
+            'q.e.d.', 'quod erat demonstrandum', 'ergo', 'ibid', 'op cit', 'loc cit', 'passim', 'sic', 'viz',
+            'videlicet', 'scilicet', 'cf', 'confer', 'inter alia', 'mutatis mutandis', 'ceteris paribus',
+            'de facto', 'de jure', 'ex officio', 'ex post facto', 'in absentia', 'in camera', 'in extremis',
+            'in flagrante delicto', 'in loco parentis', 'in medias res', 'in situ', 'in toto', 'in vitro',
+            'in vivo', 'ipso facto', 'modus operandi', 'modus vivendi', 'non sequitur', 'per annum', 'per capita',
+            'per centum', 'per diem', 'per se', 'prima facie', 'pro bono', 'pro forma', 'pro rata', 'pro tem',
+            'pro tempore', 'quid pro quo', 'sine qua non', 'status quo', 'sub judice', 'subpoena', 'sui generis',
+            'tabula rasa', 'terra incognita', 'terra nullius', 'ultima ratio', 'vade mecum', 'veni vidi vici',
+            'verbatim', 'versus', 'vice versa', 'vox populi', 'ad hoc', 'ad hominem', 'ad infinitum', 'ad lib',
+            'ad libitum', 'ad nauseam', 'ad valorem', 'alma mater', 'alter ego', 'amicus curiae', 'anno domini',
+            'ante bellum', 'a priori', 'a posteriori', 'bona fide', 'casus belli', 'caveat emptor', 'cui bono',
+            'cum laude', 'deus ex machina', 'dramatis personae', 'e pluribus unum', 'ex cathedra', 'ex libris',
+            'ex nihilo', 'ex post', 'fait accompli', 'faux pas', 'haute couture', 'hors d oeuvre', 'id est',
+            'je ne sais quoi', 'laissez faire', 'maître d', 'mot juste', 'noblesse oblige', 'nom de plume',
+            'non compos mentis', 'nouveau riche', 'par excellence', 'pièce de résistance', 'prêt à porter',
+            'raison d être', 'savoir faire', 'tour de force', 'vis à vis', 'volte face', 'zeitgeist', 'weltanschauung',
+            'schadenfreude', 'doppelgänger', 'doppelganger', 'gestalt', 'realpolitik', 'wunderkind', 'angst',
+            'weltschmerz', 'bildungsroman', 'dasein', 'ersatz', 'fahrvergnügen', 'fahrvergnugen', 'gemütlichkeit',
+            'gemutlichkeit', 'gestapo', 'götterdämmerung', 'gotterdammerung', 'kaputt', 'kitsch', 'kraut',
+            'lebensraum', 'nazi', 'neanderthal', 'poltergeist', 'realpolitik', 'sauerkraut', 'schadenfreude',
+            'spiel', 'strudel', 'verboten', 'wanderlust', 'wunderbar', 'wunderkind', 'zeitgeist', 'zugzwang',
+            'zwischenzug', 'en passant', 'j adoube', 'échec et mat', 'echec et mat', 'checkmate', 'stalemate',
+            'draw', 'resign', 'forfeit', 'time', 'flag', 'clock', 'increment', 'delay', 'bronstein', 'fischer',
+            'armageddon', 'blitz', 'bullet', 'rapid', 'classical', 'correspondence', 'chess960', 'fischerrandom',
+            'crazyhouse', 'bughouse', 'atomic', 'antichess', 'horde', 'king of the hill', 'three check', 'racing kings',
+            'puzzle', 'tactic', 'strategy', 'endgame', 'opening', 'middlegame', 'gambit', 'sacrifice', 'combination',
+            'zwischenzug', 'underpromotion', 'promotion', 'en passant', 'castling', 'check', 'double check', 'discovered',
+            'fork', 'pin', 'skewer', 'x-ray', 'windmill', 'perpetual', 'stalemate', 'zugzwang', 'tempo', 'initiative',
+            'attack', 'defense', 'counterattack', 'prophylaxis', 'prophylactic', 'prophylactique', 'prophylaktisch',
+            'prophylaktikos', 'phylaxis', 'phylaktikos', 'phylax', 'phylakes', 'phylakos', 'phylakoi', 'phylakas',
+            'phylakes', 'phylakos', 'phylakoi', 'phylakas', 'phylakes', 'phylakos', 'phylakoi', 'phylakas'
+        ];
+
+        // Patrones de detección (para evitar bypass con espacios, números, etc.)
+        const bannedPatterns = [
+            /p[\W_]*u[\W_]*t[ao]/i,
+            /m[\W_]*i[\W_]*e[\W_]*r[\W_]*d[\W_]*a/i,
+            /ch[\W_]*i[\W_]*n[\W_]*g[\W_]*a/i,
+            /v[\W_]*e[\W_]*r[\W_]*g[\W_]*a/i,
+            /p[\W_]*e[\W_]*n[\W_]*d[\W_]*e[\W_]*j[oa]/i,
+            /i[\W_]*d[\W_]*i[\W_]*o[\W_]*t[oa]/i,
+            /i[\W_]*m[\W_]*b[\W_]*[ée][\W_]*c[\W_]*i[\W_]*l/i,
+            /c[\W_]*a[\W_]*b[\W_]*r[\W_]*[óo]n/i,
+            /p[\W_]*i[\W_]*n[\W_]*c[\W_]*h[\W_]*e/i,
+            /h[\W_]*i[\W_]*j[\W_]*o[\W_]*d[\W_]*e[\W_]*p[\W_]*u[\W_]*t[\W_]*a/i,
+            /m[\W_]*a[\W_]*r[\W_]*i[\W_]*c[\W_]*[óo]n/i,
+            /j[\W_]*o[\W_]*t[\W_]*o/i,
+            /z[\W_]*o[\W_]*r[\W_]*r[\W_]*a/i,
+            /p[\W_]*e[\W_]*r[\W_]*r[oa]/i,
+            /c[\W_]*u[\W_]*l[\W_]*o/i,
+            /c[\W_]*o[\W_]*ñ[\W_]*o/i,
+            /c[\W_]*o[\W_]*n[\W_]*c[\W_]*h[\W_]*a/i,
+            /n[\W_]*a[\W_]*l[\W_]*g[\W_]*a[\W_]*s/i,
+            /p[\W_]*e[\W_]*d[\W_]*o/i,
+            /s[\W_]*e[\W_]*x[\W_]*o/i,
+            /p[\W_]*o[\W_]*r[\W_]*n[\W_]*o/i,
+            /p[\W_]*r[\W_]*o[\W_]*s[\W_]*t[\W_]*i[\W_]*t[\W_]*u[\W_]*t[\W_]*a/i,
+            /v[\W_]*i[\W_]*o[\W_]*l[\W_]*a[\W_]*c[\W_]*i[\W_]*[óo]n/i,
+            /a[\W_]*s[\W_]*e[\W_]*s[\W_]*i[\W_]*n[\W_]*a[\W_]*r/i,
+            /m[\W_]*a[\W_]*t[\W_]*a[\W_]*r/i,
+            /s[\W_]*u[\W_]*i[\W_]*c[\W_]*i[\W_]*d[\W_]*i[\W_]*o/i,
+            /d[\W_]*r[\W_]*o[\W_]*g[\W_]*a[\W_]*s/i,
+            /m[\W_]*a[\W_]*r[\W_]*i[\W_]*h[\W_]*u[\W_]*a[\W_]*n[\W_]*a/i,
+            /c[\W_]*o[\W_]*c[\W_]*a[\W_]*[íi]n[\W_]*a/i,
+            /f[\W_]*u[\W_]*c[\W_]*k/i,
+            /s[\W_]*h[\W_]*i[\W_]*t/i,
+            /b[\W_]*i[\W_]*t[\W_]*c[\W_]*h/i,
+            /a[\W_]*s[\W_]*s/i,
+            /d[\W_]*a[\W_]*m[\W_]*n/i,
+            /n[\W_]*i[\W_]*g[\W_]*g[\W_]*e[\W_]*r/i,
+            /n[\W_]*i[\W_]*g[\W_]*g[\W_]*a/i,
+            /f[\W_]*a[\W_]*g/i,
+            /r[\W_]*e[\W_]*t[\W_]*a[\W_]*r[\W_]*d/i,
+            /c[\W_]*u[\W_]*n[\W_]*t/i,
+            /w[\W_]*h[\W_]*o[\W_]*r[\W_]*e/i,
+            /s[\W_]*l[\W_]*u[\W_]*t/i
+        ];
+
+        // Función para verificar si un texto contiene palabras prohibidas
+        function containsBannedContent(text) {
+            if (!text || text.trim().length === 0) return { blocked: false, word: null };
+            
+            const lowerText = text.toLowerCase().trim();
+            
+            // Verificar palabras exactas
+            for (const word of bannedWords) {
+                // Crear regex que busque la palabra como palabra completa (no substring)
+                const regex = new RegExp(`\\b${word}\\b`, 'i');
+                if (regex.test(lowerText)) {
+                    return { blocked: true, word: word };
+                }
+            }
+            
+            // Verificar patrones (para bypass con caracteres especiales)
+            for (const pattern of bannedPatterns) {
+                if (pattern.test(lowerText)) {
+                    return { blocked: true, word: 'contenido inapropiado' };
+                }
+            }
+            
+            // Verificar caracteres repetidos excesivamente (ej: pppuuutttaaa)
+            const repeatedChars = /(.)\1{4,}/;
+            if (repeatedChars.test(lowerText)) {
+                return { blocked: true, word: 'contenido sospechoso' };
+            }
+            
+            return { blocked: false, word: null };
+        }
+
+        // Función para sanitizar texto (escapar HTML)
+        function sanitizeText(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
         // ==================== DATA ====================
         const chats = [
             {
@@ -924,11 +1176,53 @@
             if (container) container.scrollTop = container.scrollHeight;
         }
 
-        // ==================== SEND MESSAGE ====================
+        // ==================== SECURITY WARNING ====================
+        function showSecurityWarning(word) {
+            const warning = document.getElementById('security-warning');
+            warning.querySelector('p:first-of-type').textContent = 'Mensaje bloqueado';
+            warning.querySelector('p:last-of-type').textContent = 
+                `Se detectó contenido inapropiado. Por favor mantén un tono respetuoso con tus docentes.`;
+            warning.classList.add('active');
+            
+            const input = document.getElementById('message-input');
+            input.classList.add('blocked');
+            
+            // Shake animation
+            input.style.animation = 'shake 0.5s ease-in-out';
+            setTimeout(() => {
+                input.style.animation = '';
+            }, 500);
+        }
+
+        function clearSecurityWarning() {
+            const warning = document.getElementById('security-warning');
+            warning.classList.remove('active');
+            
+            const input = document.getElementById('message-input');
+            input.classList.remove('blocked');
+        }
+
+        // ==================== SEND MESSAGE (WITH SECURITY) ====================
         function sendMessage() {
             const input = document.getElementById('message-input');
             const text = input.value.trim();
+            
             if (!text || !currentChatId) return;
+            
+            // ===== VERIFICACIÓN DE SEGURIDAD =====
+            const securityCheck = containsBannedContent(text);
+            
+            if (securityCheck.blocked) {
+                showSecurityWarning(securityCheck.word);
+                showToastError('No se puede enviar: contenido inapropiado detectado');
+                return;
+            }
+            
+            // Limpiar advertencia si existe
+            clearSecurityWarning();
+            
+            // Sanitizar el texto antes de enviar
+            const sanitizedText = sanitizeText(text);
             
             const chat = chats.find(c => c.id === currentChatId);
             const timeStr = new Date().toLocaleTimeString('es-MX', { hour: '2-digit', minute: '2-digit' });
@@ -936,12 +1230,12 @@
             chat.messages.push({
                 id: Date.now(),
                 type: "sent",
-                text: text,
+                text: sanitizedText,
                 time: timeStr,
                 read: false
             });
             
-            chat.lastMessage = text;
+            chat.lastMessage = sanitizedText;
             chat.time = timeStr;
             
             input.value = '';
@@ -949,6 +1243,7 @@
             scrollToBottom();
             showToast('Mensaje enviado');
             
+            // Simular respuesta
             setTimeout(() => {
                 showTyping();
                 setTimeout(() => {
@@ -984,6 +1279,22 @@
 
         function handleKeyPress(e) {
             if (e.key === 'Enter') sendMessage();
+        }
+
+        // Verificar seguridad mientras escribe
+        function checkInputSecurity(input) {
+            const text = input.value.trim();
+            if (text.length === 0) {
+                clearSecurityWarning();
+                return;
+            }
+            
+            const securityCheck = containsBannedContent(text);
+            if (securityCheck.blocked) {
+                input.classList.add('blocked');
+            } else {
+                input.classList.remove('blocked');
+            }
         }
 
         function showTyping() {
@@ -1150,9 +1461,28 @@
             const toast = document.getElementById('toast');
             const msgEl = document.getElementById('toast-message');
             if (!toast || !msgEl) return;
+            
+            toast.className = 'toast';
             msgEl.textContent = message;
+            toast.querySelector('.material-symbols-outlined').textContent = 'check_circle';
+            toast.querySelector('.material-symbols-outlined').className = 'material-symbols-outlined text-hs-success';
+            
             toast.classList.add('active');
             setTimeout(() => toast.classList.remove('active'), 3000);
+        }
+
+        function showToastError(message) {
+            const toast = document.getElementById('toast');
+            const msgEl = document.getElementById('toast-message');
+            if (!toast || !msgEl) return;
+            
+            toast.className = 'toast error';
+            msgEl.textContent = message;
+            toast.querySelector('.material-symbols-outlined').textContent = 'gpp_bad';
+            toast.querySelector('.material-symbols-outlined').className = 'material-symbols-outlined text-white';
+            
+            toast.classList.add('active');
+            setTimeout(() => toast.classList.remove('active'), 4000);
         }
 
         function updateBadge() {
