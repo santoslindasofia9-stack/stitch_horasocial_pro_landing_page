@@ -1,247 +1,1231 @@
 <!DOCTYPE html>
-
-<html lang="es"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Bandeja de Entrada - Servicio Social</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
-      tailwind.config = {
-        darkMode: "class",
-        theme: {
-          extend: {
-            "colors": {
-                    "surface-container-low": "#f2f4f6",
-                    "primary-fixed": "#dae2fd",
-                    "primary-fixed-dim": "#bec6e0",
-                    "on-background": "#191c1e",
-                    "secondary-fixed-dim": "#89ceff",
-                    "on-tertiary-container": "#008ebf",
-                    "inverse-on-surface": "#eff1f3",
-                    "surface-bright": "#f7f9fb",
-                    "secondary-fixed": "#c9e6ff",
-                    "on-tertiary": "#ffffff",
-                    "surface-container-lowest": "#ffffff",
-                    "surface-container-high": "#e6e8ea",
-                    "on-secondary-fixed-variant": "#004c6e",
-                    "on-primary-fixed": "#131b2e",
-                    "inverse-surface": "#2d3133",
-                    "background": "#f7f9fb",
-                    "tertiary-fixed": "#c4e7ff",
-                    "tertiary-container": "#001e2c",
-                    "surface": "#f7f9fb",
-                    "secondary": "#006591",
-                    "on-tertiary-fixed-variant": "#004c69",
-                    "on-primary": "#ffffff",
-                    "primary": "#000000",
-                    "on-secondary": "#ffffff",
-                    "surface-tint": "#565e74",
-                    "on-tertiary-fixed": "#001e2c",
-                    "primary-container": "#131b2e",
-                    "on-surface-variant": "#45464d",
-                    "secondary-container": "#39b8fd",
-                    "outline": "#76777d",
-                    "on-surface": "#191c1e",
-                    "on-error": "#ffffff",
-                    "inverse-primary": "#bec6e0",
-                    "tertiary-fixed-dim": "#7bd0ff",
-                    "surface-container": "#eceef0",
-                    "error-container": "#ffdad6",
-                    "surface-variant": "#e0e3e5",
-                    "surface-container-highest": "#e0e3e5",
-                    "on-secondary-container": "#004666",
-                    "on-secondary-fixed": "#001e2f",
-                    "on-primary-container": "#7c839b",
-                    "error": "#ba1a1a",
-                    "tertiary": "#000000",
-                    "surface-dim": "#d8dadc",
-                    "outline-variant": "#c6c6cd",
-                    "on-primary-fixed-variant": "#3f465c",
-                    "on-error-container": "#93000a"
-            },
-            "borderRadius": {
-                    "DEFAULT": "0.25rem",
-                    "lg": "0.5rem",
-                    "xl": "0.75rem",
-                    "full": "9999px"
-            },
-            "spacing": {
-                    "xs": "4px",
-                    "margin-desktop": "48px",
-                    "sm": "8px",
-                    "md": "16px",
-                    "xl": "32px",
-                    "gutter": "24px",
-                    "unit": "4px",
-                    "lg": "24px",
-                    "margin-mobile": "16px"
-            },
-            "fontFamily": {
-                    "body-md": ["Inter"],
-                    "label-sm": ["Inter"],
-                    "headline-lg-mobile": ["Plus Jakarta Sans"],
-                    "body-lg": ["Inter"],
-                    "label-md": ["Inter"],
-                    "headline-md": ["Plus Jakarta Sans"],
-                    "headline-sm": ["Plus Jakarta Sans"],
-                    "display-lg": ["Plus Jakarta Sans"],
-                    "headline-lg": ["Plus Jakarta Sans"]
-            },
-            "fontSize": {
-                    "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
-                    "label-sm": ["12px", {"lineHeight": "1.2", "fontWeight": "600"}],
-                    "headline-lg-mobile": ["28px", {"lineHeight": "1.2", "fontWeight": "600"}],
-                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
-                    "label-md": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.01em", "fontWeight": "500"}],
-                    "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
-                    "headline-sm": ["20px", {"lineHeight": "1.4", "fontWeight": "600"}],
-                    "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
-                    "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}]
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+    <title>Mensajes - Horasocial Pro</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet">
+    
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "hs-primary": "#0f172a",
+                        "hs-secondary": "#39b8fd",
+                        "hs-accent": "#006591",
+                        "hs-surface": "#f8fafc",
+                        "hs-card": "#ffffff",
+                        "hs-muted": "#64748b",
+                        "hs-border": "#e2e8f0",
+                        "hs-success": "#10b981",
+                        "hs-warning": "#f59e0b",
+                        "hs-error": "#ef4444",
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Plus Jakarta Sans', 'sans-serif'],
+                    }
+                }
             }
-          },
-        },
-      }
+        }
     </script>
-<style>
-        body { font-family: 'Inter', sans-serif; }
-        .glass-nav { backdrop-filter: blur(12px); }
-        .custom-shadow { shadow: 0px 4px 20px rgba(15, 23, 42, 0.05); }
-        .gradient-sphere {
+    <style>
+        * { -webkit-tap-highlight-color: transparent; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f0f9ff 0%, #f8fafc 50%, #ffffff 100%);
+            min-height: 100vh;
+            color: #0f172a;
+            overflow-x: hidden;
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            transition: font-variation-settings 0.2s ease;
+        }
+        .material-symbols-outlined.filled {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        /* Serene Background */
+        .serene-bg {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .aurora-orb {
             position: absolute;
             border-radius: 50%;
             filter: blur(80px);
-            z-index: -1;
             opacity: 0.4;
+            animation: drift 25s ease-in-out infinite;
+        }
+
+        .aurora-orb-1 {
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(57, 184, 253, 0.3) 0%, rgba(135, 206, 250, 0.1) 50%, transparent 70%);
+            top: -10%;
+            left: -10%;
+            animation-delay: 0s;
+            animation-duration: 30s;
+        }
+
+        .aurora-orb-2 {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(14, 165, 233, 0.25) 0%, rgba(186, 230, 253, 0.1) 50%, transparent 70%);
+            bottom: 10%;
+            right: -5%;
+            animation-delay: -10s;
+            animation-duration: 35s;
+        }
+
+        .aurora-orb-3 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(2, 132, 199, 0.2) 0%, rgba(224, 242, 254, 0.08) 50%, transparent 70%);
+            top: 40%;
+            left: 30%;
+            animation-delay: -20s;
+            animation-duration: 28s;
+        }
+
+        @keyframes drift {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(40px, -30px) scale(1.1); }
+            50% { transform: translate(-20px, 50px) scale(0.95); }
+            75% { transform: translate(30px, 20px) scale(1.05); }
+        }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 2px 15px -3px rgba(15, 23, 42, 0.07), 0 10px 20px -2px rgba(15, 23, 42, 0.04);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px) saturate(150%);
+            -webkit-backdrop-filter: blur(16px) saturate(150%);
+            border: 1px solid rgba(226, 232, 240, 0.6);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .app-header {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border-bottom: 1px solid rgba(226, 232, 240, 0.6);
+        }
+
+        .nav-item {
+            position: relative;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .nav-item.active {
+            color: #39b8fd;
+        }
+
+        .nav-item.active::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 24px;
+            height: 3px;
+            background: #39b8fd;
+            border-radius: 999px;
+        }
+
+        .nav-item:hover:not(.active) {
+            color: #0f172a;
+            transform: translateY(-2px);
+        }
+
+        /* Chat Styles */
+        .chat-list-item {
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            border-radius: 16px;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+
+        .chat-list-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px -4px rgba(15, 23, 42, 0.08);
+            border-color: rgba(57, 184, 253, 0.3);
+        }
+
+        .chat-list-item.active {
+            background: linear-gradient(135deg, rgba(57, 184, 253, 0.08) 0%, rgba(14, 165, 233, 0.04) 100%);
+            border-left: 3px solid #39b8fd;
+            border-color: rgba(57, 184, 253, 0.2);
+        }
+
+        .chat-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 700;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        .unread-badge {
+            background: linear-gradient(135deg, #39b8fd 0%, #0ea5e9 100%);
+            color: white;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 999px;
+            box-shadow: 0 2px 8px -2px rgba(57, 184, 253, 0.4);
+        }
+
+        .online-indicator {
+            position: absolute;
+            bottom: 2px;
+            right: 2px;
+            width: 12px;
+            height: 12px;
+            background: #10b981;
+            border-radius: 50%;
+            border: 2px solid white;
+            box-shadow: 0 0 0 1px rgba(16, 185, 129, 0.3);
+        }
+
+        .online-indicator.away {
+            background: #f59e0b;
+            box-shadow: 0 0 0 1px rgba(245, 158, 11, 0.3);
+        }
+
+        /* Chat Detail */
+        .chat-detail-view {
+            position: fixed;
+            inset: 0;
+            z-index: 60;
+            background: linear-gradient(135deg, #f0f9ff 0%, #f8fafc 50%, #ffffff 100%);
+            display: none;
+            flex-direction: column;
+        }
+
+        .chat-detail-view.active {
+            display: flex;
+        }
+
+        .chat-header {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(20px) saturate(180%);
+            border-bottom: 1px solid rgba(226, 232, 240, 0.6);
+        }
+
+        .messages-area {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px;
+            background: linear-gradient(180deg, rgba(240, 249, 255, 0.3) 0%, rgba(248, 250, 252, 0.5) 100%);
+        }
+
+        .message-bubble {
+            max-width: 80%;
+            padding: 12px 16px;
+            border-radius: 18px;
+            font-size: 14px;
+            line-height: 1.5;
+            position: relative;
+            animation: messageSlide 0.3s ease-out forwards;
+        }
+
+        .message-bubble.sent {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: white;
+            border-bottom-right-radius: 4px;
+            margin-left: auto;
+            box-shadow: 0 4px 12px -2px rgba(15, 23, 42, 0.2);
+        }
+
+        .message-bubble.received {
+            background: rgba(255, 255, 255, 0.95);
+            color: #0f172a;
+            border-bottom-left-radius: 4px;
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            box-shadow: 0 2px 8px -2px rgba(15, 23, 42, 0.05);
+        }
+
+        @keyframes messageSlide {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .message-time {
+            font-size: 11px;
+            opacity: 0.7;
+            margin-top: 4px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .chat-input-area {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(226, 232, 240, 0.6);
+            padding: 12px 16px;
+        }
+
+        .chat-input {
+            background: rgba(241, 245, 249, 0.8);
+            border: 1.5px solid transparent;
+            border-radius: 20px;
+            padding: 10px 16px;
+            outline: none;
+            transition: all 0.2s ease;
+            font-size: 14px;
+        }
+
+        .chat-input:focus {
+            border-color: rgba(57, 184, 253, 0.4);
+            background: white;
+            box-shadow: 0 0 0 3px rgba(57, 184, 253, 0.1);
+        }
+
+        .send-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #39b8fd 0%, #0ea5e9 100%);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 12px -2px rgba(57, 184, 253, 0.4);
+        }
+
+        .send-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 16px -2px rgba(57, 184, 253, 0.5);
+        }
+
+        .send-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* Typing Indicator */
+        .typing-indicator {
+            display: none;
+            align-items: center;
+            gap: 6px;
+            padding: 12px 16px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 18px;
+            border-bottom-left-radius: 4px;
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            width: fit-content;
+            box-shadow: 0 2px 8px -2px rgba(15, 23, 42, 0.05);
+        }
+
+        .typing-indicator.active {
+            display: flex;
+        }
+
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #94a3b8;
+            animation: typingBounce 1.4s infinite ease-in-out both;
+        }
+
+        .typing-dot:nth-child(1) { animation-delay: -0.32s; }
+        .typing-dot:nth-child(2) { animation-delay: -0.16s; }
+
+        @keyframes typingBounce {
+            0%, 80%, 100% { transform: scale(0.6); opacity: 0.5; }
+            40% { transform: scale(1); opacity: 1; }
+        }
+
+        /* Notifications Panel */
+        .notifications-panel {
+            position: fixed;
+            inset: 0;
+            z-index: 70;
+            background: linear-gradient(135deg, #f0f9ff 0%, #f8fafc 50%, #ffffff 100%);
+            display: none;
+            flex-direction: column;
+        }
+
+        .notifications-panel.active {
+            display: flex;
+        }
+
+        .notif-item {
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            border-radius: 16px;
+            padding: 16px;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .notif-item:hover {
+            transform: translateX(4px);
+            border-color: rgba(57, 184, 253, 0.3);
+            box-shadow: 0 4px 12px -2px rgba(15, 23, 42, 0.06);
+        }
+
+        .notif-item.unread {
+            background: linear-gradient(135deg, rgba(57, 184, 253, 0.05) 0%, rgba(14, 165, 233, 0.02) 100%);
+            border-left: 3px solid #39b8fd;
+        }
+
+        /* New Message Modal */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.5);
+            backdrop-filter: blur(8px);
+            z-index: 80;
+            display: none;
+            align-items: flex-end;
+            justify-content: center;
+            padding: 0;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-sheet {
+            background: white;
+            width: 100%;
+            max-width: 560px;
+            border-radius: 24px 24px 0 0;
+            max-height: 85vh;
+            overflow-y: auto;
+            transform: translateY(100%);
+            transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 -10px 40px -10px rgba(15, 23, 42, 0.2);
+        }
+
+        .modal-overlay.active .modal-sheet {
+            transform: translateY(0);
+        }
+
+        .teacher-card {
+            background: rgba(255, 255, 255, 0.95);
+            border: 1.5px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 16px;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .teacher-card:hover {
+            border-color: #39b8fd;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px -4px rgba(57, 184, 253, 0.15);
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            top: 80px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-20px);
+            background: #0f172a;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 500;
+            z-index: 90;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px -5px rgba(15, 23, 42, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .toast.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* Search */
+        .search-box {
+            background: rgba(241, 245, 249, 0.8);
+            border: 1.5px solid transparent;
+            border-radius: 14px;
+            transition: all 0.2s ease;
+        }
+
+        .search-box:focus-within {
+            border-color: rgba(57, 184, 253, 0.4);
+            background: white;
+            box-shadow: 0 0 0 3px rgba(57, 184, 253, 0.1);
+        }
+
+        .animate-fade-up {
+            animation: fadeUp 0.6s ease-out forwards;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-delay-100 { animation-delay: 100ms; }
+        .animate-delay-200 { animation-delay: 200ms; }
+
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 999px; }
+
+        @media (max-width: 640px) {
+            .chat-avatar { width: 44px; height: 44px; font-size: 14px; }
+            .message-bubble { max-width: 85%; padding: 10px 14px; font-size: 13px; }
         }
     </style>
-<style>
-    body {
-      min-height: max(884px, 100dvh);
-    }
-  </style>
-  </head>
-<body class="bg-surface min-h-screen flex items-center justify-center p-4">
-<!-- Mobile Container (360x740px) -->
-<div class="relative w-[360px] h-[740px] bg-white rounded-[32px] shadow-2xl overflow-hidden flex flex-col border border-outline-variant/20">
-<!-- Ambient Background Spheres -->
-<div class="gradient-sphere w-48 h-48 bg-secondary-container top-10 -left-20"></div>
-<div class="gradient-sphere w-64 h-64 bg-tertiary-fixed-dim -bottom-20 -right-20"></div>
-<!-- TopAppBar Shared Component -->
-<header class="bg-surface/95 dark:bg-surface/95 flex justify-between items-center px-margin-mobile py-sm w-full sticky top-0 z-50 backdrop-blur-md bg-surface/90 shadow-sm">
-<div class="flex items-center gap-sm">
-<span class="material-symbols-outlined text-primary dark:text-on-background" data-icon="menu">menu</span>
-<h1 class="font-headline-sm text-headline-sm font-bold text-primary dark:text-on-background">Mis Mensajes</h1>
-</div>
-<button class="w-10 h-10 flex items-center justify-center rounded-full bg-secondary-container/20 text-secondary hover:bg-surface-container-high transition-colors active:scale-95 duration-100">
-<span class="material-symbols-outlined" data-icon="edit_square">edit_square</span>
-</button>
-</header>
-<!-- Main Content Area -->
-<main class="flex-1 overflow-y-auto px-margin-mobile pb-24">
-<!-- Search Bar -->
-<div class="mt-md mb-lg">
-<div class="relative flex items-center">
-<span class="material-symbols-outlined absolute left-md text-outline" data-icon="search">search</span>
-<input class="w-full pl-11 pr-md py-sm bg-surface-container-lowest border border-outline-variant rounded-xl focus:ring-2 focus:ring-secondary-container focus:border-secondary outline-none transition-all font-label-md text-label-md" placeholder="Buscar mensajes o docentes..." type="text"/>
-</div>
-</div>
-<!-- Chat List -->
-<div class="space-y-sm">
-<!-- Active Chat (Selected) -->
-<div class="group relative flex items-center p-md bg-white rounded-xl border border-outline-variant hover:bg-surface-container-low transition-colors cursor-pointer border-l-4 border-l-secondary-container shadow-sm">
-<div class="w-12 h-12 rounded-full bg-primary-container text-on-primary-fixed flex items-center justify-center font-bold text-lg mr-md">
-                        JD
+</head>
+<body class="pb-24">
+
+    <!-- Serene Background -->
+    <div class="serene-bg">
+        <div class="aurora-orb aurora-orb-1"></div>
+        <div class="aurora-orb aurora-orb-2"></div>
+        <div class="aurora-orb aurora-orb-3"></div>
+    </div>
+
+    <!-- Toast -->
+    <div id="toast" class="toast">
+        <span class="material-symbols-outlined text-hs-success">check_circle</span>
+        <span id="toast-message">Mensaje enviado</span>
+    </div>
+
+    <!-- ===== MAIN VIEW: CHAT LIST ===== -->
+    <div id="main-view" class="relative z-10">
+        
+        <!-- Header -->
+        <header class="app-header fixed top-0 w-full z-50 h-16 flex items-center justify-between px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center gap-3">
+                <div class="bg-gradient-to-br from-hs-primary to-hs-accent p-2 rounded-xl shadow-lg shadow-hs-secondary/20">
+                    <span class="material-symbols-outlined text-white text-lg">school</span>
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-display font-bold text-hs-primary text-sm leading-tight">Horasocial Pro</span>
+                    <span class="text-[10px] text-hs-muted font-medium tracking-wider uppercase">Estudiante</span>
+                </div>
+            </div>
+            <div class="flex items-center gap-3">
+                <button onclick="openNotifications()" class="relative p-2.5 rounded-xl hover:bg-hs-secondary/10 transition-all active:scale-95 group">
+                    <span class="material-symbols-outlined text-hs-muted group-hover:text-hs-secondary transition-colors">notifications</span>
+                    <span id="header-notif-badge" class="absolute top-2 right-2 w-2.5 h-2.5 bg-hs-error rounded-full ring-2 ring-white animate-pulse hidden"></span>
+                </button>
+                <div class="flex items-center gap-2 pl-2 border-l border-hs-border">
+                    <div class="w-9 h-9 rounded-full overflow-hidden ring-2 ring-hs-secondary/20 ring-offset-2">
+                        <img alt="Alex" class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&h=100&fit=crop&crop=face">
                     </div>
-<div class="flex-1 min-w-0">
-<div class="flex justify-between items-baseline mb-xs">
-<h3 class="font-label-md text-label-md font-bold text-on-surface truncate">Prof. Javier Domínguez</h3>
-<span class="text-[10px] text-outline font-medium">10:45 AM</span>
-</div>
-<p class="text-label-md text-on-surface-variant truncate">Tu reporte de servicio social ha sido revisado con éxito...</p>
-</div>
-<div class="ml-sm flex flex-col items-end gap-1">
-<span class="bg-secondary text-white text-[10px] px-1.5 py-0.5 rounded-full font-bold">2</span>
-</div>
-</div>
-<!-- Chat Item 2 -->
-<div class="group relative flex items-center p-md bg-white rounded-xl border border-outline-variant hover:bg-surface-container-low transition-colors cursor-pointer">
-<div class="w-12 h-12 rounded-full bg-secondary-fixed text-on-secondary-fixed flex items-center justify-center font-bold text-lg mr-md">
-                        AM
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="relative z-10 pt-20 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto space-y-6">
+
+            <!-- Welcome -->
+            <section class="animate-fade-up">
+                <div class="flex items-end justify-between">
+                    <div>
+                        <p class="text-hs-muted text-sm font-medium mb-1">Comunícate con tus docentes</p>
+                        <h1 class="font-display text-3xl sm:text-4xl font-bold text-hs-primary tracking-tight">
+                            Mis <span class="text-transparent bg-clip-text bg-gradient-to-r from-hs-secondary to-hs-accent">Mensajes</span>
+                        </h1>
                     </div>
-<div class="flex-1 min-w-0">
-<div class="flex justify-between items-baseline mb-xs">
-<h3 class="font-label-md text-label-md font-bold text-on-surface truncate">Dra. Ana Martínez</h3>
-<span class="text-[10px] text-outline font-medium">Ayer</span>
-</div>
-<p class="text-label-md text-outline truncate">Recuerda entregar la carta de liberación el viernes.</p>
-</div>
-</div>
-<!-- Chat Item 3 -->
-<div class="group relative flex items-center p-md bg-white rounded-xl border border-outline-variant hover:bg-surface-container-low transition-colors cursor-pointer">
-<div class="w-12 h-12 rounded-full bg-tertiary-fixed text-on-tertiary-fixed flex items-center justify-center font-bold text-lg mr-md">
-                        RC
+                    <button onclick="openNewMessageModal()" class="bg-gradient-to-br from-hs-primary to-hs-accent text-white p-3 rounded-xl shadow-lg shadow-hs-secondary/20 hover:shadow-xl hover:shadow-hs-secondary/30 transition-all active:scale-95">
+                        <span class="material-symbols-outlined text-white">edit_square</span>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Search -->
+            <section class="animate-fade-up animate-delay-100">
+                <div class="search-box flex items-center gap-3 px-4 py-3">
+                    <span class="material-symbols-outlined text-hs-muted">search</span>
+                    <input id="search-input" oninput="filterChats()" type="text" placeholder="Buscar mensajes o docentes..." 
+                        class="flex-1 bg-transparent outline-none text-sm text-hs-primary placeholder:text-hs-muted">
+                </div>
+            </section>
+
+            <!-- Chat List -->
+            <section class="animate-fade-up animate-delay-200">
+                <div id="chat-list" class="space-y-3">
+                    <!-- Generated by JS -->
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- ===== CHAT DETAIL VIEW ===== -->
+    <div id="chat-detail" class="chat-detail-view">
+        <div class="chat-header flex items-center gap-3 px-4 py-3">
+            <button onclick="closeChat()" class="p-2 rounded-xl hover:bg-hs-secondary/10 transition-all active:scale-95">
+                <span class="material-symbols-outlined text-hs-primary">arrow_back</span>
+            </button>
+            <div class="relative">
+                <div id="detail-avatar" class="chat-avatar bg-gradient-to-br from-hs-primary to-hs-accent text-white text-sm">
+                    JD
+                </div>
+                <div id="detail-status-dot" class="online-indicator"></div>
+            </div>
+            <div class="flex-1 min-w-0">
+                <h3 id="detail-name" class="font-display font-bold text-hs-primary text-sm truncate">Prof. Javier Domínguez</h3>
+                <p id="detail-status" class="text-xs text-hs-secondary font-medium">En línea</p>
+            </div>
+            <button class="p-2 rounded-xl hover:bg-hs-secondary/10 transition-all active:scale-95">
+                <span class="material-symbols-outlined text-hs-muted">more_vert</span>
+            </button>
+        </div>
+
+        <div id="messages-container" class="messages-area custom-scroll">
+            <div id="messages-list" class="space-y-4">
+                <!-- Generated by JS -->
+            </div>
+            <div id="typing-indicator" class="typing-indicator mt-4">
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+            </div>
+        </div>
+
+        <div class="chat-input-area">
+            <div class="flex items-end gap-3">
+                <button class="p-2 rounded-full hover:bg-hs-secondary/10 transition-all text-hs-muted">
+                    <span class="material-symbols-outlined">attach_file</span>
+                </button>
+                <div class="flex-1">
+                    <input id="message-input" type="text" placeholder="Escribe un mensaje..." 
+                        class="chat-input w-full"
+                        onkeypress="handleKeyPress(event)">
+                </div>
+                <button onclick="sendMessage()" class="send-btn">
+                    <span class="material-symbols-outlined text-white text-lg">send</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== NOTIFICATIONS PANEL ===== -->
+    <div id="notifications-panel" class="notifications-panel">
+        <div class="chat-header flex items-center gap-3 px-4 py-3">
+            <button onclick="closeNotifications()" class="p-2 rounded-xl hover:bg-hs-secondary/10 transition-all active:scale-95">
+                <span class="material-symbols-outlined text-hs-primary">arrow_back</span>
+            </button>
+            <h2 class="font-display font-bold text-hs-primary text-lg">Notificaciones</h2>
+            <button onclick="markAllRead()" class="ml-auto text-xs font-semibold text-hs-secondary hover:text-hs-accent transition-colors">
+                Marcar todo
+            </button>
+        </div>
+
+        <div id="notifications-list" class="flex-1 overflow-y-auto p-4 space-y-3 custom-scroll">
+            <!-- Generated by JS -->
+        </div>
+    </div>
+
+    <!-- ===== NEW MESSAGE MODAL ===== -->
+    <div id="new-message-modal" class="modal-overlay" onclick="closeModalOnOverlay(event)">
+        <div class="modal-sheet" onclick="event.stopPropagation()">
+            <div class="p-6 pb-2">
+                <div class="flex items-center justify-between mb-6">
+                    <h3 class="font-display font-bold text-hs-primary text-xl">Nuevo mensaje</h3>
+                    <button onclick="closeNewMessageModal()" class="p-2 rounded-xl hover:bg-hs-surface transition-all">
+                        <span class="material-symbols-outlined text-hs-muted">close</span>
+                    </button>
+                </div>
+                
+                <div class="search-box flex items-center gap-3 px-4 py-3 mb-4">
+                    <span class="material-symbols-outlined text-hs-muted">search</span>
+                    <input id="teacher-search" oninput="filterTeachers()" type="text" placeholder="Buscar docente..." 
+                        class="flex-1 bg-transparent outline-none text-sm text-hs-primary placeholder:text-hs-muted">
+                </div>
+            </div>
+
+            <div id="teachers-list" class="px-6 pb-6 space-y-3">
+                <!-- Generated by JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <nav class="fixed bottom-0 left-0 w-full glass-panel border-t border-hs-border/50 z-50 pb-safe">
+        <div class="flex justify-around items-center h-16 px-4 max-w-lg mx-auto">
+            <a onclick="window.location.href='/estudiante/dashboard'" class="nav-item flex flex-col items-center gap-1 py-2 px-4 text-hs-muted">
+                <span class="material-symbols-outlined text-xl">dashboard</span>
+                <span class="text-[10px] font-medium">Dashboard</span>
+            </a>
+            <a onclick="window.location.href='/estudiante/agenda'" class="nav-item flex flex-col items-center gap-1 py-2 px-4 text-hs-muted">
+                <span class="material-symbols-outlined text-xl">calendar_month</span>
+                <span class="text-[10px] font-medium">Agenda</span>
+            </a>
+            <a onclick="window.location.href='/estudiante/registro'" class="nav-item flex flex-col items-center gap-1 py-2 px-4 text-hs-muted">
+                <span class="material-symbols-outlined text-xl">add_circle</span>
+                <span class="text-[10px] font-medium">Registro</span>
+            </a>
+            <a class="nav-item active flex flex-col items-center gap-1 py-2 px-4">
+                <span class="material-symbols-outlined text-xl filled">chat_bubble</span>
+                <span class="text-[10px] font-semibold">Mensajes</span>
+                <span id="nav-badge" class="absolute top-1 right-16 bg-hs-error text-white text-[9px] px-1.5 py-0.5 rounded-full font-bold hidden">3</span>
+            </a>
+        </div>
+    </nav>
+
+    <script>
+        // ==================== DATA ====================
+        const chats = [
+            {
+                id: 1,
+                name: "Prof. Javier Domínguez",
+                initials: "JD",
+                avatarColor: "from-hs-primary to-hs-accent",
+                lastMessage: "Tu reporte de servicio social ha sido revisado con éxito. Revisa los comentarios adjuntos.",
+                time: "10:45 AM",
+                unread: 2,
+                isActive: true,
+                status: "En línea",
+                statusType: "online",
+                messages: [
+                    { id: 1, type: "received", text: "Hola, he revisado tu reporte de servicio social.", time: "10:30 AM", read: true },
+                    { id: 2, type: "received", text: "El contenido está muy bien estructurado. Solo necesitas corregir la fecha de inicio en la página 3.", time: "10:32 AM", read: true },
+                    { id: 3, type: "sent", text: "Gracias profesor, voy a revisarlo ahora mismo.", time: "10:35 AM", read: true },
+                    { id: 4, type: "received", text: "Tu reporte de servicio social ha sido revisado con éxito. Revisa los comentarios adjuntos.", time: "10:45 AM", read: false }
+                ]
+            },
+            {
+                id: 2,
+                name: "Dra. Ana Martínez",
+                initials: "AM",
+                avatarColor: "from-purple-600 to-violet-600",
+                lastMessage: "Recuerda entregar la carta de liberación el viernes antes de las 2 PM.",
+                time: "Ayer",
+                unread: 0,
+                isActive: false,
+                status: "Hace 2 horas",
+                statusType: "away",
+                messages: [
+                    { id: 1, type: "received", text: "Buenas tardes, ¿cómo va tu servicio social?", time: "Ayer 3:00 PM", read: true },
+                    { id: 2, type: "sent", text: "Va muy bien doctora, estoy aprendiendo mucho.", time: "Ayer 3:15 PM", read: true },
+                    { id: 3, type: "received", text: "Recuerda entregar la carta de liberación el viernes antes de las 2 PM.", time: "Ayer 4:00 PM", read: true }
+                ]
+            },
+            {
+                id: 3,
+                name: "Lic. Ricardo Castro",
+                initials: "RC",
+                avatarColor: "from-emerald-600 to-teal-600",
+                lastMessage: "Se ha habilitado la nueva convocatoria para el DIF. ¿Te interesa?",
+                time: "Lun",
+                unread: 1,
+                isActive: false,
+                status: "En línea",
+                statusType: "online",
+                messages: [
+                    { id: 1, type: "received", text: "Hola, tengo información sobre una nueva oportunidad.", time: "Lun 9:00 AM", read: true },
+                    { id: 2, type: "received", text: "Se ha habilitado la nueva convocatoria para el DIF. ¿Te interesa?", time: "Lun 9:05 AM", read: false }
+                ]
+            },
+            {
+                id: 4,
+                name: "Servicios Generales",
+                initials: "SG",
+                avatarColor: "from-sky-600 to-blue-600",
+                lastMessage: "Confirmamos la recepción de tu firma digital. El proceso está completo.",
+                time: "12 Oct",
+                unread: 0,
+                isActive: false,
+                status: "Sistema",
+                statusType: "bot",
+                messages: [
+                    { id: 1, type: "received", text: "Hemos recibido tu documento de firma digital.", time: "12 Oct 10:00 AM", read: true },
+                    { id: 2, type: "received", text: "Confirmamos la recepción de tu firma digital. El proceso está completo.", time: "12 Oct 10:05 AM", read: true }
+                ]
+            },
+            {
+                id: 5,
+                name: "Laura Caballero",
+                initials: "LC",
+                avatarColor: "from-rose-500 to-pink-600",
+                lastMessage: "Hola, ¿ya tienes el formato de horas acumuladas? Te lo puedo enviar.",
+                time: "10 Oct",
+                unread: 0,
+                isActive: false,
+                status: "Hace 5 min",
+                statusType: "online",
+                messages: [
+                    { id: 1, type: "received", text: "Hola, ¿cómo estás?", time: "10 Oct 11:00 AM", read: true },
+                    { id: 2, type: "sent", text: "Bien, gracias. ¿Y tú?", time: "10 Oct 11:05 AM", read: true },
+                    { id: 3, type: "received", text: "Hola, ¿ya tienes el formato de horas acumuladas? Te lo puedo enviar.", time: "10 Oct 11:30 AM", read: true }
+                ]
+            }
+        ];
+
+        const teachers = [
+            { id: 6, name: "Prof. Carlos Mendoza", subject: "Servicio Social", initials: "CM", avatarColor: "from-amber-600 to-orange-600" },
+            { id: 7, name: "Dra. Patricia López", subject: "Prácticas Profesionales", initials: "PL", avatarColor: "from-indigo-600 to-purple-600" },
+            { id: 8, name: "Lic. Fernando Ruiz", subject: "Vinculación", initials: "FR", avatarColor: "from-cyan-600 to-sky-600" },
+            { id: 9, name: "Mtra. Gabriela Soto", subject: "Servicio Social", initials: "GS", avatarColor: "from-fuchsia-600 to-pink-600" }
+        ];
+
+        const notifications = [
+            { id: 1, title: "Nuevo reporte revisado", message: "Prof. Domínguez ha revisado tu reporte", time: "Hace 10 min", read: false, type: "message", chatId: 1 },
+            { id: 2, title: "Recordatorio importante", message: "Entrega de carta de liberación este viernes", time: "Hace 2 horas", read: false, type: "alert" },
+            { id: 3, title: "Convocatoria abierta", message: "Nueva oportunidad en el DIF disponible", time: "Hace 1 día", read: true, type: "info", chatId: 3 },
+            { id: 4, title: "Firma confirmada", message: "Tu firma digital ha sido procesada", time: "Hace 3 días", read: true, type: "success" }
+        ];
+
+        let currentChatId = null;
+
+        // ==================== INIT ====================
+        document.addEventListener('DOMContentLoaded', () => {
+            renderChatList();
+            updateBadges();
+            renderNotifications();
+            renderTeachersList();
+        });
+
+        // ==================== CHAT LIST ====================
+        function renderChatList() {
+            const container = document.getElementById('chat-list');
+            const searchTerm = document.getElementById('search-input').value.toLowerCase();
+            
+            const filtered = chats.filter(chat => 
+                chat.name.toLowerCase().includes(searchTerm) || 
+                chat.lastMessage.toLowerCase().includes(searchTerm)
+            );
+
+            if (filtered.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-12">
+                        <div class="w-16 h-16 rounded-full bg-hs-secondary/10 flex items-center justify-center mx-auto mb-4">
+                            <span class="material-symbols-outlined text-hs-secondary text-2xl">search_off</span>
+                        </div>
+                        <p class="text-hs-muted font-medium">No se encontraron chats</p>
                     </div>
-<div class="flex-1 min-w-0">
-<div class="flex justify-between items-baseline mb-xs">
-<h3 class="font-label-md text-label-md font-bold text-on-surface truncate">Lic. Ricardo Castro</h3>
-<span class="text-[10px] text-outline font-medium">Lun</span>
-</div>
-<p class="text-label-md text-outline truncate">Se ha habilitado la nueva convocatoria para el DIF.</p>
-</div>
-</div>
-<!-- Chat Item 4 -->
-<div class="group relative flex items-center p-md bg-white rounded-xl border border-outline-variant hover:bg-surface-container-low transition-colors cursor-pointer">
-<div class="w-12 h-12 rounded-full bg-primary-fixed text-on-primary-fixed flex items-center justify-center font-bold text-lg mr-md">
-                        SG
+                `;
+                return;
+            }
+
+            container.innerHTML = filtered.map(chat => `
+                <div onclick="openChat(${chat.id})" 
+                     class="chat-list-item flex items-center gap-4 p-4 ${chat.isActive ? 'active' : ''}">
+                    <div class="relative">
+                        <div class="chat-avatar bg-gradient-to-br ${chat.avatarColor} text-white">
+                            ${chat.initials}
+                        </div>
+                        ${chat.statusType === 'online' ? `<div class="online-indicator"></div>` : ''}
+                        ${chat.statusType === 'away' ? `<div class="online-indicator away"></div>` : ''}
                     </div>
-<div class="flex-1 min-w-0">
-<div class="flex justify-between items-baseline mb-xs">
-<h3 class="font-label-md text-label-md font-bold text-on-surface truncate">Servicios Generales</h3>
-<span class="text-[10px] text-outline font-medium">12 Oct</span>
-</div>
-<p class="text-label-md text-outline truncate">Confirmamos la recepción de tu firma digital.</p>
-</div>
-</div>
-<!-- Chat Item 5 -->
-<div class="group relative flex items-center p-md bg-white rounded-xl border border-outline-variant hover:bg-surface-container-low transition-colors cursor-pointer">
-<div class="w-12 h-12 rounded-full bg-surface-variant text-on-surface-variant flex items-center justify-center font-bold text-lg mr-md">
-                        LC
+                    <div class="flex-1 min-w-0">
+                        <div class="flex justify-between items-start mb-1">
+                            <h3 class="font-display font-bold text-sm text-hs-primary truncate ${chat.unread > 0 ? 'text-hs-primary' : ''}">${chat.name}</h3>
+                            <span class="text-[11px] ${chat.unread > 0 ? 'text-hs-secondary font-bold' : 'text-hs-muted'} whitespace-nowrap ml-2">${chat.time}</span>
+                        </div>
+                        <p class="text-[13px] ${chat.unread > 0 ? 'text-hs-primary font-medium' : 'text-hs-muted'} truncate leading-relaxed">${chat.lastMessage}</p>
                     </div>
-<div class="flex-1 min-w-0">
-<div class="flex justify-between items-baseline mb-xs">
-<h3 class="font-label-md text-label-md font-bold text-on-surface truncate">Laura Caballero</h3>
-<span class="text-[10px] text-outline font-medium">10 Oct</span>
-</div>
-<p class="text-label-md text-outline truncate">Hola, ¿ya tienes el formato de horas acumuladas?</p>
-</div>
-</div>
-</div>
-</main>
-<!-- BottomNavBar Shared Component -->
-<nav class="fixed bottom-0 w-[360px] z-50 flex justify-around items-center px-4 pb-4 pt-2 bg-surface/95 dark:bg-surface/95 docked full-width rounded-t-xl backdrop-blur-md border-t border-outline-variant/30 shadow-[0_-4px_20px_rgba(15,23,42,0.05)]">
-<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline hover:text-secondary/80 transition-opacity active:opacity-70 active:scale-95 duration-200" href="#">
-<span class="material-symbols-outlined" data-icon="home">home</span>
-<span class="font-label-sm text-label-sm">Inicio</span>
-</a>
-<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline hover:text-secondary/80 transition-opacity active:opacity-70 active:scale-95 duration-200" href="#">
-<span class="material-symbols-outlined" data-icon="calendar_month">calendar_month</span>
-<span class="font-label-sm text-label-sm">Agenda</span>
-</a>
-<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline hover:text-secondary/80 transition-opacity active:opacity-70 active:scale-95 duration-200" href="#">
-<span class="material-symbols-outlined" data-icon="assignment">assignment</span>
-<span class="font-label-sm text-label-sm">Registro</span>
-</a>
-<a class="flex flex-col items-center justify-center text-secondary dark:text-secondary-fixed font-bold hover:text-secondary/80 transition-opacity active:opacity-70 active:scale-95 duration-200" href="#">
-<span class="material-symbols-outlined" data-icon="chat_bubble" style="font-variation-settings: 'FILL' 1;">chat_bubble</span>
-<span class="font-label-sm text-label-sm">Mensajes</span>
-</a>
-</nav>
-</div>
-<!-- Decorative Image Context (Hidden but providing style signals) -->
-<div class="hidden">
-<img data-alt="A clean and professional administrative dashboard interface for a school social service department. The background is a soft white with subtle, low-opacity geometric gear icons scattered artistically. The lighting is bright and airy, suggesting a modern SaaS experience. The color palette is dominated by professional navy blue and crisp white, creating a reliable and facilitative academic environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBM_baUbP7uaueaSLJFpMYHJ0F4n2xClr_BTaEV5gAZMFY3Rh8yeT51trVsVa4VgY5gsPXxIFoQOzww-GnfVT34swR4J-HQ36vdkF5zHVqFt08sgBGzv94Jq6jELdg5PSbab5Ofi_e0kwTxIsyFe9XPaEk83bFMdmBvjdGFUZI_HBVN_i7oZD1i0RYUJUFgiPVvxLJ8jioisKYk3ph-F_hWaVYImc3xZknu8XZEzuOhr9aPIXVpzx_y0xPkXAT1ryLSEYwzDfiQrzEt"/>
-</div>
-</body></html>
+                    ${chat.unread > 0 ? `
+                        <div class="flex flex-col items-end gap-1">
+                            <span class="unread-badge">${chat.unread}</span>
+                        </div>
+                    ` : ''}
+                </div>
+            `).join('');
+        }
+
+        function filterChats() {
+            renderChatList();
+        }
+
+        // ==================== CHAT DETAIL ====================
+        function openChat(chatId) {
+            currentChatId = chatId;
+            const chat = chats.find(c => c.id === chatId);
+            
+            // Reset unread
+            chat.unread = 0;
+            chat.isActive = true;
+            chats.forEach(c => { if (c.id !== chatId) c.isActive = false; });
+            
+            // Update header
+            document.getElementById('detail-name').textContent = chat.name;
+            document.getElementById('detail-status').textContent = chat.status;
+            document.getElementById('detail-avatar').textContent = chat.initials;
+            document.getElementById('detail-avatar').className = `chat-avatar bg-gradient-to-br ${chat.avatarColor} text-white text-sm`;
+            
+            const statusDot = document.getElementById('detail-status-dot');
+            statusDot.className = 'online-indicator';
+            if (chat.statusType === 'online') statusDot.classList.add('online-indicator');
+            else if (chat.statusType === 'away') statusDot.classList.add('away');
+            else statusDot.style.display = 'none';
+            
+            renderMessages();
+            updateBadges();
+            renderChatList();
+            
+            // Show chat detail
+            document.getElementById('chat-detail').classList.add('active');
+            document.body.style.overflow = 'hidden';
+            
+            setTimeout(() => {
+                scrollToBottom();
+                document.getElementById('message-input').focus();
+            }, 100);
+        }
+
+        function renderMessages() {
+            const chat = chats.find(c => c.id === currentChatId);
+            const container = document.getElementById('messages-list');
+            
+            if (chat.messages.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-12">
+                        <div class="w-16 h-16 rounded-full bg-hs-secondary/10 flex items-center justify-center mx-auto mb-4">
+                            <span class="material-symbols-outlined text-hs-secondary text-2xl">chat</span>
+                        </div>
+                        <p class="text-hs-muted font-medium">Inicia una conversación</p>
+                        <p class="text-xs text-hs-muted mt-1">Envía un mensaje para comenzar</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = chat.messages.map((msg, idx) => `
+                <div class="flex ${msg.type === 'sent' ? 'justify-end' : 'justify-start'}">
+                    <div class="message-bubble ${msg.type}">
+                        <p>${msg.text}</p>
+                        <div class="message-time ${msg.type === 'sent' ? 'text-white/70' : 'text-hs-muted'}">
+                            <span>${msg.time}</span>
+                            ${msg.type === 'sent' ? `
+                                <span class="material-symbols-outlined text-[14px]">${msg.read ? 'done_all' : 'check'}</span>
+                            ` : ''}
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function closeChat() {
+            document.getElementById('chat-detail').classList.remove('active');
+            document.body.style.overflow = '';
+            currentChatId = null;
+            renderChatList();
+        }
+
+        function scrollToBottom() {
+            const container = document.getElementById('messages-container');
+            container.scrollTop = container.scrollHeight;
+        }
+
+        // ==================== SEND MESSAGE ====================
+        function sendMessage() {
+            const input = document.getElementById('message-input');
+            const text = input.value.trim();
+            
+            if (!text || !currentChatId) return;
+            
+            const chat = chats.find(c => c.id === currentChatId);
+            const now = new Date();
+            const timeStr = now.toLocaleTimeString('es-MX', { hour: '2-digit', minute: '2-digit' });
+            
+            // Add sent message
+            chat.messages.push({
+                id: Date.now(),
+                type: "sent",
+                text: text,
+                time: timeStr,
+                read: false
+            });
+            
+            chat.lastMessage = text;
+            chat.time = timeStr;
+            
+            input.value = '';
+            renderMessages();
+            scrollToBottom();
+            showToast('Mensaje enviado');
+            
+            // Simulate response
+            setTimeout(() => {
+                showTyping();
+                setTimeout(() => {
+                    hideTyping();
+                    const responses = [
+                        "Entendido, gracias por la información.",
+                        "Voy a revisarlo y te confirmo.",
+                        "Perfecto, quedo al pendiente.",
+                        "Gracias, cualquier duda me avisas."
+                    ];
+                    const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+                    
+                    chat.messages.push({
+                        id: Date.now() + 1,
+                        type: "received",
+                        text: randomResponse,
+                        time: new Date().toLocaleTimeString('es-MX', { hour: '2-digit', minute: '2-digit' }),
+                        read: true
+                    });
+                    
+                    chat.lastMessage = randomResponse;
+                    chat.time = "Ahora";
+                    chat.unread = 1;
+                    
+                    renderMessages();
+                    scrollToBottom();
+                    renderChatList();
+                    updateBadges();
+                    
+                    // Show notification
+                    showToast(`Nuevo mensaje de ${chat.name}`);
+                }, 2000);
+            }, 1000);
+        }
+
+        function handleKeyPress(e) {
+            if (e.key === 'Enter') sendMessage();
+        }
+
+        function showTyping() {
+            document.getElementById('typing-indicator').classList.add('active');
+            scrollToBottom();
+        }
+
+        function hideTyping() {
+            document.getElementById('typing-indicator').classList.remove('active');
+        }
+
+        // ==================== NOTIFICATIONS ====================
+        function openNotifications() {
+            document.getElementById('notifications-panel').classList.add('active');
+            document.body.style.overflow = 'hidden';
+            document.getElementById('header-notif-badge').classList.add('hidden');
+        }
+
+        function closeNotifications() {
+            document.getElementById('notifications-panel').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function renderNotifications() {
+            const container = document.getElementById('notifications-list');
+            
+            if (notifications.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-12">
+                        <div class="w-16 h-16 rounded-full bg-hs-secondary/10 flex items-center justify-center mx-auto mb-4">
+                            <span class="material-symbols-outlined text-hs-secondary text-2xl">notifications_off</span>
+                        </div>
+                        <p class="text-hs-muted font-medium">Sin notificaciones</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = notifications.map(notif => {
+                const typeConfig = {
+                    message: { color: 'bg-hs-secondary', icon: 'chat', bg: 'bg-sky-50', text: 'text-sky-700' },
+                    alert: { color: 'bg-hs-warning', icon: 'warning', bg: 'bg-amber-50', text: 'text-amber-700' },
+                    info: { color: 'bg-hs-accent', icon: 'info', bg: 'bg-blue-50', text: 'text-blue-700' },
+                    success: { color: 'bg-hs-success', icon: 'check_circle', bg: 'bg-emerald-50', text: 'text-emerald-700' }
+                };
+                const config = typeConfig[notif.type] || typeConfig.info;
+                
+                return `
+                    <div onclick="handleNotificationClick(${notif.id})" 
+                         class="notif-item ${!notif.read ? 'unread' : ''}">
+                        <div class="flex items-start gap-3">
+                            <div class="w-10 h-10 rounded-xl ${config.bg} flex items-center justify-center flex-shrink-0">
+                                <span class="material-symbols-outlined ${config.text}">${config.icon}</span>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <div class="flex justify-between items-start">
+                                    <h4 class="font-display font-bold text-sm text-hs-primary ${!notif.read ? 'text-hs-primary' : ''}">${notif.title}</h4>
+                                    <span class="text-[10px] text-hs-muted whitespace-nowrap ml-2">${notif.time}</span>
+                                </div>
+                                <p class="text-[13px] text-hs-muted mt-1 leading-relaxed">${notif.message}</p>
+                            </div>
+                            ${!notif.read ? `<div class="w-2 h-2 bg-hs-secondary rounded-full mt-2 flex-shrink-0"></div>` : ''}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function markAllRead() {
+            notifications.forEach(n => n.read = true);
+            renderNotifications();
+            updateBadges();
+            showToast('Todas las notificaciones leídas');
+        }
+
+        function handleNotificationClick(id) {
+            const notif = notifications.find(n => n.id === id);
+            if (notif) {
+                notif.read = true;
+                renderNotifications();
+                updateBadges();
+                
+                if (notif.chatId) {
+                    closeNotifications();
+                    openChat(notif.chatId);
+                }
+            }
+        }
+
+        // ==================== NEW MESSAGE ====================
+        function openNewMessageModal() {
+            document.getElementById('new-message-modal').classList.add('active');
+            document.getElementById('teacher-search').focus();
+        }
+
+        function closeNewMessageModal() {
+            document.getElementById('new-message-modal').classList.remove('active');
+            document.getElementById('teacher-search').value = '';
+            renderTeachersList();
+        }
+
+        function renderTeachersList() {
+            const searchTerm = document.getElementById('teacher-search').value.toLowerCase();
+            const container = document.getElementById('teachers-list');
+            
+            const filtered = teachers.filter(t => 
+                t.name.toLowerCase().includes(searchTerm) || 
+                t.subject.toLowerCase().includes(searchTerm)
+            );
+            
+            container.innerHTML = filtered.map(teacher => `
+                <div onclick="startNewChat(${teacher.id})" 
+                     class="teacher-card flex items-center gap-4">
+                    <div class="chat-avatar bg-gradient-to-br ${teacher.avatarColor} text-white text-sm">
+                        ${teacher.initials}
+                    </div>
+                    <div class="flex-1">
+                        <h4 class="font-display font-bold text-sm text-hs-primary">${teacher.name}</h4>
+                        <p class="text-xs text-hs-muted">${teacher.subject}</p>
+                    </div>
+                    <span class="material-symbols-outlined text-hs-muted text-sm">chevron_right</span>
+                </div>
+            `).join('');
+        }
+
+        function filterTeachers() {
+            renderTeachersList();
+        }
+
+        function startNewChat(teacherId) {
+            const teacher = teachers.find(t => t.id === teacherId);
+            
+            let chat = chats.find(c => c.name === teacher.name);
+            
+            if (!chat) {
+                chat = {
+                    id: teacher.id,
+                    name: teacher.name,
+                    initials: teacher.initials,
+                    avatarColor: teacher.avatarColor,
+                    lastMessage: "Inicia una conversación...",
+                    time: "Ahora",
+                    unread: 0,
+                    isActive: false,
+                    status: "En línea",
+                    statusType: "online",
+                    messages: []
+                };
+                chats.unshift(chat);
+            }
+            
+            closeNewMessageModal();
+            openChat(chat.id);
+            showToast(`Chat iniciado con ${teacher.name}`);
+        }
+
+        function closeModalOnOverlay(event) {
+            if (event.target === event.currentTarget) {
+                closeNewMessageModal();
+            }
+        }
+
+        // ==================== UTILITIES ====================
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-message').textContent = message;
+            toast.classList.add('active');
+            
+            setTimeout(() => {
+                toast.classList.remove('active');
+            }, 3000);
+        }
+
+        function updateBadges() {
+            const totalUnread = chats.reduce((sum, chat) => sum + chat.unread, 0);
+            const navBadge = document.getElementById('nav-badge');
+            const headerBadge = document.getElementById('header-notif-badge');
+            const unreadNotifs = notifications.filter(n => !n.read).length;
+            
+            if (totalUnread > 0) {
+                navBadge.textContent = totalUnread;
+                navBadge.classList.remove('hidden');
+            } else {
+                navBadge.classList.add('hidden');
+            }
+            
+            if (unreadNotifs > 0) {
+                headerBadge.classList.remove('hidden');
+            }
+        }
+
+        // Close modals on escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeNewMessageModal();
+                closeNotifications();
+                closeChat();
+            }
+        });
+
+        // Scroll header shadow
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('.app-header');
+            if (window.pageYOffset > 50) {
+                header.style.boxShadow = '0 4px 20px -2px rgba(15, 23, 42, 0.08)';
+            } else {
+                header.style.boxShadow = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
