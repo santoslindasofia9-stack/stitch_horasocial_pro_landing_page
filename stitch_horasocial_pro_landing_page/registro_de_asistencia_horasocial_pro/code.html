@@ -52,7 +52,7 @@
             font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
         }
 
-        /* Serene Background */
+        /* ===== SERENE BACKGROUND ===== */
         .serene-bg {
             position: fixed;
             inset: 0;
@@ -114,6 +114,61 @@
             25% { transform: translate(40px, -30px) scale(1.1); }
             50% { transform: translate(-20px, 50px) scale(0.95); }
             75% { transform: translate(30px, 20px) scale(1.05); }
+        }
+
+        /* Wave Lines */
+        .wave-line {
+            position: absolute;
+            width: 200%;
+            height: 3px;
+            border-radius: 999px;
+            animation: wave-flow 15s linear infinite;
+        }
+
+        .wave-line-1 {
+            top: 20%;
+            background: linear-gradient(90deg, transparent 0%, rgba(57, 184, 253, 0.2) 15%, rgba(57, 184, 253, 0.35) 30%, rgba(57, 184, 253, 0.45) 50%, rgba(57, 184, 253, 0.35) 70%, rgba(57, 184, 253, 0.2) 85%, transparent 100%);
+            box-shadow: 0 0 12px rgba(57, 184, 253, 0.15);
+            animation-delay: 0s;
+        }
+
+        .wave-line-2 {
+            top: 45%;
+            background: linear-gradient(90deg, transparent 0%, rgba(14, 165, 233, 0.15) 20%, rgba(14, 165, 233, 0.3) 40%, rgba(14, 165, 233, 0.4) 50%, rgba(14, 165, 233, 0.3) 60%, rgba(14, 165, 233, 0.15) 80%, transparent 100%);
+            box-shadow: 0 0 10px rgba(14, 165, 233, 0.1);
+            animation-delay: -5s;
+            opacity: 0.85;
+        }
+
+        .wave-line-3 {
+            top: 70%;
+            background: linear-gradient(90deg, transparent 0%, rgba(2, 132, 199, 0.12) 25%, rgba(2, 132, 199, 0.25) 45%, rgba(2, 132, 199, 0.35) 50%, rgba(2, 132, 199, 0.25) 55%, rgba(2, 132, 199, 0.12) 75%, transparent 100%);
+            box-shadow: 0 0 8px rgba(2, 132, 199, 0.08);
+            animation-delay: -10s;
+            opacity: 0.7;
+        }
+
+        .wave-line-4 {
+            top: 35%;
+            background: linear-gradient(90deg, transparent 0%, rgba(135, 206, 250, 0.1) 20%, rgba(135, 206, 250, 0.2) 50%, rgba(135, 206, 250, 0.1) 80%, transparent 100%);
+            box-shadow: 0 0 6px rgba(135, 206, 250, 0.08);
+            animation-delay: -7s;
+            animation-duration: 20s;
+            opacity: 0.6;
+        }
+
+        .wave-line-5 {
+            top: 85%;
+            background: linear-gradient(90deg, transparent 0%, rgba(186, 230, 253, 0.08) 30%, rgba(186, 230, 253, 0.18) 50%, rgba(186, 230, 253, 0.08) 70%, transparent 100%);
+            box-shadow: 0 0 6px rgba(186, 230, 253, 0.06);
+            animation-delay: -12s;
+            animation-duration: 18s;
+            opacity: 0.5;
+        }
+
+        @keyframes wave-flow {
+            0% { transform: translateX(-50%); }
+            100% { transform: translateX(0%); }
         }
 
         .glass-panel {
@@ -454,12 +509,17 @@
 </head>
 <body class="pb-24">
 
-    <!-- Serene Background -->
+    <!-- ===== SERENE BACKGROUND ===== -->
     <div class="serene-bg">
         <div class="aurora-orb aurora-orb-1"></div>
         <div class="aurora-orb aurora-orb-2"></div>
         <div class="aurora-orb aurora-orb-3"></div>
         <div class="aurora-orb aurora-orb-4"></div>
+        <div class="wave-line wave-line-1"></div>
+        <div class="wave-line wave-line-2"></div>
+        <div class="wave-line wave-line-3"></div>
+        <div class="wave-line wave-line-4"></div>
+        <div class="wave-line wave-line-5"></div>
     </div>
 
     <!-- Header -->
