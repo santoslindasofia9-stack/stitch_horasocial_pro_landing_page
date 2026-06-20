@@ -304,3 +304,6 @@ app.listen(PORT, () => {
 app.get('/login_administrador', (req, res) => {
     res.sendFile(path.join(__dirname, 'stitch_horasocial_pro_landing_page', 'login_administrador', 'code.html'));
 });
+app.get('/login_administrador', (req, res) => {
+    res.sendFile(path.join(__dirname, 'stitch_horasocial_pro_landing_page', 'login_administrador', 'code.html'));
+});
