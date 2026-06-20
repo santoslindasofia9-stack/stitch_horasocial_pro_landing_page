@@ -9,7 +9,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Plus+Jakarta+Sans:wght@600;700&display=swap" rel="stylesheet">
     
     <style>
-        /* === RESET Y GLOBALES === */
         * { box-sizing: border-box; margin: 0; padding: 0; }
         
         body {
@@ -25,14 +24,12 @@
 
         .material-symbols-outlined { font-variation-settings: 'FILL' 1, 'wght' 400; }
 
-        /* === LAYOUT PRINCIPAL === */
         .content-wrapper {
             position: relative; z-index: 2;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
             flex: 1; padding: 40px 24px; gap: 36px;
         }
 
-        /* === LOGO Y ANIMACIONES === */
         .header-logo {
             display: flex; align-items: center; justify-content: center;
             width: 100%; max-width: 300px;
@@ -47,12 +44,10 @@
         }
         .header-logo:hover .logo-img { transform: scale(1.05); }
 
-        /* === TEXTOS === */
         .text-block { text-align: center; max-width: 480px; margin-top: -8px; }
         .text-block h1 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 28px; color: #0c2340; line-height: 1.25; margin-bottom: 8px; }
         .text-block p { font-size: 15px; color: #5a6370; line-height: 1.5; }
 
-        /* === TARJETAS DE ROL === */
         .roles-grid {
             display: flex; flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 20px; width: 100%; max-width: 520px; margin-top: 10px;
         }
@@ -98,7 +93,6 @@
         .role-info h3 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 16px; font-weight: 700; margin: 0; }
         .role-info p { display: none; }
 
-        /* === FOOTER === */
         .footer-info { text-align: center; padding-bottom: 24px; position: relative; z-index: 2; }
         .footer-info p { font-size: 13px; color: #5a6370; margin-bottom: 6px; }
         .footer-info a { color: #006591; text-decoration: none; font-weight: 600; }
@@ -108,7 +102,6 @@
         .footer-bottom span { font-size: 11px; font-weight: 600; color: #9ca3af; letter-spacing: 0.04em; }
         .footer-line { width: 40px; height: 3px; background: #d1d5db; border-radius: 9999px; margin: 5px auto 0; opacity: 0.5; }
 
-        /* === RESPONSIVO === */
         @media (max-width: 520px) {
             .roles-grid { gap: 16px; }
             .role-card { width: 140px; height: 140px; }
@@ -131,23 +124,18 @@
 </head>
 <body>
 
-<!-- CANVA DEL FONDO ANIMADO -->
 <canvas id="ribbon-canvas" style="position:fixed; inset:0; z-index:0; pointer-events:none;"></canvas>
 
-<!-- CONTENIDO PRINCIPAL -->
 <div class="content-wrapper">
-    <!-- Logo -->
     <header class="header-logo">
         <img alt="HORASOCIAL PRO Logo Pequeño" class="logo-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwMhl_DdmeafGOmiL2QLqeQV_Ut8aNvKKYwKjKUtrAMBSjpyGc1Acc5TCQm084EODuuIAA3GiusiDfLdXgW3DAC8tdYPa8R-TEraz_hHglTpuTQJRtfOJfW_OyF25795_lzWR3g1wKtd_0fCPC6QxHfyblbvKAQVJNcggVB3k8TYcOAOsA0lTgC8lQz0E1YRlDIn1zQ0vALf8l_40TC_X6xkuWE-o1qr0sdsv2THdAcTxAM9txnjL8N_7oSnlqsHLnXkvvL7tImO-s">
     </header>
 
-    <!-- Texto -->
     <div class="text-block">
         <h1>Elige cómo quieres ingresar</h1>
         <p>Selecciona tu rol para acceder a las herramientas correspondientes a tu perfil.</p>
     </div>
 
-    <!-- Tarjetas de Rol -->
     <div class="roles-grid">
         <button class="role-card" onclick="selectRole('estudiante', this)">
             <div class="role-icon-wrapper estudiante">
@@ -182,7 +170,6 @@
 
 </div>
 
-<!-- Footer (Fuera del content-wrapper para centrado perfecto) -->
 <div class="footer-info">
     <p>¿Necesitas ayuda? <a href="#">Consulta nuestra guía de acceso</a></p>
     <div class="footer-bottom">
@@ -192,11 +179,9 @@
 </div>
 
 <script>
-    // Navegación con animación - CORREGIDO: cada rol va a su ruta
     function selectRole(role, btnElement) {
         console.log("Rol seleccionado: " + role);
         
-        // Efecto visual de carga en el ícono principal
         const icon = btnElement.querySelector('.material-symbols-outlined');
         icon.style.opacity = '0';
         setTimeout(() => {
@@ -205,22 +190,19 @@
             icon.style.opacity = '1';
         }, 150);
         
-        // Deshabilitar todos los botones temporalmente
         document.querySelectorAll('.role-card').forEach(btn => btn.disabled = true);
         
-        // Redirección según el rol seleccionado
         setTimeout(() => {
             if (role === 'estudiante') {
                 window.location.href = '/login';
             } else if (role === 'profesor') {
                 window.location.href = '/profesor/login';
             } else if (role === 'admin') {
-                window.location.href = '/admin/dashboard';
+                window.location.href = '/login_administrador';  // ✅ CORREGIDO: Va al login, NO al dashboard
             }
         }, 800);
     }
 
-    // Animación del Fondo (Ondas)
     const ctx = document.getElementById('ribbon-canvas').getContext('2d');
     let w, h, time = 0;
 
