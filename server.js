@@ -87,8 +87,7 @@ function abrirChat(nombre) {
     };
     
     const id = estudiantes[nombre];
-    
-    // RUTA RELATIVA: subir un nivel y entrar a la carpeta de mensajes
+    // Ruta relativa: subir un nivel y entrar a la carpeta de mensajes
     const mensajesPath = '../mensajes_e_interacci_n_perfil_maestro/code.html';
     
     if (id !== undefined && id !== 0) {
