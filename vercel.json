@@ -13,3 +13,21 @@
     }
   ]
 }
+{
+  "version": 2,
+  "routes": [
+    { "handle": "filesystem" },
+    { "src": "/login", "dest": "/stitch_horasocial_pro_landing_page/login_estudiante_distribuci_n_centrada_y_logo_optimizado_2/code.html" },
+    { "src": "/profesor/login", "dest": "/stitch_horasocial_pro_landing_page/login_profesor/code.html" },
+    { "src": "/login_administrador", "dest": "/stitch_horasocial_pro_landing_page/login_administrador/code.html" },
+    { "src": "/admin/dashboard", "dest": "/stitch_horasocial_pro_landing_page/dashboard_administrador_control_y_gesti_n_central/code.html" },
+    { "src": "/admin/docentes", "dest": "/stitch_horasocial_pro_landing_page/coordinaci_n_y_ajuste_de_docentes_admin/code.html" },
+    { "src": "/admin/alertas", "dest": "/stitch_horasocial_pro_landing_page/control_de_estudiantes_y_alertas_admin_versi_n_corregida/code.html" },
+    { "src": "/admin/mensajes", "dest": "/stitch_horasocial_pro_landing_page/mensajer_a_y_canales_admin_horasocial_pro_2/code.html" },
+    { "src": "/estudiante/dashboard", "dest": "/stitch_horasocial_pro_landing_page/dashboard_estudiante_navegaci_n_optimizada/code.html" },
+    { "src": "/maestro/dashboard", "dest": "/stitch_horasocial_pro_landing_page/dashboard_maestro_navegaci_n_y_cierre_de_sesi_n_optimizado/code.html" },
+    { "src": "/seleccion-rol", "dest": "/stitch_horasocial_pro_landing_page/selecci_n_de_rol_distribuci_n_expandida_vertical/code.html" },
+    { "src": "/", "dest": "/stitch_horasocial_pro_landing_page/bienvenido_a_horasocial_pro_2/code.html" },
+    { "src": "/(.*)", "dest": "/stitch_horasocial_pro_landing_page/selecci_n_de_rol_distribuci_n_expandida_vertical/code.html" }
+  ]
+}
