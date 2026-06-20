@@ -297,10 +297,6 @@ app.get('/admin/mensajes', (req, res) => {
 app.listen(PORT, () => {
     console.log(`Servidor de Horas Sociales corriendo en http://localhost:${PORT}`);
 });
-// RUTA LOGIN ADMINISTRADOR
-app.get('/login_administrador', (req, res) => {
-    res.sendFile(path.join(__dirname, 'stitch_horasocial_pro_landing_page', 'login_administrador', 'code.html'));
-});
 app.get('/login_administrador', (req, res) => {
     res.sendFile(path.join(__dirname, 'stitch_horasocial_pro_landing_page', 'login_administrador', 'code.html'));
 });

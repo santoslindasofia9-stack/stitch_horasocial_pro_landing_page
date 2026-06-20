@@ -179,7 +179,7 @@
 </div>
 
 <script>
-    function selectRole(role, btnElement) {
+        function selectRole(role, btnElement) {
         console.log("Rol seleccionado: " + role);
         
         const icon = btnElement.querySelector('.material-symbols-outlined');
@@ -197,8 +197,8 @@
                 window.location.href = '/login';
             } else if (role === 'profesor') {
                 window.location.href = '/profesor/login';
-            }  else if (role === 'admin') {
-                window.location.href = '/login_administrador';  // ✅ CORREGIDO: Ahora va al login primero
+            } else if (role === 'admin') {
+                window.location.href = '/login_administrador';  // ✅ CORREGIDO
             }
         }, 800);
     }
