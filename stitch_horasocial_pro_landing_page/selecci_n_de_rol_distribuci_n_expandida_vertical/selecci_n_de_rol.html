@@ -437,7 +437,7 @@
   </main>
 
   <script>
-    // Navegación animada
+    // Navegación animada con redirección dinámica por rol
     function selectRole(role, btnElement) {
         // Añadir feedback visual en el ícono circular central
         const icon = btnElement.querySelector('.role-icon-wrapper .material-symbols-outlined');
@@ -453,11 +453,9 @@
         // Deshabilitar botones
         document.querySelectorAll('.role-card').forEach(btn => btn.disabled = true);
         
-        console.log("Rol seleccionado: " + role);
-        
+        // Redirigir al login con el rol como parámetro en la URL
         setTimeout(() => {
-            // Aquí iría la lógica para redirigir según el rol seleccionado (ej. window.location.href = '/login')
-            console.log("Redirigiendo a " + role + "...");
+            window.location.href = '/login?rol=' + role;
         }, 800);
     }
 
