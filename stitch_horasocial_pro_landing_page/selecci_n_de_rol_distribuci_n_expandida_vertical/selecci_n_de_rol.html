@@ -4,17 +4,30 @@
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 <title>HORASOCIAL PRO - Selección de Rol</title>
+<!-- Google Fonts: Plus Jakarta Sans & Inter -->
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+<!-- Material Symbols -->
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
 
 <style>
+  /* ===== RESET & BASE ===== */
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html, body { width: 100%; height: 100%; font-family: 'Inter', sans-serif; overflow: hidden; }
+
+  html, body {
+    width: 100%;
+    height: 100%;
+    font-family: 'Inter', sans-serif;
+    overflow: hidden;
+  }
+
+  /* ===== ANIMATED WAVE BACKGROUND ===== */
   body {
-    background: #0b1a3b;
+    background: #0b1a3b; /* deep navy base */
     position: relative;
     color: #ffffff;
   }
+
+  /* Wave layer 1 – top */
   body::before {
     content: '';
     position: fixed;
@@ -27,6 +40,8 @@
     animation: waveTop 12s ease-in-out infinite alternate;
     pointer-events: none;
   }
+
+  /* Wave layer 2 – bottom */
   body::after {
     content: '';
     position: fixed;
@@ -39,19 +54,24 @@
     animation: waveBottom 16s ease-in-out infinite alternate-reverse;
     pointer-events: none;
   }
+
   @keyframes waveTop {
     0%   { transform: scale(1)    translateY(0%)   rotate(0deg); }
     50%  { transform: scale(1.05) translateY(-4%)  rotate(1.5deg); }
     100% { transform: scale(1)    translateY(2%)   rotate(-1deg); }
   }
+
   @keyframes waveBottom {
     0%   { transform: scale(1)    translateY(0%)  rotate(0deg); }
     50%  { transform: scale(1.06) translateY(4%)  rotate(-2deg); }
     100% { transform: scale(1)    translateY(-2%) rotate(1deg); }
   }
+
   @media (prefers-reduced-motion: reduce) {
     body::before, body::after { animation: none; }
   }
+
+  /* ===== LAYOUT ===== */
   main {
     position: relative;
     z-index: 1;
@@ -63,6 +83,8 @@
     padding: 32px 20px;
     gap: 24px;
   }
+
+  /* ===== LOGO ===== */
   .header-logo {
     display: flex;
     align-items: center;
@@ -75,6 +97,7 @@
     0%, 100% { transform: translateY(0); } 
     50% { transform: translateY(-8px); } 
   }
+
   .logo-wrapper {
     position: relative;
     display: flex;
@@ -83,9 +106,13 @@
     width: 100%;
     max-width: 320px;
   }
+
   .logo-glow {
     position: absolute;
-    top: -12px; left: -12px; right: -12px; bottom: -12px;
+    top: -12px;
+    left: -12px;
+    right: -12px;
+    bottom: -12px;
     background: #38bdf8;
     opacity: 0.25;
     filter: blur(30px);
@@ -93,6 +120,7 @@
     transition: opacity 0.6s ease;
     pointer-events: none;
   }
+
   .logo-img {
     position: relative;
     width: 100%; 
@@ -106,14 +134,21 @@
       0 12px 32px rgba(0,0,0,0.4);
     transition: transform 0.4s ease, box-shadow 0.4s ease;
   }
-  .logo-wrapper:hover .logo-glow { opacity: 0.4; }
+  .logo-wrapper:hover .logo-glow {
+    opacity: 0.4;
+  }
   .logo-wrapper:hover .logo-img { 
     transform: scale(1.04); 
     box-shadow: 
       0 0 0 4px rgba(56, 189, 248, 0.5),
       0 18px 48px rgba(0,0,0,0.5);
   }
-  .text-block { text-align: center; max-width: 420px; }
+
+  /* ===== TEXT BLOCK ===== */
+  .text-block { 
+    text-align: center; 
+    max-width: 420px; 
+  }
   .text-block h1 { 
     font-family: 'Plus Jakarta Sans', sans-serif; 
     font-size: clamp(20px, 4.5vw, 28px); 
@@ -122,12 +157,16 @@
     margin-bottom: 8px;
     text-shadow: 0 2px 12px rgba(0,0,0,0.4);
   }
-  .text-block h1 span { color: #38bdf8; }
+  .text-block h1 span {
+    color: #38bdf8;
+  }
   .text-block p { 
     font-size: clamp(13px, 3vw, 15px); 
     color: rgba(255,255,255,0.78); 
     line-height: 1.5; 
   }
+
+  /* ===== ROLE CARDS (FILA HORIZONTAL PREMIUM) ===== */
   .roles-grid {
     display: flex; 
     flex-direction: row; 
@@ -138,6 +177,7 @@
     max-width: 640px;
     margin-top: 16px;
   }
+
   .role-card {
     background: rgba(11, 26, 59, 0.4);
     backdrop-filter: blur(20px);
@@ -162,6 +202,7 @@
     overflow: hidden;
     outline: none;
   }
+
   .role-card::before {
     content: '';
     position: absolute;
@@ -171,17 +212,23 @@
     transition: transform 0.6s ease;
     pointer-events: none;
   }
-  .role-card:hover::before { transform: translateX(100%); }
+  
+  .role-card:hover::before {
+    transform: translateX(100%);
+  }
+
   .role-card:hover {
     transform: translateY(-6px);
     box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
     background: rgba(255, 255, 255, 0.08);
     border-color: rgba(56, 189, 248, 0.5);
   }
+  
   .role-card:active {
     transform: translateY(-2px) scale(0.98);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
   }
+
   .role-icon-wrapper {
     width: 72px; 
     height: 72px; 
@@ -193,20 +240,28 @@
     flex-shrink: 0;
     transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
   }
+  
   .role-card:hover .role-icon-wrapper {
     transform: scale(1.06);
     box-shadow: 0 6px 18px rgba(0,0,0,0.35);
   }
+
   .role-icon-wrapper.estudiante { background: linear-gradient(135deg, #38bdf8, #0284c7); }
   .role-icon-wrapper.profesor { background: linear-gradient(135deg, #c084fc, #7e22ce); }
   .role-icon-wrapper.admin { background: linear-gradient(135deg, #34d399, #047857); }
+  
   .role-icon-wrapper .material-symbols-outlined { 
     color: #ffffff; 
     font-size: 32px; 
     font-variation-settings: 'FILL' 1, 'wght' 500;
     transition: opacity 0.2s, transform 0.3s;
   }
-  .role-info { text-align: center; width: 100%; }
+  
+  .role-info {
+    text-align: center;
+    width: 100%;
+  }
+  
   .role-info h3 { 
     font-family: 'Plus Jakarta Sans', sans-serif; 
     font-size: 16.5px; 
@@ -215,18 +270,39 @@
     margin: 0;
     transition: color 0.3s ease;
   }
-  .role-card:hover .role-info h3 { color: #38bdf8; }
-  .role-info p { display: none; }
-  .footer-info { text-align: center; margin-top: 10px; }
-  .footer-info p { font-size: 13px; color: rgba(255,255,255,0.6); margin-bottom: 6px; }
+  
+  .role-card:hover .role-info h3 {
+    color: #38bdf8;
+  }
+  
+  .role-info p { 
+    display: none;
+  }
+
+  /* ===== FOOTER ===== */
+  .footer-info { 
+    text-align: center; 
+    margin-top: 10px;
+  }
+  .footer-info p { 
+    font-size: 13px; 
+    color: rgba(255,255,255,0.6); 
+    margin-bottom: 6px; 
+  }
   .footer-info a { 
     color: #38bdf8; 
     text-decoration: none; 
     font-weight: 600; 
     transition: color 0.2s ease;
   }
-  .footer-info a:hover { color: #bae6fd; text-decoration: underline; }
-  .footer-bottom { margin-top: 16px; }
+  .footer-info a:hover { 
+    color: #bae6fd;
+    text-decoration: underline; 
+  }
+  
+  .footer-bottom { 
+    margin-top: 16px; 
+  }
   .footer-bottom span { 
     font-size: 11px; 
     font-weight: 600; 
@@ -240,6 +316,8 @@
     border-radius: 9999px; 
     margin: 8px auto 0; 
   }
+
+  /* ===== FLOATING WATERMARKS ===== */
   .floating-icon {
     position: fixed;
     font-size: 100px;
@@ -249,6 +327,7 @@
     font-family: 'Material Symbols Outlined';
     font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 48;
   }
+  
   @media (max-width: 600px) {
     .roles-grid {
       flex-direction: column;
@@ -266,10 +345,20 @@
       border-radius: 20px;
       text-align: left;
     }
-    .role-icon-wrapper { width: 52px; height: 52px; border-radius: 50%; }
-    .role-icon-wrapper .material-symbols-outlined { font-size: 24px; }
-    .role-info { text-align: left; }
-    .role-info h3 { font-size: 16px; }
+    .role-icon-wrapper {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+    }
+    .role-icon-wrapper .material-symbols-outlined {
+      font-size: 24px;
+    }
+    .role-info {
+      text-align: left;
+    }
+    .role-info h3 {
+      font-size: 16px;
+    }
   }
   @media (max-height: 700px) {
     main { gap: 32px; padding: 24px 16px; }
@@ -281,12 +370,15 @@
 </head>
 
 <body>
+
+  <!-- Floating watermark icons -->
   <span class="floating-icon" style="top:10%; left:5%">diversity_3</span>
   <span class="floating-icon" style="bottom:8%; right:5%">co_present</span>
   <span class="floating-icon" style="top:35%; right:3%; font-size:70px;">badge</span>
   <span class="floating-icon" style="bottom:30%; left:3%; font-size:80px;">admin_panel_settings</span>
 
   <main>
+    <!-- Logo -->
     <header class="header-logo">
         <div class="logo-wrapper">
             <div class="logo-glow"></div>
@@ -294,11 +386,13 @@
         </div>
     </header>
 
+    <!-- Texto -->
     <div class="text-block">
         <h1>Elige cómo <span>quieres ingresar</span></h1>
         <p>Selecciona tu rol para acceder a las herramientas correspondientes a tu perfil.</p>
     </div>
 
+    <!-- Tarjetas de Rol -->
     <div class="roles-grid">
         <button class="role-card" onclick="selectRole('estudiante', this)">
             <div class="role-icon-wrapper estudiante">
@@ -331,6 +425,7 @@
         </button>
     </div>
 
+    <!-- Footer -->
     <div class="footer-info">
         <p>¿Necesitas ayuda? <a href="#">Consulta nuestra guía de acceso</a></p>
         <div class="footer-bottom">
@@ -341,12 +436,15 @@
   </main>
 
   <script>
+    // Navegación animada
     function selectRole(role, btnElement) {
+        // Si el rol es profesor, redirige instantáneamente al login de profesor
         if (role === 'profesor') {
             window.location.href = '/profesor/login';
             return;
         }
 
+        // Añadir feedback visual en el ícono circular central
         const icon = btnElement.querySelector('.role-icon-wrapper .material-symbols-outlined');
         if (icon) {
             icon.style.opacity = '0';
@@ -357,17 +455,18 @@
             }, 150);
         }
         
+        // Deshabilitar botones
         document.querySelectorAll('.role-card').forEach(btn => btn.disabled = true);
         
+        console.log("Rol seleccionado: " + role);
+        
         setTimeout(() => {
-            if (role === 'estudiante') {
-                window.location.href = '/login';
-            } else if (role === 'admin') {
-                window.location.href = '/admin/dashboard';
-            }
+            // Aquí iría la lógica para redirigir según el rol seleccionado
+            console.log("Redirigiendo a " + role + "...");
         }, 800);
     }
 
+    // Parallax watermarks on desktop
     if (window.innerWidth > 768) {
       document.addEventListener('mousemove', (e) => {
         const icons = document.querySelectorAll('.floating-icon');
