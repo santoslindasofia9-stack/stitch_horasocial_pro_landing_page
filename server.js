@@ -67,6 +67,32 @@ function saveLocalRequests(requests) {
         console.error('Error escribiendo archivo local:', err.message);
     }
 }
+function abrirChat(nombre) {
+    // Mapeo de nombres a IDs de chat en mensajes.html
+    const estudiantes = {
+        'Juan Carlos Rodríguez': 5,
+        'Sofía Fernández': 4,
+        'María Elena Ruiz': 6,
+        'Luis Alberto Pérez': 7,
+        'Carmen Teresa López': 0,
+        'Ana Lucía Martínez': 2,
+        'Carlos Mendoza': 1,
+        'Daniela Rosales': 0,
+        'Fernando Vásquez': 0,
+        'Gabriela Ramos': 0,
+        'Hugo Salazar': 0,
+        'Diego Gómez': 3,
+        'Isabel Castro': 0,
+        'Javier Morales': 0,
+        'Karina Navarro': 0
+    };
+    const id = estudiantes[nombre];
+    if (id !== undefined && id !== 0) {
+        window.location.href = '/maestro/mensajes?chat=' + id;
+    } else {
+        window.location.href = '/maestro/mensajes';
+    }
+}
 
 app.get('/api/test-db', (req, res) => {
     db.query('SELECT 1 + 1 AS result', (err, results) => {
