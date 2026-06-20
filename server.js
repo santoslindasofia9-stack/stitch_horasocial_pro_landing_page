@@ -68,7 +68,6 @@ function saveLocalRequests(requests) {
     }
 }
 function abrirChat(nombre) {
-    // Mapeo de nombres a IDs de chat en mensajes.html
     const estudiantes = {
         'Juan Carlos Rodríguez': 5,
         'Sofía Fernández': 4,
@@ -86,11 +85,16 @@ function abrirChat(nombre) {
         'Javier Morales': 0,
         'Karina Navarro': 0
     };
+    
     const id = estudiantes[nombre];
+    
+    // RUTA RELATIVA: subir un nivel y entrar a la carpeta de mensajes
+    const mensajesPath = '../mensajes_e_interacci_n_perfil_maestro/code.html';
+    
     if (id !== undefined && id !== 0) {
-        window.location.href = '/maestro/mensajes?chat=' + id;
+        window.location.href = mensajesPath + '?chat=' + id;
     } else {
-        window.location.href = '/maestro/mensajes';
+        window.location.href = mensajesPath;
     }
 }
 
