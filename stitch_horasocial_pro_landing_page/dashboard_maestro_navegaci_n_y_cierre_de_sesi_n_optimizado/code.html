@@ -6,12 +6,14 @@
     <title>HORASOCIAL PRO - Dashboard Maestro</title>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+    <!-- jsPDF para descarga real de PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         
         body {
-            background: linear-gradient(135deg, #e0f2fe 0%, #f0f9ff 25%, #f8fafc 50%, #fef3c7 100%);
+            background: #f1f5f9;
             font-family: 'Inter', sans-serif;
             color: #1e293b;
             min-height: 100vh;
@@ -21,31 +23,86 @@
             overflow-x: hidden;
         }
 
-        /* Fondo decorativo con formas */
-        body::before {
-            content: '';
+        /* === FONDO DECORATIVO ANIMADO === */
+        .bg-shapes {
             position: fixed;
-            top: -100px;
-            right: -100px;
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, rgba(56, 189, 248, 0.15) 0%, transparent 70%);
-            border-radius: 50%;
-            pointer-events: none;
+            inset: 0;
             z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
         }
 
-        body::after {
-            content: '';
-            position: fixed;
-            bottom: 100px;
-            left: -50px;
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.6;
+            animation: float-shape 20s ease-in-out infinite;
+        }
+
+        .shape-1 {
+            width: 400px;
+            height: 400px;
+            background: linear-gradient(135deg, #38bdf8, #0284c7);
+            top: -100px;
+            right: -100px;
+            animation-delay: 0s;
+        }
+
+        .shape-2 {
             width: 300px;
             height: 300px;
-            background: radial-gradient(circle, rgba(251, 191, 36, 0.1) 0%, transparent 70%);
-            border-radius: 50%;
-            pointer-events: none;
+            background: linear-gradient(135deg, #c084fc, #7e22ce);
+            bottom: 200px;
+            left: -80px;
+            animation-delay: -5s;
+            animation-duration: 25s;
+        }
+
+        .shape-3 {
+            width: 250px;
+            height: 250px;
+            background: linear-gradient(135deg, #34d399, #059669);
+            top: 40%;
+            right: -60px;
+            animation-delay: -10s;
+            animation-duration: 22s;
+        }
+
+        .shape-4 {
+            width: 350px;
+            height: 350px;
+            background: linear-gradient(135deg, #fbbf24, #d97706);
+            bottom: -100px;
+            left: 30%;
+            animation-delay: -15s;
+            animation-duration: 28s;
+        }
+
+        @keyframes float-shape {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+            }
+            25% {
+                transform: translate(30px, -30px) scale(1.1);
+            }
+            50% {
+                transform: translate(-20px, 20px) scale(0.95);
+            }
+            75% {
+                transform: translate(15px, 15px) scale(1.05);
+            }
+        }
+
+        /* Patrón de puntos sutil */
+        .bg-dots {
+            position: fixed;
+            inset: 0;
             z-index: 0;
+            pointer-events: none;
+            background-image: radial-gradient(circle, #cbd5e1 1px, transparent 1px);
+            background-size: 30px 30px;
+            opacity: 0.3;
         }
 
         .material-symbols-outlined { font-variation-settings: 'FILL' 1, 'wght' 400; }
@@ -860,6 +917,15 @@
 </head>
 <body>
 
+    <!-- FONDO DECORATIVO ANIMADO -->
+    <div class="bg-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+        <div class="shape shape-4"></div>
+    </div>
+    <div class="bg-dots"></div>
+
     <!-- TOP HEADER -->
     <header class="top-header">
         <div class="header-left">
@@ -1009,7 +1075,7 @@
         <div class="reporte-card">
             <h3>Reporte Semanal Disponible</h3>
             <p>Ya puedes descargar el resumen detallado de actividades de la última semana académica.</p>
-            <button class="btn-reporte" onclick="descargarReporte('semanal')">
+            <button class="btn-reporte" onclick="descargarReporte()">
                 <span class="material-symbols-outlined">download</span>
                 Descargar Reporte (PDF)
             </button>
@@ -1286,14 +1352,56 @@
             closeModal('reportes');
         }
 
-        // Descargar reporte
-        function descargarReporte(tipo) {
+        // Descargar reporte - abre modal
+        function descargarReporte() {
             openModal('descarga');
         }
 
-        // Confirmar descarga
+        // Confirmar descarga - genera PDF real con jsPDF
         function confirmarDescarga() {
-            alert('📥 Descargando reporte_semanal_20jun2026.pdf...');
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            
+            // Título
+            doc.setFontSize(20);
+            doc.text('HORASOCIAL PRO', 20, 20);
+            
+            doc.setFontSize(14);
+            doc.text('Reporte Semanal - 15 al 20 de junio 2026', 20, 35);
+            
+            // Línea separadora
+            doc.setDrawColor(2, 132, 199);
+            doc.setLineWidth(0.5);
+            doc.line(20, 40, 190, 40);
+            
+            // Resumen
+            doc.setFontSize(12);
+            doc.text('RESUMEN GENERAL', 20, 55);
+            
+            doc.setFontSize(11);
+            doc.text('Total de Estudiantes: 15', 20, 70);
+            doc.text('Horas Totales Validadas: 248', 20, 80);
+            doc.text('Brigadas Activas: 3', 20, 90);
+            doc.text('Pendientes de Revisión: 12', 20, 100);
+            
+            // Detalle por brigada
+            doc.setFontSize(12);
+            doc.text('DETALLE POR BRIGADA', 20, 120);
+            
+            doc.setFontSize(10);
+            doc.text('1. Brigada Ambiental - 5 estudiantes - 65% progreso', 20, 135);
+            doc.text('2. Apoyo Académico - 6 estudiantes - 40% progreso', 20, 145);
+            doc.text('3. Servicios Comunitarios - 4 estudiantes - 80% progreso', 20, 155);
+            
+            // Pie de página
+            doc.setFontSize(9);
+            doc.setTextColor(128, 128, 128);
+            doc.text('Generado el: 20 de junio de 2026 - Maestro Ricardo', 20, 280);
+            doc.text('HORASOCIAL PRO - Gestión de Servicio Social Escolar', 20, 285);
+            
+            // Guardar
+            doc.save('reporte_semanal_20jun2026.pdf');
+            
             closeModal('descarga');
         }
 
