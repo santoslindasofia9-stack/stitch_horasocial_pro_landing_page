@@ -211,9 +211,9 @@ app.get('/login', (req, res) => {
     res.sendFile(path.join(__dirname, 'stitch_horasocial_pro_landing_page', 'login_estudiante_distribuci_n_centrada_y_logo_optimizado_2', 'code.html'));
 });
 
-// RUTA PROFESOR - CORREGIDA
+// RUTA PROFESOR - CORREGIDA (carpeta renombrada a login_profesor)
 app.get('/profesor/login', (req, res) => {
-    res.sendFile(path.join(__dirname, 'stitch_horasocial_pro_landing_page', 'loguin_profesor', 'code.html'));
+    res.sendFile(path.join(__dirname, 'stitch_horasocial_pro_landing_page', 'login_profesor', 'code.html'));
 });
 
 app.get('/sobre', (req, res) => {

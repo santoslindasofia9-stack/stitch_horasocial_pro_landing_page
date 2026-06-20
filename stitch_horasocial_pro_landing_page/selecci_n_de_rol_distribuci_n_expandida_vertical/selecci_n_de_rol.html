@@ -342,11 +342,25 @@
 
   <script>
     function selectRole(role, btnElement) {
+        // Redirección instantánea para Profesor
         if (role === 'profesor') {
             window.location.href = '/profesor/login';
             return;
         }
 
+        // Redirección instantánea para Estudiante
+        if (role === 'estudiante') {
+            window.location.href = '/login';
+            return;
+        }
+
+        // Redirección instantánea para Administrador
+        if (role === 'admin') {
+            window.location.href = '/admin/dashboard';
+            return;
+        }
+
+        // Fallback: animación de carga para otros roles (si los hay)
         const icon = btnElement.querySelector('.role-icon-wrapper .material-symbols-outlined');
         if (icon) {
             icon.style.opacity = '0';
