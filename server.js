@@ -4,7 +4,7 @@ const path = require('path');
 const fs = require('fs');
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -65,35 +65,6 @@ function saveLocalRequests(requests) {
         fs.writeFileSync(SOLICITUDES_FILE, JSON.stringify(requests, null, 2), 'utf8');
     } catch (err) {
         console.error('Error escribiendo archivo local:', err.message);
-    }
-}
-function abrirChat(nombre) {
-    const estudiantes = {
-        'Juan Carlos Rodríguez': 5,
-        'Sofía Fernández': 4,
-        'María Elena Ruiz': 6,
-        'Luis Alberto Pérez': 7,
-        'Carmen Teresa López': 0,
-        'Ana Lucía Martínez': 2,
-        'Carlos Mendoza': 1,
-        'Daniela Rosales': 0,
-        'Fernando Vásquez': 0,
-        'Gabriela Ramos': 0,
-        'Hugo Salazar': 0,
-        'Diego Gómez': 3,
-        'Isabel Castro': 0,
-        'Javier Morales': 0,
-        'Karina Navarro': 0
-    };
-    
-    const id = estudiantes[nombre];
-    // Ruta relativa: subir un nivel y entrar a la carpeta de mensajes
-    const mensajesPath = '../mensajes_e_interacci_n_perfil_maestro/code.html';
-    
-    if (id !== undefined && id !== 0) {
-        window.location.href = mensajesPath + '?chat=' + id;
-    } else {
-        window.location.href = mensajesPath;
     }
 }
 
@@ -240,11 +211,11 @@ app.get('/login', (req, res) => {
     res.sendFile(path.join(__dirname, 'stitch_horasocial_pro_landing_page', 'login_estudiante_distribuci_n_centrada_y_logo_optimizado_2', 'code.html'));
 });
 
-// RUTA PROFESOR - CORREGIDA (carpeta renombrada a login_profesor)
 app.get('/profesor/login', (req, res) => {
     res.sendFile(path.join(__dirname, 'stitch_horasocial_pro_landing_page', 'login_profesor', 'code.html'));
 });
-// RUTA LOGIN ADMINISTRADOR
+
+// ✅ RUTA LOGIN ADMINISTRADOR
 app.get('/login_administrador', (req, res) => {
     res.sendFile(path.join(__dirname, 'stitch_horasocial_pro_landing_page', 'login_administrador', 'code.html'));
 });
@@ -275,7 +246,7 @@ app.get('/maestro/dashboard', (req, res) => {
 
 app.get('/maestro/estudiantes', (req, res) => {
     res.sendFile(path.join(__dirname, 'stitch_horasocial_pro_landing_page', 'gesti_n_estudiantes_perfil_maestro', 'gesti_n_estudiantes_perfil_maestro', 'code.html'));
-});;
+});
 
 app.get('/maestro/tecnico', (req, res) => {
     res.sendFile(path.join(__dirname, 'stitch_horasocial_pro_landing_page', 'gesti_n_t_cnica_perfil_maestro_2', 'code.html'));
@@ -285,6 +256,9 @@ app.get('/maestro/mensajes', (req, res) => {
     res.sendFile(path.join(__dirname, 'stitch_horasocial_pro_landing_page', 'mensajes_e_interacci_n_perfil_maestro', 'code.html'));
 });
 
+app.get('/admin/dashboard', (req, res) => {
+    res.sendFile(path.join(__dirname, 'stitch_horasocial_pro_landing_page', 'dashboard_administrador_control_y_gesti_n_central', 'code.html'));
+});
 
 app.get('/admin/docentes', (req, res) => {
     res.sendFile(path.join(__dirname, 'stitch_horasocial_pro_landing_page', 'coordinaci_n_y_ajuste_de_docentes_admin', 'code.html'));
@@ -301,6 +275,5 @@ app.get('/admin/mensajes', (req, res) => {
 app.listen(PORT, () => {
     console.log(`Servidor de Horas Sociales corriendo en http://localhost:${PORT}`);
 });
-app.get('/login_administrador', (req, res) => {
-    res.sendFile(path.join(__dirname, 'stitch_horasocial_pro_landing_page', 'login_administrador', 'code.html'));
-});
+
+module.exports = app;

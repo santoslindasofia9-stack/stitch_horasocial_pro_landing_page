@@ -1,470 +1,366 @@
 <!DOCTYPE html>
-<html class="light" lang="es">
+<html lang="es">
 <head>
-<meta charset="utf-8">
-<meta content="width=device-width, initial-scale=1.0" name="viewport">
-<title>EduServe Pro | Administrator Dashboard</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Comfortaa:wght@400;700&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
-<style>
-    .font-comfortaa { font-family: 'Comfortaa', cursive; }
-    .material-symbols-outlined {
-        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-    }
-    .material-symbols-outlined.filled {
-        font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-    }
-    .glass-card {
-        background: rgba(255, 255, 255, 0.8);
-        backdrop-filter: blur(12px);
-        border: 1px solid rgba(255, 255, 255, 0.3);
-    }
-    .bento-grid {
-        display: grid;
-        grid-template-columns: repeat(12, 1fr);
-        gap: 24px;
-    }
-    @media (max-width: 768px) {
-        .bento-grid {
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HORASOCIAL PRO - Iniciar Sesión Administrador</title>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background: #fafbfc;
+            font-family: 'Inter', sans-serif;
+            color: #191c1e;
             display: flex;
             flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 100vh;
+            overflow-x: hidden;
+            padding: 40px 20px;
+            -webkit-font-smoothing: antialiased;
         }
-    }
-    
-    /* Bottom Nav Styles */
-    .bottom-nav-item {
-        transition: all 0.3s ease;
-    }
-    .bottom-nav-item.active {
-        background: #e0f2fe;
-        color: #0ea5e9;
-        border-radius: 12px;
-        border: 2px dashed rgba(14, 165, 233, 0.3);
-    }
-    .bottom-nav-item.active .nav-icon {
-        font-variation-settings: 'FILL' 1, 'wght' 400;
-    }
-    .bottom-nav-item:not(.active):hover {
-        background: rgba(0,0,0,0.05);
-        border-radius: 12px;
-    }
-    
-    /* Desktop Sidebar */
-    .sidebar-item {
-        transition: all 0.2s ease;
-        cursor: pointer;
-    }
-    .sidebar-item.active {
-        background: #e0f2fe;
-        color: #0ea5e9;
-    }
-    .sidebar-item.active .material-symbols-outlined {
-        font-variation-settings: 'FILL' 1, 'wght' 400;
-    }
-    .sidebar-item:hover:not(.active) {
-        background: rgba(0,0,0,0.05);
-    }
-    
-    /* Smooth transitions */
-    .hover-lift {
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-    .hover-lift:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-    }
-    
-    /* Button press effect */
-    .btn-press:active {
-        transform: scale(0.95);
-    }
-    
-    /* Scrollbar styling */
-    ::-webkit-scrollbar {
-        width: 6px;
-    }
-    ::-webkit-scrollbar-track {
-        background: #f1f5f9;
-    }
-    ::-webkit-scrollbar-thumb {
-        background: #cbd5e1;
-        border-radius: 3px;
-    }
-    ::-webkit-scrollbar-thumb:hover {
-        background: #94a3b8;
-    }
-</style>
-<script id="tailwind-config">
-    tailwind.config = {
-        darkMode: "class",
-        theme: {
-            extend: {
-                "colors": {
-                    "on-error": "#ffffff",
-                    "tertiary-fixed-dim": "#7bd0ff",
-                    "primary": "#0F172A",
-                    "secondary": "#0EA5E9",
-                    "on-secondary-fixed-variant": "#004c6e",
-                    "outline-variant": "#c6c6cd",
-                    "surface-container": "#eceef0",
-                    "primary-container": "#131b2e",
-                    "surface-bright": "#f7f9fb",
-                    "secondary-container": "#e0f2fe",
-                    "on-error-container": "#93000a",
-                    "on-secondary-container": "#004666",
-                    "surface-dim": "#d8dadc",
-                    "on-tertiary": "#ffffff",
-                    "on-surface": "#191c1e",
-                    "on-tertiary-fixed": "#001e2c",
-                    "inverse-on-surface": "#eff1f3",
-                    "on-surface-variant": "#45464d",
-                    "on-primary-fixed-variant": "#3f465c",
-                    "on-primary-fixed": "#131b2e",
-                    "surface-tint": "#565e74",
-                    "tertiary-container": "#001e2c",
-                    "on-primary": "#ffffff",
-                    "surface-variant": "#e0e3e5",
-                    "error": "#ba1a1a",
-                    "on-secondary": "#ffffff",
-                    "inverse-primary": "#bec6e0",
-                    "surface-container-high": "#e6e8ea",
-                    "surface-container-highest": "#e0e3e5",
-                    "on-secondary-fixed": "#001e2f",
-                    "secondary-fixed": "#c9e6ff",
-                    "primary-fixed": "#dae2fd",
-                    "tertiary": "#000000",
-                    "error-container": "#ffdad6",
-                    "inverse-surface": "#2d3133",
-                    "on-tertiary-container": "#008ebf",
-                    "surface-container-lowest": "#ffffff",
-                    "primary-fixed-dim": "#bec6e0",
-                    "on-background": "#191c1e",
-                    "surface-container-low": "#f2f4f6",
-                    "on-primary-container": "#7c839b",
-                    "tertiary-fixed": "#c4e7ff",
-                    "secondary-fixed-dim": "#89ceff",
-                    "background": "#f8fafc",
-                    "on-tertiary-fixed-variant": "#004c69",
-                    "surface": "#f7f9fb",
-                    "outline": "#76777d"
-                },
-                "borderRadius": {
-                    "DEFAULT": "0.25rem",
-                    "lg": "1rem",
-                    "xl": "0.75rem",
-                    "full": "9999px"
-                },
-                "spacing": {
-                    "margin-desktop": "48px",
-                    "unit": "4px",
-                    "xs": "4px",
-                    "xl": "32px",
-                    "margin-mobile": "16px",
-                    "lg": "24px",
-                    "md": "16px",
-                    "sm": "8px",
-                    "gutter": "24px"
-                },
-                "fontFamily": {
-                    "headline-lg-mobile": ["Plus Jakarta Sans"],
-                    "body-md": ["Inter"],
-                    "display-lg": ["Plus Jakarta Sans"],
-                    "body-lg": ["Inter"],
-                    "label-sm": ["Inter"],
-                    "headline-sm": ["Plus Jakarta Sans"],
-                    "label-md": ["Inter"],
-                    "headline-md": ["Plus Jakarta Sans"],
-                    "headline-lg": ["Plus Jakarta Sans"]
-                },
-                "fontSize": {
-                    "headline-lg-mobile": ["28px", {"lineHeight": "1.2", "fontWeight": "600"}],
-                    "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
-                    "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
-                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
-                    "label-sm": ["12px", {"lineHeight": "1.2", "fontWeight": "600"}],
-                    "headline-sm": ["20px", {"lineHeight": "1.4", "fontWeight": "600"}],
-                    "label-md": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.01em", "fontWeight": "500"}],
-                    "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
-                    "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}]
-                }
-            },
-        },
-    }
-</script>
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400; }
+        .login-card {
+            position: relative;
+            z-index: 2;
+            background: #ffffff;
+            width: 100%;
+            max-width: 440px;
+            border-radius: 20px;
+            padding: 40px 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+            margin: auto 0;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+        .card-logo {
+            width: 100%;
+            max-width: 180px;
+            display: flex;
+            justify-content: center;
+            margin: 0 auto;
+        }
+        .card-logo img { width: 100%; height: auto; object-fit: contain; }
+        .card-section {
+            display: none;
+            flex-direction: column;
+            gap: 24px;
+            width: 100%;
+        }
+        .card-section.active {
+            display: flex;
+            animation: fadeIn 0.35s ease forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .card-title {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 22px;
+            color: #191c1e;
+            text-align: center;
+            font-weight: 700;
+        }
+        .card-title span { color: #39b8fd; }
+        .card-subtitle {
+            font-size: 14px;
+            color: #5a6370;
+            text-align: center;
+            line-height: 1.5;
+            margin-top: -12px;
+        }
+        .form-container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .input-group {
+            position: relative;
+            width: 100%;
+            display: flex;
+            align-items: center;
+        }
+        .input-icon {
+            position: absolute;
+            left: 16px;
+            color: #9ca3af;
+            font-size: 20px;
+            pointer-events: none;
+        }
+        .input-field {
+            width: 100%;
+            height: 52px;
+            padding: 0 16px 0 48px;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 15px;
+            font-family: 'Inter', sans-serif;
+            color: #1f2937;
+            background-color: #ffffff;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .input-field::placeholder { color: #9ca3af; }
+        .input-field:focus {
+            border-color: #39b8fd;
+            box-shadow: 0 0 0 4px rgba(57, 184, 253, 0.1);
+        }
+        .toggle-password {
+            position: absolute;
+            right: 16px;
+            color: #9ca3af;
+            font-size: 20px;
+            cursor: pointer;
+            user-select: none;
+        }
+        .btn-submit {
+            width: 100%;
+            height: 52px;
+            background-color: #0f172a;
+            color: #ffffff;
+            border: none;
+            border-radius: 12px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.1s;
+            margin-top: 8px;
+        }
+        .btn-submit:hover { background-color: #1e293b; }
+        .btn-submit:active { transform: scale(0.98); }
+        .card-bottom {
+            position: relative;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 8px;
+        }
+        .text-link {
+            font-size: 13px;
+            color: #39b8fd;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-family: inherit;
+        }
+        .text-link:hover { text-decoration: underline; color: #2563eb; }
+        .settings-icon {
+            position: absolute;
+            right: 0;
+            color: #d1d5db;
+            font-size: 22px;
+            cursor: pointer;
+            transition: color 0.2s, transform 0.3s;
+        }
+        .settings-icon:hover { color: #9ca3af; transform: rotate(45deg); }
+        .success-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 16px;
+            padding: 10px 0;
+        }
+        .success-icon-circle {
+            width: 64px;
+            height: 64px;
+            background-color: #f0fdf4;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #16a34a;
+        }
+        .success-icon-circle span { font-size: 36px; font-variation-settings: 'wght' 500; }
+        .success-title {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            color: #111827;
+        }
+        .success-description {
+            font-size: 14px;
+            color: #4b5563;
+            line-height: 1.5;
+        }
+        .page-footer {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            margin-top: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .footer-copyright { font-size: 11px; color: #6b7280; font-weight: 500; }
+        .footer-links { display: flex; justify-content: center; gap: 16px; }
+        .footer-links a { font-size: 11px; color: #6b7280; text-decoration: none; font-weight: 500; }
+        .footer-links a:hover { color: #374151; text-decoration: underline; }
+        @media (max-width: 480px) {
+            .login-card { padding: 30px 20px; gap: 20px; }
+            body { padding: 20px 16px; }
+        }
+    </style>
 </head>
-<body class="bg-background text-on-surface font-body-md min-h-screen pb-24 md:pl-20">
-<!-- TopAppBar -->
-<header class="bg-surface dark:bg-surface-dim shadow-sm w-full top-0 sticky z-50 flex justify-between items-center px-margin-mobile md:px-margin-desktop py-sm">
-<div class="flex items-center gap-2">
-<span class="material-symbols-outlined text-primary text-[32px]">school</span>
-<span class="font-headline-sm text-headline-sm font-extrabold tracking-tight text-on-surface">EduServe Pro</span>
-</div>
-<div class="flex items-center gap-3">
-<div class="text-right hidden md:block">
-<p class="font-label-md text-on-surface font-bold">Coordinadora Carolina Rojas</p>
-<p class="text-label-sm text-on-surface-variant">Administrador Senior</p>
-</div>
-<div class="relative">
-<img alt="User Avatar" class="w-10 h-10 rounded-full border-2 border-secondary object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC2a3doQcYz7YW2YfF68HVbOvJ0y2UEpVIz_a1cdaOKDVUxSxGCUp8vcnpothWg82RQjdLADzsR4HcF9LcPVsvyJvQJtAwi_8o9nq47jRNCo_Y8XOyqXvlFSLrjV8PckkMvsJapiYfkCKzK9bv-uHzDS3C1nM2wbIxXIm-fBz1Ygc0ezuWNXCHIpcLFTq_5skl6y8h9aoN8xy-msY3KWtXyYLqUH4fx7FGE71bDInKsmHX2PaOIYf48mgicFJJrgOhAli8rttZwQwLJ">
-</div>
-</div>
-</header>
-
-<main class="max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop mt-lg">
-<!-- Welcome Banner -->
-<section class="mb-lg">
-<div class="relative overflow-hidden bg-gradient-to-r from-primary to-slate-700 rounded-lg p-lg text-white shadow-lg hover-lift cursor-pointer">
-<div class="relative z-10">
-<h1 class="font-comfortaa text-headline-md md:text-headline-lg font-bold mb-2">Bitácora de Cambios y Novedades</h1>
-<p class="text-on-primary-container opacity-90 max-w-xl">Supervisa y valida las actividades de servicio social en tiempo real. Mantén la integridad académica y la eficiencia administrativa.</p>
-</div>
-<div class="absolute right-[-20px] bottom-[-20px] opacity-10">
-<span class="material-symbols-outlined text-[180px]">settings_applications</span>
-</div>
-</div>
-</section>
-
-<!-- Metric Cards -->
-<section class="grid grid-cols-1 md:grid-cols-3 gap-gutter mb-lg">
-<div class="bg-surface-container-lowest p-md rounded-lg shadow-sm border-l-4 border-error flex items-center justify-between hover-lift cursor-pointer">
-<div>
-<p class="text-label-md text-on-surface-variant mb-1">Excusas por Validar</p>
-<p class="font-headline-md text-error">3</p>
-</div>
-<div class="w-12 h-12 bg-error-container flex items-center justify-center rounded-full">
-<span class="material-symbols-outlined text-on-error-container">notification_important</span>
-</div>
-</div>
-<div class="bg-surface-container-lowest p-md rounded-lg shadow-sm border-l-4 border-secondary flex items-center justify-between hover-lift cursor-pointer">
-<div>
-<p class="text-label-md text-on-surface-variant mb-1">Cambios de Horarios</p>
-<p class="font-headline-md text-secondary">2</p>
-</div>
-<div class="w-12 h-12 bg-secondary-container flex items-center justify-center rounded-full">
-<span class="material-symbols-outlined text-secondary">schedule</span>
-</div>
-</div>
-<div class="bg-surface-container-lowest p-md rounded-lg shadow-sm border-l-4 border-outline flex items-center justify-between hover-lift cursor-pointer">
-<div>
-<p class="text-label-md text-on-surface-variant mb-1">Alertas de Profesores</p>
-<p class="font-headline-md text-on-surface-variant">1</p>
-</div>
-<div class="w-12 h-12 bg-surface-variant flex items-center justify-center rounded-full">
-<span class="material-symbols-outlined text-outline">report</span>
-</div>
-</div>
-</section>
-
-<div class="bento-grid">
-<!-- Main Content (70%) -->
-<div class="col-span-12 md:col-span-8 flex flex-col gap-gutter">
-<div class="bg-surface-container-lowest rounded-lg shadow-sm p-lg min-h-[500px]">
-<div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-lg gap-4">
-<h2 class="font-headline-sm text-headline-sm font-bold text-on-surface">Bitácora de Actividades Recientes</h2>
-<div class="flex bg-surface-container p-1 rounded-lg">
-<button class="px-4 py-1 rounded-md text-label-sm font-bold bg-white shadow-sm text-primary transition-all tab-btn active" onclick="filterActivities('todos', this)">Todos</button>
-<button class="px-4 py-1 rounded-md text-label-sm font-medium text-on-surface-variant hover:text-primary transition-all tab-btn" onclick="filterActivities('docentes', this)">Docentes</button>
-<button class="px-4 py-1 rounded-md text-label-sm font-medium text-on-surface-variant hover:text-primary transition-all tab-btn" onclick="filterActivities('estudiantes', this)">Estudiantes</button>
-</div>
-</div>
-<!-- Activities List -->
-<div class="space-y-sm" id="activities-list">
-<!-- Activity Item 1 -->
-<div class="flex items-center p-md border-b border-surface-variant hover:bg-surface-container-low transition-colors rounded-xl cursor-pointer activity-item" data-type="docente">
-<div class="w-10 h-10 bg-secondary-container rounded-full flex items-center justify-center mr-md">
-<span class="material-symbols-outlined text-secondary">edit_calendar</span>
-</div>
-<div class="flex-grow">
-<p class="text-label-md font-bold text-on-surface">Prof. Ricardo Méndez</p>
-<p class="text-label-sm text-on-surface-variant">Modificó horario de práctica en Biblioteca Central.</p>
-</div>
-<div class="text-right">
-<span class="px-3 py-1 bg-secondary-container text-on-secondary-container text-[10px] font-bold rounded-full uppercase tracking-wider">DOCENTE</span>
-<p class="text-[11px] text-outline mt-1 italic">Hace 15 min</p>
-</div>
-</div>
-<!-- Activity Item 2 -->
-<div class="flex items-center p-md border-b border-surface-variant hover:bg-surface-container-low transition-colors rounded-xl cursor-pointer activity-item" data-type="estudiante">
-<div class="w-10 h-10 bg-error-container rounded-full flex items-center justify-center mr-md">
-<span class="material-symbols-outlined text-error">assignment_late</span>
-</div>
-<div class="flex-grow">
-<p class="text-label-md font-bold text-on-surface">Mariana López</p>
-<p class="text-label-sm text-on-surface-variant">Subió excusa médica por inasistencia al comedor.</p>
-</div>
-<div class="text-right">
-<span class="px-3 py-1 bg-error-container text-on-error-container text-[10px] font-bold rounded-full uppercase tracking-wider">EXCUSA</span>
-<p class="text-[11px] text-outline mt-1 italic">Hace 1 h</p>
-</div>
-</div>
-<!-- Activity Item 3 -->
-<div class="flex items-center p-md border-b border-surface-variant hover:bg-surface-container-low transition-colors rounded-xl cursor-pointer activity-item" data-type="estudiante">
-<div class="w-10 h-10 bg-surface-variant rounded-full flex items-center justify-center mr-md">
-<span class="material-symbols-outlined text-on-surface-variant">person_add</span>
-</div>
-<div class="flex-grow">
-<p class="text-label-md font-bold text-on-surface">Esteban Quito</p>
-<p class="text-label-sm text-on-surface-variant">Nuevo registro de estudiante para Servicio Social.</p>
-</div>
-<div class="text-right">
-<span class="px-3 py-1 bg-surface-container-high text-on-surface-variant text-[10px] font-bold rounded-full uppercase tracking-wider">ESTUDIANTE</span>
-<p class="text-[11px] text-outline mt-1 italic">Hace 2 h</p>
-</div>
-</div>
-</div>
-</div>
-</div>
-
-<!-- Sidebar/Right Block (30%) -->
-<div class="col-span-12 md:col-span-4 flex flex-col gap-gutter">
-<div class="bg-surface-container-lowest rounded-lg shadow-sm p-lg">
-<div class="flex items-center justify-between mb-md">
-<h2 class="font-headline-sm text-headline-sm font-bold text-on-surface">Excusas Pendientes</h2>
-<span class="bg-error text-white text-[10px] font-bold px-2 py-0.5 rounded-full">3</span>
-</div>
-<!-- Excusa Card -->
-<div class="space-y-md">
-<div class="bg-surface-container-low p-md rounded-lg border border-surface-variant flex flex-col gap-3 hover-lift">
-<div class="flex justify-between items-start">
-<div>
-<p class="text-label-md font-bold text-on-surface">Juan Pérez</p>
-<p class="text-label-sm text-on-surface-variant">Grado 11-A • 24 Oct 2023</p>
-</div>
-<span class="material-symbols-outlined text-secondary cursor-pointer hover:scale-110 transition-transform">picture_as_pdf</span>
-</div>
-<div class="bg-white/50 p-sm rounded-md border-l-2 border-secondary italic text-label-sm text-on-surface-variant">
-                            "Cita odontológica programada de urgencia."
-                        </div>
-<div class="grid grid-cols-2 gap-sm pt-2">
-<button class="bg-primary text-white py-2 rounded-md font-label-md hover:bg-slate-800 btn-press transition-all">Aceptar</button>
-<button class="bg-white border border-outline-variant text-on-surface-variant py-2 rounded-md font-label-md hover:bg-surface-variant btn-press transition-all">Rechazar</button>
-</div>
-</div>
-<div class="bg-surface-container-low p-md rounded-lg border border-surface-variant flex flex-col gap-3 hover-lift">
-<div class="flex justify-between items-start">
-<div>
-<p class="text-label-md font-bold text-on-surface">Sofía Ramírez</p>
-<p class="text-label-sm text-on-surface-variant">Grado 10-C • 23 Oct 2023</p>
-</div>
-<span class="material-symbols-outlined text-secondary cursor-pointer hover:scale-110 transition-transform">picture_as_pdf</span>
-</div>
-<div class="bg-white/50 p-sm rounded-md border-l-2 border-secondary italic text-label-sm text-on-surface-variant">
-                            "Incapacidad médica por cuadro viral."
-                        </div>
-<div class="grid grid-cols-2 gap-sm pt-2">
-<button class="bg-primary text-white py-2 rounded-md font-label-md hover:bg-slate-800 btn-press transition-all">Aceptar</button>
-<button class="bg-white border border-outline-variant text-on-surface-variant py-2 rounded-md font-label-md hover:bg-surface-variant btn-press transition-all">Rechazar</button>
-</div>
-</div>
-</div>
-<button class="w-full mt-lg text-secondary font-label-md hover:underline flex items-center justify-center gap-1 btn-press">
-                    Ver todas las solicitudes
-                    <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
-</button>
-</div>
-<!-- Subtle Data Visualization Placeholder -->
-<div class="bg-primary text-white rounded-lg p-lg relative overflow-hidden h-40 flex flex-col justify-end hover-lift cursor-pointer">
-<p class="text-label-sm uppercase tracking-widest opacity-60 mb-1">Horas Totales Mes</p>
-<p class="font-headline-md font-bold">1,248 h</p>
-<div class="absolute top-4 right-4 text-secondary opacity-40">
-<span class="material-symbols-outlined text-[64px]">bar_chart</span>
-</div>
-</div>
-</div>
-</div>
-
-<!-- Logout Button -->
-<div class="mt-8 mb-24 px-margin-mobile md:px-0">
-    <button onclick="logout()" class="w-full flex items-center justify-center gap-2 py-4 px-6 border border-outline rounded-lg text-on-surface-variant font-medium hover:bg-surface-variant/50 transition-colors btn-press">
-        <span class="material-symbols-outlined">logout</span>
-        <span class="font-label-md">Cerrar Sesión</span>
-    </button>
-</div>
-</main>
-
-<!-- BottomNavBar - Mobile -->
-<nav class="fixed bottom-0 left-0 w-full z-50 bg-surface-container-lowest dark:bg-surface-container-high px-4 pb-4 pt-2 shadow-[0_-4px_20px_rgba(15,23,42,0.05)] rounded-t-xl md:hidden grid grid-cols-4 gap-2">
-    <a href="/admin/dashboard" class="bottom-nav-item active flex flex-col items-center justify-center p-2">
-        <span class="material-symbols-outlined nav-icon text-[24px]">dashboard</span>
-        <span class="font-label-sm text-[10px] mt-1">Dashboard</span>
-    </a>
-    <a href="/admin/docentes" class="bottom-nav-item flex flex-col items-center justify-center p-2 text-on-surface-variant">
-        <span class="material-symbols-outlined nav-icon text-[24px]">group</span>
-        <span class="font-label-sm text-[10px] mt-1">Docentes</span>
-    </a>
-    <a href="/admin/alertas" class="bottom-nav-item flex flex-col items-center justify-center p-2 text-on-surface-variant">
-        <span class="material-symbols-outlined nav-icon text-[24px]">school</span>
-        <span class="font-label-sm text-[10px] mt-1">Estudiantes</span>
-    </a>
-    <a href="/admin/mensajes" class="bottom-nav-item flex flex-col items-center justify-center p-2 text-on-surface-variant relative">
-        <span class="material-symbols-outlined nav-icon text-[24px]">mail</span>
-        <span class="font-label-sm text-[10px] mt-1">Mensajes</span>
-        <div class="absolute top-1 right-3 w-2 h-2 bg-error rounded-full ring-2 ring-white"></div>
-    </a>
-</nav>
-
-<!-- Desktop Sidebar -->
-<div class="hidden md:flex fixed left-0 top-[64px] h-screen w-20 bg-surface-container-lowest border-r border-surface-variant flex-col items-center py-lg gap-lg shadow-sm z-40">
-    <div class="sidebar-item active p-3 rounded-xl" onclick="navigateTo('/admin/dashboard')">
-        <span class="material-symbols-outlined text-[28px]">dashboard</span>
-    </div>
-    <div class="sidebar-item p-3 rounded-xl text-on-surface-variant" onclick="navigateTo('/admin/docentes')">
-        <span class="material-symbols-outlined text-[28px]">group</span>
-    </div>
-    <div class="sidebar-item p-3 rounded-xl text-on-surface-variant" onclick="navigateTo('/admin/alertas')">
-        <span class="material-symbols-outlined text-[28px]">settings_applications</span>
-    </div>
-    <div class="sidebar-item p-3 rounded-xl text-on-surface-variant relative" onclick="navigateTo('/admin/mensajes')">
-        <span class="material-symbols-outlined text-[28px]">mail</span>
-        <div class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></div>
-    </div>
-    <div class="mt-auto sidebar-item p-3 rounded-xl text-on-surface-variant" onclick="logout()">
-        <span class="material-symbols-outlined text-[28px]">logout</span>
-    </div>
-</div>
-
-<script>
-    // Tab filtering
-    function filterActivities(type, btn) {
-        document.querySelectorAll('.tab-btn').forEach(b => {
-            b.classList.remove('bg-white', 'shadow-sm', 'text-primary', 'active');
-            b.classList.add('text-on-surface-variant');
-        });
-        btn.classList.add('bg-white', 'shadow-sm', 'text-primary', 'active');
-        btn.classList.remove('text-on-surface-variant');
-        
-        const items = document.querySelectorAll('.activity-item');
-        items.forEach(item => {
-            if (type === 'todos') {
-                item.style.display = 'flex';
-            } else {
-                item.style.display = item.dataset.type === type ? 'flex' : 'none';
-            }
-        });
-    }
+<body>
+    <canvas id="ribbon-canvas" style="position:fixed; inset:0; z-index:0; pointer-events:none;"></canvas>
     
-    // Navigation
-    function navigateTo(url) {
-        window.location.href = url;
-    }
-    
-    // Logout
-    function logout() {
-        if (confirm('¿Estás seguro de que deseas cerrar sesión?')) {
-            window.location.href = '/seleccion-rol';
+    <main class="login-card">
+        <div class="card-logo">
+            <img alt="HORASOCIAL PRO Logo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwMhl_DdmeafGOmiL2QLqeQV_Ut8aNvKKYwKjKUtrAMBSjpyGc1Acc5TCQm084EODuuIAA3GiusiDfLdXgW3DAC8tdYPa8R-TEraz_hHglTpuTQJRtfOJfW_OyF25795_lzWR3g1wKtd_0fCPC6QxHfyblbvKAQVJNcggVB3k8TYcOAOsA0lTgC8lQz0E1YRlDIn1zQ0vALf8l_40TC_X6xkuWE-o1qr0sdsv2THdAcTxAM9txnjL8N_7oSnlqsHLnXkvvL7tImO-s">
+        </div>
+
+        <section id="section-login" class="card-section active">
+            <h1 class="card-title">Iniciar Sesión: <span>Administrador</span></h1>
+            <form class="form-container" onsubmit="handleLogin(event)">
+                <div class="input-group">
+                    <span class="material-symbols-outlined input-icon">person</span>
+                    <input type="text" id="login-username" class="input-field" placeholder="Usuario" required autocomplete="username">
+                </div>
+                <div class="input-group">
+                    <span class="material-symbols-outlined input-icon">lock</span>
+                    <input type="password" id="password-input" class="input-field" placeholder="Contraseña" required autocomplete="current-password">
+                    <span class="material-symbols-outlined toggle-password" id="password-toggle" onclick="togglePassword()">visibility</span>
+                </div>
+                <button type="submit" class="btn-submit">INGRESAR</button>
+            </form>
+            <div class="card-bottom">
+                <button class="text-link" onclick="switchSection('section-recovery')">¿Olvidaste tu contraseña?</button>
+                <span class="material-symbols-outlined settings-icon">settings</span>
+            </div>
+        </section>
+
+        <section id="section-recovery" class="card-section">
+            <h1 class="card-title">Recuperar <span>Acceso</span></h1>
+            <p class="card-subtitle">Ingresa tus datos escolares para enviar una solicitud de restablecimiento al administrador.</p>
+            <form class="form-container" onsubmit="handleRecoverySubmit(event)">
+                <div class="input-group">
+                    <span class="material-symbols-outlined input-icon">badge</span>
+                    <input type="text" id="recovery-name" class="input-field" placeholder="Nombre completo" required>
+                </div>
+                <div class="input-group">
+                    <span class="material-symbols-outlined input-icon">call</span>
+                    <input type="tel" id="recovery-phone" class="input-field" placeholder="Teléfono" required>
+                </div>
+                <div class="input-group">
+                    <span class="material-symbols-outlined input-icon">school</span>
+                    <input type="text" id="recovery-course" class="input-field" placeholder="Curso (ej. 11-01)" required>
+                </div>
+                <button type="submit" class="btn-submit">ENVIAR SOLICITUD</button>
+            </form>
+            <div class="card-bottom">
+                <button class="text-link" onclick="switchSection('section-login')">Volver al inicio de sesión</button>
+            </div>
+        </section>
+
+        <section id="section-success" class="card-section">
+            <div class="success-wrapper">
+                <div class="success-icon-circle">
+                    <span class="material-symbols-outlined">check_circle</span>
+                </div>
+                <h2 class="success-title">Solicitud Enviada</h2>
+                <p class="success-description">Los datos se han registrado. El administrador verificará la información para autorizar el restablecimiento.</p>
+            </div>
+            <button class="btn-submit" onclick="switchSection('section-login')">VOLVER AL INICIO</button>
+        </section>
+    </main>
+
+    <footer class="page-footer">
+        <p class="footer-copyright">© 2026 Horasocial Pro. Professional Social Service Management.</p>
+        <div class="footer-links">
+            <a href="#">Privacidad</a>
+            <a href="#">Soporte</a>
+            <a href="#">Términos</a>
+        </div>
+    </footer>
+
+    <script>
+        function switchSection(sectionId) {
+            document.querySelectorAll('.card-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            const targetSection = document.getElementById(sectionId);
+            if (targetSection) targetSection.classList.add('active');
         }
-    }
-    
-    // Micro-interactions
-    document.querySelectorAll('button').forEach(btn => {
-        btn.addEventListener('mousedown', () => {
-            btn.classList.add('scale-95');
-        });
-        btn.addEventListener('mouseup', () => {
-            btn.classList.remove('scale-95');
-        });
-    });
-</script>
+
+        function togglePassword() {
+            const passwordInput = document.getElementById('password-input');
+            const passwordToggle = document.getElementById('password-toggle');
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                passwordToggle.textContent = 'visibility_off';
+            } else {
+                passwordInput.type = 'password';
+                passwordToggle.textContent = 'visibility';
+            }
+        }
+
+        // ✅ CORREGIDO: Redirección al dashboard de administrador
+        function handleLogin(event) {
+            event.preventDefault();
+            const username = document.getElementById('login-username').value;
+            console.log("Iniciando sesión como administrador:", username);
+            window.location.href = '/admin/dashboard';
+        }
+
+        function handleRecoverySubmit(event) {
+            event.preventDefault();
+            const data = {
+                nombre: document.getElementById('recovery-name').value,
+                telefono: document.getElementById('recovery-phone').value,
+                curso: document.getElementById('recovery-course').value,
+                fecha: new Date().toISOString()
+            };
+            console.log("Datos listos para enviar a administración:", data);
+            switchSection('section-success');
+            event.target.reset();
+        }
+
+        const ctx = document.getElementById('ribbon-canvas').getContext('2d');
+        let w, h, time = 0;
+        function init() { 
+            w = ctx.canvas.width = window.innerWidth; 
+            h = ctx.canvas.height = window.innerHeight; 
+        }
+        window.addEventListener('resize', init); 
+        init();
+
+        function animate() {
+            ctx.clearRect(0, 0, w, h);
+            for (let i = 0; i < 60; i++) {
+                ctx.beginPath();
+                const grad = ctx.createLinearGradient(0, 0, w, 0);
+                const a = 0.12 + Math.sin(i * 0.1) * 0.05;
+                grad.addColorStop(0, `rgba(167, 139, 250, ${a})`); 
+                grad.addColorStop(0.35, `rgba(147, 197, 253, ${a})`);
+                grad.addColorStop(0.65, `rgba(103, 232, 249, ${a})`); 
+                grad.addColorStop(1, `rgba(94, 234, 212, ${a})`);
+                ctx.strokeStyle = grad; 
+                ctx.lineWidth = 0.8;
+                for (let x = 0; x <= w; x += 10) {
+                    const nx = x / w;
+                    const spread = Math.sin(nx * 3.5 - time * 0.5) * (h * 0.25) + 30;
+                    const y = h * 0.5 + Math.sin(nx * 4 + time * 0.4) * (h * 0.15) + Math.cos(nx * 2 - time * 0.25) * (h * 0.1) + ((i/60)*2-1) * spread;
+                    x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+                }
+                ctx.stroke();
+            }
+            time += 0.004; 
+            requestAnimationFrame(animate);
+        }
+        animate();
+    </script>
 </body>
 </html>

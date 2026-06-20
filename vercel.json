@@ -7,9 +7,17 @@
     }
   ],
   "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "server.js"
-    }
+    { "src": "/login", "dest": "server.js" },
+    { "src": "/profesor/login", "dest": "server.js" },
+    { "src": "/login_administrador", "dest": "server.js" },
+    { "src": "/admin/dashboard", "dest": "server.js" },
+    { "src": "/admin/docentes", "dest": "server.js" },
+    { "src": "/admin/alertas", "dest": "server.js" },
+    { "src": "/admin/mensajes", "dest": "server.js" },
+    { "src": "/estudiante/dashboard", "dest": "server.js" },
+    { "src": "/maestro/dashboard", "dest": "server.js" },
+    { "src": "/seleccion-rol", "dest": "server.js" },
+    { "src": "/", "dest": "server.js" },
+    { "src": "/(.*)", "dest": "server.js" }
   ]
 }
