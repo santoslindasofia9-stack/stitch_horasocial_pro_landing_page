@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HORASOCIAL PRO - Iniciar Sesión Profesor</title>
+    <title>HORASOCIAL PRO - Iniciar Sesión Administrador</title>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700&display=swap" rel="stylesheet">
 
@@ -307,12 +307,12 @@
             }
         }
 
-        // ✅ CORREGIDO: Redirección al dashboard de maestro
+        // ✅ CORREGIDO: Redirección al dashboard de administrador
         function handleLogin(event) {
             event.preventDefault();
             const username = document.getElementById('login-username').value;
-            console.log("Iniciando sesión como profesor:", username);
-            window.location.href = '/maestro/dashboard';
+            console.log("Iniciando sesión como administrador:", username);
+            window.location.href = '/admin/dashboard';
         }
 
         function handleRecoverySubmit(event) {
