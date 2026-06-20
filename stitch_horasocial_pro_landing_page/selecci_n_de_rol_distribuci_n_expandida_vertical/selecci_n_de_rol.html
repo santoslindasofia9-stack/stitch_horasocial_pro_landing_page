@@ -11,16 +11,8 @@
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   html, body { width: 100%; height: 100%; font-family: 'Inter', sans-serif; overflow: hidden; }
   body { background: #0b1a3b; position: relative; color: #ffffff; }
-  body::before {
-    content: ''; position: fixed; inset: 0; z-index: 0;
-    background: radial-gradient(ellipse 120% 60% at 20% 10%, #38bdf8cc 0%, transparent 60%), radial-gradient(ellipse 100% 50% at 80% 80%, #0ea5e9aa 0%, transparent 60%), radial-gradient(ellipse 80% 40% at 50% 50%, #7dd3fc66 0%, transparent 70%);
-    animation: waveTop 12s ease-in-out infinite alternate; pointer-events: none;
-  }
-  body::after {
-    content: ''; position: fixed; inset: 0; z-index: 0;
-    background: radial-gradient(ellipse 110% 55% at 70% 0%, #bae6fd88 0%, transparent 55%), radial-gradient(ellipse 90% 45% at 10% 90%, #0284c7aa 0%, transparent 60%), radial-gradient(ellipse 100% 50% at 50% 100%, #38bdf8cc 0%, transparent 50%);
-    animation: waveBottom 16s ease-in-out infinite alternate-reverse; pointer-events: none;
-  }
+  body::before { content: ''; position: fixed; inset: 0; z-index: 0; background: radial-gradient(ellipse 120% 60% at 20% 10%, #38bdf8cc 0%, transparent 60%), radial-gradient(ellipse 100% 50% at 80% 80%, #0ea5e9aa 0%, transparent 60%), radial-gradient(ellipse 80% 40% at 50% 50%, #7dd3fc66 0%, transparent 70%); animation: waveTop 12s ease-in-out infinite alternate; pointer-events: none; }
+  body::after { content: ''; position: fixed; inset: 0; z-index: 0; background: radial-gradient(ellipse 110% 55% at 70% 0%, #bae6fd88 0%, transparent 55%), radial-gradient(ellipse 90% 45% at 10% 90%, #0284c7aa 0%, transparent 60%), radial-gradient(ellipse 100% 50% at 50% 100%, #38bdf8cc 0%, transparent 50%); animation: waveBottom 16s ease-in-out infinite alternate-reverse; pointer-events: none; }
   @keyframes waveTop { 0% { transform: scale(1) translateY(0%) rotate(0deg); } 50% { transform: scale(1.05) translateY(-4%) rotate(1.5deg); } 100% { transform: scale(1) translateY(2%) rotate(-1deg); } }
   @keyframes waveBottom { 0% { transform: scale(1) translateY(0%) rotate(0deg); } 50% { transform: scale(1.06) translateY(4%) rotate(-2deg); } 100% { transform: scale(1) translateY(-2%) rotate(1deg); } }
   @media (prefers-reduced-motion: reduce) { body::before, body::after { animation: none; } }
@@ -85,7 +77,7 @@
     </div>
 
     <div class="roles-grid">
-        <button class="role-card" onclick="selectRole('estudiante', this)">
+        <a href="/login" class="role-card" style="text-decoration:none;color:inherit;">
             <div class="role-icon-wrapper estudiante">
                 <span class="material-symbols-outlined">school</span>
             </div>
@@ -93,9 +85,9 @@
                 <h3>Estudiante</h3>
                 <p>Registra tus horas</p>
             </div>
-        </button>
+        </a>
 
-        <button class="role-card" onclick="selectRole('profesor', this)">
+        <a href="/profesor/login" class="role-card" style="text-decoration:none;color:inherit;">
             <div class="role-icon-wrapper profesor">
                 <span class="material-symbols-outlined">group</span>
             </div>
@@ -103,9 +95,9 @@
                 <h3>Profesor</h3>
                 <p>Supervisa a tus alumnos</p>
             </div>
-        </button>
+        </a>
 
-        <button class="role-card" onclick="selectRole('admin', this)">
+        <a href="/admin/dashboard" class="role-card" style="text-decoration:none;color:inherit;">
             <div class="role-icon-wrapper admin">
                 <span class="material-symbols-outlined">verified_user</span>
             </div>
@@ -113,7 +105,7 @@
                 <h3>Administrador</h3>
                 <p>Gestiona la plataforma</p>
             </div>
-        </button>
+        </a>
     </div>
 
     <div class="footer-info">
@@ -126,43 +118,6 @@
   </main>
 
   <script>
-    // Navegación con diagnóstico detallado
-    function selectRole(role, btnElement) {
-        console.log('=== DIAGNÓSTICO ===');
-        console.log('Rol clickeado:', role);
-        console.log('URL actual:', window.location.href);
-        console.log('Hostname:', window.location.hostname);
-        console.log('Puerto:', window.location.port);
-        
-        // Si el rol es profesor, redirige instantáneamente al login de profesor
-        if (role === 'profesor') {
-            const targetUrl = '/profesor/login';
-            console.log('Redirigiendo a:', targetUrl);
-            console.log('Ruta completa:', window.location.origin + targetUrl);
-            window.location.href = targetUrl;
-            return;
-        }
-
-        // Para otros roles
-        const icon = btnElement.querySelector('.role-icon-wrapper .material-symbols-outlined');
-        if (icon) {
-            icon.style.opacity = '0';
-            setTimeout(() => {
-                icon.innerText = 'progress_activity';
-                icon.style.animation = 'spin 0.8s linear infinite';
-                icon.style.opacity = '1';
-            }, 150);
-        }
-        
-        document.querySelectorAll('.role-card').forEach(btn => btn.disabled = true);
-        
-        console.log("Rol seleccionado: " + role);
-        
-        setTimeout(() => {
-            console.log("Redirigiendo a " + role + "...");
-        }, 800);
-    }
-
     if (window.innerWidth > 768) {
       document.addEventListener('mousemove', (e) => {
         const icons = document.querySelectorAll('.floating-icon');
@@ -175,8 +130,5 @@
       });
     }
   </script>
-  <style>
-    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-  </style>
 </body>
 </html>
