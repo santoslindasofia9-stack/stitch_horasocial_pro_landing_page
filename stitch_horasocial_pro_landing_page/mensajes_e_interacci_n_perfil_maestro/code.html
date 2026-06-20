@@ -1,473 +1,1061 @@
-
-html_content = '''<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>HORASOCIAL PRO - Mensajes</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&family=Comfortaa:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <script>
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    colors: {
-                        secondary: "#006591",
-                        "on-primary-container": "#7c839b",
-                        background: "#f7f9fb",
-                        "surface-bright": "#f7f9fb",
-                        "surface-container": "#eceef0",
-                        "on-error-container": "#93000a",
-                        "primary-container": "#131b2e",
-                        "surface-container-lowest": "#ffffff",
-                        outline: "#76777d",
-                        "on-background": "#191c1e",
-                        "tertiary-fixed": "#c4e7ff",
-                        primary: "#000000",
-                        "on-tertiary-container": "#008ebf",
-                        "on-secondary-fixed-variant": "#004c6e",
-                        "on-primary": "#ffffff",
-                        "on-primary-fixed": "#131b2e",
-                        "surface-tint": "#565e74",
-                        "surface-container-low": "#f2f4f6",
-                        "on-error": "#ffffff",
-                        "inverse-primary": "#bec6e0",
-                        error: "#ba1a1a",
-                        "secondary-fixed-dim": "#89ceff",
-                        "on-secondary": "#ffffff",
-                        "tertiary-container": "#001e2c",
-                        "surface-dim": "#d8dadc",
-                        surface: "#f7f9fb",
-                        "on-tertiary-fixed-variant": "#004c69",
-                        "on-secondary-container": "#004666",
-                        "inverse-on-surface": "#eff1f3",
-                        "tertiary-fixed-dim": "#7bd0ff",
-                        "inverse-surface": "#2d3133",
-                        tertiary: "#000000",
-                        "outline-variant": "#c6c6cd",
-                        "error-container": "#ffdad6",
-                        "surface-container-highest": "#e0e3e5",
-                        "on-primary-fixed-variant": "#3f465c",
-                        "on-surface": "#191c1e",
-                        "surface-variant": "#e0e3e5",
-                        "secondary-fixed": "#c9e6ff",
-                        "primary-fixed-dim": "#bec6e0",
-                        "primary-fixed": "#dae2fd",
-                        "on-tertiary-fixed": "#001e2c",
-                        "on-surface-variant": "#45464d",
-                        "secondary-container": "#39b8fd",
-                        "on-tertiary": "#ffffff",
-                        "surface-container-high": "#e6e8ea",
-                        "on-secondary-fixed": "#001e2f"
-                    },
-                    borderRadius: {
-                        DEFAULT: "0.25rem",
-                        lg: "0.5rem",
-                        xl: "0.75rem",
-                        full: "9999px"
-                    },
-                    spacing: {
-                        md: "16px",
-                        "margin-mobile": "16px",
-                        lg: "24px",
-                        gutter: "24px",
-                        sm: "8px",
-                        xl: "32px",
-                        xs: "4px",
-                        unit: "4px",
-                        "margin-desktop": "48px"
-                    },
-                    fontFamily: {
-                        "body-md": ["Inter"],
-                        "headline-sm": ["Plus Jakarta Sans"],
-                        "headline-lg": ["Plus Jakarta Sans"],
-                        "headline-lg-mobile": ["Plus Jakarta Sans"],
-                        "label-sm": ["Inter"],
-                        "headline-md": ["Plus Jakarta Sans"],
-                        "label-md": ["Inter"],
-                        displaylg: ["Plus Jakarta Sans"],
-                        "body-lg": ["Inter"],
-                        comfortaa: ["Comfortaa"]
-                    },
-                    fontSize: {
-                        "body-md": ["16px", { lineHeight: "1.5", fontWeight: "400" }],
-                        "headline-sm": ["20px", { lineHeight: "1.4", fontWeight: "600" }],
-                        "headline-lg": ["32px", { lineHeight: "1.2", fontWeight: "600" }],
-                        "headline-lg-mobile": ["28px", { lineHeight: "1.2", fontWeight: "600" }],
-                        "label-sm": ["12px", { lineHeight: "1.2", fontWeight: "600" }],
-                        "headline-md": ["24px", { lineHeight: "1.3", fontWeight: "600" }],
-                        "label-md": ["14px", { lineHeight: "1.4", letterSpacing: "0.01em", fontWeight: "500" }],
-                        displaylg: ["48px", { lineHeight: "1.1", letterSpacing: "-0.02em", fontWeight: "700" }],
-                        "body-lg": ["18px", { lineHeight: "1.6", fontWeight: "400" }]
-                    }
-                },
-            },
-        }
-    </script>
+
     <style>
-        * { -webkit-tap-highlight-color: transparent; }
-        body { background-color: #F8FAFC; min-height: 100dvh; overflow: hidden; }
-        .blur-blob {
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            background: linear-gradient(180deg, #e0f7ff 0%, #f0f9ff 30%, #f8fcff 60%, #ffffff 100%);
+            font-family: 'Inter', sans-serif;
+            color: #1e293b;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+            padding-bottom: 80px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .bg-waves {
             position: fixed;
-            width: 300px;
-            height: 300px;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .wave {
+            position: absolute;
             border-radius: 50%;
             filter: blur(80px);
-            z-index: 0;
-            opacity: 0.15;
-            pointer-events: none;
+            opacity: 0.5;
+            animation: wave-float 15s ease-in-out infinite;
         }
-        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 10px; }
-        .chat-bubble-received { border-radius: 4px 20px 20px 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.02); }
-        .chat-bubble-sent { border-radius: 20px 20px 4px 20px; }
-        .slide-in-right { animation: slideInRight 0.3s ease-out forwards; }
-        .slide-out-right { animation: slideOutRight 0.3s ease-in forwards; }
-        .fade-in { animation: fadeIn 0.2s ease-out forwards; }
-        @keyframes slideInRight { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
-        @keyframes slideOutRight { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-        .typing-dot { animation: typingBounce 1.4s infinite ease-in-out both; }
-        .typing-dot:nth-child(1) { animation-delay: -0.32s; }
-        .typing-dot:nth-child(2) { animation-delay: -0.16s; }
-        @keyframes typingBounce { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
-        .contact-item { transition: all 0.2s ease; }
-        .contact-item:active { transform: scale(0.98); }
-        .message-input:focus { outline: none; }
+
+        .wave-1 {
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(56, 189, 248, 0.4) 0%, rgba(14, 165, 233, 0.1) 50%, transparent 70%);
+            top: -200px;
+            right: -150px;
+            animation-delay: 0s;
+        }
+
+        .wave-2 {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(125, 211, 252, 0.35) 0%, rgba(56, 189, 248, 0.08) 50%, transparent 70%);
+            bottom: 100px;
+            left: -200px;
+            animation-delay: -5s;
+            animation-duration: 18s;
+        }
+
+        .wave-3 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(186, 230, 253, 0.4) 0%, rgba(125, 211, 252, 0.1) 50%, transparent 70%);
+            top: 40%;
+            right: -100px;
+            animation-delay: -10s;
+            animation-duration: 20s;
+        }
+
+        .wave-4 {
+            width: 350px;
+            height: 350px;
+            background: radial-gradient(circle, rgba(14, 165, 233, 0.25) 0%, rgba(56, 189, 248, 0.05) 50%, transparent 70%);
+            bottom: -50px;
+            left: 20%;
+            animation-delay: -15s;
+            animation-duration: 22s;
+        }
+
+        .wave-5 {
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(224, 242, 254, 0.5) 0%, rgba(186, 230, 253, 0.1) 50%, transparent 70%);
+            top: 20%;
+            left: -50px;
+            animation-delay: -8s;
+            animation-duration: 16s;
+        }
+
+        @keyframes wave-float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(20px, -30px) scale(1.05); }
+            50% { transform: translate(-15px, 20px) scale(0.98); }
+            75% { transform: translate(25px, 10px) scale(1.02); }
+        }
+
+        .bg-lines {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.03;
+            background-image: 
+                linear-gradient(90deg, #0284c7 1px, transparent 1px),
+                linear-gradient(180deg, #0284c7 1px, transparent 1px);
+            background-size: 80px 80px;
+        }
+
+        .material-symbols-outlined { font-variation-settings: 'FILL' 1, 'wght' 400; }
+
+        .top-header {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(226, 232, 240, 0.6);
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 60px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-left { display: flex; align-items: center; gap: 12px; }
+        .logo-small { display: flex; align-items: center; gap: 10px; }
+        .logo-small img { width: 32px; height: 32px; border-radius: 8px; object-fit: cover; }
+        .logo-small span {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            color: #0f172a;
+        }
+
+        .header-right { display: flex; align-items: center; gap: 12px; }
+
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #38bdf8, #0284c7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            color: #ffffff;
+            border: 2px solid #ffffff;
+            box-shadow: 0 2px 8px rgba(2, 132, 199, 0.3);
+        }
+
+        .btn-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: none;
+            background: #f1f5f9;
+            color: #64748b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-icon:hover { background: #e2e8f0; color: #0f172a; }
+
+        .main-content {
+            padding: 20px 24px;
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .chat-list-header {
+            margin-bottom: 20px;
+        }
+        .chat-list-header h1 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 4px;
+        }
+        .chat-list-header h1 span { color: #0284c7; }
+        .chat-list-header p {
+            font-size: 14px;
+            color: #64748b;
+            line-height: 1.5;
+        }
+
+        .search-box {
+            position: relative;
+            margin-bottom: 16px;
+        }
+        .search-box input {
+            width: 100%;
+            padding: 12px 16px 12px 44px;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            background: rgba(255,255,255,0.9);
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            color: #1e293b;
+            transition: all 0.2s;
+        }
+        .search-box input:focus {
+            outline: none;
+            border-color: #0284c7;
+            box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.1);
+        }
+        .search-box input::placeholder { color: #94a3b8; }
+        .search-box .material-symbols-outlined {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+            font-size: 20px;
+        }
+
+        .filter-chips {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+            overflow-x: auto;
+            padding-bottom: 4px;
+        }
+        .filter-chips::-webkit-scrollbar { display: none; }
+        .chip {
+            padding: 8px 16px;
+            border-radius: 9999px;
+            border: 1px solid #e2e8f0;
+            background: rgba(255,255,255,0.8);
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 500;
+            color: #64748b;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s;
+        }
+        .chip:hover { background: #f1f5f9; }
+        .chip.active {
+            background: #0f172a;
+            color: #ffffff;
+            border-color: #0f172a;
+        }
+
+        .contacts-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .contact-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+        }
+        .contact-card:hover {
+            transform: translateX(4px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+        }
+        .contact-card:active { transform: scale(0.98); }
+
+        .contact-avatar {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            color: #ffffff;
+            flex-shrink: 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            position: relative;
+        }
+        .contact-avatar .status-dot {
+            position: absolute;
+            bottom: -2px;
+            right: -2px;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            border: 2px solid #ffffff;
+        }
+        .status-dot.online { background: #22c55e; }
+        .status-dot.offline { background: #cbd5e1; }
+
+        .contact-info { flex: 1; min-width: 0; }
+        .contact-info h3 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 2px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .contact-info .last-message {
+            font-size: 13px;
+            color: #64748b;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-bottom: 6px;
+        }
+        .contact-info .last-message.unread { color: #0f172a; font-weight: 500; }
+        .contact-info .tags-row {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+        .contact-tag {
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+        }
+        .tag-estudiante { background: #e0f2fe; color: #0284c7; }
+        .tag-inasistencia { background: #fee2e2; color: #ef4444; }
+        .tag-reporte { background: #fef3c7; color: #d97706; }
+        .tag-al-dia { background: #dcfce7; color: #16a34a; }
+        .tag-urgente { background: #fecaca; color: #b91c1c; }
+        .tag-consulta { background: #dbeafe; color: #2563eb; }
+        .tag-documento { background: #ffedd5; color: #ea580c; }
+
+        .contact-meta {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 6px;
+            flex-shrink: 0;
+        }
+        .contact-meta .time {
+            font-size: 11px;
+            color: #94a3b8;
+            font-weight: 500;
+        }
+        .contact-meta .time.recent { color: #0284c7; font-weight: 600; }
+        .contact-meta .unread-badge {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: #0284c7;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 700;
+        }
+        .contact-meta .unread-badge.urgent { background: #ef4444; }
+        .contact-meta .read-icon {
+            color: #0284c7;
+            font-size: 16px;
+        }
+
+        .chat-screen {
+            display: none;
+            flex-direction: column;
+            height: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 70px;
+            background: linear-gradient(180deg, #e0f7ff 0%, #f0f9ff 30%, #f8fcff 60%, #ffffff 100%);
+            z-index: 90;
+            animation: slideIn 0.3s ease-out;
+        }
+        @keyframes slideIn {
+            from { transform: translateX(100%); }
+            to { transform: translateX(0); }
+        }
+        @keyframes slideOut {
+            from { transform: translateX(0); }
+            to { transform: translateX(100%); }
+        }
+        .chat-screen.closing { animation: slideOut 0.3s ease-in forwards; }
+
+        .chat-header {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(226, 232, 240, 0.6);
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 60px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .chat-header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .back-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: none;
+            background: #f1f5f9;
+            color: #64748b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .back-btn:hover { background: #e2e8f0; color: #0f172a; }
         .back-btn:active { transform: scale(0.92); }
+
+        .chat-header-info { display: flex; align-items: center; gap: 10px; }
+        .chat-header-avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            color: #ffffff;
+            position: relative;
+        }
+        .chat-header-avatar .status-dot {
+            position: absolute;
+            bottom: -2px;
+            right: -2px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: 2px solid #ffffff;
+        }
+
+        .chat-header-text h2 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            color: #0f172a;
+        }
+        .chat-header-text p {
+            font-size: 11px;
+            color: #22c55e;
+            font-weight: 500;
+        }
+        .chat-header-text p.offline { color: #94a3b8; }
+
+        .chat-header-actions {
+            display: flex;
+            gap: 8px;
+        }
+        .chat-header-actions button {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: none;
+            background: #f1f5f9;
+            color: #64748b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .chat-header-actions button:hover { background: #e2e8f0; color: #0f172a; }
+
+        .quick-actions-menu {
+            display: none;
+            position: absolute;
+            top: 68px;
+            right: 16px;
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            border: 1px solid #e2e8f0;
+            padding: 8px;
+            z-index: 200;
+            width: 240px;
+            animation: fadeIn 0.2s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .quick-actions-menu.show { display: block; }
+        .quick-action-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 12px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+            background: none;
+            width: 100%;
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            color: #1e293b;
+            text-align: left;
+        }
+        .quick-action-item:hover { background: #f8fafc; }
+        .quick-action-item .material-symbols-outlined { font-size: 20px; }
+
+        .messages-area {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .messages-area::-webkit-scrollbar { width: 4px; }
+        .messages-area::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 10px; }
+
+        .date-divider {
+            display: flex;
+            justify-content: center;
+            margin: 8px 0;
+        }
+        .date-divider span {
+            font-size: 11px;
+            color: #94a3b8;
+            background: rgba(226, 232, 240, 0.5);
+            padding: 4px 14px;
+            border-radius: 9999px;
+            font-weight: 500;
+        }
+
+        .message-bubble {
+            max-width: 80%;
+            padding: 12px 16px;
+            font-size: 14px;
+            line-height: 1.5;
+            position: relative;
+            animation: messageIn 0.3s ease-out;
+        }
+        @keyframes messageIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .message-bubble.received {
+            background: #ffffff;
+            color: #1e293b;
+            border-radius: 4px 16px 16px 16px;
+            align-self: flex-start;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+        .message-bubble.sent {
+            background: #0f172a;
+            color: #ffffff;
+            border-radius: 16px 16px 4px 16px;
+            align-self: flex-end;
+        }
+        .message-bubble.system {
+            background: #fef2f2;
+            color: #991b1b;
+            border: 1px solid #fecaca;
+            border-radius: 12px;
+            align-self: center;
+            max-width: 90%;
+            text-align: center;
+            font-size: 13px;
+        }
+        .message-time {
+            font-size: 10px;
+            margin-top: 4px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .message-bubble.received .message-time { color: #94a3b8; justify-content: flex-end; }
+        .message-bubble.sent .message-time { color: #7dd3fc; justify-content: flex-end; }
+
+        .typing-indicator {
+            display: none;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 20px;
+        }
+        .typing-indicator.show { display: flex; }
+        .typing-indicator .avatar {
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: 700;
+            color: #ffffff;
+        }
+        .typing-dots {
+            display: flex;
+            gap: 4px;
+            align-items: center;
+            background: #ffffff;
+            padding: 10px 16px;
+            border-radius: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+        .typing-dots span {
+            width: 6px;
+            height: 6px;
+            background: #94a3b8;
+            border-radius: 50%;
+            animation: typingBounce 1.4s infinite ease-in-out both;
+        }
+        .typing-dots span:nth-child(1) { animation-delay: -0.32s; }
+        .typing-dots span:nth-child(2) { animation-delay: -0.16s; }
+        @keyframes typingBounce {
+            0%, 80%, 100% { transform: scale(0.6); opacity: 0.5; }
+            40% { transform: scale(1); opacity: 1; }
+        }
+
+        .chat-input-area {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid #e2e8f0;
+            padding: 12px 20px 24px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .chat-input-area .attach-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: none;
+            background: #f1f5f9;
+            color: #64748b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+        .chat-input-area .attach-btn:hover { background: #e2e8f0; }
+        .chat-input-wrapper {
+            flex: 1;
+            background: #f1f5f9;
+            border-radius: 20px;
+            padding: 10px 16px;
+            display: flex;
+            align-items: center;
+        }
+        .chat-input-wrapper input {
+            width: 100%;
+            border: none;
+            background: transparent;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            color: #1e293b;
+        }
+        .chat-input-wrapper input:focus { outline: none; }
+        .chat-input-wrapper input::placeholder { color: #94a3b8; }
+        .send-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: none;
+            background: #0f172a;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            flex-shrink: 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+        .send-btn:hover { background: #1e293b; transform: scale(1.05); }
+        .send-btn:active { transform: scale(0.95); }
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            height: 70px;
+            z-index: 100;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+        .bottom-nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            padding: 8px 12px;
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 11px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-family: inherit;
+            flex: 1;
+            position: relative;
+        }
+        .bottom-nav-item:hover { color: #0284c7; }
+        .bottom-nav-item.active { color: #0284c7; }
+        .bottom-nav-item.active::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 3px;
+            background: #0284c7;
+            border-radius: 0 0 4px 4px;
+        }
+        .bottom-nav-item .material-symbols-outlined { font-size: 24px; }
+
+        @media (min-width: 768px) {
+            .main-content { max-width: 800px; padding: 24px 32px; }
+        }
+        @media (max-width: 480px) {
+            .main-content { padding: 16px; }
+            .chat-list-header h1 { font-size: 20px; }
+            .bottom-nav { height: 65px; }
+            .bottom-nav-item { padding: 6px 8px; font-size: 10px; }
+            .bottom-nav-item .material-symbols-outlined { font-size: 22px; }
+        }
     </style>
+<base target="_blank">
 </head>
-<body class="font-body-md text-on-surface h-screen flex flex-col relative">
+<body>
 
-    <!-- Atmospheric Blobs -->
-    <div class="blur-blob bg-secondary-container top-[-100px] left-[-100px]"></div>
-    <div class="blur-blob bg-error top-[40%] right-[-100px]"></div>
+    <div class="bg-waves">
+        <div class="wave wave-1"></div>
+        <div class="wave wave-2"></div>
+        <div class="wave wave-3"></div>
+        <div class="wave wave-4"></div>
+        <div class="wave wave-5"></div>
+    </div>
+    <div class="bg-lines"></div>
 
-    <!-- ====== HEADER ====== -->
-    <header class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-md shadow-sm h-16 flex items-center justify-between px-4">
-        <div class="flex items-center gap-2 text-headline-sm font-bold text-on-surface">
-            <span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">school</span>
-            <span class="font-headline-sm">HORASOCIAL PRO</span>
+    <header class="top-header">
+        <div class="header-left">
+            <div class="logo-small">
+                <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwMhl_DdmeafGOmiL2QLqeQV_Ut8aNvKKYwKjKUtrAMBSjpyGc1Acc5TCQm084EODuuIAA3GiusiDfLdXgW3DAC8tdYPa8R-TEraz_hHglTpuTQJRtfOJfW_OyF25795_lzWR3g1wKtd_0fCPC6QxHfyblbvKAQVJNcggVB3k8TYcOAOsA0lTgC8lQz0E1YRlDIn1zQ0vALf8l_40TC_X6xkuWE-o1qr0sdsv2THdAcTxAM9txnjL8N_7oSnlqsHLnXkvvL7tImO-s" alt="Logo">
+                <span>HORASOCIAL PRO</span>
+            </div>
         </div>
-        <div class="flex items-center gap-3">
-            <div class="text-right hidden sm:block">
-                <p class="text-label-md font-bold text-on-surface">Prof. Alejandro Gómez</p>
-                <p class="text-[10px] text-on-surface-variant">Docente de Enlace</p>
-            </div>
-            <div class="w-10 h-10 rounded-full border-2 border-secondary-container bg-gradient-to-br from-secondary to-secondary-container flex items-center justify-center text-white font-bold text-sm">
-                AG
-            </div>
+        <div class="header-right">
+            <div class="user-avatar">MR</div>
+            <button class="btn-icon" onclick="window.location.href='/seleccion-rol'" title="Cerrar Sesión">
+                <span class="material-symbols-outlined">logout</span>
+            </button>
         </div>
     </header>
 
-    <!-- ====== MAIN CONTENT ====== -->
-    <main class="flex-1 flex flex-col pt-16 pb-20 overflow-hidden relative z-10">
+    <main class="main-content" id="chat-list-screen">
+        <div class="chat-list-header">
+            <h1>Mis <span>Mensajes</span></h1>
+            <p>Comunícate con tus estudiantes, resuelve dudas y gestiona inasistencias.</p>
+        </div>
 
-        <!-- ====== PANTALLA 1: LISTA DE CHATS ====== -->
-        <div id="chat-list-screen" class="flex flex-col h-full">
-            <!-- Header de Mensajes -->
-            <div class="px-4 pt-4 pb-3 bg-white/40 backdrop-blur-sm border-b border-outline-variant/30">
-                <div class="flex items-center justify-between mb-3">
-                    <h1 class="font-comfortaa text-headline-md font-bold text-primary">Mensajes</h1>
-                    <div class="flex items-center gap-2">
-                        <span class="text-[12px] text-secondary font-semibold bg-secondary/10 px-3 py-1 rounded-full">4 activos</span>
+        <div class="search-box">
+            <span class="material-symbols-outlined">search</span>
+            <input type="text" id="search-input" placeholder="Buscar estudiantes o conversaciones..." oninput="filterContacts(this.value)">
+        </div>
+
+        <div class="filter-chips" id="filter-chips">
+            <button class="chip active" onclick="setFilter('all', this)">Todos</button>
+            <button class="chip" onclick="setFilter('unread', this)">No leídos</button>
+            <button class="chip" onclick="setFilter('inasistencia', this)">Inasistencias</button>
+            <button class="chip" onclick="setFilter('reporte', this)">Reportes</button>
+            <button class="chip" onclick="setFilter('consulta', this)">Consultas</button>
+        </div>
+
+        <div class="contacts-list" id="contacts-list">
+            <div class="contact-card" data-id="0" data-tags="estudiante inasistencia" onclick="openChat(0)">
+                <div class="contact-avatar" style="background: linear-gradient(135deg, #f472b6, #db2777);">
+                    VT
+                    <span class="status-dot online"></span>
+                </div>
+                <div class="contact-info">
+                    <h3>Valentina Torres</h3>
+                    <p class="last-message unread">Profe, ya subí el reporte final de la semana. ¿Lo puede revisar?</p>
+                    <div class="tags-row">
+                        <span class="contact-tag tag-estudiante">Estudiante</span>
+                        <span class="contact-tag tag-inasistencia">Inasistencia</span>
                     </div>
                 </div>
-                <!-- Search -->
-                <div class="relative flex items-center mb-3">
-                    <span class="material-symbols-outlined absolute left-3 text-outline text-[20px]">search</span>
-                    <input type="text" id="search-input" placeholder="Buscar estudiantes o conversaciones..." 
-                           class="w-full bg-surface-container-low border-none rounded-xl py-2.5 pl-10 pr-4 text-label-md focus:ring-2 focus:ring-secondary/50 shadow-sm"
-                           oninput="filterContacts(this.value)">
-                </div>
-                <!-- Filtros rápidos -->
-                <div class="flex gap-2 overflow-x-auto pb-1 no-scrollbar" id="filter-buttons">
-                    <button onclick="setFilter('all')" class="filter-btn px-4 py-1.5 bg-primary text-white rounded-full text-[12px] font-semibold whitespace-nowrap transition-all" data-filter="all">Todos</button>
-                    <button onclick="setFilter('unread')" class="filter-btn px-4 py-1.5 bg-white border border-outline-variant text-on-surface-variant rounded-full text-[12px] font-semibold whitespace-nowrap transition-all" data-filter="unread">No leídos</button>
-                    <button onclick="setFilter('absence')" class="filter-btn px-4 py-1.5 bg-white border border-outline-variant text-on-surface-variant rounded-full text-[12px] font-semibold whitespace-nowrap transition-all" data-filter="absence">Inasistencias</button>
-                    <button onclick="setFilter('reports')" class="filter-btn px-4 py-1.5 bg-white border border-outline-variant text-on-surface-variant rounded-full text-[12px] font-semibold whitespace-nowrap transition-all" data-filter="reports">Reportes</button>
+                <div class="contact-meta">
+                    <span class="time recent">14:20</span>
+                    <span class="unread-badge">2</span>
                 </div>
             </div>
 
-            <!-- Lista de Contactos -->
-            <div class="flex-1 overflow-y-auto custom-scrollbar" id="contacts-list">
-                <!-- Contacto 1: Valentina Torres - Activo con mensaje nuevo -->
-                <div class="contact-item flex items-center gap-3 p-4 hover:bg-surface-container-low cursor-pointer border-b border-outline-variant/20" onclick="openChat(0)">
-                    <div class="relative flex-shrink-0">
-                        <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-pink-400 to-rose-600 flex items-center justify-center text-white font-bold text-lg shadow-md">
-                            VT
-                        </div>
-                        <span class="absolute bottom-0 right-0 w-3.5 h-3.5 bg-green-500 border-2 border-white rounded-full"></span>
-                    </div>
-                    <div class="flex-1 min-w-0">
-                        <div class="flex justify-between items-start mb-0.5">
-                            <h3 class="font-bold text-label-md truncate text-on-surface">Valentina Torres</h3>
-                            <span class="text-[11px] text-secondary font-semibold whitespace-nowrap ml-2">14:20</span>
-                        </div>
-                        <p class="text-[13px] text-on-surface-variant truncate leading-snug">Profe, ya subí el reporte final de la semana. ¿Lo puede revisar?</p>
-                        <div class="flex items-center gap-2 mt-1.5">
-                            <span class="px-2 py-0.5 bg-secondary/10 text-secondary text-[10px] font-bold rounded-md uppercase tracking-wide">Estudiante</span>
-                            <span class="px-2 py-0.5 bg-error/10 text-error text-[10px] font-bold rounded-md uppercase tracking-wide">Inasistencia</span>
-                        </div>
-                    </div>
-                    <div class="flex flex-col items-end gap-1 ml-2">
-                        <span class="w-5 h-5 bg-secondary text-white rounded-full flex items-center justify-center text-[10px] font-bold">2</span>
+            <div class="contact-card" data-id="1" data-tags="estudiante reporte" onclick="openChat(1)">
+                <div class="contact-avatar" style="background: linear-gradient(135deg, #60a5fa, #3b82f6);">
+                    CM
+                    <span class="status-dot offline"></span>
+                </div>
+                <div class="contact-info">
+                    <h3>Carlos Mendoza</h3>
+                    <p class="last-message unread">Profesor, tengo una duda sobre las horas del proyecto comunitario...</p>
+                    <div class="tags-row">
+                        <span class="contact-tag tag-estudiante">Estudiante</span>
+                        <span class="contact-tag tag-reporte">Reporte</span>
                     </div>
                 </div>
+                <div class="contact-meta">
+                    <span class="time">Ayer</span>
+                    <span class="unread-badge">1</span>
+                </div>
+            </div>
 
-                <!-- Contacto 2: Carlos Mendoza - Pendiente de reporte -->
-                <div class="contact-item flex items-center gap-3 p-4 hover:bg-surface-container-low cursor-pointer border-b border-outline-variant/20" onclick="openChat(1)">
-                    <div class="relative flex-shrink-0">
-                        <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-400 to-indigo-600 flex items-center justify-center text-white font-bold text-lg shadow-md">
-                            CM
-                        </div>
-                        <span class="absolute bottom-0 right-0 w-3.5 h-3.5 bg-gray-300 border-2 border-white rounded-full"></span>
-                    </div>
-                    <div class="flex-1 min-w-0">
-                        <div class="flex justify-between items-start mb-0.5">
-                            <h3 class="font-bold text-label-md truncate text-on-surface">Carlos Mendoza</h3>
-                            <span class="text-[11px] text-outline whitespace-nowrap ml-2">Ayer</span>
-                        </div>
-                        <p class="text-[13px] text-on-surface-variant truncate leading-snug">Profesor, tengo una duda sobre las horas del proyecto comunitario...</p>
-                        <div class="flex items-center gap-2 mt-1.5">
-                            <span class="px-2 py-0.5 bg-secondary/10 text-secondary text-[10px] font-bold rounded-md uppercase tracking-wide">Estudiante</span>
-                            <span class="px-2 py-0.5 bg-amber-100 text-amber-700 text-[10px] font-bold rounded-md uppercase tracking-wide">Reporte</span>
-                        </div>
-                    </div>
-                    <div class="flex flex-col items-end gap-1 ml-2">
-                        <span class="w-5 h-5 bg-secondary text-white rounded-full flex items-center justify-center text-[10px] font-bold">1</span>
+            <div class="contact-card" data-id="2" data-tags="estudiante al-dia" onclick="openChat(2)">
+                <div class="contact-avatar" style="background: linear-gradient(135deg, #a78bfa, #7c3aed);">
+                    AL
+                    <span class="status-dot online"></span>
+                </div>
+                <div class="contact-info">
+                    <h3>Ana Lucía Martínez</h3>
+                    <p class="last-message">¡Gracias profe! Ya quedó todo claro. Saludos.</p>
+                    <div class="tags-row">
+                        <span class="contact-tag tag-estudiante">Estudiante</span>
+                        <span class="contact-tag tag-al-dia">Al día</span>
                     </div>
                 </div>
+                <div class="contact-meta">
+                    <span class="time">Ayer</span>
+                    <span class="read-icon material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">done_all</span>
+                </div>
+            </div>
 
-                <!-- Contacto 3: Ana Lucía Martínez - Todo OK -->
-                <div class="contact-item flex items-center gap-3 p-4 hover:bg-surface-container-low cursor-pointer border-b border-outline-variant/20" onclick="openChat(2)">
-                    <div class="relative flex-shrink-0">
-                        <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-400 to-violet-600 flex items-center justify-center text-white font-bold text-lg shadow-md">
-                            AL
-                        </div>
-                        <span class="absolute bottom-0 right-0 w-3.5 h-3.5 bg-green-500 border-2 border-white rounded-full"></span>
-                    </div>
-                    <div class="flex-1 min-w-0">
-                        <div class="flex justify-between items-start mb-0.5">
-                            <h3 class="font-bold text-label-md truncate text-on-surface">Ana Lucía Martínez</h3>
-                            <span class="text-[11px] text-outline whitespace-nowrap ml-2">Ayer</span>
-                        </div>
-                        <p class="text-[13px] text-on-surface-variant truncate leading-snug">¡Gracias profe! Ya quedó todo claro. Saludos.</p>
-                        <div class="flex items-center gap-2 mt-1.5">
-                            <span class="px-2 py-0.5 bg-secondary/10 text-secondary text-[10px] font-bold rounded-md uppercase tracking-wide">Estudiante</span>
-                            <span class="px-2 py-0.5 bg-green-100 text-green-700 text-[10px] font-bold rounded-md uppercase tracking-wide">Al día</span>
-                        </div>
-                    </div>
-                    <div class="flex flex-col items-end gap-1 ml-2">
-                        <span class="material-symbols-outlined text-[16px] text-secondary" style="font-variation-settings: 'FILL' 1;">done_all</span>
+            <div class="contact-card" data-id="3" data-tags="estudiante inasistencia urgente" onclick="openChat(3)">
+                <div class="contact-avatar" style="background: linear-gradient(135deg, #34d399, #059669);">
+                    DG
+                    <span class="status-dot offline"></span>
+                </div>
+                <div class="contact-info">
+                    <h3>Diego Gómez</h3>
+                    <p class="last-message" style="color: #ef4444; font-weight: 500;">⚠️ Faltó a la jornada del viernes sin justificación</p>
+                    <div class="tags-row">
+                        <span class="contact-tag tag-estudiante">Estudiante</span>
+                        <span class="contact-tag tag-inasistencia">Inasistencia</span>
+                        <span class="contact-tag tag-urgente">Urgente</span>
                     </div>
                 </div>
+                <div class="contact-meta">
+                    <span class="time" style="color: #ef4444; font-weight: 600;">Hace 3 días</span>
+                    <span class="unread-badge urgent">!</span>
+                </div>
+            </div>
 
-                <!-- Contacto 4: Diego Gómez - Inasistencia crítica -->
-                <div class="contact-item flex items-center gap-3 p-4 hover:bg-surface-container-low cursor-pointer border-b border-outline-variant/20" onclick="openChat(3)">
-                    <div class="relative flex-shrink-0">
-                        <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-emerald-400 to-teal-600 flex items-center justify-center text-white font-bold text-lg shadow-md">
-                            DG
-                        </div>
-                        <span class="absolute bottom-0 right-0 w-3.5 h-3.5 bg-gray-300 border-2 border-white rounded-full"></span>
-                    </div>
-                    <div class="flex-1 min-w-0">
-                        <div class="flex justify-between items-start mb-0.5">
-                            <h3 class="font-bold text-label-md truncate text-on-surface">Diego Gómez</h3>
-                            <span class="text-[11px] text-error font-semibold whitespace-nowrap ml-2">Hace 3 días</span>
-                        </div>
-                        <p class="text-[13px] text-error truncate leading-snug font-medium">⚠️ Faltó a la jornada del viernes sin justificación</p>
-                        <div class="flex items-center gap-2 mt-1.5">
-                            <span class="px-2 py-0.5 bg-secondary/10 text-secondary text-[10px] font-bold rounded-md uppercase tracking-wide">Estudiante</span>
-                            <span class="px-2 py-0.5 bg-error/10 text-error text-[10px] font-bold rounded-md uppercase tracking-wide">Inasistencia</span>
-                            <span class="px-2 py-0.5 bg-red-100 text-red-700 text-[10px] font-bold rounded-md uppercase tracking-wide">Urgente</span>
-                        </div>
-                    </div>
-                    <div class="flex flex-col items-end gap-1 ml-2">
-                        <span class="w-5 h-5 bg-error text-white rounded-full flex items-center justify-center text-[10px] font-bold">!</span>
+            <div class="contact-card" data-id="4" data-tags="estudiante consulta" onclick="openChat(4)">
+                <div class="contact-avatar" style="background: linear-gradient(135deg, #fbbf24, #d97706);">
+                    SF
+                    <span class="status-dot online"></span>
+                </div>
+                <div class="contact-info">
+                    <h3>Sofía Fernández</h3>
+                    <p class="last-message">Profe, ¿cuándo es la próxima jornada de reforestación?</p>
+                    <div class="tags-row">
+                        <span class="contact-tag tag-estudiante">Estudiante</span>
+                        <span class="contact-tag tag-consulta">Consulta</span>
                     </div>
                 </div>
+                <div class="contact-meta">
+                    <span class="time">Lun</span>
+                    <span class="read-icon material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">done</span>
+                </div>
+            </div>
 
-                <!-- Contacto 5: Sofía Fernández -->
-                <div class="contact-item flex items-center gap-3 p-4 hover:bg-surface-container-low cursor-pointer border-b border-outline-variant/20" onclick="openChat(4)">
-                    <div class="relative flex-shrink-0">
-                        <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-400 to-orange-600 flex items-center justify-center text-white font-bold text-lg shadow-md">
-                            SF
-                        </div>
-                        <span class="absolute bottom-0 right-0 w-3.5 h-3.5 bg-green-500 border-2 border-white rounded-full"></span>
-                    </div>
-                    <div class="flex-1 min-w-0">
-                        <div class="flex justify-between items-start mb-0.5">
-                            <h3 class="font-bold text-label-md truncate text-on-surface">Sofía Fernández</h3>
-                            <span class="text-[11px] text-outline whitespace-nowrap ml-2">Lun</span>
-                        </div>
-                        <p class="text-[13px] text-on-surface-variant truncate leading-snug">Profe, ¿cuándo es la próxima jornada de reforestación?</p>
-                        <div class="flex items-center gap-2 mt-1.5">
-                            <span class="px-2 py-0.5 bg-secondary/10 text-secondary text-[10px] font-bold rounded-md uppercase tracking-wide">Estudiante</span>
-                            <span class="px-2 py-0.5 bg-blue-100 text-blue-700 text-[10px] font-bold rounded-md uppercase tracking-wide">Consulta</span>
-                        </div>
-                    </div>
-                    <div class="flex flex-col items-end gap-1 ml-2">
-                        <span class="material-symbols-outlined text-[16px] text-outline" style="font-variation-settings: 'FILL' 1;">done</span>
+            <div class="contact-card" data-id="5" data-tags="estudiante documento" onclick="openChat(5)">
+                <div class="contact-avatar" style="background: linear-gradient(135deg, #38bdf8, #0284c7);">
+                    JC
+                    <span class="status-dot offline"></span>
+                </div>
+                <div class="contact-info">
+                    <h3>Juan Carlos Rodríguez</h3>
+                    <p class="last-message">Adjunto el certificado de horas de la fundación. Gracias.</p>
+                    <div class="tags-row">
+                        <span class="contact-tag tag-estudiante">Estudiante</span>
+                        <span class="contact-tag tag-documento">Documento</span>
                     </div>
                 </div>
+                <div class="contact-meta">
+                    <span class="time">Dom</span>
+                    <span class="read-icon material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">done_all</span>
+                </div>
+            </div>
 
-                <!-- Contacto 6: Juan Carlos Rodríguez -->
-                <div class="contact-item flex items-center gap-3 p-4 hover:bg-surface-container-low cursor-pointer border-b border-outline-variant/20" onclick="openChat(5)">
-                    <div class="relative flex-shrink-0">
-                        <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-cyan-400 to-sky-600 flex items-center justify-center text-white font-bold text-lg shadow-md">
-                            JC
-                        </div>
-                        <span class="absolute bottom-0 right-0 w-3.5 h-3.5 bg-gray-300 border-2 border-white rounded-full"></span>
+            <div class="contact-card" data-id="6" data-tags="estudiante inasistencia" onclick="openChat(6)">
+                <div class="contact-avatar" style="background: linear-gradient(135deg, #ec4899, #be185d);">
+                    MR
+                    <span class="status-dot offline"></span>
+                </div>
+                <div class="contact-info">
+                    <h3>María Elena Ruiz</h3>
+                    <p class="last-message unread">Profe, no pude asistir el martes por enfermedad. ¿Cómo regularizo?</p>
+                    <div class="tags-row">
+                        <span class="contact-tag tag-estudiante">Estudiante</span>
+                        <span class="contact-tag tag-inasistencia">Inasistencia</span>
                     </div>
-                    <div class="flex-1 min-w-0">
-                        <div class="flex justify-between items-start mb-0.5">
-                            <h3 class="font-bold text-label-md truncate text-on-surface">Juan Carlos Rodríguez</h3>
-                            <span class="text-[11px] text-outline whitespace-nowrap ml-2">Dom</span>
-                        </div>
-                        <p class="text-[13px] text-on-surface-variant truncate leading-snug">Adjunto el certificado de horas de la fundación. Gracias.</p>
-                        <div class="flex items-center gap-2 mt-1.5">
-                            <span class="px-2 py-0.5 bg-secondary/10 text-secondary text-[10px] font-bold rounded-md uppercase tracking-wide">Estudiante</span>
-                            <span class="px-2 py-0.5 bg-amber-100 text-amber-700 text-[10px] font-bold rounded-md uppercase tracking-wide">Documento</span>
-                        </div>
+                </div>
+                <div class="contact-meta">
+                    <span class="time recent">12:45</span>
+                    <span class="unread-badge">1</span>
+                </div>
+            </div>
+
+            <div class="contact-card" data-id="7" data-tags="estudiante reporte" onclick="openChat(7)">
+                <div class="contact-avatar" style="background: linear-gradient(135deg, #8b5cf6, #6d28d9);">
+                    LP
+                    <span class="status-dot online"></span>
+                </div>
+                <div class="contact-info">
+                    <h3>Luis Alberto Pérez</h3>
+                    <p class="last-message">Ya envié el reporte de la jornada de limpieza. ¿Lo recibió?</p>
+                    <div class="tags-row">
+                        <span class="contact-tag tag-estudiante">Estudiante</span>
+                        <span class="contact-tag tag-reporte">Reporte</span>
                     </div>
-                    <div class="flex flex-col items-end gap-1 ml-2">
-                        <span class="material-symbols-outlined text-[16px] text-outline" style="font-variation-settings: 'FILL' 1;">done_all</span>
-                    </div>
+                </div>
+                <div class="contact-meta">
+                    <span class="time">Vie</span>
+                    <span class="read-icon material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">done_all</span>
                 </div>
             </div>
         </div>
-
-        <!-- ====== PANTALLA 2: CHAT INDIVIDUAL ====== -->
-        <div id="chat-screen" class="hidden flex-col h-full bg-white/50">
-            <!-- Chat Header -->
-            <div class="px-4 py-3 bg-white/80 backdrop-blur-md flex items-center justify-between border-b border-outline-variant/20 shadow-sm">
-                <div class="flex items-center gap-3">
-                    <button onclick="backToList()" class="back-btn w-9 h-9 flex items-center justify-center rounded-full hover:bg-surface-container transition-colors">
-                        <span class="material-symbols-outlined text-on-surface">arrow_back</span>
-                    </button>
-                    <div class="relative">
-                        <div id="chat-avatar" class="w-10 h-10 rounded-2xl bg-gradient-to-br from-pink-400 to-rose-600 flex items-center justify-center text-white font-bold text-sm shadow-md">
-                            VT
-                        </div>
-                        <span id="chat-status-dot" class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 border-2 border-white rounded-full"></span>
-                    </div>
-                    <div>
-                        <h2 id="chat-name" class="font-bold text-label-md">Valentina Torres</h2>
-                        <p id="chat-status" class="text-[11px] text-green-600 font-medium">En línea</p>
-                    </div>
-                </div>
-                <div class="flex gap-2">
-                    <button class="w-9 h-9 flex items-center justify-center rounded-full hover:bg-surface-container transition-colors text-on-surface-variant">
-                        <span class="material-symbols-outlined text-[20px]">call</span>
-                    </button>
-                    <button onclick="showQuickActions()" class="w-9 h-9 flex items-center justify-center rounded-full hover:bg-surface-container transition-colors text-on-surface-variant">
-                        <span class="material-symbols-outlined text-[20px]">more_vert</span>
-                    </button>
-                </div>
-            </div>
-
-            <!-- Acciones Rápidas (desplegable) -->
-            <div id="quick-actions" class="hidden absolute top-[120px] right-4 bg-white rounded-xl shadow-lg border border-outline-variant/20 p-2 z-50 w-56">
-                <button onclick="sendQuickMessage('inasistencia')" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-surface-container-low text-left transition-colors">
-                    <span class="material-symbols-outlined text-error text-[20px]">event_busy</span>
-                    <span class="text-[13px] font-medium">Preguntar inasistencia</span>
-                </button>
-                <button onclick="sendQuickMessage('horas')" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-surface-container-low text-left transition-colors">
-                    <span class="material-symbols-outlined text-secondary text-[20px]">schedule</span>
-                    <span class="text-[13px] font-medium">Consultar horas</span>
-                </button>
-                <button onclick="sendQuickMessage('reporte')" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-surface-container-low text-left transition-colors">
-                    <span class="material-symbols-outlined text-amber-600 text-[20px]">description</span>
-                    <span class="text-[13px] font-medium">Solicitar reporte</span>
-                </button>
-                <button onclick="sendQuickMessage('jornada')" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-surface-container-low text-left transition-colors">
-                    <span class="material-symbols-outlined text-green-600 text-[20px]">event</span>
-                    <span class="text-[13px] font-medium">Próxima jornada</span>
-                </button>
-                <div class="border-t border-outline-variant/30 my-1"></div>
-                <button onclick="sendQuickMessage('llamada')" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-surface-container-low text-left transition-colors">
-                    <span class="material-symbols-outlined text-primary text-[20px]">videocam</span>
-                    <span class="text-[13px] font-medium">Programar llamada</span>
-                </button>
-            </div>
-
-            <!-- Messages Area -->
-            <div class="flex-1 overflow-y-auto p-4 flex flex-col gap-3 custom-scrollbar" id="message-container">
-                <!-- Fecha -->
-                <div class="flex justify-center my-2">
-                    <span class="text-[11px] text-outline bg-surface-container-low px-3 py-1 rounded-full">Hoy</span>
-                </div>
-                <!-- Messages se cargan dinámicamente -->
-            </div>
-
-            <!-- Typing Indicator (hidden by default) -->
-            <div id="typing-indicator" class="hidden px-4 py-2">
-                <div class="flex items-center gap-2">
-                    <div class="w-8 h-8 rounded-full bg-gradient-to-br from-pink-400 to-rose-600 flex items-center justify-center text-white text-[10px] font-bold">VT</div>
-                    <div class="bg-white px-4 py-3 rounded-2xl rounded-tl-none shadow-sm flex items-center gap-1">
-                        <div class="w-2 h-2 bg-outline rounded-full typing-dot"></div>
-                        <div class="w-2 h-2 bg-outline rounded-full typing-dot"></div>
-                        <div class="w-2 h-2 bg-outline rounded-full typing-dot"></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Input Area -->
-            <div class="px-4 py-3 bg-white border-t border-outline-variant/30 flex items-center gap-2">
-                <button class="w-10 h-10 flex items-center justify-center text-outline hover:bg-surface-container rounded-full transition-colors">
-                    <span class="material-symbols-outlined">attach_file</span>
-                </button>
-                <div class="flex-1 bg-surface-container-low rounded-2xl px-4 py-2.5 flex items-center gap-2">
-                    <input type="text" id="message-input" class="message-input w-full bg-transparent border-none focus:ring-0 text-label-md" 
-                           placeholder="Escribe un mensaje..." 
-                           onkeypress="if(event.key==='Enter') sendMessage()">
-                </div>
-                <button onclick="sendMessage()" class="w-10 h-10 bg-primary text-white rounded-full flex items-center justify-center shadow-md active:scale-95 transition-transform hover:bg-primary/90">
-                    <span class="material-symbols-outlined">send</span>
-                </button>
-            </div>
-        </div>
-
     </main>
 
-    <!-- ====== BOTTOM NAVIGATION ====== -->
-    <nav class="fixed bottom-0 left-0 w-full h-[70px] bg-surface/95 backdrop-blur-xl flex justify-around items-center px-2 pb-safe shadow-[0px_-4px_20px_rgba(15,23,42,0.05)] z-50">
-        <button onclick="window.location.href='/maestro/dashboard'" class="bottom-nav-item flex flex-col items-center justify-center gap-1 px-4 py-2 text-on-surface-variant hover:text-secondary transition-all duration-200 active:scale-90 relative">
-            <span class="material-symbols-outlined text-[24px]">dashboard</span>
-            <span class="text-[10px] font-semibold">Dashboard</span>
+    <div class="chat-screen" id="chat-screen">
+        <div class="chat-header">
+            <div class="chat-header-left">
+                <button class="back-btn" onclick="backToList()">
+                    <span class="material-symbols-outlined">arrow_back</span>
+                </button>
+                <div class="chat-header-info">
+                    <div class="chat-header-avatar" id="chat-avatar" style="background: linear-gradient(135deg, #f472b6, #db2777);">
+                        VT
+                        <span class="status-dot online" id="chat-status-dot"></span>
+                    </div>
+                    <div class="chat-header-text">
+                        <h2 id="chat-name">Valentina Torres</h2>
+                        <p id="chat-status">En línea</p>
+                    </div>
+                </div>
+            </div>
+            <div class="chat-header-actions">
+                <button onclick="showQuickActions()">
+                    <span class="material-symbols-outlined">more_vert</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="quick-actions-menu" id="quick-actions-menu">
+            <button class="quick-action-item" onclick="sendQuickMessage('inasistencia')">
+                <span class="material-symbols-outlined" style="color: #ef4444;">event_busy</span>
+                <span>Preguntar inasistencia</span>
+            </button>
+            <button class="quick-action-item" onclick="sendQuickMessage('horas')">
+                <span class="material-symbols-outlined" style="color: #0284c7;">schedule</span>
+                <span>Consultar horas</span>
+            </button>
+            <button class="quick-action-item" onclick="sendQuickMessage('reporte')">
+                <span class="material-symbols-outlined" style="color: #d97706;">description</span>
+                <span>Solicitar reporte</span>
+            </button>
+            <button class="quick-action-item" onclick="sendQuickMessage('jornada')">
+                <span class="material-symbols-outlined" style="color: #16a34a;">event</span>
+                <span>Próxima jornada</span>
+            </button>
+            <button class="quick-action-item" onclick="sendQuickMessage('llamada')">
+                <span class="material-symbols-outlined" style="color: #0f172a;">videocam</span>
+                <span>Programar llamada</span>
+            </button>
+        </div>
+
+        <div class="messages-area" id="messages-area"></div>
+
+        <div class="typing-indicator" id="typing-indicator">
+            <div class="avatar" id="typing-avatar" style="background: linear-gradient(135deg, #f472b6, #db2777);">VT</div>
+            <div class="typing-dots">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+
+        <div class="chat-input-area">
+            <button class="attach-btn">
+                <span class="material-symbols-outlined">attach_file</span>
+            </button>
+            <div class="chat-input-wrapper">
+                <input type="text" id="chat-input" placeholder="Escribe un mensaje..." onkeypress="if(event.key==='Enter') sendMessage()">
+            </div>
+            <button class="send-btn" onclick="sendMessage()">
+                <span class="material-symbols-outlined">send</span>
+            </button>
+        </div>
+    </div>
+
+    <nav class="bottom-nav">
+        <button class="bottom-nav-item" onclick="goToPage('../dashboard')">
+            <span class="material-symbols-outlined">dashboard</span>
+            Dashboard
         </button>
-        <button onclick="window.location.href='/maestro/estudiantes'" class="bottom-nav-item flex flex-col items-center justify-center gap-1 px-4 py-2 text-on-surface-variant hover:text-secondary transition-all duration-200 active:scale-90 relative">
-            <span class="material-symbols-outlined text-[24px]">group</span>
-            <span class="text-[10px] font-semibold">Estudiantes</span>
+        <button class="bottom-nav-item" onclick="goToPage('../estudiantes')">
+            <span class="material-symbols-outlined">groups</span>
+            Estudiantes
         </button>
-        <button onclick="window.location.href='/maestro/tecnico'" class="bottom-nav-item flex flex-col items-center justify-center gap-1 px-4 py-2 text-on-surface-variant hover:text-secondary transition-all duration-200 active:scale-90 relative">
-            <span class="material-symbols-outlined text-[24px]">engineering</span>
-            <span class="text-[10px] font-semibold">Gestión</span>
+        <button class="bottom-nav-item" onclick="goToPage('../tecnico')">
+            <span class="material-symbols-outlined">engineering</span>
+            Técnico
         </button>
-        <button class="bottom-nav-item active flex flex-col items-center justify-center gap-1 px-4 py-2 text-secondary transition-all duration-200 relative">
-            <span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 1;">mail</span>
-            <span class="text-[10px] font-semibold">Mensajes</span>
-            <span class="absolute top-1 right-2 w-2 h-2 bg-error rounded-full"></span>
+        <button class="bottom-nav-item active" onclick="goToPage('.')">
+            <span class="material-symbols-outlined">chat</span>
+            Mensajes
         </button>
     </nav>
 
     <script>
-        // ====== DATOS DE CONTACTOS ======
         const contacts = [
             {
-                id: 0,
-                name: "Valentina Torres",
-                initials: "VT",
-                gradient: "from-pink-400 to-rose-600",
-                status: "online",
-                lastMessage: "Profe, ya subí el reporte final de la semana. ¿Lo puede revisar?",
-                time: "14:20",
-                unread: 2,
+                id: 0, name: "Valentina Torres", initials: "VT",
+                gradient: "linear-gradient(135deg, #f472b6, #db2777)",
+                status: "online", lastMessage: "Profe, ya subí el reporte final de la semana. ¿Lo puede revisar?",
+                time: "14:20", unread: 2,
                 tags: ["Estudiante", "Inasistencia"],
-                tagColors: ["bg-secondary/10 text-secondary", "bg-error/10 text-error"],
                 messages: [
                     { type: "received", text: "¡Hola Profe! Una consulta sobre las horas de servicio en la fundación. ¿Cuentan las horas de capacitación previa?", time: "14:15" },
                     { type: "sent", text: "Hola Valentina. Sí, las horas de inducción y capacitación técnica se contabilizan hasta un máximo de 10 horas del total.", time: "14:18", read: true },
@@ -476,16 +1064,11 @@ html_content = '''<!DOCTYPE html>
                 ]
             },
             {
-                id: 1,
-                name: "Carlos Mendoza",
-                initials: "CM",
-                gradient: "from-blue-400 to-indigo-600",
-                status: "offline",
-                lastMessage: "Profesor, tengo una duda sobre las horas del proyecto comunitario...",
-                time: "Ayer",
-                unread: 1,
+                id: 1, name: "Carlos Mendoza", initials: "CM",
+                gradient: "linear-gradient(135deg, #60a5fa, #3b82f6)",
+                status: "offline", lastMessage: "Profesor, tengo una duda sobre las horas del proyecto comunitario...",
+                time: "Ayer", unread: 1,
                 tags: ["Estudiante", "Reporte"],
-                tagColors: ["bg-secondary/10 text-secondary", "bg-amber-100 text-amber-700"],
                 messages: [
                     { type: "received", text: "Profesor, buenas tardes. Tengo una duda sobre las horas del proyecto comunitario.", time: "Ayer 16:30" },
                     { type: "sent", text: "Hola Carlos, cuéntame tu duda.", time: "Ayer 16:45", read: true },
@@ -493,16 +1076,11 @@ html_content = '''<!DOCTYPE html>
                 ]
             },
             {
-                id: 2,
-                name: "Ana Lucía Martínez",
-                initials: "AL",
-                gradient: "from-purple-400 to-violet-600",
-                status: "online",
-                lastMessage: "¡Gracias profe! Ya quedó todo claro. Saludos.",
-                time: "Ayer",
-                unread: 0,
+                id: 2, name: "Ana Lucía Martínez", initials: "AL",
+                gradient: "linear-gradient(135deg, #a78bfa, #7c3aed)",
+                status: "online", lastMessage: "¡Gracias profe! Ya quedó todo claro. Saludos.",
+                time: "Ayer", unread: 0,
                 tags: ["Estudiante", "Al día"],
-                tagColors: ["bg-secondary/10 text-secondary", "bg-green-100 text-green-700"],
                 messages: [
                     { type: "received", text: "Profe, ¿podría confirmarme si ya tengo las 80 horas completas?", time: "Ayer 10:00" },
                     { type: "sent", text: "Hola Ana, revisé tu expediente y sí, tienes 82 horas validadas. ¡Felicidades!", time: "Ayer 10:15", read: true },
@@ -510,51 +1088,57 @@ html_content = '''<!DOCTYPE html>
                 ]
             },
             {
-                id: 3,
-                name: "Diego Gómez",
-                initials: "DG",
-                gradient: "from-emerald-400 to-teal-600",
-                status: "offline",
-                lastMessage: "⚠️ Faltó a la jornada del viernes sin justificación",
-                time: "Hace 3 días",
-                unread: 0,
+                id: 3, name: "Diego Gómez", initials: "DG",
+                gradient: "linear-gradient(135deg, #34d399, #059669)",
+                status: "offline", lastMessage: "⚠️ Faltó a la jornada del viernes sin justificación",
+                time: "Hace 3 días", unread: 0,
                 tags: ["Estudiante", "Inasistencia", "Urgente"],
-                tagColors: ["bg-secondary/10 text-secondary", "bg-error/10 text-error", "bg-red-100 text-red-700"],
                 messages: [
                     { type: "system", text: "⚠️ Alerta de inasistencia: Diego Gómez no asistió a la jornada de Servicios Comunitarios del viernes 13 de junio sin presentar justificación.", time: "Vie 18:00" },
                     { type: "sent", text: "Diego, noté que no asististe a la jornada del viernes. ¿Todo está bien? Por favor contáctame para regularizar tu situación.", time: "Vie 18:30", read: false }
                 ]
             },
             {
-                id: 4,
-                name: "Sofía Fernández",
-                initials: "SF",
-                gradient: "from-amber-400 to-orange-600",
-                status: "online",
-                lastMessage: "Profe, ¿cuándo es la próxima jornada de reforestación?",
-                time: "Lun",
-                unread: 0,
+                id: 4, name: "Sofía Fernández", initials: "SF",
+                gradient: "linear-gradient(135deg, #fbbf24, #d97706)",
+                status: "online", lastMessage: "Profe, ¿cuándo es la próxima jornada de reforestación?",
+                time: "Lun", unread: 0,
                 tags: ["Estudiante", "Consulta"],
-                tagColors: ["bg-secondary/10 text-secondary", "bg-blue-100 text-blue-700"],
                 messages: [
                     { type: "received", text: "Profe, ¿cuándo es la próxima jornada de reforestación?", time: "Lun 09:00" },
                     { type: "sent", text: "Hola Sofía, será el próximo sábado 21 de junio a las 8:00 AM en la Zona Verde Norte.", time: "Lun 09:15", read: true }
                 ]
             },
             {
-                id: 5,
-                name: "Juan Carlos Rodríguez",
-                initials: "JC",
-                gradient: "from-cyan-400 to-sky-600",
-                status: "offline",
-                lastMessage: "Adjunto el certificado de horas de la fundación. Gracias.",
-                time: "Dom",
-                unread: 0,
+                id: 5, name: "Juan Carlos Rodríguez", initials: "JC",
+                gradient: "linear-gradient(135deg, #38bdf8, #0284c7)",
+                status: "offline", lastMessage: "Adjunto el certificado de horas de la fundación. Gracias.",
+                time: "Dom", unread: 0,
                 tags: ["Estudiante", "Documento"],
-                tagColors: ["bg-secondary/10 text-secondary", "bg-amber-100 text-amber-700"],
                 messages: [
                     { type: "received", text: "Profe, le adjunto el certificado de horas de la fundación. Gracias.", time: "Dom 14:00" },
                     { type: "sent", text: "Recibido Juan Carlos. Lo revisaré y te confirmo en cuanto esté validado.", time: "Dom 14:30", read: true }
+                ]
+            },
+            {
+                id: 6, name: "María Elena Ruiz", initials: "MR",
+                gradient: "linear-gradient(135deg, #ec4899, #be185d)",
+                status: "offline", lastMessage: "Profe, no pude asistir el martes por enfermedad. ¿Cómo regularizo?",
+                time: "12:45", unread: 1,
+                tags: ["Estudiante", "Inasistencia"],
+                messages: [
+                    { type: "received", text: "Profe, no pude asistir el martes por enfermedad. ¿Cómo regularizo?", time: "12:45" }
+                ]
+            },
+            {
+                id: 7, name: "Luis Alberto Pérez", initials: "LP",
+                gradient: "linear-gradient(135deg, #8b5cf6, #6d28d9)",
+                status: "online", lastMessage: "Ya envié el reporte de la jornada de limpieza. ¿Lo recibió?",
+                time: "Vie", unread: 0,
+                tags: ["Estudiante", "Reporte"],
+                messages: [
+                    { type: "received", text: "Ya envié el reporte de la jornada de limpieza. ¿Lo recibió?", time: "Vie 15:00" },
+                    { type: "sent", text: "Sí Luis, recibido. Todo se ve bien. Gracias.", time: "Vie 15:20", read: true }
                 ]
             }
         ];
@@ -562,126 +1146,94 @@ html_content = '''<!DOCTYPE html>
         let currentChat = null;
         let currentFilter = 'all';
 
-        // ====== FUNCIONES ======
+        function goToPage(path) {
+            if (path === '.') {
+                window.location.reload();
+            } else {
+                window.location.href = path + '/code.html';
+            }
+        }
+
         function openChat(contactId) {
             currentChat = contacts.find(c => c.id === contactId);
             if (!currentChat) return;
 
-            // Actualizar header del chat
             document.getElementById('chat-name').textContent = currentChat.name;
-            document.getElementById('chat-avatar').className = `w-10 h-10 rounded-2xl bg-gradient-to-br ${currentChat.gradient} flex items-center justify-center text-white font-bold text-sm shadow-md`;
-            document.getElementById('chat-avatar').textContent = currentChat.initials;
-            
+            document.getElementById('chat-avatar').style.background = currentChat.gradient;
+            document.getElementById('chat-avatar').childNodes[0].textContent = currentChat.initials;
+            document.getElementById('typing-avatar').style.background = currentChat.gradient;
+            document.getElementById('typing-avatar').textContent = currentChat.initials;
+
             const statusDot = document.getElementById('chat-status-dot');
             const statusText = document.getElementById('chat-status');
             if (currentChat.status === 'online') {
-                statusDot.className = 'absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 border-2 border-white rounded-full';
+                statusDot.className = 'status-dot online';
                 statusText.textContent = 'En línea';
-                statusText.className = 'text-[11px] text-green-600 font-medium';
+                statusText.className = '';
             } else {
-                statusDot.className = 'absolute bottom-0 right-0 w-2.5 h-2.5 bg-gray-300 border-2 border-white rounded-full';
+                statusDot.className = 'status-dot offline';
                 statusText.textContent = 'Últ. vez ' + currentChat.time;
-                statusText.className = 'text-[11px] text-outline font-medium';
+                statusText.className = 'offline';
             }
 
-            // Renderizar mensajes
             renderMessages();
-
-            // Marcar como leído
             currentChat.unread = 0;
-            updateUnreadBadge();
+            updateUnreadBadges();
 
-            // Animar transición
-            document.getElementById('chat-list-screen').classList.add('hidden');
-            document.getElementById('chat-screen').classList.remove('hidden');
-            document.getElementById('chat-screen').classList.add('slide-in-right');
-            
-            // Scroll al final
+            document.getElementById('chat-screen').style.display = 'flex';
+            document.getElementById('chat-screen').classList.remove('closing');
+
             setTimeout(() => {
-                const container = document.getElementById('message-container');
-                container.scrollTop = container.scrollHeight;
+                const area = document.getElementById('messages-area');
+                area.scrollTop = area.scrollHeight;
             }, 100);
         }
 
         function backToList() {
-            document.getElementById('chat-screen').classList.add('slide-out-right');
+            const screen = document.getElementById('chat-screen');
+            screen.classList.add('closing');
             setTimeout(() => {
-                document.getElementById('chat-screen').classList.add('hidden');
-                document.getElementById('chat-screen').classList.remove('slide-in-right', 'slide-out-right');
-                document.getElementById('chat-list-screen').classList.remove('hidden');
-                document.getElementById('quick-actions').classList.add('hidden');
+                screen.style.display = 'none';
+                screen.classList.remove('closing');
+                document.getElementById('quick-actions-menu').classList.remove('show');
                 currentChat = null;
-            }, 250);
+            }, 280);
         }
 
         function renderMessages() {
-            const container = document.getElementById('message-container');
-            container.innerHTML = `
-                <div class="flex justify-center my-3">
-                    <span class="text-[11px] text-outline bg-surface-container-low px-3 py-1 rounded-full">Hoy</span>
-                </div>
-            `;
+            const area = document.getElementById('messages-area');
+            area.innerHTML = '<div class="date-divider"><span>Hoy</span></div>';
 
             currentChat.messages.forEach((msg, index) => {
                 if (msg.type === 'system') {
-                    container.innerHTML += `
-                        <div class="flex justify-center my-3 fade-in" style="animation-delay: ${index * 0.05}s">
-                            <div class="bg-error/10 border border-error/20 text-error text-[12px] px-4 py-2.5 rounded-xl max-w-[90%] text-center leading-relaxed">
-                                ${msg.text}
-                            </div>
-                        </div>
-                    `;
+                    area.innerHTML += '<div class="message-bubble system" style="animation-delay: ' + (index * 0.05) + 's">' + msg.text + '</div>';
                 } else if (msg.type === 'received') {
-                    container.innerHTML += `
-                        <div class="flex gap-2 max-w-[85%] fade-in" style="animation-delay: ${index * 0.05}s">
-                            <div class="w-8 h-8 rounded-full bg-gradient-to-br ${currentChat.gradient} flex items-center justify-center text-white text-[10px] font-bold flex-shrink-0 self-end">
-                                ${currentChat.initials}
-                            </div>
-                            <div class="chat-bubble-received bg-white p-3 text-[14px] leading-relaxed text-on-surface shadow-sm">
-                                ${msg.text}
-                                <div class="text-[10px] text-outline mt-1 text-right">${msg.time}</div>
-                            </div>
-                        </div>
-                    `;
+                    area.innerHTML += '<div class="message-bubble received" style="animation-delay: ' + (index * 0.05) + 's">' + msg.text + '<div class="message-time">' + msg.time + '</div></div>';
                 } else {
-                    container.innerHTML += `
-                        <div class="flex flex-col items-end gap-1 max-w-[85%] self-end fade-in" style="animation-delay: ${index * 0.05}s">
-                            <div class="chat-bubble-sent bg-primary text-white p-3 text-[14px] leading-relaxed shadow-md">
-                                ${msg.text}
-                                <div class="flex items-center justify-end gap-1 text-[10px] text-secondary-fixed mt-1">
-                                    ${msg.time} 
-                                    <span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">${msg.read ? 'done_all' : 'done'}</span>
-                                </div>
-                            </div>
-                        </div>
-                    `;
+                    area.innerHTML += '<div class="message-bubble sent" style="animation-delay: ' + (index * 0.05) + 's">' + msg.text + '<div class="message-time">' + msg.time + ' <span class="material-symbols-outlined" style="font-size: 12px; font-variation-settings: 'FILL' 1;">' + (msg.read ? 'done_all' : 'done') + '</span></div></div>';
                 }
             });
         }
 
         function sendMessage() {
-            const input = document.getElementById('message-input');
+            const input = document.getElementById('chat-input');
             const text = input.value.trim();
             if (!text || !currentChat) return;
 
             const now = new Date();
             const timeStr = now.getHours().toString().padStart(2, '0') + ':' + now.getMinutes().toString().padStart(2, '0');
 
-            // Agregar mensaje enviado
             currentChat.messages.push({ type: 'sent', text: text, time: timeStr, read: false });
-            
-            // Renderizar
+
             renderMessages();
             input.value = '';
 
-            // Scroll al final
-            const container = document.getElementById('message-container');
-            container.scrollTop = container.scrollHeight;
+            const area = document.getElementById('messages-area');
+            area.scrollTop = area.scrollHeight;
 
-            // Simular respuesta del estudiante después de 2 segundos
-            showTypingIndicator();
+            showTyping();
             setTimeout(() => {
-                hideTypingIndicator();
+                hideTyping();
                 const responses = [
                     "Entendido profe, gracias por la información.",
                     "Perfecto, me queda claro. ¿Hay algo más que deba hacer?",
@@ -692,35 +1244,34 @@ html_content = '''<!DOCTYPE html>
                 const randomResponse = responses[Math.floor(Math.random() * responses.length)];
                 currentChat.messages.push({ type: 'received', text: randomResponse, time: timeStr });
                 renderMessages();
-                container.scrollTop = container.scrollHeight;
+                area.scrollTop = area.scrollHeight;
             }, 2500);
         }
 
-        function showTypingIndicator() {
-            document.getElementById('typing-indicator').classList.remove('hidden');
-            const container = document.getElementById('message-container');
-            container.scrollTop = container.scrollHeight;
+        function showTyping() {
+            document.getElementById('typing-indicator').classList.add('show');
+            const area = document.getElementById('messages-area');
+            area.scrollTop = area.scrollHeight;
         }
-
-        function hideTypingIndicator() {
-            document.getElementById('typing-indicator').classList.add('hidden');
+        function hideTyping() {
+            document.getElementById('typing-indicator').classList.remove('show');
         }
 
         function showQuickActions() {
-            const qa = document.getElementById('quick-actions');
-            qa.classList.toggle('hidden');
+            document.getElementById('quick-actions-menu').classList.toggle('show');
         }
 
         function sendQuickMessage(type) {
-            document.getElementById('quick-actions').classList.add('hidden');
-            const input = document.getElementById('message-input');
-            
+            document.getElementById('quick-actions-menu').classList.remove('show');
+            const input = document.getElementById('chat-input');
+            const firstName = currentChat.name.split(' ')[0];
+
             const messages = {
-                inasistencia: `Hola ${currentChat.name.split(' ')[0]}, noté que has tenido algunas inasistencias recientes. ¿Podrías explicarme qué pasó? Es importante regularizar tu situación para que no afecte tus horas de servicio.`,
-                horas: `Hola ${currentChat.name.split(' ')[0]}, te escribo para consultarte sobre el estado de tus horas de servicio social. ¿Tienes alguna duda o necesitas ayuda con el conteo?`,
-                reporte: `Hola ${currentChat.name.split(' ')[0]}, necesito que me envíes el reporte de actividades de esta semana lo antes posible. Recuerda que es requisito para validar tus horas.`,
-                jornada: `Hola ${currentChat.name.split(' ')[0]}, te informo que la próxima jornada será el sábado 21 de junio a las 8:00 AM. Por favor confirma tu asistencia.`,
-                llamada: `Hola ${currentChat.name.split(' ')[0]}, ¿te parece si agendamos una videollamada para revisar tu progreso? ¿Qué día y hora te queda mejor?`
+                inasistencia: 'Hola ' + firstName + ', noté que has tenido algunas inasistencias recientes. ¿Podrías explicarme qué pasó? Es importante regularizar tu situación para que no afecte tus horas de servicio.',
+                horas: 'Hola ' + firstName + ', te escribo para consultarte sobre el estado de tus horas de servicio social. ¿Tienes alguna duda o necesitas ayuda con el conteo?',
+                reporte: 'Hola ' + firstName + ', necesito que me envíes el reporte de actividades de esta semana lo antes posible. Recuerda que es requisito para validar tus horas.',
+                jornada: 'Hola ' + firstName + ', te informo que la próxima jornada será el sábado 21 de junio a las 8:00 AM. Por favor confirma tu asistencia.',
+                llamada: 'Hola ' + firstName + ', ¿te parece si agendamos una videollamada para revisar tu progreso? ¿Qué día y hora te queda mejor?'
             };
 
             input.value = messages[type] || '';
@@ -728,68 +1279,61 @@ html_content = '''<!DOCTYPE html>
         }
 
         function filterContacts(query) {
-            const items = document.querySelectorAll('.contact-item');
-            items.forEach((item, index) => {
+            const cards = document.querySelectorAll('.contact-card');
+            cards.forEach((card, index) => {
                 const contact = contacts[index];
                 const match = contact.name.toLowerCase().includes(query.toLowerCase()) ||
                              contact.lastMessage.toLowerCase().includes(query.toLowerCase()) ||
                              contact.tags.some(tag => tag.toLowerCase().includes(query.toLowerCase()));
-                item.style.display = match ? 'flex' : 'none';
+                card.style.display = match ? 'flex' : 'none';
             });
         }
 
-        function setFilter(filter) {
+        function setFilter(filter, btn) {
             currentFilter = filter;
-            
-            // Actualizar botones
-            document.querySelectorAll('.filter-btn').forEach(btn => {
-                if (btn.dataset.filter === filter) {
-                    btn.className = 'filter-btn px-4 py-1.5 bg-primary text-white rounded-full text-[12px] font-semibold whitespace-nowrap transition-all';
-                } else {
-                    btn.className = 'filter-btn px-4 py-1.5 bg-white border border-outline-variant text-on-surface-variant rounded-full text-[12px] font-semibold whitespace-nowrap transition-all';
-                }
-            });
 
-            // Filtrar contactos
-            const items = document.querySelectorAll('.contact-item');
-            items.forEach((item, index) => {
+            document.querySelectorAll('.chip').forEach(chip => chip.classList.remove('active'));
+            btn.classList.add('active');
+
+            const cards = document.querySelectorAll('.contact-card');
+            cards.forEach((card, index) => {
                 const contact = contacts[index];
                 let show = true;
-                
+
                 if (filter === 'unread') show = contact.unread > 0;
-                else if (filter === 'absence') show = contact.tags.includes('Inasistencia');
-                else if (filter === 'reports') show = contact.tags.includes('Reporte');
-                
-                item.style.display = show ? 'flex' : 'none';
+                else if (filter === 'inasistencia') show = contact.tags.includes('Inasistencia');
+                else if (filter === 'reporte') show = contact.tags.includes('Reporte');
+                else if (filter === 'consulta') show = contact.tags.includes('Consulta');
+
+                card.style.display = show ? 'flex' : 'none';
             });
         }
 
-        function updateUnreadBadge() {
-            const totalUnread = contacts.reduce((sum, c) => sum + c.unread, 0);
-            const navBadge = document.querySelector('.bottom-nav-item.active .absolute');
-            if (navBadge) {
-                navBadge.style.display = totalUnread > 0 ? 'block' : 'none';
-            }
+        function updateUnreadBadges() {
+            document.querySelectorAll('.contact-card').forEach((card, index) => {
+                const contact = contacts[index];
+                const badge = card.querySelector('.unread-badge');
+                if (badge && contact.unread === 0) {
+                    badge.style.display = 'none';
+                }
+            });
         }
 
-        // Cerrar quick actions al hacer click fuera
         document.addEventListener('click', (e) => {
-            const qa = document.getElementById('quick-actions');
+            const menu = document.getElementById('quick-actions-menu');
             const btn = e.target.closest('button[onclick="showQuickActions()"]');
-            if (!qa.contains(e.target) && !btn) {
-                qa.classList.add('hidden');
+            if (!menu.contains(e.target) && !btn) {
+                menu.classList.remove('show');
             }
         });
 
-        // Inicializar
-        updateUnreadBadge();
+        updateUnreadBadges();
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const chatId = urlParams.get('chat');
+        if (chatId !== null) {
+            setTimeout(() => openChat(parseInt(chatId)), 300);
+        }
     </script>
 </body>
-</html>'''
-
-# Save to file
-with open('/mnt/agents/output/mensajes.html', 'w', encoding='utf-8') as f:
-    f.write(html_content)
-
-print("Archivo guardado exitosamente")
-print(f"Tamaño: {len(html_content)} caracteres")
+</html>
