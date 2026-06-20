@@ -22,7 +22,6 @@
             overflow-x: hidden;
         }
 
-        /* === FONDO ELEGANTE CELESTE/AZUL === */
         .bg-waves {
             position: fixed;
             inset: 0;
@@ -89,21 +88,12 @@
         }
 
         @keyframes wave-float {
-            0%, 100% {
-                transform: translate(0, 0) scale(1);
-            }
-            25% {
-                transform: translate(20px, -30px) scale(1.05);
-            }
-            50% {
-                transform: translate(-15px, 20px) scale(0.98);
-            }
-            75% {
-                transform: translate(25px, 10px) scale(1.02);
-            }
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(20px, -30px) scale(1.05); }
+            50% { transform: translate(-15px, 20px) scale(0.98); }
+            75% { transform: translate(25px, 10px) scale(1.02); }
         }
 
-        /* Líneas decorativas sutiles */
         .bg-lines {
             position: fixed;
             inset: 0;
@@ -118,7 +108,6 @@
 
         .material-symbols-outlined { font-variation-settings: 'FILL' 1, 'wght' 400; }
 
-        /* === TOP HEADER === */
         .top-header {
             background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(12px);
@@ -133,25 +122,9 @@
             z-index: 100;
         }
 
-        .header-left {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .logo-small {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .logo-small img {
-            width: 32px;
-            height: 32px;
-            border-radius: 8px;
-            object-fit: cover;
-        }
-
+        .header-left { display: flex; align-items: center; gap: 12px; }
+        .logo-small { display: flex; align-items: center; gap: 10px; }
+        .logo-small img { width: 32px; height: 32px; border-radius: 8px; object-fit: cover; }
         .logo-small span {
             font-family: 'Plus Jakarta Sans', sans-serif;
             font-size: 16px;
@@ -159,11 +132,7 @@
             color: #0f172a;
         }
 
-        .header-right {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
+        .header-right { display: flex; align-items: center; gap: 12px; }
 
         .user-avatar {
             width: 36px;
@@ -194,13 +163,8 @@
             cursor: pointer;
             transition: all 0.2s;
         }
+        .btn-icon:hover { background: #e2e8f0; color: #0f172a; }
 
-        .btn-icon:hover {
-            background: #e2e8f0;
-            color: #0f172a;
-        }
-
-        /* === MAIN CONTENT === */
         .main-content {
             padding: 20px 24px;
             max-width: 600px;
@@ -209,11 +173,7 @@
             z-index: 1;
         }
 
-        /* === WELCOME SECTION === */
-        .welcome-section {
-            margin-bottom: 24px;
-        }
-
+        .welcome-section { margin-bottom: 24px; }
         .welcome-section h1 {
             font-family: 'Plus Jakarta Sans', sans-serif;
             font-size: 24px;
@@ -222,18 +182,13 @@
             line-height: 1.3;
             margin-bottom: 8px;
         }
-
-        .welcome-section h1 span {
-            color: #0284c7;
-        }
-
+        .welcome-section h1 span { color: #0284c7; }
         .welcome-section p {
             font-size: 14px;
             color: #64748b;
             line-height: 1.5;
         }
 
-        /* === STATS GRID === */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -251,10 +206,7 @@
             border: 1px solid rgba(255, 255, 255, 0.8);
             transition: transform 0.2s;
         }
-
-        .stat-card:hover {
-            transform: translateY(-2px);
-        }
+        .stat-card:hover { transform: translateY(-2px); }
 
         .stat-value {
             font-family: 'Plus Jakarta Sans', sans-serif;
@@ -263,7 +215,6 @@
             color: #0f172a;
             margin-bottom: 4px;
         }
-
         .stat-value.blue { color: #0284c7; }
         .stat-value.red { color: #ef4444; }
 
@@ -273,7 +224,6 @@
             font-weight: 500;
         }
 
-        /* === SECTION HEADER === */
         .section-header {
             display: flex;
             justify-content: space-between;
@@ -301,12 +251,8 @@
             border: none;
             font-family: inherit;
         }
+        .section-link:hover { text-decoration: underline; }
 
-        .section-link:hover {
-            text-decoration: underline;
-        }
-
-        /* === BRIGADAS LIST === */
         .brigadas-list {
             display: flex;
             flex-direction: column;
@@ -327,10 +273,7 @@
             position: relative;
             transition: transform 0.2s;
         }
-
-        .brigada-card:hover {
-            transform: translateX(4px);
-        }
+        .brigada-card:hover { transform: translateX(4px); }
 
         .brigada-icon {
             width: 48px;
@@ -341,19 +284,13 @@
             justify-content: center;
             flex-shrink: 0;
         }
-
         .brigada-icon.green { background: #dcfce7; color: #16a34a; }
         .brigada-icon.blue { background: #dbeafe; color: #2563eb; }
         .brigada-icon.purple { background: #f3e8ff; color: #9333ea; }
 
-        .brigada-icon .material-symbols-outlined {
-            font-size: 24px;
-        }
+        .brigada-icon .material-symbols-outlined { font-size: 24px; }
 
-        .brigada-info {
-            flex: 1;
-        }
-
+        .brigada-info { flex: 1; }
         .brigada-info h3 {
             font-family: 'Plus Jakarta Sans', sans-serif;
             font-size: 15px;
@@ -361,7 +298,6 @@
             color: #0f172a;
             margin-bottom: 2px;
         }
-
         .brigada-info p {
             font-size: 12px;
             color: #64748b;
@@ -414,7 +350,6 @@
             border: none;
         }
 
-        /* === ACTION CARDS === */
         .actions-list {
             display: flex;
             flex-direction: column;
@@ -437,7 +372,6 @@
             text-decoration: none;
             color: inherit;
         }
-
         .action-card:hover {
             transform: translateX(4px);
             box-shadow: 0 6px 16px rgba(0,0,0,0.1);
@@ -452,18 +386,12 @@
             justify-content: center;
             flex-shrink: 0;
         }
-
         .action-icon.orange { background: #ffedd5; color: #ea580c; }
         .action-icon.green { background: #dcfce7; color: #16a34a; }
 
-        .action-icon .material-symbols-outlined {
-            font-size: 22px;
-        }
+        .action-icon .material-symbols-outlined { font-size: 22px; }
 
-        .action-info {
-            flex: 1;
-        }
-
+        .action-info { flex: 1; }
         .action-info h3 {
             font-family: 'Plus Jakarta Sans', sans-serif;
             font-size: 15px;
@@ -471,17 +399,10 @@
             color: #0f172a;
             margin-bottom: 2px;
         }
+        .action-info p { font-size: 12px; color: #64748b; }
 
-        .action-info p {
-            font-size: 12px;
-            color: #64748b;
-        }
+        .action-arrow { color: #94a3b8; }
 
-        .action-arrow {
-            color: #94a3b8;
-        }
-
-        /* === MODAL === */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -493,10 +414,7 @@
             justify-content: center;
             padding: 20px;
         }
-
-        .modal-overlay.active {
-            display: flex;
-        }
+        .modal-overlay.active { display: flex; }
 
         .modal {
             background: #ffffff;
@@ -521,7 +439,6 @@
             justify-content: space-between;
             align-items: center;
         }
-
         .modal-header h3 {
             font-family: 'Plus Jakarta Sans', sans-serif;
             font-size: 18px;
@@ -542,15 +459,9 @@
             cursor: pointer;
             transition: all 0.2s;
         }
+        .modal-close:hover { background: #e2e8f0; color: #0f172a; }
 
-        .modal-close:hover {
-            background: #e2e8f0;
-            color: #0f172a;
-        }
-
-        .modal-body {
-            padding: 20px 24px;
-        }
+        .modal-body { padding: 20px 24px; }
 
         .modal-footer {
             padding: 16px 24px;
@@ -576,10 +487,7 @@
             justify-content: center;
             gap: 8px;
         }
-
-        .btn-primary:hover {
-            background: #1e293b;
-        }
+        .btn-primary:hover { background: #1e293b; }
 
         .btn-secondary {
             flex: 1;
@@ -594,12 +502,8 @@
             cursor: pointer;
             transition: all 0.2s;
         }
+        .btn-secondary:hover { background: #e2e8f0; }
 
-        .btn-secondary:hover {
-            background: #e2e8f0;
-        }
-
-        /* === ASISTENCIA LIST === */
         .asistencia-list {
             display: flex;
             flex-direction: column;
@@ -615,10 +519,7 @@
             background: #f8fafc;
             transition: background 0.2s;
         }
-
-        .asistencia-item:hover {
-            background: #f1f5f9;
-        }
+        .asistencia-item:hover { background: #f1f5f9; }
 
         .asistencia-avatar {
             width: 36px;
@@ -634,20 +535,13 @@
             flex-shrink: 0;
         }
 
-        .asistencia-info {
-            flex: 1;
-        }
-
+        .asistencia-info { flex: 1; }
         .asistencia-info h4 {
             font-size: 14px;
             font-weight: 600;
             color: #0f172a;
         }
-
-        .asistencia-info p {
-            font-size: 12px;
-            color: #64748b;
-        }
+        .asistencia-info p { font-size: 12px; color: #64748b; }
 
         .asistencia-status {
             display: flex;
@@ -666,10 +560,7 @@
             border: none;
             padding: 0;
         }
-
-        .status-toggle.active {
-            background: #16a34a;
-        }
+        .status-toggle.active { background: #16a34a; }
 
         .status-toggle::after {
             content: '';
@@ -683,12 +574,8 @@
             box-shadow: 0 1px 3px rgba(0,0,0,0.2);
             transition: transform 0.2s;
         }
+        .status-toggle.active::after { transform: translateX(20px); }
 
-        .status-toggle.active::after {
-            transform: translateX(20px);
-        }
-
-        /* === REPORTE SEMANAL === */
         .reporte-card {
             background: linear-gradient(135deg, #0f172a, #1e293b);
             border-radius: 20px;
@@ -756,13 +643,11 @@
             position: relative;
             z-index: 1;
         }
-
         .btn-reporte:hover {
             background: #f1f5f9;
             transform: translateY(-2px);
         }
 
-        /* === CERRAR SESION === */
         .btn-logout {
             width: 100%;
             padding: 14px;
@@ -781,14 +666,12 @@
             transition: all 0.2s;
             margin-bottom: 16px;
         }
-
         .btn-logout:hover {
             border-color: #ef4444;
             color: #ef4444;
             background: #fef2f2;
         }
 
-        /* === BOTTOM NAV BAR === */
         .bottom-nav {
             position: fixed;
             bottom: 0;
@@ -826,13 +709,8 @@
             position: relative;
         }
 
-        .bottom-nav-item:hover {
-            color: #0284c7;
-        }
-
-        .bottom-nav-item.active {
-            color: #0284c7;
-        }
+        .bottom-nav-item:hover { color: #0284c7; }
+        .bottom-nav-item.active { color: #0284c7; }
 
         .bottom-nav-item.active::before {
             content: '';
@@ -846,89 +724,29 @@
             border-radius: 0 0 4px 4px;
         }
 
-        .bottom-nav-item .material-symbols-outlined {
-            font-size: 24px;
-        }
+        .bottom-nav-item .material-symbols-outlined { font-size: 24px; }
 
-        /* === RESUMEN BOX === */
-        .resumen-box {
-            background: #f8fafc;
-            border-radius: 12px;
-            padding: 16px;
-            margin-bottom: 16px;
-        }
-
-        .resumen-box h4 {
-            font-size: 14px;
-            font-weight: 600;
-            color: #0f172a;
-            margin-bottom: 8px;
-        }
-
-        .resumen-stats {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
-        }
-
-        .resumen-stat {
-            text-align: center;
-        }
-
-        .resumen-stat-value {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-size: 20px;
-            font-weight: 700;
-            color: #0284c7;
-        }
-
-        .resumen-stat-label {
-            font-size: 11px;
-            color: #64748b;
-        }
-
-        /* === RESPONSIVE === */
         @media (min-width: 768px) {
             .main-content {
                 max-width: 800px;
                 padding: 24px 32px;
             }
-            
-            .stats-grid {
-                gap: 16px;
-            }
-            
-            .stat-card {
-                padding: 24px;
-            }
-            
-            .stat-value {
-                font-size: 32px;
-            }
+            .stats-grid { gap: 16px; }
+            .stat-card { padding: 24px; }
+            .stat-value { font-size: 32px; }
         }
 
         @media (max-width: 480px) {
-            .main-content {
-                padding: 16px;
-            }
-            
-            .welcome-section h1 {
-                font-size: 20px;
-            }
-            
+            .main-content { padding: 16px; }
+            .welcome-section h1 { font-size: 20px; }
             .bottom-nav { height: 65px; }
             .bottom-nav-item { padding: 6px 8px; font-size: 10px; }
             .bottom-nav-item .material-symbols-outlined { font-size: 22px; }
-            
-            .resumen-stats {
-                grid-template-columns: 1fr;
-            }
         }
     </style>
 </head>
 <body>
 
-    <!-- FONDO ELEGANTE CELESTE/AZUL -->
     <div class="bg-waves">
         <div class="wave wave-1"></div>
         <div class="wave wave-2"></div>
@@ -938,7 +756,6 @@
     </div>
     <div class="bg-lines"></div>
 
-    <!-- TOP HEADER -->
     <header class="top-header">
         <div class="header-left">
             <div class="logo-small">
@@ -954,16 +771,13 @@
         </div>
     </header>
 
-    <!-- MAIN CONTENT -->
     <main class="main-content">
         
-        <!-- WELCOME -->
         <div class="welcome-section">
             <h1>Panel de Control:<br><span>Maestro Ricardo</span></h1>
             <p>Bienvenido de nuevo. Aquí tienes el resumen de tus brigadas y el progreso de los estudiantes bajo tu supervisión.</p>
         </div>
 
-        <!-- STATS -->
         <div class="stats-grid">
             <div class="stat-card">
                 <div class="stat-value">15</div>
@@ -983,7 +797,6 @@
             </div>
         </div>
 
-        <!-- MIS BRIGADAS -->
         <div class="section-header">
             <h2 class="section-title">Mis Brigadas</h2>
             <button class="section-link" onclick="window.location.href='/maestro/estudiantes'">
@@ -1054,7 +867,6 @@
             </div>
         </div>
 
-        <!-- ACCIONES RÁPIDAS -->
         <div class="actions-list">
             <div class="action-card" onclick="openModal('asistencia')">
                 <div class="action-icon orange">
@@ -1083,7 +895,6 @@
             </div>
         </div>
 
-        <!-- REPORTE SEMANAL -->
         <div class="reporte-card">
             <h3>Reporte Semanal Disponible</h3>
             <p>Ya puedes descargar el resumen detallado de actividades de la última semana académica.</p>
@@ -1093,7 +904,6 @@
             </button>
         </div>
 
-        <!-- CERRAR SESION -->
         <button class="btn-logout" onclick="window.location.href='/seleccion-rol'">
             <span class="material-symbols-outlined">logout</span>
             Cerrar Sesión
@@ -1101,7 +911,6 @@
 
     </main>
 
-    <!-- MODAL: VERIFICAR ASISTENCIA -->
     <div class="modal-overlay" id="modal-asistencia">
         <div class="modal">
             <div class="modal-header">
@@ -1111,23 +920,6 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div class="resumen-box">
-                    <h4>Resumen del Día</h4>
-                    <div class="resumen-stats">
-                        <div class="resumen-stat">
-                            <div class="resumen-stat-value">15</div>
-                            <div class="resumen-stat-label">Total</div>
-                        </div>
-                        <div class="resumen-stat">
-                            <div class="resumen-stat-value" style="color:#16a34a;">12</div>
-                            <div class="resumen-stat-label">Presentes</div>
-                        </div>
-                        <div class="resumen-stat">
-                            <div class="resumen-stat-value" style="color:#ef4444;">3</div>
-                            <div class="resumen-stat-label">Ausentes</div>
-                        </div>
-                    </div>
-                </div>
                 <div class="asistencia-list">
                     <div class="asistencia-item">
                         <div class="asistencia-avatar">JC</div>
@@ -1191,7 +983,6 @@
         </div>
     </div>
 
-    <!-- MODAL: APROBAR REPORTES -->
     <div class="modal-overlay" id="modal-reportes">
         <div class="modal">
             <div class="modal-header">
@@ -1201,23 +992,6 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div class="resumen-box">
-                    <h4>Resumen de Reportes</h4>
-                    <div class="resumen-stats">
-                        <div class="resumen-stat">
-                            <div class="resumen-stat-value">8</div>
-                            <div class="resumen-stat-label">Pendientes</div>
-                        </div>
-                        <div class="resumen-stat">
-                            <div class="resumen-stat-value" style="color:#16a34a;">24</div>
-                            <div class="resumen-stat-label">Aprobados</div>
-                        </div>
-                        <div class="resumen-stat">
-                            <div class="resumen-stat-value" style="color:#ef4444;">2</div>
-                            <div class="resumen-stat-label">Rechazados</div>
-                        </div>
-                    </div>
-                </div>
                 <div class="asistencia-list">
                     <div class="asistencia-item">
                         <div class="asistencia-avatar">JC</div>
@@ -1267,7 +1041,6 @@
         </div>
     </div>
 
-    <!-- MODAL: DESCARGAR REPORTE -->
     <div class="modal-overlay" id="modal-descarga">
         <div class="modal">
             <div class="modal-header">
@@ -1277,19 +1050,6 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div class="resumen-box">
-                    <h4>Reporte Semanal - 15 al 20 de junio 2026</h4>
-                    <div class="resumen-stats" style="grid-template-columns: repeat(2, 1fr);">
-                        <div class="resumen-stat">
-                            <div class="resumen-stat-value">15</div>
-                            <div class="resumen-stat-label">Estudiantes</div>
-                        </div>
-                        <div class="resumen-stat">
-                            <div class="resumen-stat-value">248</div>
-                            <div class="resumen-stat-label">Horas Totales</div>
-                        </div>
-                    </div>
-                </div>
                 <p style="font-size:14px;color:#64748b;line-height:1.6;margin-bottom:16px;">
                     Este reporte incluye el detalle de asistencias, horas validadas y observaciones de la semana académica.
                 </p>
@@ -1304,7 +1064,6 @@
         </div>
     </div>
 
-    <!-- BOTTOM NAV BAR -->
     <nav class="bottom-nav">
         <button class="bottom-nav-item active" onclick="window.location.href='/maestro/dashboard'">
             <span class="material-symbols-outlined">dashboard</span>
@@ -1312,11 +1071,11 @@
         </button>
         <button class="bottom-nav-item" onclick="window.location.href='/maestro/estudiantes'">
             <span class="material-symbols-outlined">groups</span>
-            Gestión Estudiantes
+            Estudiantes
         </button>
         <button class="bottom-nav-item" onclick="window.location.href='/maestro/tecnico'">
             <span class="material-symbols-outlined">engineering</span>
-            Gestión Técnica
+            Técnico
         </button>
         <button class="bottom-nav-item" onclick="window.location.href='/maestro/mensajes'">
             <span class="material-symbols-outlined">chat</span>
@@ -1325,11 +1084,6 @@
     </nav>
 
     <script>
-        // Fecha actual
-        const fecha = new Date();
-        const opciones = { day: 'numeric', month: 'long', year: 'numeric' };
-        
-        // Funciones de Modal
         function openModal(tipo) {
             document.getElementById('modal-' + tipo).classList.add('active');
         }
@@ -1338,86 +1092,61 @@
             document.getElementById('modal-' + tipo).classList.remove('active');
         }
 
-        // Toggle asistencia
         function toggleAsistencia(btn) {
             btn.classList.toggle('active');
         }
 
-        // Guardar asistencia
         function guardarAsistencia() {
             alert('✅ Asistencia guardada correctamente');
             closeModal('asistencia');
         }
 
-        // Aprobar reporte individual
         function aprobarReporte(btn) {
             btn.style.background = '#bbf7d0';
             btn.innerHTML = '<span class="material-symbols-outlined">done</span>';
-            setTimeout(() => {
-                alert('✅ Reporte aprobado');
-            }, 200);
+            setTimeout(() => { alert('✅ Reporte aprobado'); }, 200);
         }
 
-        // Aprobar todos
         function aprobarTodos() {
             alert('✅ Todos los reportes han sido aprobados');
             closeModal('reportes');
         }
 
-        // Descargar reporte - abre modal
         function descargarReporte() {
             openModal('descarga');
         }
 
-        // Confirmar descarga - genera PDF real con jsPDF
         function confirmarDescarga() {
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
-            
-            // Título
             doc.setFontSize(20);
             doc.text('HORASOCIAL PRO', 20, 20);
-            
             doc.setFontSize(14);
             doc.text('Reporte Semanal - 15 al 20 de junio 2026', 20, 35);
-            
-            // Línea separadora
             doc.setDrawColor(2, 132, 199);
             doc.setLineWidth(0.5);
             doc.line(20, 40, 190, 40);
-            
-            // Resumen
             doc.setFontSize(12);
             doc.text('RESUMEN GENERAL', 20, 55);
-            
             doc.setFontSize(11);
             doc.text('Total de Estudiantes: 15', 20, 70);
             doc.text('Horas Totales Validadas: 248', 20, 80);
             doc.text('Brigadas Activas: 3', 20, 90);
             doc.text('Pendientes de Revisión: 12', 20, 100);
-            
-            // Detalle por brigada
             doc.setFontSize(12);
             doc.text('DETALLE POR BRIGADA', 20, 120);
-            
             doc.setFontSize(10);
             doc.text('1. Brigada Ambiental - 5 estudiantes - 65% progreso', 20, 135);
             doc.text('2. Apoyo Académico - 6 estudiantes - 40% progreso', 20, 145);
             doc.text('3. Servicios Comunitarios - 4 estudiantes - 80% progreso', 20, 155);
-            
-            // Pie de página
             doc.setFontSize(9);
             doc.setTextColor(128, 128, 128);
             doc.text('Generado el: 20 de junio de 2026 - Maestro Ricardo', 20, 280);
             doc.text('HORASOCIAL PRO - Gestión de Servicio Social Escolar', 20, 285);
-            
-            // Guardar
             doc.save('reporte_semanal_20jun2026.pdf');
-            
             closeModal('descarga');
         }
 
-        // Cerrar modal al hacer clic fuera
         document.querySelectorAll('.modal-overlay').forEach(modal => {
             modal.addEventListener('click', function(e) {
                 if (e.target === this) {
