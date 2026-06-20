@@ -6,26 +6,32 @@ const fs = require('fs');
 const app = express();
 const PORT = 3000;
 
+// Configuración para poder leer datos enviados desde formularios (JSON y URL-encoded)
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Servir todos los archivos estáticos (CSS, JS, imágenes del prototipo) sin servir automáticamente index.html
 app.use(express.static(path.join(__dirname), { index: false }));
 app.use('/stitch', express.static(path.join(__dirname, 'stitch_horasocial_pro_landing_page')));
 
+// Configuración de la conexión a la base de datos MySQL (por defecto en XAMPP)
 const db = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: '',
+    password: '', // Por defecto en XAMPP la contraseña está vacía
     database: 'horas_sociales'
 });
 
+// Conectar a la base de datos
 db.connect((err) => {
     if (err) {
-        console.error('Error al conectar a MySQL:', err.message);
+        console.error('Error al conectar a la base de datos MySQL:', err.message);
         console.log('Asegúrate de tener XAMPP encendido con MySQL en verde.');
         return;
     }
-    console.log('Conexión exitosa a MySQL.');
+    console.log('Conexión exitosa a la base de datos MySQL.');
     
+    // Crear tabla solicitudes_recuperacion si no existe
     const createTableQuery = `
         CREATE TABLE IF NOT EXISTS solicitudes_recuperacion (
             id INT AUTO_INCREMENT PRIMARY KEY,
@@ -39,13 +45,14 @@ db.connect((err) => {
     `;
     db.query(createTableQuery, (tableErr) => {
         if (tableErr) {
-            console.error('Error al crear tabla:', tableErr.message);
+            console.error('Error al verificar/crear la tabla solicitudes_recuperacion:', tableErr.message);
         } else {
-            console.log('Tabla solicitudes_recuperacion OK.');
+            console.log('Tabla solicitudes_recuperacion verificada/creada correctamente.');
         }
     });
 });
 
+// Helper de persistencia local (fallback si MySQL está desconectado)
 const SOLICITUDES_FILE = path.join(__dirname, 'solicitudes_recuperacion.json');
 
 function getLocalRequests() {
@@ -55,7 +62,7 @@ function getLocalRequests() {
             return JSON.parse(data || '[]');
         }
     } catch (err) {
-        console.error('Error leyendo archivo local:', err.message);
+        console.error('Error leyendo archivo local de solicitudes:', err.message);
     }
     return [];
 }
@@ -64,17 +71,25 @@ function saveLocalRequests(requests) {
     try {
         fs.writeFileSync(SOLICITUDES_FILE, JSON.stringify(requests, null, 2), 'utf8');
     } catch (err) {
-        console.error('Error escribiendo archivo local:', err.message);
+        console.error('Error escribiendo archivo local de solicitudes:', err.message);
     }
 }
 
+// Ruta de prueba para verificar que el servidor está conectado a la base de datos
 app.get('/api/test-db', (req, res) => {
     db.query('SELECT 1 + 1 AS result', (err, results) => {
-        if (err) return res.status(500).json({ error: 'Error en la consulta' });
-        res.json({ message: 'Base de datos OK', result: results[0].result });
+        if (err) {
+            return res.status(500).json({ error: 'Error en la consulta a la base de datos' });
+        }
+        res.json({ message: 'Base de datos conectada correctamente', result: results[0].result });
     });
 });
 
+// ==========================================
+// ENDPOINTS PARA LA RECUPERACIÓN DE CONTRASEÑA
+// ==========================================
+
+// 1. Enviar solicitud de recuperación
 app.post('/api/recuperar-contrasena', (req, res) => {
     const { usuario, nombre, telefono, curso } = req.body;
     if (!usuario || !nombre || !telefono || !curso) {
@@ -96,17 +111,17 @@ app.post('/api/recuperar-contrasena', (req, res) => {
         };
         requests.push(newRequest);
         saveLocalRequests(requests);
-        res.json({ success: true, message: 'Solicitud enviada (Modo local)', id: newRequest.id });
+        res.json({ success: true, message: 'Solicitud enviada a la administración (Modo local)', id: newRequest.id });
     };
 
     if (dbConnected) {
         const query = 'INSERT INTO solicitudes_recuperacion (usuario, nombre_completo, telefono, curso, estado) VALUES (?, ?, ?, ?, ?)';
         db.query(query, [usuario, nombre, telefono, curso, 'Pendiente'], (err, result) => {
             if (err) {
-                console.error('Error MySQL, recurriendo a local:', err.message);
+                console.error('Error insertando solicitud en MySQL, recurriendo a local:', err.message);
                 saveRequestToLocal();
             } else {
-                res.json({ success: true, message: 'Solicitud enviada', id: result.insertId });
+                res.json({ success: true, message: 'Solicitud enviada a la administración', id: result.insertId });
             }
         });
     } else {
@@ -114,12 +129,14 @@ app.post('/api/recuperar-contrasena', (req, res) => {
     }
 });
 
+// 2. Obtener solicitudes de recuperación
 app.get('/api/solicitudes-recuperacion', (req, res) => {
     const dbConnected = db && db.state !== 'disconnected';
+    
     if (dbConnected) {
         db.query('SELECT * FROM solicitudes_recuperacion WHERE estado = "Pendiente" ORDER BY fecha_solicitud DESC', (err, results) => {
             if (err) {
-                console.error('Error MySQL, recurriendo a local:', err.message);
+                console.error('Error consultando MySQL, recurriendo a local:', err.message);
                 res.json(getLocalRequests().filter(r => r.estado === 'Pendiente'));
             } else {
                 res.json(results);
@@ -130,9 +147,12 @@ app.get('/api/solicitudes-recuperacion', (req, res) => {
     }
 });
 
+// 3. Autorizar solicitud de recuperación
 app.post('/api/autorizar-solicitud', (req, res) => {
     const { id, usuario } = req.body;
-    if (!id) return res.status(400).json({ error: 'ID requerido' });
+    if (!id) {
+        return res.status(400).json({ error: 'ID de solicitud es requerido' });
+    }
 
     const dbConnected = db && db.state !== 'disconnected';
     
@@ -142,25 +162,28 @@ app.post('/api/autorizar-solicitud', (req, res) => {
         if (index !== -1) {
             requests[index].estado = 'Autorizado';
             saveLocalRequests(requests);
-            res.json({ success: true, message: 'Autorizado (local). Contraseña: 123456' });
+            res.json({ success: true, message: 'Solicitud autorizada en modo local. Contraseña restablecida a: 123456' });
         } else {
             res.status(404).json({ error: 'Solicitud no encontrada' });
         }
     };
 
     if (dbConnected) {
-        db.query('UPDATE solicitudes_recuperacion SET estado = "Autorizado" WHERE id = ?', [id], (err) => {
+        db.query('UPDATE solicitudes_recuperacion SET estado = "Autorizado" WHERE id = ?', [id], (err, result) => {
             if (err) {
-                console.error('Error MySQL, recurriendo a local:', err.message);
+                console.error('Error actualizando solicitud en MySQL, recurriendo a local:', err.message);
                 updateRequestLocal();
             } else {
                 if (usuario) {
                     db.query('UPDATE usuarios_a SET password = ? WHERE nombre_usuario = ?', ['123456', usuario], (userErr) => {
-                        if (userErr) console.error('Error actualizando contraseña:', userErr.message);
-                        else console.log(`Contraseña de ${usuario} restablecida a "123456"`);
+                        if (userErr) {
+                            console.error('Error al actualizar contraseña del usuario en base de datos:', userErr.message);
+                        } else {
+                            console.log(`Contraseña para usuario ${usuario} restablecida a "123456"`);
+                        }
                     });
                 }
-                res.json({ success: true, message: 'Autorizado. Contraseña: 123456' });
+                res.json({ success: true, message: 'Solicitud autorizada correctamente. Contraseña restablecida a: 123456' });
             }
         });
     } else {
@@ -168,9 +191,12 @@ app.post('/api/autorizar-solicitud', (req, res) => {
     }
 });
 
+// 4. Ignorar/rechazar solicitud de recuperación
 app.post('/api/rechazar-solicitud', (req, res) => {
     const { id } = req.body;
-    if (!id) return res.status(400).json({ error: 'ID requerido' });
+    if (!id) {
+        return res.status(400).json({ error: 'ID de solicitud es requerido' });
+    }
 
     const dbConnected = db && db.state !== 'disconnected';
     
@@ -178,16 +204,16 @@ app.post('/api/rechazar-solicitud', (req, res) => {
         let requests = getLocalRequests();
         requests = requests.filter(r => r.id !== parseInt(id) && r.id !== id);
         saveLocalRequests(requests);
-        res.json({ success: true, message: 'Solicitud ignorada' });
+        res.json({ success: true, message: 'Solicitud ignorada correctamente' });
     };
 
     if (dbConnected) {
-        db.query('DELETE FROM solicitudes_recuperacion WHERE id = ?', [id], (err) => {
+        db.query('DELETE FROM solicitudes_recuperacion WHERE id = ?', [id], (err, result) => {
             if (err) {
-                console.error('Error MySQL, recurriendo a local:', err.message);
+                console.error('Error al eliminar solicitud en MySQL, recurriendo a local:', err.message);
                 deleteRequestLocal();
             } else {
-                res.json({ success: true, message: 'Solicitud ignorada' });
+                res.json({ success: true, message: 'Solicitud ignorada correctamente' });
             }
         });
     } else {
@@ -196,49 +222,35 @@ app.post('/api/rechazar-solicitud', (req, res) => {
 });
 
 // ==========================================
-// RUTAS DE PÁGINAS - CORREGIDAS CON NOMBRES EXACTOS DE TUS CARPETAS
+// RUTAS PARA SERVIR LAS PANTALLAS SELECCIONADAS
 // ==========================================
 
+// 1. Bienvenida (Landing Page)
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'stitch_horasocial_pro_landing_page', 'bienvenido_a_horasocial_pro_2', 'code.html'));
 });
 
-// RUTA SELECCIÓN DE ROL - CORREGIDA
+// 2. Selección de Rol
 app.get('/seleccion-rol', (req, res) => {
-    const filePath = path.join(__dirname, 'stitch_horasocial_pro_landing_page', 'selecci_n_de_rol_distribuci_n_expandida_vertical', 'selecci_n_de_rol.html');
-    
-    if (fs.existsSync(filePath)) {
-        res.sendFile(filePath);
-    } else {
-        // Fallback a code.html si no existe selecci_n_de_rol.html
-        const fallbackPath = path.join(__dirname, 'stitch_horasocial_pro_landing_page', 'selecci_n_de_rol_distribuci_n_expandida_vertical', 'code.html');
-        if (fs.existsSync(fallbackPath)) {
-            res.sendFile(fallbackPath);
-        } else {
-            res.status(404).send(`ERROR: No se encontró selección de rol en:<br><code>${filePath}</code><br>ni en:<br><code>${fallbackPath}</code>`);
-        }
-    }
+    res.sendFile(path.join(__dirname, 'stitch_horasocial_pro_landing_page', 'selecci_n_de_rol_distribuci_n_expandida_vertical', 'code.html'));
 });
 
+// 3. Login Estudiante (RUTA ORIGINAL - NO SE TOCA)
 app.get('/login', (req, res) => {
-    res.sendFile(path.join(__dirname, 'stitch_horasocial_pro_landing_page', 'login_estudiante_disi', 'code.html'));
+    res.sendFile(path.join(__dirname, 'stitch_horasocial_pro_landing_page', 'login_estudiante_distribuci_n_centrada_y_logo_optimizado_2', 'code.html'));
 });
 
-// RUTA PROFESOR - CORREGIDA PARA TU CARPETA "loguin_profesor"
+// 4. Login Profesor (RUTA CORREGIDA - carpeta real: loguin_profesor con U)
 app.get('/profesor/login', (req, res) => {
-    const filePath = path.join(__dirname, 'stitch_horasocial_pro_landing_page', 'loguin_profesor', 'code.html');
-    
-    if (fs.existsSync(filePath)) {
-        res.sendFile(filePath);
-    } else {
-        res.status(404).send(`ERROR: No se encontró login de profesor en:<br><code>${filePath}</code><br><br>Verifica que la carpeta se llame exactamente <b>loguin_profesor</b>`);
-    }
+    res.sendFile(path.join(__dirname, 'stitch_horasocial_pro_landing_page', 'loguin_profesor', 'code.html'));
 });
 
+// --- RUTA SOBRE / AYUDA ---
 app.get('/sobre', (req, res) => {
     res.sendFile(path.join(__dirname, 'stitch_horasocial_pro_landing_page', 'sobre_horasocial_pro_identidad_y_prop_sito', 'code.html'));
 });
 
+// --- RUTAS DEL ESTUDIANTE ---
 app.get('/estudiante/dashboard', (req, res) => {
     res.sendFile(path.join(__dirname, 'stitch_horasocial_pro_landing_page', 'dashboard_estudiante_navegaci_n_optimizada', 'code.html'));
 });
@@ -255,6 +267,7 @@ app.get('/estudiante/mensajes', (req, res) => {
     res.sendFile(path.join(__dirname, 'stitch_horasocial_pro_landing_page', 'mis_mensajes_bandeja_de_entrada_estudiante_1', 'code.html'));
 });
 
+// --- RUTAS DEL MAESTRO ---
 app.get('/maestro/dashboard', (req, res) => {
     res.sendFile(path.join(__dirname, 'stitch_horasocial_pro_landing_page', 'dashboard_maestro_navegaci_n_y_cierre_de_sesi_n_optimizado', 'code.html'));
 });
@@ -271,6 +284,7 @@ app.get('/maestro/mensajes', (req, res) => {
     res.sendFile(path.join(__dirname, 'stitch_horasocial_pro_landing_page', 'mensajes_e_interacci_n_perfil_maestro', 'code.html'));
 });
 
+// --- RUTAS DEL ADMINISTRADOR ---
 app.get('/admin/dashboard', (req, res) => {
     res.sendFile(path.join(__dirname, 'stitch_horasocial_pro_landing_page', 'dashboard_administrador_control_y_gesti_n_central', 'code.html'));
 });
@@ -287,6 +301,7 @@ app.get('/admin/mensajes', (req, res) => {
     res.sendFile(path.join(__dirname, 'stitch_horasocial_pro_landing_page', 'mensajer_a_y_canales_admin_horasocial_pro_2', 'code.html'));
 });
 
+// Iniciar el servidor
 app.listen(PORT, () => {
-    console.log(`Servidor corriendo en http://localhost:${PORT}`);
+    console.log(`Servidor de Horas Sociales corriendo en http://localhost:${PORT}`);
 });
