@@ -240,9 +240,24 @@ app.get('/login', (req, res) => {
     res.sendFile(path.join(__dirname, 'stitch_horasocial_pro_landing_page', 'login_estudiante_distribuci_n_centrada_y_logo_optimizado_2', 'code.html'));
 });
 
-// 4. Login Profesor (RUTA CORREGIDA - carpeta real: loguin_profesor con U)
+// 4. Login Profesor - CORREGIDA CON VERIFICACIÓN DE ARCHIVO
 app.get('/profesor/login', (req, res) => {
-    res.sendFile(path.join(__dirname, 'stitch_horasocial_pro_landing_page', 'loguin_profesor', 'code.html'));
+    const filePath = path.join(__dirname, 'stitch_horasocial_pro_landing_page', 'loguin_profesor', 'code.html');
+    
+    // Verificar que el archivo existe antes de enviarlo
+    if (fs.existsSync(filePath)) {
+        res.sendFile(filePath);
+    } else {
+        res.status(404).send(`
+            <h1>Error: Archivo no encontrado</h1>
+            <p>Se buscó en: <code>${filePath}</code></p>
+            <p>Verifica que:</p>
+            <ul>
+                <li>La carpeta se llame exactamente <b>loguin_profesor</b> (con "loguin" y no "login")</li>
+                <li>Dentro de esa carpeta exista el archivo <b>code.html</b></li>
+            </ul>
+        `);
+    }
 });
 
 // --- RUTA SOBRE / AYUDA ---
