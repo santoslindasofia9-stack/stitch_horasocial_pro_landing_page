@@ -21,7 +21,7 @@
             overflow-x: hidden;
         }
 
-        /* === FONDO ELEGANTE CELESTE/AZUL === */
+        /* === FONDO ELEGANTE CELESTE/AZUL CON ELEMENTOS DECORATIVOS === */
         .bg-waves {
             position: fixed;
             inset: 0;
@@ -94,6 +94,7 @@
             75% { transform: translate(25px, 10px) scale(1.02); }
         }
 
+        /* Líneas decorativas sutiles */
         .bg-lines {
             position: fixed;
             inset: 0;
@@ -104,6 +105,108 @@
                 linear-gradient(90deg, #0284c7 1px, transparent 1px),
                 linear-gradient(180deg, #0284c7 1px, transparent 1px);
             background-size: 80px 80px;
+        }
+
+        /* Círculos decorativos adicionales */
+        .bg-circles {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .deco-circle {
+            position: absolute;
+            border-radius: 50%;
+            border: 1px solid rgba(56, 189, 248, 0.15);
+            animation: circle-pulse 8s ease-in-out infinite;
+        }
+
+        .deco-circle-1 {
+            width: 200px;
+            height: 200px;
+            top: 15%;
+            left: 5%;
+            animation-delay: 0s;
+        }
+
+        .deco-circle-2 {
+            width: 150px;
+            height: 150px;
+            top: 60%;
+            right: 8%;
+            animation-delay: -3s;
+            animation-duration: 10s;
+        }
+
+        .deco-circle-3 {
+            width: 100px;
+            height: 100px;
+            bottom: 25%;
+            left: 15%;
+            animation-delay: -5s;
+            animation-duration: 12s;
+        }
+
+        .deco-circle-4 {
+            width: 180px;
+            height: 180px;
+            top: 35%;
+            left: 50%;
+            animation-delay: -2s;
+            animation-duration: 9s;
+        }
+
+        @keyframes circle-pulse {
+            0%, 100% { transform: scale(1); opacity: 0.3; }
+            50% { transform: scale(1.1); opacity: 0.6; }
+        }
+
+        /* Partículas flotantes */
+        .bg-particles {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(56, 189, 248, 0.3);
+            border-radius: 50%;
+            animation: particle-float 20s linear infinite;
+        }
+
+        .particle:nth-child(1) { left: 10%; top: 20%; animation-delay: 0s; animation-duration: 15s; }
+        .particle:nth-child(2) { left: 20%; top: 60%; animation-delay: -3s; animation-duration: 18s; width: 6px; height: 6px; }
+        .particle:nth-child(3) { left: 70%; top: 30%; animation-delay: -7s; animation-duration: 12s; width: 3px; height: 3px; }
+        .particle:nth-child(4) { left: 85%; top: 70%; animation-delay: -5s; animation-duration: 20s; width: 5px; height: 5px; }
+        .particle:nth-child(5) { left: 40%; top: 80%; animation-delay: -10s; animation-duration: 16s; }
+        .particle:nth-child(6) { left: 55%; top: 15%; animation-delay: -2s; animation-duration: 14s; width: 7px; height: 7px; }
+        .particle:nth-child(7) { left: 30%; top: 40%; animation-delay: -8s; animation-duration: 22s; width: 3px; height: 3px; }
+        .particle:nth-child(8) { left: 75%; top: 50%; animation-delay: -6s; animation-duration: 17s; width: 4px; height: 4px; }
+
+        @keyframes particle-float {
+            0% { transform: translateY(0) translateX(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) translateX(20px); opacity: 0; }
+        }
+
+        /* Gradiente sutil en la parte superior */
+        .bg-gradient-top {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 300px;
+            background: linear-gradient(180deg, rgba(224, 242, 254, 0.6) 0%, transparent 100%);
+            z-index: 0;
+            pointer-events: none;
         }
 
         .material-symbols-outlined { font-variation-settings: 'FILL' 1, 'wght' 400; }
@@ -223,6 +326,40 @@
             line-height: 1.5;
         }
 
+        /* === RESUMEN BOX === */
+        .resumen-box {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+        }
+
+        .resumen-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .resumen-stat {
+            text-align: center;
+        }
+
+        .resumen-stat-value {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 22px;
+            font-weight: 700;
+            color: #0284c7;
+        }
+
+        .resumen-stat-label {
+            font-size: 11px;
+            color: #64748b;
+            font-weight: 500;
+        }
+
         /* === FILTROS === */
         .filtros-bar {
             display: flex;
@@ -323,12 +460,6 @@
             margin-bottom: 8px;
         }
 
-        .student-brigada {
-            font-size: 12px;
-            color: #64748b;
-            font-weight: 500;
-        }
-
         .student-brigada-tag {
             display: inline-flex;
             align-items: center;
@@ -399,40 +530,6 @@
 
         .btn-chat:active {
             transform: scale(0.95);
-        }
-
-        /* === RESUMEN BOX === */
-        .resumen-box {
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
-            border-radius: 16px;
-            padding: 16px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
-            border: 1px solid rgba(255, 255, 255, 0.8);
-        }
-
-        .resumen-stats {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
-        }
-
-        .resumen-stat {
-            text-align: center;
-        }
-
-        .resumen-stat-value {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-size: 22px;
-            font-weight: 700;
-            color: #0284c7;
-        }
-
-        .resumen-stat-label {
-            font-size: 11px;
-            color: #64748b;
-            font-weight: 500;
         }
 
         /* === BOTTOM NAV BAR === */
@@ -535,6 +632,29 @@
         <div class="wave wave-5"></div>
     </div>
     <div class="bg-lines"></div>
+    
+    <!-- Círculos decorativos adicionales -->
+    <div class="bg-circles">
+        <div class="deco-circle deco-circle-1"></div>
+        <div class="deco-circle deco-circle-2"></div>
+        <div class="deco-circle deco-circle-3"></div>
+        <div class="deco-circle deco-circle-4"></div>
+    </div>
+    
+    <!-- Partículas flotantes -->
+    <div class="bg-particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+    
+    <!-- Gradiente sutil superior -->
+    <div class="bg-gradient-top"></div>
 
     <!-- TOP HEADER -->
     <header class="top-header">
