@@ -694,6 +694,9 @@
         .status-absent { background: #fee2e2; color: #991b1b; }
         .status-pending { background: #fef3c7; color: #92400e; }
 
+        /* ============================================
+           BOTTOM NAVIGATION - ESTILO DASHBOARD
+           ============================================ */
         .bottom-nav {
             position: fixed;
             bottom: 0;
@@ -724,16 +727,27 @@
             font-weight: 500;
             transition: all 0.2s ease;
             cursor: pointer;
-            border: none;
+            border: none !important; /* FORZAR: sin borde */
+            outline: none !important; /* FORZAR: sin outline */
             background: none;
             font-family: inherit;
             flex: 1;
             position: relative;
+            border-radius: 0; /* FORZAR: sin border-radius */
+            box-shadow: none !important; /* FORZAR: sin sombra */
         }
 
         .bottom-nav-item:hover { color: #0284c7; }
-        .bottom-nav-item.active { color: #0284c7; }
+        
+        .bottom-nav-item.active {
+            color: #0284c7;
+            background: none !important; /* FORZAR: sin fondo */
+            border: none !important; /* FORZAR: sin borde */
+            outline: none !important; /* FORZAR: sin outline */
+            box-shadow: none !important; /* FORZAR: sin sombra */
+        }
 
+        /* INDICADOR: Línea azul superior (igual que Dashboard) */
         .bottom-nav-item.active::before {
             content: '';
             position: absolute;
@@ -744,6 +758,21 @@
             height: 3px;
             background: #0284c7;
             border-radius: 0 0 4px 4px;
+        }
+
+        /* FORZAR: Anular cualquier borde punteado que venga de frameworks externos */
+        .bottom-nav-item.active,
+        .bottom-nav-item.active *,
+        .bottom-nav-item.active::after,
+        .bottom-nav-item.active::before {
+            border-style: solid !important;
+            border-color: transparent !important;
+        }
+
+        /* Solo permitir el ::before del indicador */
+        .bottom-nav-item.active::before {
+            border: none !important;
+            background: #0284c7 !important;
         }
 
         .bottom-nav-item .material-symbols-outlined { font-size: 24px; }
