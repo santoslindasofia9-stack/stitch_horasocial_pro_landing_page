@@ -6,14 +6,13 @@
     <title>HORASOCIAL PRO - Dashboard Maestro</title>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
-    <!-- jsPDF para descarga real de PDF -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         
         body {
-            background: #f1f5f9;
+            background: linear-gradient(180deg, #e0f7ff 0%, #f0f9ff 30%, #f8fcff 60%, #ffffff 100%);
             font-family: 'Inter', sans-serif;
             color: #1e293b;
             min-height: 100vh;
@@ -23,8 +22,8 @@
             overflow-x: hidden;
         }
 
-        /* === FONDO DECORATIVO ANIMADO === */
-        .bg-shapes {
+        /* === FONDO ELEGANTE CELESTE/AZUL === */
+        .bg-waves {
             position: fixed;
             inset: 0;
             z-index: 0;
@@ -32,77 +31,89 @@
             overflow: hidden;
         }
 
-        .shape {
+        .wave {
             position: absolute;
             border-radius: 50%;
-            filter: blur(60px);
-            opacity: 0.6;
-            animation: float-shape 20s ease-in-out infinite;
+            filter: blur(80px);
+            opacity: 0.5;
+            animation: wave-float 15s ease-in-out infinite;
         }
 
-        .shape-1 {
-            width: 400px;
-            height: 400px;
-            background: linear-gradient(135deg, #38bdf8, #0284c7);
-            top: -100px;
-            right: -100px;
+        .wave-1 {
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(56, 189, 248, 0.4) 0%, rgba(14, 165, 233, 0.1) 50%, transparent 70%);
+            top: -200px;
+            right: -150px;
             animation-delay: 0s;
         }
 
-        .shape-2 {
-            width: 300px;
-            height: 300px;
-            background: linear-gradient(135deg, #c084fc, #7e22ce);
-            bottom: 200px;
-            left: -80px;
+        .wave-2 {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(125, 211, 252, 0.35) 0%, rgba(56, 189, 248, 0.08) 50%, transparent 70%);
+            bottom: 100px;
+            left: -200px;
             animation-delay: -5s;
-            animation-duration: 25s;
+            animation-duration: 18s;
         }
 
-        .shape-3 {
-            width: 250px;
-            height: 250px;
-            background: linear-gradient(135deg, #34d399, #059669);
+        .wave-3 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(186, 230, 253, 0.4) 0%, rgba(125, 211, 252, 0.1) 50%, transparent 70%);
             top: 40%;
-            right: -60px;
+            right: -100px;
             animation-delay: -10s;
+            animation-duration: 20s;
+        }
+
+        .wave-4 {
+            width: 350px;
+            height: 350px;
+            background: radial-gradient(circle, rgba(14, 165, 233, 0.25) 0%, rgba(56, 189, 248, 0.05) 50%, transparent 70%);
+            bottom: -50px;
+            left: 20%;
+            animation-delay: -15s;
             animation-duration: 22s;
         }
 
-        .shape-4 {
-            width: 350px;
-            height: 350px;
-            background: linear-gradient(135deg, #fbbf24, #d97706);
-            bottom: -100px;
-            left: 30%;
-            animation-delay: -15s;
-            animation-duration: 28s;
+        .wave-5 {
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(224, 242, 254, 0.5) 0%, rgba(186, 230, 253, 0.1) 50%, transparent 70%);
+            top: 20%;
+            left: -50px;
+            animation-delay: -8s;
+            animation-duration: 16s;
         }
 
-        @keyframes float-shape {
+        @keyframes wave-float {
             0%, 100% {
                 transform: translate(0, 0) scale(1);
             }
             25% {
-                transform: translate(30px, -30px) scale(1.1);
+                transform: translate(20px, -30px) scale(1.05);
             }
             50% {
-                transform: translate(-20px, 20px) scale(0.95);
+                transform: translate(-15px, 20px) scale(0.98);
             }
             75% {
-                transform: translate(15px, 15px) scale(1.05);
+                transform: translate(25px, 10px) scale(1.02);
             }
         }
 
-        /* Patrón de puntos sutil */
-        .bg-dots {
+        /* Líneas decorativas sutiles */
+        .bg-lines {
             position: fixed;
             inset: 0;
             z-index: 0;
             pointer-events: none;
-            background-image: radial-gradient(circle, #cbd5e1 1px, transparent 1px);
-            background-size: 30px 30px;
-            opacity: 0.3;
+            opacity: 0.03;
+            background-image: 
+                linear-gradient(90deg, #0284c7 1px, transparent 1px),
+                linear-gradient(180deg, #0284c7 1px, transparent 1px);
+            background-size: 80px 80px;
         }
 
         .material-symbols-outlined { font-variation-settings: 'FILL' 1, 'wght' 400; }
@@ -917,14 +928,15 @@
 </head>
 <body>
 
-    <!-- FONDO DECORATIVO ANIMADO -->
-    <div class="bg-shapes">
-        <div class="shape shape-1"></div>
-        <div class="shape shape-2"></div>
-        <div class="shape shape-3"></div>
-        <div class="shape shape-4"></div>
+    <!-- FONDO ELEGANTE CELESTE/AZUL -->
+    <div class="bg-waves">
+        <div class="wave wave-1"></div>
+        <div class="wave wave-2"></div>
+        <div class="wave wave-3"></div>
+        <div class="wave wave-4"></div>
+        <div class="wave wave-5"></div>
     </div>
-    <div class="bg-dots"></div>
+    <div class="bg-lines"></div>
 
     <!-- TOP HEADER -->
     <header class="top-header">
