@@ -1,347 +1,365 @@
 <!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HORASOCIAL PRO - Iniciar Sesión Profesor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700&display=swap" rel="stylesheet">
 
-<html class="light" lang="es"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Mensajería | HORASOCIAL PRO</title>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;family=Comfortaa:wght@400;700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<script id="tailwind-config">
-      tailwind.config = {
-        darkMode: "class",
-        theme: {
-          extend: {
-            "colors": {
-                    "surface-tint": "#565e74",
-                    "surface-container-highest": "#e0e3e5",
-                    "tertiary-fixed": "#c4e7ff",
-                    "tertiary": "#000000",
-                    "on-secondary-fixed": "#001e2f",
-                    "on-secondary": "#ffffff",
-                    "on-primary": "#ffffff",
-                    "secondary": "#006591",
-                    "on-tertiary-fixed": "#001e2c",
-                    "surface-bright": "#f7f9fb",
-                    "primary": "#0F172A",
-                    "on-primary-fixed-variant": "#3f465c",
-                    "on-primary-fixed": "#131b2e",
-                    "primary-fixed-dim": "#bec6e0",
-                    "inverse-surface": "#2d3133",
-                    "on-tertiary": "#ffffff",
-                    "error": "#ba1a1a",
-                    "surface-container-low": "#f2f4f6",
-                    "surface-container-high": "#e6e8ea",
-                    "on-background": "#191c1e",
-                    "on-tertiary-fixed-variant": "#004c69",
-                    "tertiary-container": "#001e2c",
-                    "secondary-fixed": "#c9e6ff",
-                    "primary-fixed": "#dae2fd",
-                    "surface-container-lowest": "#ffffff",
-                    "inverse-on-surface": "#eff1f3",
-                    "error-container": "#ffdad6",
-                    "surface": "#F8FAFC",
-                    "surface-container": "#eceef0",
-                    "on-secondary-fixed-variant": "#004c6e",
-                    "secondary-fixed-dim": "#89ceff",
-                    "primary-container": "#131b2e",
-                    "surface-variant": "#e0e3e5",
-                    "tertiary-fixed-dim": "#7bd0ff",
-                    "surface-dim": "#d8dadc",
-                    "on-error-container": "#93000a",
-                    "on-tertiary-container": "#008ebf",
-                    "outline-variant": "#c6c6cd",
-                    "secondary-container": "#0EA5E9",
-                    "on-primary-container": "#7c839b",
-                    "background": "#F8FAFC",
-                    "on-surface": "#191c1e",
-                    "on-error": "#ffffff",
-                    "inverse-primary": "#bec6e0",
-                    "outline": "#76777d",
-                    "on-secondary-container": "#004666",
-                    "on-surface-variant": "#45464d"
-            },
-            "borderRadius": {
-                    "DEFAULT": "0.25rem",
-                    "lg": "1rem",
-                    "xl": "1.25rem",
-                    "full": "9999px"
-            },
-            "spacing": {
-                    "margin-mobile": "16px",
-                    "margin-desktop": "48px",
-                    "xs": "4px",
-                    "md": "16px",
-                    "xl": "32px",
-                    "sm": "8px",
-                    "lg": "24px",
-                    "unit": "4px",
-                    "gutter": "24px"
-            },
-            "fontFamily": {
-                    "body-lg": ["Inter", "sans-serif"],
-                    "display-lg": ["Comfortaa", "cursive"],
-                    "headline-lg": ["Comfortaa", "cursive"],
-                    "headline-sm": ["Plus Jakarta Sans", "sans-serif"],
-                    "body-md": ["Inter", "sans-serif"],
-                    "label-md": ["Inter", "sans-serif"],
-                    "headline-md": ["Comfortaa", "cursive"],
-                    "label-sm": ["Inter", "sans-serif"]
-            }
-          },
-        },
-      }
-    </script>
-<style>
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-            vertical-align: middle;
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background: #fafbfc;
+            font-family: 'Inter', sans-serif;
+            color: #191c1e;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 100vh;
+            overflow-x: hidden;
+            padding: 40px 20px;
+            -webkit-font-smoothing: antialiased;
         }
-        .chat-scrollbar::-webkit-scrollbar {
-            width: 4px;
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400; }
+        .login-card {
+            position: relative;
+            z-index: 2;
+            background: #ffffff;
+            width: 100%;
+            max-width: 440px;
+            border-radius: 20px;
+            padding: 40px 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+            margin: auto 0;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
         }
-        .chat-scrollbar::-webkit-scrollbar-track {
-            background: transparent;
+        .card-logo {
+            width: 100%;
+            max-width: 180px;
+            display: flex;
+            justify-content: center;
+            margin: 0 auto;
         }
-        .chat-scrollbar::-webkit-scrollbar-thumb {
-            background: #e2e8f0;
-            border-radius: 10px;
+        .card-logo img { width: 100%; height: auto; object-fit: contain; }
+        .card-section {
+            display: none;
+            flex-direction: column;
+            gap: 24px;
+            width: 100%;
         }
-        .active-nav-glow {
-            background: rgba(14, 165, 233, 0.1);
+        .card-section.active {
+            display: flex;
+            animation: fadeIn 0.35s ease forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .card-title {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 22px;
+            color: #191c1e;
+            text-align: center;
+            font-weight: 700;
+        }
+        .card-title span { color: #39b8fd; }
+        .card-subtitle {
+            font-size: 14px;
+            color: #5a6370;
+            text-align: center;
+            line-height: 1.5;
+            margin-top: -12px;
+        }
+        .form-container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .input-group {
+            position: relative;
+            width: 100%;
+            display: flex;
+            align-items: center;
+        }
+        .input-icon {
+            position: absolute;
+            left: 16px;
+            color: #9ca3af;
+            font-size: 20px;
+            pointer-events: none;
+        }
+        .input-field {
+            width: 100%;
+            height: 52px;
+            padding: 0 16px 0 48px;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 15px;
+            font-family: 'Inter', sans-serif;
+            color: #1f2937;
+            background-color: #ffffff;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .input-field::placeholder { color: #9ca3af; }
+        .input-field:focus {
+            border-color: #39b8fd;
+            box-shadow: 0 0 0 4px rgba(57, 184, 253, 0.1);
+        }
+        .toggle-password {
+            position: absolute;
+            right: 16px;
+            color: #9ca3af;
+            font-size: 20px;
+            cursor: pointer;
+            user-select: none;
+        }
+        .btn-submit {
+            width: 100%;
+            height: 52px;
+            background-color: #0f172a;
+            color: #ffffff;
+            border: none;
+            border-radius: 12px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.1s;
+            margin-top: 8px;
+        }
+        .btn-submit:hover { background-color: #1e293b; }
+        .btn-submit:active { transform: scale(0.98); }
+        .card-bottom {
+            position: relative;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 8px;
+        }
+        .text-link {
+            font-size: 13px;
+            color: #39b8fd;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-family: inherit;
+        }
+        .text-link:hover { text-decoration: underline; color: #2563eb; }
+        .settings-icon {
+            position: absolute;
+            right: 0;
+            color: #d1d5db;
+            font-size: 22px;
+            cursor: pointer;
+            transition: color 0.2s, transform 0.3s;
+        }
+        .settings-icon:hover { color: #9ca3af; transform: rotate(45deg); }
+        .success-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 16px;
+            padding: 10px 0;
+        }
+        .success-icon-circle {
+            width: 64px;
+            height: 64px;
+            background-color: #f0fdf4;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #16a34a;
+        }
+        .success-icon-circle span { font-size: 36px; font-variation-settings: 'wght' 500; }
+        .success-title {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            color: #111827;
+        }
+        .success-description {
+            font-size: 14px;
+            color: #4b5563;
+            line-height: 1.5;
+        }
+        .page-footer {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            margin-top: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .footer-copyright { font-size: 11px; color: #6b7280; font-weight: 500; }
+        .footer-links { display: flex; justify-content: center; gap: 16px; }
+        .footer-links a { font-size: 11px; color: #6b7280; text-decoration: none; font-weight: 500; }
+        .footer-links a:hover { color: #374151; text-decoration: underline; }
+        @media (max-width: 480px) {
+            .login-card { padding: 30px 20px; gap: 20px; }
+            body { padding: 20px 16px; }
         }
     </style>
-<style>
-    body {
-      min-height: max(884px, 100dvh);
-    }
-  </style>
-  </head>
-<body class="bg-surface text-on-surface font-body-md min-h-screen flex flex-col">
-<!-- TopAppBar -->
-<header class="w-full top-0 sticky z-40 bg-white shadow-sm flex justify-between items-center px-4 md:px-12 py-4">
-<div class="flex items-center gap-2">
-<span class="font-headline-sm text-headline-sm font-bold text-primary tracking-tighter">HORASOCIAL PRO</span>
-</div>
-<div class="flex items-center gap-4">
-<div class="hidden md:flex flex-col items-end">
-<span class="text-label-md font-semibold text-primary">Coordinadora Carolina Rojas</span>
-<span class="text-label-sm text-on-surface-variant">Admin Central</span>
-</div>
-<div class="relative">
-<img alt="Admin Profile" class="w-10 h-10 rounded-full object-cover border-2 border-secondary-container" data-alt="A professional portrait of a Hispanic woman in her late 30s with a warm and organized demeanor, wearing a professional navy blue blazer. She is set against a clean, softly lit office environment with a professional, institutional aesthetic. The lighting is high-key and natural, emphasizing a sense of reliability and leadership within an academic or social management context." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDxJ6IU5wR0qmEPiOES6MiT-ZNwbyWA9d69IiakRsllbQ3IXjcGZ6gZBODT13BjybRWmFI4KP5wUH0ChfdnJloZgxeMJfuHSPlMXriQA2Ywj6fw4b4dzQS22JMulIvWI-0LRw7VrKyB3-V6QxuxAuWkMwGDGMaP9r9D1hnZdnXhzkN0uD8urnPv2aP3tZq26rbYz72LuBn03Fxg6fUhEovU5WLWlL7ZsuXbUjj_O9ETVCwpxvol9_eqfa_8qgSy2GhBTd4CzVUUmLAY"/>
-<div class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-white rounded-full"></div>
-</div>
-<button class="p-2 hover:bg-surface-container-low rounded-full transition-colors text-on-surface-variant" title="Cerrar Sesión">
-<span class="material-symbols-outlined">logout</span>
-</button>
-</div>
-</header>
-<main class="flex-1 flex overflow-hidden h-[calc(100vh-144px)]">
-<!-- Chat List (Desktop: 30%, Mobile: Hidden on active chat) -->
-<aside class="w-full md:w-[30%] lg:w-[25%] border-r border-outline-variant bg-white flex flex-col">
-<div class="p-4 space-y-4">
-<h1 class="font-headline-md text-headline-md text-primary">Mensajería</h1>
-<div class="relative">
-<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
-<input class="w-full pl-10 pr-4 py-2 bg-surface rounded-lg border border-outline-variant focus:ring-2 focus:ring-secondary-container focus:border-transparent outline-none transition-all text-body-md" placeholder="Buscar mensajes..." type="text"/>
-</div>
-<div class="flex gap-2 overflow-x-auto pb-2 chat-scrollbar">
-<button class="px-3 py-1 bg-primary text-white rounded-full text-label-sm whitespace-nowrap">Todos</button>
-<button class="px-3 py-1 bg-surface-container-high text-on-surface-variant rounded-full text-label-sm whitespace-nowrap hover:bg-secondary-container/20 transition-colors">Excusas</button>
-<button class="px-3 py-1 bg-surface-container-high text-on-surface-variant rounded-full text-label-sm whitespace-nowrap hover:bg-secondary-container/20 transition-colors">Docentes</button>
-<button class="px-3 py-1 bg-surface-container-high text-on-surface-variant rounded-full text-label-sm whitespace-nowrap hover:bg-secondary-container/20 transition-colors">Estudiantes</button>
-</div>
-</div>
-<div class="flex-1 overflow-y-auto chat-scrollbar">
-<!-- Special Chat -->
-<div class="px-4 py-3 bg-secondary-container/5 border-l-4 border-secondary-container cursor-pointer hover:bg-secondary-container/10 transition-colors">
-<div class="flex items-center gap-3">
-<div class="w-12 h-12 rounded-full bg-secondary-container/20 flex items-center justify-center text-secondary-container">
-<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">assignment_late</span>
-</div>
-<div class="flex-1 min-w-0">
-<div class="flex justify-between items-baseline">
-<h3 class="text-label-md font-bold text-primary truncate">Notificaciones Oficiales</h3>
-<span class="text-[10px] text-secondary-container font-bold uppercase">Urgente</span>
-</div>
-<p class="text-label-sm text-on-surface-variant truncate font-semibold">Excusas pendientes por revisar (3)</p>
-</div>
-</div>
-</div>
-<!-- Active Chat Item -->
-<div class="px-4 py-3 bg-surface cursor-pointer border-b border-outline-variant/30">
-<div class="flex items-center gap-3">
-<div class="relative">
-<img alt="Juan Pérez" class="w-12 h-12 rounded-full object-cover" data-alt="A clean-cut portrait of a young male student in a school uniform, looking attentive and polite. The background is a blurred academic hallway with natural morning light. The overall mood is academic, focused, and professional, maintaining a clean corporate-minimalist aesthetic for an educational platform." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBhPcKPalnziF5S2DZq4CtE727WQkOoj2QMmSmFvEjOwWOFZmS9FPvg5ucUagAgSZFKun_Lmjta_zwiTq-Wt5e9MiRYifCWeK3P4dHfiA9hRE7sP6aE1NveuQ583c8pU7v47X2e3bpCHNys19Zf4CT8hYx11PjRIfnjpYvJ27x7mq7WzpUfTwUSbGscFxnpLcdD4iI4nfkP--2sto3RUUDj4gHjuf1k5Vrg408LXkM5RFtJmVleBw-67lfG91vUXwFtgiQw--1z5_Xm"/>
-<div class="absolute bottom-0 right-0 w-3.5 h-3.5 bg-green-500 border-2 border-white rounded-full"></div>
-</div>
-<div class="flex-1 min-w-0">
-<div class="flex justify-between items-baseline">
-<h3 class="text-label-md font-bold text-primary truncate">Juan Pérez</h3>
-<span class="text-[10px] text-outline">10:42 AM</span>
-</div>
-<div class="flex items-center gap-2">
-<span class="text-[10px] px-1.5 py-0.5 bg-surface-container-high rounded text-on-surface-variant font-medium">Estudiante 11-B</span>
-</div>
-<p class="text-label-sm text-primary font-semibold truncate">Adjunto el documento solicitado...</p>
-</div>
-</div>
-</div>
-<!-- Other Chats -->
-<div class="px-4 py-3 hover:bg-white cursor-pointer transition-colors border-b border-outline-variant/30">
-<div class="flex items-center gap-3">
-<div class="relative">
-<img alt="Lucía Méndez" class="w-12 h-12 rounded-full object-cover" data-alt="A portrait of a female teacher in her late 40s with a kind and professional expression, wearing glasses and a business casual outfit. She is standing in a modern classroom setting with a soft-focus background. The lighting is bright and professional, creating a reliable and facilitative brand feel." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAOGbKC_PEjZocc69HZaHTY-PHr39Jz4r60NDsUcCx0DHywRZqfPXpm-l24IdBoEFIKCengqji8Z23OuXLZs7a_dP7Gr5uFf-eymLQFeK1vcEQDSPKsexlk7sxfxGXuF2-6hbXX101mzvK3lnmD4x8IgrJto4natEmUHXxA4T35TbmuRF-cb-6jgKJkp_ex7AjbodZ7Tvs3xl7rSwa_06GAHzEtdos3_DCL8ji1UyscnMfGljWLxnXx9LMxoZv4aUTvGVOgPB_jER4q"/>
-<div class="absolute bottom-0 right-0 w-3.5 h-3.5 bg-gray-300 border-2 border-white rounded-full"></div>
-</div>
-<div class="flex-1 min-w-0">
-<div class="flex justify-between items-baseline">
-<h3 class="text-label-md font-bold text-primary truncate">Lucía Méndez</h3>
-<span class="text-[10px] text-outline">Ayer</span>
-</div>
-<div class="flex items-center gap-2">
-<span class="text-[10px] px-1.5 py-0.5 bg-blue-50 text-blue-700 rounded font-medium">Docente</span>
-</div>
-<p class="text-label-sm text-on-surface-variant truncate">¿Podemos agendar la revisión?</p>
-</div>
-</div>
-</div>
-</div>
-</aside>
-<!-- Active Chat Window (Desktop: 70%) -->
-<section class="hidden md:flex flex-1 flex-col bg-white">
-<!-- Chat Header -->
-<header class="px-6 py-4 border-b border-outline-variant flex justify-between items-center">
-<div class="flex items-center gap-3">
-<img alt="Juan Pérez" class="w-10 h-10 rounded-full object-cover" data-alt="Close up of a young student portrait, polite expression, natural lighting, professional academic setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD0n0LXVuPioXVkEomc6wlDZhLqr2xWDt2gckGv7Lmj0T3zHDgU0SpL5x8ut_EiXlDv9EjIlqqv_Lqhxbru5qnuL_2dRozC4HtVXZ1ECtIU3VnjNpFDf9kA8iitHdwwbm4Enj-G4fNFKDbC3hR3_fZGuH5j0isKGjVVK68d6FgjOrnky_ZJipkk0b7zinga-U3Fl_Vfl4hAalmu1XJL3W2yBetjuKteQPmwwmfmPVOodZAw85J4U9vJHPWvVjT0VIylx-8n3XYjTASg"/>
-<div>
-<h2 class="text-label-md font-bold text-primary">Juan Pérez - Estudiante 11-B</h2>
-<div class="flex items-center gap-1.5">
-<span class="w-2 h-2 bg-green-500 rounded-full"></span>
-<span class="text-label-sm text-on-surface-variant">En línea</span>
-</div>
-</div>
-</div>
-<div class="flex items-center gap-2">
-<button class="p-2 hover:bg-surface rounded-full text-on-surface-variant"><span class="material-symbols-outlined">call</span></button>
-<button class="p-2 hover:bg-surface rounded-full text-on-surface-variant"><span class="material-symbols-outlined">more_vert</span></button>
-</div>
-</header>
-<!-- Contextual Banner -->
-<div class="m-4 p-4 bg-[#E0F2FE] border border-secondary-container/20 rounded-xl flex items-center justify-between shadow-sm">
-<div class="flex items-center gap-4">
-<div class="w-10 h-10 rounded-full bg-secondary-container/20 flex items-center justify-center text-secondary-container">
-<span class="material-symbols-outlined">description</span>
-</div>
-<div>
-<p class="text-label-md font-semibold text-primary">Este estudiante ha subido una excusa médica para el día 08/06/2026.</p>
-<p class="text-label-sm text-on-secondary-container">¿Deseas aprobar su inasistencia al servicio social?</p>
-</div>
-</div>
-<div class="flex gap-2">
-<button class="px-4 py-2 bg-white border border-outline-variant text-primary rounded-lg text-label-sm font-semibold hover:bg-surface transition-all">Ver PDF</button>
-<button class="px-4 py-2 border border-outline-variant text-on-surface-variant rounded-lg text-label-sm font-semibold hover:bg-surface transition-all">Rechazar</button>
-<button class="px-4 py-2 bg-primary text-white rounded-lg text-label-sm font-semibold shadow-md hover:opacity-90 transition-all">Aprobar Excusa</button>
-</div>
-</div>
-<!-- Chat Canvas -->
-<div class="flex-1 overflow-y-auto p-6 space-y-6 bg-surface/50 chat-scrollbar">
-<!-- Received -->
-<div class="flex flex-col items-start max-w-[80%]">
-<div class="bg-white p-4 rounded-2xl rounded-tl-none shadow-sm text-body-md text-on-surface border border-outline-variant/30">
-                        Buenos días, Coordinadora. Por problemas de salud no pude asistir al taller de ayer.
-                    </div>
-<span class="text-[10px] text-outline mt-1 ml-1">10:40 AM</span>
-</div>
-<!-- Received with attachment -->
-<div class="flex flex-col items-start max-w-[80%]">
-<div class="bg-white p-4 rounded-2xl rounded-tl-none shadow-sm border border-outline-variant/30">
-<div class="flex items-center gap-3 mb-2 p-2 bg-surface rounded-lg">
-<span class="material-symbols-outlined text-red-500">picture_as_pdf</span>
-<div class="min-w-0">
-<p class="text-label-sm font-semibold truncate">Excusa_Medica_JuanPerez.pdf</p>
-<p class="text-[10px] text-outline">1.2 MB</p>
-</div>
-</div>
-<p class="text-body-md text-on-surface">Adjunto el documento solicitado para la justificación. Quedo atento.</p>
-</div>
-<span class="text-[10px] text-outline mt-1 ml-1">10:42 AM</span>
-</div>
-<!-- Sent -->
-<div class="flex flex-col items-end self-end max-w-[80%]">
-<div class="bg-primary p-4 rounded-2xl rounded-tr-none shadow-md text-body-md text-white">
-                        Recibido, Juan. Voy a revisar el documento ahora mismo y te estaré confirmando si se aprueba la inasistencia.
-                    </div>
-<div class="flex items-center gap-1 mt-1 mr-1">
-<span class="text-[10px] text-outline">10:45 AM</span>
-<span class="material-symbols-outlined text-secondary-container text-[16px]" style="font-variation-settings: 'FILL' 1;">done_all</span>
-</div>
-</div>
-</div>
-<!-- Message Input -->
-<footer class="p-4 border-t border-outline-variant bg-white">
-<div class="flex items-center gap-3 bg-surface p-2 rounded-xl border border-outline-variant focus-within:ring-2 focus-within:ring-secondary-container/30 transition-all">
-<button class="p-2 text-on-surface-variant hover:text-primary transition-colors">
-<span class="material-symbols-outlined">attach_file</span>
-</button>
-<input class="flex-1 bg-transparent border-none focus:ring-0 text-body-md" placeholder="Escribe un mensaje..." type="text"/>
-<button class="w-10 h-10 flex items-center justify-center bg-primary text-white rounded-lg shadow-sm hover:scale-105 active:scale-95 transition-all">
-<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">send</span>
-</button>
-</div>
-</footer>
-</section>
-<!-- Mobile View Overlay (Simulated) -->
-<div class="md:hidden flex flex-1 items-center justify-center p-8 text-center bg-surface">
-<div>
-<span class="material-symbols-outlined text-6xl text-outline mb-4">forum</span>
-<p class="text-headline-sm font-headline-md text-primary">Selecciona un chat para comenzar a mensajear</p>
-</div>
-</div>
-</main>
-<!-- BottomNavBar -->
-<nav class="fixed bottom-0 left-0 w-full z-50 bg-white h-20 px-4 flex justify-around items-center border-t border-outline-variant shadow-[0_-4px_10px_rgba(0,0,0,0.03)]">
-<!-- Dashboard -->
-<a class="flex-1 flex flex-col items-center justify-center h-full p-1" href="#">
-<div class="w-full h-full border border-dashed border-secondary-container/40 rounded-xl flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface transition-all">
-<span class="material-symbols-outlined">dashboard</span>
-<span class="text-label-sm mt-1">Dashboard</span>
-</div>
-</a>
-<!-- Teachers -->
-<a class="flex-1 flex flex-col items-center justify-center h-full p-1" href="#">
-<div class="w-full h-full border border-dashed border-secondary-container/40 rounded-xl flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface transition-all">
-<span class="material-symbols-outlined">school</span>
-<span class="text-label-sm mt-1">Docentes</span>
-</div>
-</a>
-<!-- Students -->
-<a class="flex-1 flex flex-col items-center justify-center h-full p-1" href="#">
-<div class="w-full h-full border border-dashed border-secondary-container/40 rounded-xl flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface transition-all">
-<span class="material-symbols-outlined">group</span>
-<span class="text-label-sm mt-1">Estudiantes</span>
-</div>
-</a>
-<!-- Messages ACTIVE -->
-<a class="flex-1 flex flex-col items-center justify-center h-full p-1" href="#">
-<div class="w-full h-full border border-dashed border-secondary-container rounded-xl flex flex-col items-center justify-center text-primary relative overflow-hidden active-nav-glow">
-<div class="absolute inset-0 bg-secondary-container/10"></div>
-<div class="relative z-10 flex flex-col items-center">
-<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">chat_bubble</span>
-<span class="text-label-sm mt-1 font-bold">Mensajes</span>
-</div>
-</div>
-</a>
-</nav>
-<script>
-        // Micro-interaction for input glow and focus
-        const textInput = document.querySelector('input[type="text"]');
-        textInput.addEventListener('focus', () => {
-            textInput.parentElement.classList.add('border-secondary-container');
-        });
-        textInput.addEventListener('blur', () => {
-            textInput.parentElement.classList.remove('border-secondary-container');
-        });
+</head>
+<body>
+    <canvas id="ribbon-canvas" style="position:fixed; inset:0; z-index:0; pointer-events:none;"></canvas>
+    
+    <main class="login-card">
+        <div class="card-logo">
+            <img alt="HORASOCIAL PRO Logo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwMhl_DdmeafGOmiL2QLqeQV_Ut8aNvKKYwKjKUtrAMBSjpyGc1Acc5TCQm084EODuuIAA3GiusiDfLdXgW3DAC8tdYPa8R-TEraz_hHglTpuTQJRtfOJfW_OyF25795_lzWR3g1wKtd_0fCPC6QxHfyblbvKAQVJNcggVB3k8TYcOAOsA0lTgC8lQz0E1YRlDIn1zQ0vALf8l_40TC_X6xkuWE-o1qr0sdsv2THdAcTxAM9txnjL8N_7oSnlqsHLnXkvvL7tImO-s">
+        </div>
+
+        <section id="section-login" class="card-section active">
+            <h1 class="card-title">Iniciar Sesión: <span>Profesor</span></h1>
+            <form class="form-container" onsubmit="handleLogin(event)">
+                <div class="input-group">
+                    <span class="material-symbols-outlined input-icon">person</span>
+                    <input type="text" id="login-username" class="input-field" placeholder="Usuario" required autocomplete="username">
+                </div>
+                <div class="input-group">
+                    <span class="material-symbols-outlined input-icon">lock</span>
+                    <input type="password" id="password-input" class="input-field" placeholder="Contraseña" required autocomplete="current-password">
+                    <span class="material-symbols-outlined toggle-password" id="password-toggle" onclick="togglePassword()">visibility</span>
+                </div>
+                <button type="submit" class="btn-submit">INGRESAR</button>
+            </form>
+            <div class="card-bottom">
+                <button class="text-link" onclick="switchSection('section-recovery')">¿Olvidaste tu contraseña?</button>
+                <span class="material-symbols-outlined settings-icon">settings</span>
+            </div>
+        </section>
+
+        <section id="section-recovery" class="card-section">
+            <h1 class="card-title">Recuperar <span>Acceso</span></h1>
+            <p class="card-subtitle">Ingresa tus datos escolares para enviar una solicitud de restablecimiento al administrador.</p>
+            <form class="form-container" onsubmit="handleRecoverySubmit(event)">
+                <div class="input-group">
+                    <span class="material-symbols-outlined input-icon">badge</span>
+                    <input type="text" id="recovery-name" class="input-field" placeholder="Nombre completo" required>
+                </div>
+                <div class="input-group">
+                    <span class="material-symbols-outlined input-icon">call</span>
+                    <input type="tel" id="recovery-phone" class="input-field" placeholder="Teléfono" required>
+                </div>
+                <div class="input-group">
+                    <span class="material-symbols-outlined input-icon">school</span>
+                    <input type="text" id="recovery-course" class="input-field" placeholder="Curso (ej. 11-01)" required>
+                </div>
+                <button type="submit" class="btn-submit">ENVIAR SOLICITUD</button>
+            </form>
+            <div class="card-bottom">
+                <button class="text-link" onclick="switchSection('section-login')">Volver al inicio de sesión</button>
+            </div>
+        </section>
+
+        <section id="section-success" class="card-section">
+            <div class="success-wrapper">
+                <div class="success-icon-circle">
+                    <span class="material-symbols-outlined">check_circle</span>
+                </div>
+                <h2 class="success-title">Solicitud Enviada</h2>
+                <p class="success-description">Los datos se han registrado. El administrador verificará la información para autorizar el restablecimiento.</p>
+            </div>
+            <button class="btn-submit" onclick="switchSection('section-login')">VOLVER AL INICIO</button>
+        </section>
+    </main>
+
+    <footer class="page-footer">
+        <p class="footer-copyright">© 2026 Horasocial Pro. Professional Social Service Management.</p>
+        <div class="footer-links">
+            <a href="#">Privacidad</a>
+            <a href="#">Soporte</a>
+            <a href="#">Términos</a>
+        </div>
+    </footer>
+
+    <script>
+        function switchSection(sectionId) {
+            document.querySelectorAll('.card-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            const targetSection = document.getElementById(sectionId);
+            if (targetSection) targetSection.classList.add('active');
+        }
+
+        function togglePassword() {
+            const passwordInput = document.getElementById('password-input');
+            const passwordToggle = document.getElementById('password-toggle');
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                passwordToggle.textContent = 'visibility_off';
+            } else {
+                passwordInput.type = 'password';
+                passwordToggle.textContent = 'visibility';
+            }
+        }
+
+        function handleLogin(event) {
+            event.preventDefault();
+            const username = document.getElementById('login-username').value;
+            console.log("Iniciando sesión como profesor:", username);
+            window.location.href = '/maestro/dashboard';
+        }
+
+        function handleRecoverySubmit(event) {
+            event.preventDefault();
+            const data = {
+                nombre: document.getElementById('recovery-name').value,
+                telefono: document.getElementById('recovery-phone').value,
+                curso: document.getElementById('recovery-course').value,
+                fecha: new Date().toISOString()
+            };
+            console.log("Datos listos para enviar a administración:", data);
+            switchSection('section-success');
+            event.target.reset();
+        }
+
+        const ctx = document.getElementById('ribbon-canvas').getContext('2d');
+        let w, h, time = 0;
+        function init() { 
+            w = ctx.canvas.width = window.innerWidth; 
+            h = ctx.canvas.height = window.innerHeight; 
+        }
+        window.addEventListener('resize', init); 
+        init();
+
+        function animate() {
+            ctx.clearRect(0, 0, w, h);
+            for (let i = 0; i < 60; i++) {
+                ctx.beginPath();
+                const grad = ctx.createLinearGradient(0, 0, w, 0);
+                const a = 0.12 + Math.sin(i * 0.1) * 0.05;
+                grad.addColorStop(0, `rgba(167, 139, 250, ${a})`); 
+                grad.addColorStop(0.35, `rgba(147, 197, 253, ${a})`);
+                grad.addColorStop(0.65, `rgba(103, 232, 249, ${a})`); 
+                grad.addColorStop(1, `rgba(94, 234, 212, ${a})`);
+                ctx.strokeStyle = grad; 
+                ctx.lineWidth = 0.8;
+                for (let x = 0; x <= w; x += 10) {
+                    const nx = x / w;
+                    const spread = Math.sin(nx * 3.5 - time * 0.5) * (h * 0.25) + 30;
+                    const y = h * 0.5 + Math.sin(nx * 4 + time * 0.4) * (h * 0.15) + Math.cos(nx * 2 - time * 0.25) * (h * 0.1) + ((i/60)*2-1) * spread;
+                    x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+                }
+                ctx.stroke();
+            }
+            time += 0.004; 
+            requestAnimationFrame(animate);
+        }
+        animate();
     </script>
-</body></html>
+</body>
+</html>
