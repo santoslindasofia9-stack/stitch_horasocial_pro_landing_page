@@ -439,6 +439,12 @@
   <script>
     // Navegación animada
     function selectRole(role, btnElement) {
+        // Si el rol es profesor, redirige instantáneamente al login de profesor
+        if (role === 'profesor') {
+            window.location.href = 'loguin_profesor.html';
+            return;
+        }
+
         // Añadir feedback visual en el ícono circular central
         const icon = btnElement.querySelector('.role-icon-wrapper .material-symbols-outlined');
         if (icon) {
