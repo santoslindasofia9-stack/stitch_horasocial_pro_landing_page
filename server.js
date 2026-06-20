@@ -241,8 +241,8 @@ app.get('/maestro/dashboard', (req, res) => {
 });
 
 app.get('/maestro/estudiantes', (req, res) => {
-    res.sendFile(path.join(__dirname, 'stitch_horasocial_pro_landing_page', 'gesti_n_estudiantes_perfil_maestro', 'code.html'));
-});
+    res.sendFile(path.join(__dirname, 'stitch_horasocial_pro_landing_page', 'gesti_n_estudiantes_perfil_maestro', 'gesti_n_estudiantes_perfil_maestro', 'code.html'));
+});;
 
 app.get('/maestro/tecnico', (req, res) => {
     res.sendFile(path.join(__dirname, 'stitch_horasocial_pro_landing_page', 'gesti_n_t_cnica_perfil_maestro_2', 'code.html'));
