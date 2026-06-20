@@ -236,9 +236,8 @@ app.get('/seleccion-rol', (req, res) => {
 });
 
 // 3. Login Único
-// DESPUÉS (nuevo login universal):
 app.get('/login', (req, res) => {
-    res.sendFile(path.join(__dirname, 'stitch_horasocial_pro_landing_page', 'login_universal.html'));
+    res.sendFile(path.join(__dirname, 'stitch_horasocial_pro_landing_page', 'login_estudiante_distribuci_n_centrada_y_logo_optimizado_2', 'code.html'));
 });
 
 // --- RUTA SOBRE / AYUDA ---
