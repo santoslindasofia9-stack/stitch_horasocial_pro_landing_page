@@ -240,6 +240,11 @@ app.get('/login', (req, res) => {
     res.sendFile(path.join(__dirname, 'stitch_horasocial_pro_landing_page', 'login_estudiante_distribuci_n_centrada_y_logo_optimizado_2', 'code.html'));
 });
 
+// 3.5. Login Profesor (MAESTRO) - NUEVA RUTA AGREGADA
+app.get('/login-profesor', (req, res) => {
+    res.sendFile(path.join(__dirname, 'stitch_horasocial_pro_landing_page', 'login_profesor', 'code.html'));
+});
+
 // --- RUTA SOBRE / AYUDA ---
 app.get('/sobre', (req, res) => {
     res.sendFile(path.join(__dirname, 'stitch_horasocial_pro_landing_page', 'sobre_horasocial_pro_identidad_y_prop_sito', 'code.html'));
