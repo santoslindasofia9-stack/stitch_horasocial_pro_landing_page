@@ -244,6 +244,10 @@ app.get('/login', (req, res) => {
 app.get('/profesor/login', (req, res) => {
     res.sendFile(path.join(__dirname, 'stitch_horasocial_pro_landing_page', 'login_profesor', 'code.html'));
 });
+// RUTA LOGIN ADMINISTRADOR
+app.get('/login_administrador', (req, res) => {
+    res.sendFile(path.join(__dirname, 'stitch_horasocial_pro_landing_page', 'login_administrador', 'code.html'));
+});
 
 app.get('/sobre', (req, res) => {
     res.sendFile(path.join(__dirname, 'stitch_horasocial_pro_landing_page', 'sobre_horasocial_pro_identidad_y_prop_sito', 'code.html'));
