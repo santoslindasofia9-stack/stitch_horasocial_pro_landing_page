@@ -1,484 +1,486 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="utf-8">
-<meta content="width=device-width, initial-scale=1.0" name="viewport">
-<title>HORASOCIAL PRO - Selección de Rol</title>
-<!-- Google Fonts: Plus Jakarta Sans & Inter -->
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
-<!-- Material Symbols -->
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HORASOCIAL PRO - Iniciar Sesión Estudiante</title>
+    <!-- Fuentes e Iconos -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700&display=swap" rel="stylesheet">
 
-<style>
-  /* ===== RESET & BASE ===== */
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  html, body {
-    width: 100%;
-    height: 100%;
-    font-family: 'Inter', sans-serif;
-    overflow: hidden;
-  }
-
-  /* ===== ANIMATED WAVE BACKGROUND ===== */
-  body {
-    background: #0b1a3b; /* deep navy base */
-    position: relative;
-    color: #ffffff;
-  }
-
-  /* Wave layer 1 – top */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    z-index: 0;
-    background:
-      radial-gradient(ellipse 120% 60% at 20% 10%,  #38bdf8cc 0%, transparent 60%),
-      radial-gradient(ellipse 100% 50% at 80% 80%,  #0ea5e9aa 0%, transparent 60%),
-      radial-gradient(ellipse 80%  40% at 50% 50%,  #7dd3fc66 0%, transparent 70%);
-    animation: waveTop 12s ease-in-out infinite alternate;
-    pointer-events: none;
-  }
-
-  /* Wave layer 2 – bottom */
-  body::after {
-    content: '';
-    position: fixed;
-    inset: 0;
-    z-index: 0;
-    background:
-      radial-gradient(ellipse 110% 55% at 70% 0%,   #bae6fd88 0%, transparent 55%),
-      radial-gradient(ellipse 90%  45% at 10% 90%,  #0284c7aa 0%, transparent 60%),
-      radial-gradient(ellipse 100% 50% at 50% 100%, #38bdf8cc 0%, transparent 50%);
-    animation: waveBottom 16s ease-in-out infinite alternate-reverse;
-    pointer-events: none;
-  }
-
-  @keyframes waveTop {
-    0%   { transform: scale(1)    translateY(0%)   rotate(0deg); }
-    50%  { transform: scale(1.05) translateY(-4%)  rotate(1.5deg); }
-    100% { transform: scale(1)    translateY(2%)   rotate(-1deg); }
-  }
-
-  @keyframes waveBottom {
-    0%   { transform: scale(1)    translateY(0%)  rotate(0deg); }
-    50%  { transform: scale(1.06) translateY(4%)  rotate(-2deg); }
-    100% { transform: scale(1)    translateY(-2%) rotate(1deg); }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    body::before, body::after { animation: none; }
-  }
-
-  /* ===== LAYOUT ===== */
-  main {
-    position: relative;
-    z-index: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    padding: 32px 20px;
-    gap: 24px;
-  }
-
-  /* ===== LOGO ===== */
-  .header-logo {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    animation: float 6s ease-in-out infinite;
-    margin-bottom: 16px;
-    width: 100%;
-  }
-  @keyframes float { 
-    0%, 100% { transform: translateY(0); } 
-    50% { transform: translateY(-8px); } 
-  }
-
-  .logo-wrapper {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    max-width: 320px;
-  }
-
-  .logo-glow {
-    position: absolute;
-    top: -12px;
-    left: -12px;
-    right: -12px;
-    bottom: -12px;
-    background: #38bdf8;
-    opacity: 0.25;
-    filter: blur(30px);
-    border-radius: 50%;
-    transition: opacity 0.6s ease;
-    pointer-events: none;
-  }
-
-  .logo-img {
-    position: relative;
-    width: 100%; 
-    max-width: 280px; /* Increased from 160px */
-    background: #ffffff; /* pure white background to pop in dark theme */
-    padding: 8px 16px;
-    border: 3px solid #000;
-    border-radius: 16px;
-    box-shadow: 
-      0 0 0 3px rgba(14, 165, 233, 0.3),
-      0 12px 32px rgba(0,0,0,0.4);
-    transition: transform 0.4s ease, box-shadow 0.4s ease;
-  }
-  .logo-wrapper:hover .logo-glow {
-    opacity: 0.4;
-  }
-  .logo-wrapper:hover .logo-img { 
-    transform: scale(1.04); 
-    box-shadow: 
-      0 0 0 4px rgba(56, 189, 248, 0.5),
-      0 18px 48px rgba(0,0,0,0.5);
-  }
-
-  /* ===== TEXT BLOCK ===== */
-  .text-block { 
-    text-align: center; 
-    max-width: 420px; 
-  }
-  .text-block h1 { 
-    font-family: 'Plus Jakarta Sans', sans-serif; 
-    font-size: clamp(20px, 4.5vw, 28px); 
-    color: #ffffff; 
-    line-height: 1.25; 
-    margin-bottom: 8px;
-    text-shadow: 0 2px 12px rgba(0,0,0,0.4);
-  }
-  .text-block h1 span {
-    color: #38bdf8;
-  }
-  .text-block p { 
-    font-size: clamp(13px, 3vw, 15px); 
-    color: rgba(255,255,255,0.78); 
-    line-height: 1.5; 
-  }
-
-  /* ===== ROLE CARDS ===== */
-  /* ===== ROLE CARDS (FILA HORIZONTAL PREMIUM) ===== */
-  .roles-grid {
-    display: flex; 
-    flex-direction: row; 
-    flex-wrap: nowrap;
-    justify-content: center;
-    gap: 24px; 
-    width: 100%; 
-    max-width: 640px;
-    margin-top: 16px;
-  }
-
-  .role-card {
-    background: rgba(11, 26, 59, 0.4);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 24px; /* Smooth rounded corners matching the user image */
-    padding: 32px 20px;
-    display: flex; 
-    flex-direction: column;
-    align-items: center; 
-    justify-content: center;
-    gap: 20px;
-    cursor: pointer;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
-    transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-    text-decoration: none;
-    color: #ffffff;
-    width: 175px;
-    height: 185px;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-    outline: none;
-  }
-
-  .role-card::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(120deg, transparent, rgba(255,255,255,0.05), transparent);
-    transform: translateX(-100%);
-    transition: transform 0.6s ease;
-    pointer-events: none;
-  }
-  
-  .role-card:hover::before {
-    transform: translateX(100%);
-  }
-
-  .role-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
-    background: rgba(255, 255, 255, 0.08);
-    border-color: rgba(56, 189, 248, 0.5);
-  }
-  
-  .role-card:active {
-    transform: translateY(-2px) scale(0.98);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-  }
-
-  .role-icon-wrapper {
-    width: 72px; 
-    height: 72px; 
-    border-radius: 50%;
-    display: flex; 
-    align-items: center; 
-    justify-content: center;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-    flex-shrink: 0;
-    transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-  }
-  
-  .role-card:hover .role-icon-wrapper {
-    transform: scale(1.06);
-    box-shadow: 0 6px 18px rgba(0,0,0,0.35);
-  }
-
-  .role-icon-wrapper.estudiante { background: linear-gradient(135deg, #38bdf8, #0284c7); }
-  .role-icon-wrapper.profesor { background: linear-gradient(135deg, #c084fc, #7e22ce); }
-  .role-icon-wrapper.admin { background: linear-gradient(135deg, #34d399, #047857); }
-  
-  .role-icon-wrapper .material-symbols-outlined { 
-    color: #ffffff; 
-    font-size: 32px; 
-    font-variation-settings: 'FILL' 1, 'wght' 500;
-    transition: opacity 0.2s, transform 0.3s;
-  }
-  
-  .role-info {
-    text-align: center;
-    width: 100%;
-  }
-  
-  .role-info h3 { 
-    font-family: 'Plus Jakarta Sans', sans-serif; 
-    font-size: 16.5px; 
-    font-weight: 700;
-    color: #ffffff;
-    margin: 0;
-    transition: color 0.3s ease;
-  }
-  
-  .role-card:hover .role-info h3 {
-    color: #38bdf8;
-  }
-  
-  .role-info p { 
-    display: none; /* Hide descriptions for horizontal layout */
-  }
-
-  /* ===== FOOTER ===== */
-  .footer-info { 
-    text-align: center; 
-    margin-top: 10px;
-  }
-  .footer-info p { 
-    font-size: 13px; 
-    color: rgba(255,255,255,0.6); 
-    margin-bottom: 6px; 
-  }
-  .footer-info a { 
-    color: #38bdf8; 
-    text-decoration: none; 
-    font-weight: 600; 
-    transition: color 0.2s ease;
-  }
-  .footer-info a:hover { 
-    color: #bae6fd;
-    text-decoration: underline; 
-  }
-  
-  .footer-bottom { 
-    margin-top: 16px; 
-  }
-  .footer-bottom span { 
-    font-size: 11px; 
-    font-weight: 600; 
-    color: rgba(255,255,255,0.3); 
-    letter-spacing: 0.05em; 
-  }
-  .footer-line { 
-    width: 40px; 
-    height: 3px; 
-    background: rgba(255,255,255,0.2); 
-    border-radius: 9999px; 
-    margin: 8px auto 0; 
-  }
-
-  /* ===== FLOATING WATERMARKS ===== */
-  .floating-icon {
-    position: fixed;
-    font-size: 100px;
-    color: rgba(255,255,255,0.03);
-    user-select: none;
-    pointer-events: none;
-    font-family: 'Material Symbols Outlined';
-    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 48;
-  }
-  
-  @media (max-width: 600px) {
-    .roles-grid {
-      flex-direction: column;
-      align-items: center;
-      gap: 16px;
-      max-width: 320px;
-    }
-    .role-card {
-      width: 100%;
-      height: auto;
-      flex-direction: row;
-      justify-content: flex-start;
-      padding: 16px 24px;
-      gap: 18px;
-      border-radius: 20px;
-      text-align: left;
-    }
-    .role-icon-wrapper {
-      width: 52px;
-      height: 52px;
-      border-radius: 50%;
-    }
-    .role-icon-wrapper .material-symbols-outlined {
-      font-size: 24px;
-    }
-    .role-info {
-      text-align: left;
-    }
-    .role-info h3 {
-      font-size: 16px;
-    }
-  }
-  @media (max-height: 700px) {
-    main { gap: 32px; padding: 24px 16px; }
-    .logo-img { max-width: 230px; }
-    .roles-grid { gap: 16px; margin-top: 8px; }
-    .role-card { padding: 20px 16px; height: 165px; }
-  }
-</style>
-</head>
-
-<body>
-
-  <!-- Floating watermark icons -->
-  <span class="floating-icon" style="top:10%; left:5%">diversity_3</span>
-  <span class="floating-icon" style="bottom:8%; right:5%">co_present</span>
-  <span class="floating-icon" style="top:35%; right:3%; font-size:70px;">badge</span>
-  <span class="floating-icon" style="bottom:30%; left:3%; font-size:80px;">admin_panel_settings</span>
-
-  <main>
-    <!-- Logo -->
-    <header class="header-logo">
-        <div class="logo-wrapper">
-            <div class="logo-glow"></div>
-            <img alt="HORASOCIAL PRO Logo" class="logo-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwMhl_DdmeafGOmiL2QLqeQV_Ut8aNvKKYwKjKUtrAMBSjpyGc1Acc5TCQm084EODuuIAA3GiusiDfLdXgW3DAC8tdYPa8R-TEraz_hHglTpuTQJRtfOJfW_OyF25795_lzWR3g1wKtd_0fCPC6QxHfyblbvKAQVJNcggVB3k8TYcOAOsA0lTgC8lQz0E1YRlDIn1zQ0vALf8l_40TC_X6xkuWE-o1qr0sdsv2THdAcTxAM9txnjL8N_7oSnlqsHLnXkvvL7tImO-s">
-        </div>
-    </header>
-
-    <!-- Texto -->
-    <div class="text-block">
-        <h1>Elige cómo <span>quieres ingresar</span></h1>
-        <p>Selecciona tu rol para acceder a las herramientas correspondientes a tu perfil.</p>
-    </div>
-
-    <!-- Tarjetas de Rol -->
-    <div class="roles-grid">
-        <button class="role-card" onclick="selectRole('estudiante', this)">
-            <div class="role-icon-wrapper estudiante">
-                <span class="material-symbols-outlined">school</span>
-            </div>
-            <div class="role-info">
-                <h3>Estudiante</h3>
-                <p>Registra tus horas</p>
-            </div>
-        </button>
-
-        <button class="role-card" onclick="selectRole('profesor', this)">
-            <div class="role-icon-wrapper profesor">
-                <span class="material-symbols-outlined">group</span>
-            </div>
-            <div class="role-info">
-                <h3>Profesor</h3>
-                <p>Supervisa a tus alumnos</p>
-            </div>
-        </button>
-
-        <button class="role-card" onclick="selectRole('admin', this)">
-            <div class="role-icon-wrapper admin">
-                <span class="material-symbols-outlined">verified_user</span>
-            </div>
-            <div class="role-info">
-                <h3>Administrador</h3>
-                <p>Gestiona la plataforma</p>
-            </div>
-        </button>
-    </div>
-
-    <!-- Footer -->
-    <div class="footer-info">
-        <p>¿Necesitas ayuda? <a href="#">Consulta nuestra guía de acceso</a></p>
-        <div class="footer-bottom">
-            <span>© 2026 HORASOCIAL PRO</span>
-            <div class="footer-line"></div>
-        </div>
-    </div>
-  </main>
-
-  <script>
-    // Navegación animada
-    function selectRole(role, btnElement) {
-        // Añadir feedback visual en el ícono circular central
-        const icon = btnElement.querySelector('.role-icon-wrapper .material-symbols-outlined');
-        if (icon) {
-            icon.style.opacity = '0';
-            setTimeout(() => {
-                icon.innerText = 'progress_activity';
-                icon.style.animation = 'spin 0.8s linear infinite';
-                icon.style.opacity = '1';
-            }, 150);
+    <style>
+        /* === RESET Y GLOBALES === */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            background: #fafbfc;
+            font-family: 'Inter', sans-serif;
+            color: #191c1e;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 100vh;
+            overflow-x: hidden;
+            padding: 40px 20px;
+            -webkit-font-smoothing: antialiased;
         }
-        
-        // Deshabilitar botones
-        document.querySelectorAll('.role-card').forEach(btn => btn.disabled = true);
-        
-        console.log("Rol seleccionado: " + role);
-        
-        setTimeout(() => {
-            // Aquí iría la lógica para redirigir según el rol seleccionado (ej. window.location.href = '/login')
-            console.log("Redirigiendo a " + role + "...");
-        }, 800);
-    }
 
-    // Parallax watermarks on desktop
-    if (window.innerWidth > 768) {
-      document.addEventListener('mousemove', (e) => {
-        const icons = document.querySelectorAll('.floating-icon');
-        const x = e.clientX / window.innerWidth;
-        const y = e.clientY / window.innerHeight;
-        icons.forEach((icon, i) => {
-          const s = (i + 1) * 8;
-          icon.style.transform = `translate(${(x - 0.5) * s}px, ${(y - 0.5) * s}px)`;
-        });
-      });
-    }
-  </script>
-  <style>
-    @keyframes spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
-    }
-  </style>
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400; }
+
+        /* === CONTENEDOR DE LA TARJETA === */
+        .login-card {
+            position: relative;
+            z-index: 2;
+            background: #ffffff;
+            width: 100%;
+            max-width: 440px;
+            border-radius: 20px;
+            padding: 40px 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+            margin: auto 0;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        /* === LOGO === */
+        .card-logo {
+            width: 100%;
+            max-width: 180px;
+            display: flex;
+            justify-content: center;
+            margin: 0 auto;
+        }
+        .card-logo img {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+        }
+
+        /* === SECCIONES INTERNAS === */
+        .card-section {
+            display: none;
+            flex-direction: column;
+            gap: 24px;
+            width: 100%;
+        }
+
+        .card-section.active {
+            display: flex;
+            animation: fadeIn 0.35s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* === TITULOS === */
+        .card-title {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 22px;
+            color: #191c1e;
+            text-align: center;
+            font-weight: 700;
+        }
+        .card-title span {
+            color: #39b8fd;
+        }
+
+        .card-subtitle {
+            font-size: 14px;
+            color: #5a6370;
+            text-align: center;
+            line-height: 1.5;
+            margin-top: -12px;
+        }
+
+        /* === FORMULARIOS === */
+        .form-container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .input-group {
+            position: relative;
+            width: 100%;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 16px;
+            color: #9ca3af;
+            font-size: 20px;
+            pointer-events: none;
+        }
+
+        .input-field {
+            width: 100%;
+            height: 52px;
+            padding: 0 16px 0 48px;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 15px;
+            font-family: 'Inter', sans-serif;
+            color: #1f2937;
+            background-color: #ffffff;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .input-field::placeholder {
+            color: #9ca3af;
+        }
+
+        .input-field:focus {
+            border-color: #39b8fd;
+            box-shadow: 0 0 0 4px rgba(57, 184, 253, 0.1);
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 16px;
+            color: #9ca3af;
+            font-size: 20px;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        /* Boton Principal */
+        .btn-submit {
+            width: 100%;
+            height: 52px;
+            background-color: #0f172a;
+            color: #ffffff;
+            border: none;
+            border-radius: 12px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.1s;
+            margin-top: 8px;
+        }
+
+        .btn-submit:hover {
+            background-color: #1e293b;
+        }
+
+        .btn-submit:active {
+            transform: scale(0.98);
+        }
+
+        /* === CONFIGURACIÓN Y ENLACES === */
+        .card-bottom {
+            position: relative;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 8px;
+        }
+
+        .text-link {
+            font-size: 13px;
+            color: #39b8fd;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-family: inherit;
+        }
+
+        .text-link:hover {
+            text-decoration: underline;
+            color: #2563eb;
+        }
+
+        .settings-icon {
+            position: absolute;
+            right: 0;
+            color: #d1d5db;
+            font-size: 22px;
+            cursor: pointer;
+            transition: color 0.2s, transform 0.3s;
+        }
+
+        .settings-icon:hover {
+            color: #9ca3af;
+            transform: rotate(45deg);
+        }
+
+        /* === SECCIÓN DE ÉXITO === */
+        .success-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 16px;
+            padding: 10px 0;
+        }
+
+        .success-icon-circle {
+            width: 64px;
+            height: 64px;
+            background-color: #f0fdf4;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #16a34a;
+        }
+
+        .success-icon-circle span {
+            font-size: 36px;
+            font-variation-settings: 'wght' 500;
+        }
+
+        .success-title {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            color: #111827;
+        }
+
+        .success-description {
+            font-size: 14px;
+            color: #4b5563;
+            line-height: 1.5;
+        }
+
+        /* === FOOTER DE LA PÁGINA === */
+        .page-footer {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            margin-top: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .footer-copyright {
+            font-size: 11px;
+            color: #6b7280;
+            font-weight: 500;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+        }
+
+        .footer-links a {
+            font-size: 11px;
+            color: #6b7280;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .footer-links a:hover {
+            color: #374151;
+            text-decoration: underline;
+        }
+
+        /* === RESPONSIVO === */
+        @media (max-width: 480px) {
+            .login-card {
+                padding: 30px 20px;
+                gap: 20px;
+            }
+            body {
+                padding: 20px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- CANVA DEL FONDO ANIMADO -->
+    <canvas id="ribbon-canvas" style="position:fixed; inset:0; z-index:0; pointer-events:none;"></canvas>
+    
+    <!-- TARJETA CONTENEDORA -->
+    <main class="login-card">
+        <!-- Logo común para todas las vistas -->
+        <div class="card-logo">
+            <img alt="HORASOCIAL PRO Logo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwMhl_DdmeafGOmiL2QLqeQV_Ut8aNvKKYwKjKUtrAMBSjpyGc1Acc5TCQm084EODuuIAA3GiusiDfLdXgW3DAC8tdYPa8R-TEraz_hHglTpuTQJRtfOJfW_OyF25795_lzWR3g1wKtd_0fCPC6QxHfyblbvKAQVJNcggVB3k8TYcOAOsA0lTgC8lQz0E1YRlDIn1zQ0vALf8l_40TC_X6xkuWE-o1qr0sdsv2THdAcTxAM9txnjL8N_7oSnlqsHLnXkvvL7tImO-s">
+        </div>
+
+        <!-- 1. SECCIÓN: INICIO DE SESIÓN -->
+        <section id="section-login" class="card-section active">
+            <h1 class="card-title">Iniciar Sesión: <span>Estudiante</span></h1>
+            
+            <form class="form-container" onsubmit="handleLogin(event)">
+                <div class="input-group">
+                    <span class="material-symbols-outlined input-icon">person</span>
+                    <input type="text" class="input-field" placeholder="Usuario" required autocomplete="username">
+                </div>
+
+                <div class="input-group">
+                    <span class="material-symbols-outlined input-icon">lock</span>
+                    <input type="password" id="password-input" class="input-field" placeholder="Contraseña" required autocomplete="current-password">
+                    <span class="material-symbols-outlined toggle-password" id="password-toggle" onclick="togglePassword()">visibility</span>
+                </div>
+
+                <button type="submit" class="btn-submit">INGRESAR</button>
+            </form>
+
+            <div class="card-bottom">
+                <button class="text-link" onclick="switchSection('section-recovery')">¿Olvidaste tu contraseña?</button>
+                <span class="material-symbols-outlined settings-icon">settings</span>
+            </div>
+        </section>
+
+        <!-- 2. SECCIÓN: RECUPERACIÓN DE CONTRASEÑA -->
+        <section id="section-recovery" class="card-section">
+            <h1 class="card-title">Recuperar <span>Acceso</span></h1>
+            <p class="card-subtitle">Ingresa tus datos escolares para enviar una solicitud de restablecimiento al administrador.</p>
+            
+            <form class="form-container" onsubmit="handleRecoverySubmit(event)">
+                <div class="input-group">
+                    <span class="material-symbols-outlined input-icon">badge</span>
+                    <input type="text" id="recovery-name" class="input-field" placeholder="Nombre completo" required>
+                </div>
+
+                <div class="input-group">
+                    <span class="material-symbols-outlined input-icon">call</span>
+                    <input type="tel" id="recovery-phone" class="input-field" placeholder="Teléfono" required>
+                </div>
+
+                <div class="input-group">
+                    <span class="material-symbols-outlined input-icon">school</span>
+                    <input type="text" id="recovery-course" class="input-field" placeholder="Curso (ej. 11-01)" required>
+                </div>
+
+                <button type="submit" class="btn-submit">ENVIAR SOLICITUD</button>
+            </form>
+
+            <div class="card-bottom">
+                <button class="text-link" onclick="switchSection('section-login')">Volver al inicio de sesión</button>
+            </div>
+        </section>
+
+        <!-- 3. SECCIÓN: CONFIRMACIÓN DE ENVÍO -->
+        <section id="section-success" class="card-section">
+            <div class="success-wrapper">
+                <div class="success-icon-circle">
+                    <span class="material-symbols-outlined">check_circle</span>
+                </div>
+                <h2 class="success-title">Solicitud Enviada</h2>
+                <p class="success-description">Los datos se han registrado. El administrador verificará la información para autorizar el restablecimiento.</p>
+            </div>
+            
+            <button class="btn-submit" onclick="switchSection('section-login')">VOLVER AL INICIO</button>
+        </section>
+    </main>
+
+    <!-- FOOTER DE LA PÁGINA -->
+    <footer class="page-footer">
+        <p class="footer-copyright">© 2026 Horasocial Pro. Professional Social Service Management.</p>
+        <div class="footer-links">
+            <a href="#">Privacidad</a>
+            <a href="#">Soporte</a>
+            <a href="#">Términos</a>
+        </div>
+    </footer>
+
+    <script>
+        // Navegación entre secciones internas de la tarjeta
+        function switchSection(sectionId) {
+            document.querySelectorAll('.card-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            const targetSection = document.getElementById(sectionId);
+            if (targetSection) {
+                targetSection.classList.add('active');
+            }
+        }
+
+        // Mostrar / ocultar contraseña
+        function togglePassword() {
+            const passwordInput = document.getElementById('password-input');
+            const passwordToggle = document.getElementById('password-toggle');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                passwordToggle.textContent = 'visibility_off';
+            } else {
+                passwordInput.type = 'password';
+                passwordToggle.textContent = 'visibility';
+            }
+        }
+
+        // Redirección hacia el dashboard de estudiante
+        function handleLogin(event) {
+    event.preventDefault(); 
+    console.log("Iniciando sesión...");
+    // Usa ruta absoluta con / al inicio
+     window.location.href = '/estudiante/dashboard'; 
+}
+        // Captura y envío del formulario de recuperación
+        function handleRecoverySubmit(event) {
+            event.preventDefault();
+
+            const data = {
+                nombre: document.getElementById('recovery-name').value,
+                telefono: document.getElementById('recovery-phone').value,
+                curso: document.getElementById('recovery-course').value,
+                fecha: new Date().toISOString()
+            };
+
+            console.log("Datos listos para enviar a administración:", data);
+
+            switchSection('section-success');
+            event.target.reset();
+        }
+
+        // Animación del Fondo (Ondas)
+        const ctx = document.getElementById('ribbon-canvas').getContext('2d');
+        let w, h, time = 0;
+
+        function init() { 
+            w = ctx.canvas.width = window.innerWidth; 
+            h = ctx.canvas.height = window.innerHeight; 
+        }
+        window.addEventListener('resize', init); 
+        init();
+
+        function animate() {
+            ctx.clearRect(0, 0, w, h);
+            for (let i = 0; i < 60; i++) {
+                ctx.beginPath();
+                const grad = ctx.createLinearGradient(0, 0, w, 0);
+                const a = 0.12 + Math.sin(i * 0.1) * 0.05;
+                
+                grad.addColorStop(0, `rgba(167, 139, 250, ${a})`); 
+                grad.addColorStop(0.35, `rgba(147, 197, 253, ${a})`);
+                grad.addColorStop(0.65, `rgba(103, 232, 249, ${a})`); 
+                grad.addColorStop(1, `rgba(94, 234, 212, ${a})`);
+                
+                ctx.strokeStyle = grad; 
+                ctx.lineWidth = 0.8;
+                
+                for (let x = 0; x <= w; x += 10) {
+                    const nx = x / w;
+                    const spread = Math.sin(nx * 3.5 - time * 0.5) * (h * 0.25) + 30;
+                    const y = h * 0.5 + Math.sin(nx * 4 + time * 0.4) * (h * 0.15) + Math.cos(nx * 2 - time * 0.25) * (h * 0.1) + ((i/60)*2-1) * spread;
+                    x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+                }
+                ctx.stroke();
+            }
+            time += 0.004; 
+            requestAnimationFrame(animate);
+        }
+        animate();
+    </script>
 </body>
 </html>
