@@ -124,8 +124,8 @@
   .logo-img {
     position: relative;
     width: 100%; 
-    max-width: 280px; /* Increased from 160px */
-    background: #ffffff; /* pure white background to pop in dark theme */
+    max-width: 280px;
+    background: #ffffff;
     padding: 8px 16px;
     border: 3px solid #000;
     border-radius: 16px;
@@ -166,7 +166,6 @@
     line-height: 1.5; 
   }
 
-  /* ===== ROLE CARDS ===== */
   /* ===== ROLE CARDS (FILA HORIZONTAL PREMIUM) ===== */
   .roles-grid {
     display: flex; 
@@ -184,7 +183,7 @@
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 24px; /* Smooth rounded corners matching the user image */
+    border-radius: 24px;
     padding: 32px 20px;
     display: flex; 
     flex-direction: column;
@@ -277,7 +276,7 @@
   }
   
   .role-info p { 
-    display: none; /* Hide descriptions for horizontal layout */
+    display: none;
   }
 
   /* ===== FOOTER ===== */
@@ -441,7 +440,7 @@
     function selectRole(role, btnElement) {
         // Si el rol es profesor, redirige instantáneamente al login de profesor
         if (role === 'profesor') {
-            window.location.href = '/login-profesor';
+            window.location.href = '/profesor/login';
             return;
         }
 
@@ -462,7 +461,7 @@
         console.log("Rol seleccionado: " + role);
         
         setTimeout(() => {
-            // Aquí iría la lógica para redirigir según el rol seleccionado (ej. window.location.href = '/login')
+            // Aquí iría la lógica para redirigir según el rol seleccionado
             console.log("Redirigiendo a " + role + "...");
         }, 800);
     }

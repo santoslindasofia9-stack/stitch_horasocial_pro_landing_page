@@ -195,7 +195,7 @@ app.post('/api/autorizar-solicitud', (req, res) => {
 app.post('/api/rechazar-solicitud', (req, res) => {
     const { id } = req.body;
     if (!id) {
-        return res.status(400).json({ error: 'ID de solicitud es requerido' });
+        return status(400).json({ error: 'ID de solicitud es requerido' });
     }
 
     const dbConnected = db && db.state !== 'disconnected';
@@ -235,13 +235,13 @@ app.get('/seleccion-rol', (req, res) => {
     res.sendFile(path.join(__dirname, 'stitch_horasocial_pro_landing_page', 'selecci_n_de_rol_distribuci_n_expandida_vertical', 'code.html'));
 });
 
-// 3. Login Estudiante
+// 3. Login Estudiante (RUTA ORIGINAL - NO SE TOCA)
 app.get('/login', (req, res) => {
     res.sendFile(path.join(__dirname, 'stitch_horasocial_pro_landing_page', 'login_estudiante_distribuci_n_centrada_y_logo_optimizado_2', 'code.html'));
 });
 
-// 3.5. Login Profesor (MAESTRO) - NUEVA RUTA AGREGADA
-app.get('/login-profesor', (req, res) => {
+// 4. Login Profesor (RUTA NUEVA - SIN CONFLICTOS)
+app.get('/profesor/login', (req, res) => {
     res.sendFile(path.join(__dirname, 'stitch_horasocial_pro_landing_page', 'login_profesor', 'code.html'));
 });
 

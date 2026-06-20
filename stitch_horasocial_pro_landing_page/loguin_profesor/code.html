@@ -419,12 +419,12 @@
             }
         }
 
-        // Redirección hacia el dashboard de profesor
+        // Redirección hacia el dashboard de PROFESOR (CORREGIDO)
         function handleLogin(event) {
             event.preventDefault(); 
-            console.log("Iniciando sesión...");
-            // Usa ruta absoluta con / al inicio
-            window.location.href = '/profesor/dashboard'; 
+            console.log("Iniciando sesión como profesor...");
+            // Redirige al dashboard del maestro/profesor
+            window.location.href = '/maestro/dashboard'; 
         }
 
         // Captura y envío del formulario de recuperación
