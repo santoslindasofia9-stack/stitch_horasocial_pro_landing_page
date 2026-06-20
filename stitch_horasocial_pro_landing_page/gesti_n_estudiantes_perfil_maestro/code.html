@@ -1,284 +1,1000 @@
-<!DOCTYPE html><html lang="es"><head>
-<meta charset="utf-8">
-<meta content="width=device-width, initial-scale=1.0" name="viewport">
-<title>HORASOCIAL PRO - Gestión Estudiantes</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
-<script id="tailwind-config">
-      tailwind.config = {
-        darkMode: "class",
-        theme: {
-          extend: {
-            "colors": {
-                    "surface-container": "#eceef0",
-                    "on-surface": "#191c1e",
-                    "inverse-primary": "#bec6e0",
-                    "inverse-on-surface": "#eff1f3",
-                    "on-primary": "#ffffff",
-                    "on-error-container": "#93000a",
-                    "tertiary": "#000000",
-                    "on-primary-fixed-variant": "#3f465c",
-                    "error-container": "#ffdad6",
-                    "on-background": "#191c1e",
-                    "surface-tint": "#565e74",
-                    "on-tertiary-fixed": "#001e2c",
-                    "outline-variant": "#c6c6cd",
-                    "on-secondary-container": "#004666",
-                    "surface-container-highest": "#e0e3e5",
-                    "on-secondary": "#ffffff",
-                    "secondary": "#006591",
-                    "surface-container-low": "#f2f4f6",
-                    "primary-container": "#131b2e",
-                    "secondary-fixed": "#c9e6ff",
-                    "on-surface-variant": "#45464d",
-                    "surface-variant": "#e0e3e5",
-                    "secondary-container": "#39b8fd",
-                    "primary": "#000000",
-                    "on-secondary-fixed-variant": "#004c6e",
-                    "on-secondary-fixed": "#001e2f",
-                    "tertiary-fixed": "#c4e7ff",
-                    "on-tertiary-fixed-variant": "#004c69",
-                    "surface-container-lowest": "#ffffff",
-                    "inverse-surface": "#2d3133",
-                    "primary-fixed": "#dae2fd",
-                    "error": "#ba1a1a",
-                    "outline": "#76777d",
-                    "primary-fixed-dim": "#bec6e0",
-                    "surface-bright": "#f7f9fb",
-                    "on-primary-fixed": "#131b2e",
-                    "surface": "#f7f9fb",
-                    "surface-dim": "#d8dadc",
-                    "surface-container-high": "#e6e8ea",
-                    "tertiary-fixed-dim": "#7bd0ff",
-                    "on-tertiary": "#ffffff",
-                    "secondary-fixed-dim": "#89ceff",
-                    "on-error": "#ffffff",
-                    "tertiary-container": "#001e2c",
-                    "on-tertiary-container": "#008ebf",
-                    "on-primary-container": "#7c839b",
-                    "background": "#f7f9fb"
-            },
-            "borderRadius": {
-                    "DEFAULT": "0.25rem",
-                    "lg": "0.5rem",
-                    "xl": "0.75rem",
-                    "3xl": "1.5rem",
-                    "full": "9999px"
-            },
-            "spacing": {
-                    "sm": "8px",
-                    "xl": "32px",
-                    "unit": "4px",
-                    "margin-mobile": "16px",
-                    "md": "16px",
-                    "gutter": "24px",
-                    "lg": "24px",
-                    "xs": "4px",
-                    "margin-desktop": "48px"
-            },
-            "fontFamily": {
-                    "headline-sm": ["Plus Jakarta Sans"],
-                    "headline-md": ["Plus Jakarta Sans"],
-                    "label-md": ["Inter"],
-                    "headline-lg": ["Plus Jakarta Sans"],
-                    "headline-lg-mobile": ["Plus Jakarta Sans"],
-                    "body-lg": ["Inter"],
-                    "label-sm": ["Inter"],
-                    "body-md": ["Inter"],
-                    "display-lg": ["Plus Jakarta Sans"]
-            },
-            "fontSize": {
-                    "headline-sm": ["20px", {"lineHeight": "1.4", "fontWeight": "600"}],
-                    "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
-                    "label-md": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.01em", "fontWeight": "500"}],
-                    "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}],
-                    "headline-lg-mobile": ["28px", {"lineHeight": "1.2", "fontWeight": "600"}],
-                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
-                    "label-sm": ["12px", {"lineHeight": "1.2", "fontWeight": "600"}],
-                    "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
-                    "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}]
-            }
-          },
-        },
-      }
-    </script>
-<style>
-      .blur-blob {
-        position: fixed;
-        width: 300px;
-        height: 300px;
-        border-radius: 50%;
-        filter: blur(80px);
-        z-index: -1;
-        opacity: 0.4;
-      }
-      .blob-sky { background-color: #39b8fd; top: 10%; right: -5%; }
-      .blob-rose { background-color: #fda4af; bottom: 20%; left: -5%; }
-      
-      .material-symbols-outlined {
-        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-      }
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HORASOCIAL PRO - Gestión Estudiantes</title>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
 
-      .active-chat-shadow {
-        box-shadow: 0 4px 14px 0 rgba(14, 165, 233, 0.39);
-      }
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background: linear-gradient(180deg, #e0f7ff 0%, #f0f9ff 30%, #f8fcff 60%, #ffffff 100%);
+            font-family: 'Inter', sans-serif;
+            color: #1e293b;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+            padding-bottom: 80px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* === FONDO ELEGANTE CELESTE/AZUL === */
+        .bg-waves {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .wave {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.5;
+            animation: wave-float 15s ease-in-out infinite;
+        }
+
+        .wave-1 {
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(56, 189, 248, 0.4) 0%, rgba(14, 165, 233, 0.1) 50%, transparent 70%);
+            top: -200px;
+            right: -150px;
+            animation-delay: 0s;
+        }
+
+        .wave-2 {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(125, 211, 252, 0.35) 0%, rgba(56, 189, 248, 0.08) 50%, transparent 70%);
+            bottom: 100px;
+            left: -200px;
+            animation-delay: -5s;
+            animation-duration: 18s;
+        }
+
+        .wave-3 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(186, 230, 253, 0.4) 0%, rgba(125, 211, 252, 0.1) 50%, transparent 70%);
+            top: 40%;
+            right: -100px;
+            animation-delay: -10s;
+            animation-duration: 20s;
+        }
+
+        .wave-4 {
+            width: 350px;
+            height: 350px;
+            background: radial-gradient(circle, rgba(14, 165, 233, 0.25) 0%, rgba(56, 189, 248, 0.05) 50%, transparent 70%);
+            bottom: -50px;
+            left: 20%;
+            animation-delay: -15s;
+            animation-duration: 22s;
+        }
+
+        .wave-5 {
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(224, 242, 254, 0.5) 0%, rgba(186, 230, 253, 0.1) 50%, transparent 70%);
+            top: 20%;
+            left: -50px;
+            animation-delay: -8s;
+            animation-duration: 16s;
+        }
+
+        @keyframes wave-float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(20px, -30px) scale(1.05); }
+            50% { transform: translate(-15px, 20px) scale(0.98); }
+            75% { transform: translate(25px, 10px) scale(1.02); }
+        }
+
+        .bg-lines {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.03;
+            background-image: 
+                linear-gradient(90deg, #0284c7 1px, transparent 1px),
+                linear-gradient(180deg, #0284c7 1px, transparent 1px);
+            background-size: 80px 80px;
+        }
+
+        .material-symbols-outlined { font-variation-settings: 'FILL' 1, 'wght' 400; }
+
+        /* === TOP HEADER === */
+        .top-header {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(226, 232, 240, 0.6);
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 60px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-small {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-small img {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        .logo-small span {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            color: #0f172a;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #38bdf8, #0284c7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            color: #ffffff;
+            border: 2px solid #ffffff;
+            box-shadow: 0 2px 8px rgba(2, 132, 199, 0.3);
+        }
+
+        .btn-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: none;
+            background: #f1f5f9;
+            color: #64748b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-icon:hover {
+            background: #e2e8f0;
+            color: #0f172a;
+        }
+
+        /* === MAIN CONTENT === */
+        .main-content {
+            padding: 20px 24px;
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* === WELCOME SECTION === */
+        .welcome-section {
+            margin-bottom: 24px;
+        }
+
+        .welcome-section h1 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: #0f172a;
+            line-height: 1.3;
+            margin-bottom: 6px;
+        }
+
+        .welcome-section h1 span {
+            color: #0284c7;
+        }
+
+        .welcome-section p {
+            font-size: 14px;
+            color: #64748b;
+            line-height: 1.5;
+        }
+
+        /* === FILTROS === */
+        .filtros-bar {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+            overflow-x: auto;
+            padding-bottom: 4px;
+        }
+
+        .filtro-chip {
+            padding: 8px 16px;
+            border-radius: 9999px;
+            border: 1px solid #e2e8f0;
+            background: rgba(255, 255, 255, 0.8);
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 500;
+            color: #64748b;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s;
+        }
+
+        .filtro-chip:hover {
+            background: #f1f5f9;
+        }
+
+        .filtro-chip.active {
+            background: #0f172a;
+            color: #ffffff;
+            border-color: #0f172a;
+        }
+
+        /* === STUDENTS LIST === */
+        .students-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .student-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            position: relative;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .student-card:hover {
+            transform: translateX(4px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+        }
+
+        .student-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            color: #ffffff;
+            flex-shrink: 0;
+            border: 2px solid #ffffff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .student-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .student-info h3 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 2px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .student-meta {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .student-brigada {
+            font-size: 12px;
+            color: #64748b;
+            font-weight: 500;
+        }
+
+        .student-brigada-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .tag-ambiental { background: #dcfce7; color: #16a34a; }
+        .tag-academico { background: #dbeafe; color: #2563eb; }
+        .tag-comunitario { background: #f3e8ff; color: #9333ea; }
+
+        .student-progress {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .progress-bar {
+            flex: 1;
+            height: 6px;
+            background: #e2e8f0;
+            border-radius: 9999px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            border-radius: 9999px;
+            transition: width 0.5s ease;
+        }
+
+        .progress-fill.blue { background: linear-gradient(90deg, #38bdf8, #0284c7); }
+        .progress-fill.green { background: linear-gradient(90deg, #34d399, #059669); }
+        .progress-fill.orange { background: linear-gradient(90deg, #fbbf24, #d97706); }
+
+        .progress-text {
+            font-size: 11px;
+            font-weight: 600;
+            color: #64748b;
+            white-space: nowrap;
+            min-width: 60px;
+            text-align: right;
+        }
+
+        .btn-chat {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            border: none;
+            background: linear-gradient(135deg, #38bdf8, #0284c7);
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            flex-shrink: 0;
+            box-shadow: 0 2px 8px rgba(2, 132, 199, 0.3);
+        }
+
+        .btn-chat:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.4);
+        }
+
+        .btn-chat:active {
+            transform: scale(0.95);
+        }
+
+        /* === RESUMEN BOX === */
+        .resumen-box {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+        }
+
+        .resumen-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .resumen-stat {
+            text-align: center;
+        }
+
+        .resumen-stat-value {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 22px;
+            font-weight: 700;
+            color: #0284c7;
+        }
+
+        .resumen-stat-label {
+            font-size: 11px;
+            color: #64748b;
+            font-weight: 500;
+        }
+
+        /* === BOTTOM NAV BAR === */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            height: 70px;
+            z-index: 100;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+
+        .bottom-nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            padding: 8px 12px;
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 11px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-family: inherit;
+            flex: 1;
+            position: relative;
+        }
+
+        .bottom-nav-item:hover {
+            color: #0284c7;
+        }
+
+        .bottom-nav-item.active {
+            color: #0284c7;
+        }
+
+        .bottom-nav-item.active::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 3px;
+            background: #0284c7;
+            border-radius: 0 0 4px 4px;
+        }
+
+        .bottom-nav-item .material-symbols-outlined {
+            font-size: 24px;
+        }
+
+        /* === RESPONSIVE === */
+        @media (min-width: 768px) {
+            .main-content {
+                max-width: 800px;
+                padding: 24px 32px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-content {
+                padding: 16px;
+            }
+            
+            .welcome-section h1 {
+                font-size: 20px;
+            }
+            
+            .bottom-nav { height: 65px; }
+            .bottom-nav-item { padding: 6px 8px; font-size: 10px; }
+            .bottom-nav-item .material-symbols-outlined { font-size: 22px; }
+            
+            .resumen-stats {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
-<style>
-    body {
-      min-height: max(884px, 100dvh);
-    }
-  </style>
-  </head>
-<body class="bg-background text-on-background min-h-screen font-body-md overflow-x-hidden">
-<!-- Blur Background Blobs -->
-<div class="blur-blob blob-sky"></div>
-<div class="blur-blob blob-rose"></div>
-<!-- TopAppBar -->
-<nav class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-md shadow-sm flex items-center justify-between px-margin-mobile h-16">
-<div class="flex items-center gap-3">
-<div class="bg-[#1E293B] w-10 h-10 rounded-lg flex items-center justify-center shadow-md">
-<span class="material-symbols-outlined text-white" style="font-variation-settings: 'FILL' 1;">school</span>
-</div>
-<span class="font-headline-sm-mobile text-headline-sm-mobile font-bold text-on-surface">HORASOCIAL PRO</span>
-</div>
-<button class="w-10 h-10 flex items-center justify-center rounded-full active:scale-95 transition-transform hover:bg-surface-variant/50">
-<span class="material-symbols-outlined text-on-surface-variant">search</span>
-</button>
-</nav>
-<!-- Main Content Canvas -->
-<main class="pt-24 pb-32 px-margin-mobile max-w-2xl mx-auto">
-<!-- Section Header -->
-<header class="mb-8">
-<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface mb-2">Gestión Estudiantes</h1>
-<p class="text-on-surface-variant font-body-md">Supervisión de avance y contacto directo con alumnos asignados.</p>
-</header>
-<!-- Students List (Vertical Cards) -->
-<section class="space-y-4">
-<!-- Student Card 1 -->
-<div class="bg-surface-container-lowest p-6 rounded-3xl shadow-[0px_4px_20px_rgba(15,23,42,0.05)] flex items-center gap-4 transition-all hover:translate-y-[-2px]">
-<img class="w-14 h-14 rounded-full object-cover border-2 border-secondary-container/20" data-alt="A professional close-up portrait of a young male student in a bright educational setting. The lighting is soft and natural, emphasizing a modern academic environment. He wears a clean white collared shirt, and the background features a soft bokeh of a library. The aesthetic is clean, minimalist, and trustworthy, perfectly matching a professional school management platform." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDRpu3bD-TnijIpCNij0p7usXMryWvkNrD35nh533FGa7_P0de5g0DgLcx05tZvi6wlmf1TXqyHRdFeokiLq3NQ_UTzvE4-KNa-cw9jyoGlSPV98Nf5lqpA-FoAnQgsoh9XINCQfPzNcONXTSYUiEDn4G4wgE8PzyNyXwSmFQqU_vU4IQ06FSqksewXyf-wNh8ul3S7aSkOQvUVgpiV5I_0hUI51WNHPIcP-Afv2jCFrc2rs4y0NsaMXbHX6Z6WJIyMYlISIs9lEsV2">
-<div class="flex-1 min-w-0">
-<h3 class="font-headline-sm text-headline-sm text-on-surface truncate">Alejandro Mendoza</h3>
-<div class="mt-2">
-<div class="flex justify-between text-label-sm text-on-surface-variant mb-1">
-<span class="">Progreso</span>
-<span class="font-bold text-secondary">64 de 80 Horas</span>
-</div>
-<div class="w-full bg-surface-container-high h-2 rounded-full overflow-hidden">
-<div class="bg-secondary-container h-full w-[80%] rounded-full"></div>
-</div>
-</div>
-</div>
-<button class="w-12 h-12 rounded-2xl bg-[#0EA5E9] text-white flex items-center justify-center active:scale-90 transition-all active-chat-shadow">
-<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">chat_bubble</span>
-</button>
-</div>
-<!-- Student Card 2 -->
-<div class="bg-surface-container-lowest p-6 rounded-3xl shadow-[0px_4px_20px_rgba(15,23,42,0.05)] flex items-center gap-4 transition-all hover:translate-y-[-2px]">
-<img class="w-14 h-14 rounded-full object-cover border-2 border-secondary-container/20" data-alt="A detailed portrait of a focused female student in a modern workspace. The lighting is bright and high-key, creating a light-mode corporate minimalism atmosphere. She has a confident expression, and the background is a blurred minimalist office with pale blue accents. The visual style is high-end, clean, and organized, representing a seamless educational software experience." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCuazqL3fs8BZGGw29zs5oikE_bktHzSzxZazN4aikZ51vioU9sinuWgfS8dfNWozITsSThM1Me5uJJpPFrA-KSlgg5pSV5Pld2-psg-WiMRdZ1U9-jsHpxTYngpqCUYMOmCUe-hnATkpcLMkKmVTq1wtiSzVwqTszP7N6muKsksCdHeY_I4-zNV1s1tW4N8CsYyhzdiPiqr6y2ehzdrtstKz5TW9HwqWv_7uZ05NVILSFtf_FC2xuCB6DOoR38K4KdJVjikzZx36nA">
-<div class="flex-1 min-w-0">
-<h3 class="font-headline-sm text-headline-sm text-on-surface truncate">Valeria Castillo</h3>
-<div class="mt-2">
-<div class="flex justify-between text-label-sm text-on-surface-variant mb-1">
-<span class="">Progreso</span>
-<span class="font-bold text-secondary">20 de 80 Horas</span>
-</div>
-<div class="w-full bg-surface-container-high h-2 rounded-full overflow-hidden">
-<div class="bg-secondary-container h-full w-[25%] rounded-full"></div>
-</div>
-</div>
-</div>
-<button class="w-12 h-12 rounded-2xl bg-[#0EA5E9] text-white flex items-center justify-center active:scale-90 transition-all active-chat-shadow">
-<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">chat_bubble</span>
-</button>
-</div>
-<!-- Student Card 3 -->
-<div class="bg-surface-container-lowest p-6 rounded-3xl shadow-[0px_4px_20px_rgba(15,23,42,0.05)] flex items-center gap-4 transition-all hover:translate-y-[-2px]">
-<img class="w-14 h-14 rounded-full object-cover border-2 border-secondary-container/20" data-alt="A professional headshot of a student in a bright, minimalist environment. The background shows subtle textures of an academic hall with high-key lighting. The overall color palette is dominated by whites and soft grays with vibrant blue accents. The student has a professional yet friendly look, suitable for an administrative management dashboard. The mood is efficient and facilitative." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAaUbQrTAqNmAAfIOXCKs8N8pOBk46jm5ceuEG6hvXnNKAP0rXmS_AkOclqjGKChMoyNnh-7oM8y0kz_CbZf7BqQkp4xiycJxncVplCrTMs6j31jPl6KfS5FfM0Ft0X5w3RvVd9XkisgrLW_KjGt8IYHyzLqpemj91f3FTb9v5QqDn_YqaxH2IKmQPieDcAA3HtR3qUcXOn-6DKEZuT5-w502-IwVIs0_VbQeE0RdKX5_5DPDc7i5X2QIBfpYsjhDtbpK3lBmPeVP7J">
-<div class="flex-1 min-w-0">
-<h3 class="font-headline-sm text-headline-sm text-on-surface truncate">Roberto Ortiz</h3>
-<div class="mt-2">
-<div class="flex justify-between text-label-sm text-on-surface-variant mb-1">
-<span class="">Progreso</span>
-<span class="font-bold text-secondary">80 de 80 Horas</span>
-</div>
-<div class="w-full bg-surface-container-high h-2 rounded-full overflow-hidden">
-<div class="bg-[#10B981] h-full w-full rounded-full"></div>
-</div>
-</div>
-</div>
-<button class="w-12 h-12 rounded-2xl bg-[#0EA5E9] text-white flex items-center justify-center active:scale-90 transition-all active-chat-shadow">
-<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">chat_bubble</span>
-</button>
-</div>
-<!-- Student Card 4 -->
-<div class="bg-surface-container-lowest p-6 rounded-3xl shadow-[0px_4px_20px_rgba(15,23,42,0.05)] flex items-center gap-4 transition-all hover:translate-y-[-2px]">
-<img class="w-14 h-14 rounded-full object-cover border-2 border-secondary-container/20" data-alt="A portrait of a young female student in a contemporary school setting. The image is bright with high contrast, following a professional corporate minimalism aesthetic. The colors are crisp, with soft blue and white tones throughout. She looks directly at the camera with an engaged expression. The background is softly out of focus, showcasing a modern, light-filled educational institution." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0vZ3zaR6ZnDPgGaQh8Rl10TD4pO0LOv8yasAeEPF_zbq9JCGo9VO2AlzvxVpSRk21Vz5BUD1awD2UnuoQ9IaHK_2HjAoVNj1EpJUJV6NVzLTWKQ1Lk4IAf01nEfs4Ig8wRMEyckY48BgrtYFv30Ib0dASo-dpD4o1gP5FFE5nMoYwnt18ZA9i4Vh7C4E19ydlOohjkXECQRSeG_4zePWa4fs49iGShVTLcvqCBcQXvqsfIutroFWImxQ5YXgi-GKRUhqUz9T0V2x9">
-<div class="flex-1 min-w-0">
-<h3 class="font-headline-sm text-headline-sm text-on-surface truncate">Elena Martínez</h3>
-<div class="mt-2">
-<div class="flex justify-between text-label-sm text-on-surface-variant mb-1">
-<span class="">Progreso</span>
-<span class="font-bold text-secondary">42 de 80 Horas</span>
-</div>
-<div class="w-full bg-surface-container-high h-2 rounded-full overflow-hidden">
-<div class="bg-secondary-container h-full w-[52%] rounded-full"></div>
-</div>
-</div>
-</div>
-<button class="w-12 h-12 rounded-2xl bg-[#0EA5E9] text-white flex items-center justify-center active:scale-90 transition-all active-chat-shadow">
-<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">chat_bubble</span>
-</button>
-</div>
-</section>
-<!-- Spacer for FAB/Nav -->
-<div class="h-12"></div>
-</main>
-<!-- BottomNavBar -->
-<nav class="fixed bottom-0 left-0 w-full h-20 flex justify-around items-center px-4 pb-safe bg-surface/90 backdrop-blur-xl z-50 rounded-t-xl shadow-[0px_-4px_20px_rgba(15,23,42,0.05)]">
-<!-- Dashboard -->
-<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-secondary-container/10 rounded-xl px-2 py-1 active:scale-90 transition-all duration-200" href="#">
-<span class="material-symbols-outlined mb-1">dashboard</span>
-<span class="font-label-sm text-label-sm">Dashboard</span>
-</a>
-<!-- Gestión Estudiante (Active) -->
-<a class="flex flex-col items-center justify-center text-secondary font-bold hover:bg-secondary-container/10 rounded-xl px-2 py-1 active:scale-90 transition-all duration-200" href="#">
-<span class="material-symbols-outlined mb-1 text-[#39b8fd]" style="font-variation-settings: 'FILL' 1;">group</span>
-<span class="font-label-sm text-label-sm">Estudiantes</span>
-</a>
-<!-- Gestión Técnico -->
-<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-secondary-container/10 rounded-xl px-2 py-1 active:scale-90 transition-all duration-200" href="#">
-<span class="material-symbols-outlined mb-1" data-icon="engineering">engineering</span>
-<span class="font-label-sm text-label-sm whitespace-nowrap">Gestión Técnico</span>
-</a>
-<!-- Mensajes -->
-<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-secondary-container/10 rounded-xl px-2 py-1 active:scale-90 transition-all duration-200" href="#">
-<div class="relative">
-<span class="material-symbols-outlined mb-1">mail</span>
-<span class="absolute -top-1 -right-1 w-2 h-2 bg-error rounded-full"></span>
-</div>
-<span class="font-label-sm text-label-sm">Mensajes</span>
-</a>
-</nav>
-<!-- Floating Action Button (Optional for Context) -->
-<button class="fixed bottom-24 right-6 w-14 h-14 bg-[#1E293B] text-white rounded-full shadow-lg flex items-center justify-center active:scale-95 transition-transform z-40">
-<span class="material-symbols-outlined">person_add</span>
-</button>
-<script>
-        // Simple micro-interaction for card hover
-        document.querySelectorAll('section > div').forEach(card => {
-            card.addEventListener('touchstart', () => {
-                card.classList.add('scale-[0.98]');
+</head>
+<body>
+
+    <!-- FONDO ELEGANTE CELESTE/AZUL -->
+    <div class="bg-waves">
+        <div class="wave wave-1"></div>
+        <div class="wave wave-2"></div>
+        <div class="wave wave-3"></div>
+        <div class="wave wave-4"></div>
+        <div class="wave wave-5"></div>
+    </div>
+    <div class="bg-lines"></div>
+
+    <!-- TOP HEADER -->
+    <header class="top-header">
+        <div class="header-left">
+            <div class="logo-small">
+                <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwMhl_DdmeafGOmiL2QLqeQV_Ut8aNvKKYwKjKUtrAMBSjpyGc1Acc5TCQm084EODuuIAA3GiusiDfLdXgW3DAC8tdYPa8R-TEraz_hHglTpuTQJRtfOJfW_OyF25795_lzWR3g1wKtd_0fCPC6QxHfyblbvKAQVJNcggVB3k8TYcOAOsA0lTgC8lQz0E1YRlDIn1zQ0vALf8l_40TC_X6xkuWE-o1qr0sdsv2THdAcTxAM9txnjL8N_7oSnlqsHLnXkvvL7tImO-s" alt="Logo">
+                <span>HORASOCIAL PRO</span>
+            </div>
+        </div>
+        <div class="header-right">
+            <div class="user-avatar">MR</div>
+            <button class="btn-icon" onclick="window.location.href='/seleccion-rol'" title="Cerrar Sesión">
+                <span class="material-symbols-outlined">logout</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+        
+        <!-- WELCOME -->
+        <div class="welcome-section">
+            <h1>Mis <span>Estudiantes</span></h1>
+            <p>Supervisa el progreso de tus 15 estudiantes asignados y comunícate directamente con ellos.</p>
+        </div>
+
+        <!-- RESUMEN -->
+        <div class="resumen-box">
+            <div class="resumen-stats">
+                <div class="resumen-stat">
+                    <div class="resumen-stat-value">15</div>
+                    <div class="resumen-stat-label">Total Estudiantes</div>
+                </div>
+                <div class="resumen-stat">
+                    <div class="resumen-stat-value" style="color:#16a34a;">8</div>
+                    <div class="resumen-stat-label">En Progreso</div>
+                </div>
+                <div class="resumen-stat">
+                    <div class="resumen-stat-value" style="color:#9333ea;">3</div>
+                    <div class="resumen-stat-label">Completados</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FILTROS -->
+        <div class="filtros-bar">
+            <button class="filtro-chip active" onclick="filtrarEstudiantes('todos', this)">Todos</button>
+            <button class="filtro-chip" onclick="filtrarEstudiantes('ambiental', this)">Ambiental</button>
+            <button class="filtro-chip" onclick="filtrarEstudiantes('academico', this)">Apoyo Académico</button>
+            <button class="filtro-chip" onclick="filtrarEstudiantes('comunitario', this)">Comunitario</button>
+        </div>
+
+        <!-- STUDENTS LIST -->
+        <div class="students-list" id="studentsList">
+
+            <!-- Brigada Ambiental (5 estudiantes) -->
+            <div class="student-card" data-brigada="ambiental">
+                <div class="student-avatar" style="background: linear-gradient(135deg, #38bdf8, #0284c7);">JC</div>
+                <div class="student-info">
+                    <h3>Juan Carlos Rodríguez</h3>
+                    <div class="student-meta">
+                        <span class="student-brigada-tag tag-ambiental">
+                            <span class="material-symbols-outlined" style="font-size:12px;">eco</span>
+                            Ambiental
+                        </span>
+                    </div>
+                    <div class="student-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill blue" style="width: 65%;"></div>
+                        </div>
+                        <span class="progress-text">52 / 80 hrs</span>
+                    </div>
+                </div>
+                <button class="btn-chat" onclick="abrirChat('Juan Carlos Rodríguez')" title="Enviar mensaje">
+                    <span class="material-symbols-outlined">chat</span>
+                </button>
+            </div>
+
+            <div class="student-card" data-brigada="ambiental">
+                <div class="student-avatar" style="background: linear-gradient(135deg, #fbbf24, #d97706);">SF</div>
+                <div class="student-info">
+                    <h3>Sofía Fernández</h3>
+                    <div class="student-meta">
+                        <span class="student-brigada-tag tag-ambiental">
+                            <span class="material-symbols-outlined" style="font-size:12px;">eco</span>
+                            Ambiental
+                        </span>
+                    </div>
+                    <div class="student-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill blue" style="width: 80%;"></div>
+                        </div>
+                        <span class="progress-text">64 / 80 hrs</span>
+                    </div>
+                </div>
+                <button class="btn-chat" onclick="abrirChat('Sofía Fernández')" title="Enviar mensaje">
+                    <span class="material-symbols-outlined">chat</span>
+                </button>
+            </div>
+
+            <div class="student-card" data-brigada="ambiental">
+                <div class="student-avatar" style="background: linear-gradient(135deg, #f472b6, #db2777);">MR</div>
+                <div class="student-info">
+                    <h3>María Elena Ruiz</h3>
+                    <div class="student-meta">
+                        <span class="student-brigada-tag tag-ambiental">
+                            <span class="material-symbols-outlined" style="font-size:12px;">eco</span>
+                            Ambiental
+                        </span>
+                    </div>
+                    <div class="student-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill blue" style="width: 45%;"></div>
+                        </div>
+                        <span class="progress-text">36 / 80 hrs</span>
+                    </div>
+                </div>
+                <button class="btn-chat" onclick="abrirChat('María Elena Ruiz')" title="Enviar mensaje">
+                    <span class="material-symbols-outlined">chat</span>
+                </button>
+            </div>
+
+            <div class="student-card" data-brigada="ambiental">
+                <div class="student-avatar" style="background: linear-gradient(135deg, #a78bfa, #7c3aed);">LP</div>
+                <div class="student-info">
+                    <h3>Luis Alberto Pérez</h3>
+                    <div class="student-meta">
+                        <span class="student-brigada-tag tag-ambiental">
+                            <span class="material-symbols-outlined" style="font-size:12px;">eco</span>
+                            Ambiental
+                        </span>
+                    </div>
+                    <div class="student-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill blue" style="width: 30%;"></div>
+                        </div>
+                        <span class="progress-text">24 / 80 hrs</span>
+                    </div>
+                </div>
+                <button class="btn-chat" onclick="abrirChat('Luis Alberto Pérez')" title="Enviar mensaje">
+                    <span class="material-symbols-outlined">chat</span>
+                </button>
+            </div>
+
+            <div class="student-card" data-brigada="ambiental">
+                <div class="student-avatar" style="background: linear-gradient(135deg, #34d399, #059669);">CT</div>
+                <div class="student-info">
+                    <h3>Carmen Teresa López</h3>
+                    <div class="student-meta">
+                        <span class="student-brigada-tag tag-ambiental">
+                            <span class="material-symbols-outlined" style="font-size:12px;">eco</span>
+                            Ambiental
+                        </span>
+                    </div>
+                    <div class="student-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill blue" style="width: 55%;"></div>
+                        </div>
+                        <span class="progress-text">44 / 80 hrs</span>
+                    </div>
+                </div>
+                <button class="btn-chat" onclick="abrirChat('Carmen Teresa López')" title="Enviar mensaje">
+                    <span class="material-symbols-outlined">chat</span>
+                </button>
+            </div>
+
+            <!-- Apoyo Académico (6 estudiantes) -->
+            <div class="student-card" data-brigada="academico">
+                <div class="student-avatar" style="background: linear-gradient(135deg, #c084fc, #7e22ce);">AL</div>
+                <div class="student-info">
+                    <h3>Ana Lucía Martínez</h3>
+                    <div class="student-meta">
+                        <span class="student-brigada-tag tag-academico">
+                            <span class="material-symbols-outlined" style="font-size:12px;">school</span>
+                            Académico
+                        </span>
+                    </div>
+                    <div class="student-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill blue" style="width: 40%;"></div>
+                        </div>
+                        <span class="progress-text">32 / 80 hrs</span>
+                    </div>
+                </div>
+                <button class="btn-chat" onclick="abrirChat('Ana Lucía Martínez')" title="Enviar mensaje">
+                    <span class="material-symbols-outlined">chat</span>
+                </button>
+            </div>
+
+            <div class="student-card" data-brigada="academico">
+                <div class="student-avatar" style="background: linear-gradient(135deg, #f472b6, #db2777);">CM</div>
+                <div class="student-info">
+                    <h3>Carlos Mendoza</h3>
+                    <div class="student-meta">
+                        <span class="student-brigada-tag tag-academico">
+                            <span class="material-symbols-outlined" style="font-size:12px;">school</span>
+                            Académico
+                        </span>
+                    </div>
+                    <div class="student-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill blue" style="width: 75%;"></div>
+                        </div>
+                        <span class="progress-text">60 / 80 hrs</span>
+                    </div>
+                </div>
+                <button class="btn-chat" onclick="abrirChat('Carlos Mendoza')" title="Enviar mensaje">
+                    <span class="material-symbols-outlined">chat</span>
+                </button>
+            </div>
+
+            <div class="student-card" data-brigada="academico">
+                <div class="student-avatar" style="background: linear-gradient(135deg, #38bdf8, #0284c7);">DR</div>
+                <div class="student-info">
+                    <h3>Daniela Rosales</h3>
+                    <div class="student-meta">
+                        <span class="student-brigada-tag tag-academico">
+                            <span class="material-symbols-outlined" style="font-size:12px;">school</span>
+                            Académico
+                        </span>
+                    </div>
+                    <div class="student-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill blue" style="width: 20%;"></div>
+                        </div>
+                        <span class="progress-text">16 / 80 hrs</span>
+                    </div>
+                </div>
+                <button class="btn-chat" onclick="abrirChat('Daniela Rosales')" title="Enviar mensaje">
+                    <span class="material-symbols-outlined">chat</span>
+                </button>
+            </div>
+
+            <div class="student-card" data-brigada="academico">
+                <div class="student-avatar" style="background: linear-gradient(135deg, #fbbf24, #d97706);">FV</div>
+                <div class="student-info">
+                    <h3>Fernando Vásquez</h3>
+                    <div class="student-meta">
+                        <span class="student-brigada-tag tag-academico">
+                            <span class="material-symbols-outlined" style="font-size:12px;">school</span>
+                            Académico
+                        </span>
+                    </div>
+                    <div class="student-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill blue" style="width: 90%;"></div>
+                        </div>
+                        <span class="progress-text">72 / 80 hrs</span>
+                    </div>
+                </div>
+                <button class="btn-chat" onclick="abrirChat('Fernando Vásquez')" title="Enviar mensaje">
+                    <span class="material-symbols-outlined">chat</span>
+                </button>
+            </div>
+
+            <div class="student-card" data-brigada="academico">
+                <div class="student-avatar" style="background: linear-gradient(135deg, #a78bfa, #7c3aed);">GR</div>
+                <div class="student-info">
+                    <h3>Gabriela Ramos</h3>
+                    <div class="student-meta">
+                        <span class="student-brigada-tag tag-academico">
+                            <span class="material-symbols-outlined" style="font-size:12px;">school</span>
+                            Académico
+                        </span>
+                    </div>
+                    <div class="student-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill blue" style="width: 50%;"></div>
+                        </div>
+                        <span class="progress-text">40 / 80 hrs</span>
+                    </div>
+                </div>
+                <button class="btn-chat" onclick="abrirChat('Gabriela Ramos')" title="Enviar mensaje">
+                    <span class="material-symbols-outlined">chat</span>
+                </button>
+            </div>
+
+            <div class="student-card" data-brigada="academico">
+                <div class="student-avatar" style="background: linear-gradient(135deg, #34d399, #059669);">HS</div>
+                <div class="student-info">
+                    <h3>Hugo Salazar</h3>
+                    <div class="student-meta">
+                        <span class="student-brigada-tag tag-academico">
+                            <span class="material-symbols-outlined" style="font-size:12px;">school</span>
+                            Académico
+                        </span>
+                    </div>
+                    <div class="student-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill green" style="width: 100%;"></div>
+                        </div>
+                        <span class="progress-text" style="color:#059669;">80 / 80 hrs ✓</span>
+                    </div>
+                </div>
+                <button class="btn-chat" onclick="abrirChat('Hugo Salazar')" title="Enviar mensaje">
+                    <span class="material-symbols-outlined">chat</span>
+                </button>
+            </div>
+
+            <!-- Servicios Comunitarios (4 estudiantes) -->
+            <div class="student-card" data-brigada="comunitario">
+                <div class="student-avatar" style="background: linear-gradient(135deg, #34d399, #047857);">DG</div>
+                <div class="student-info">
+                    <h3>Diego Gómez</h3>
+                    <div class="student-meta">
+                        <span class="student-brigada-tag tag-comunitario">
+                            <span class="material-symbols-outlined" style="font-size:12px;">volunteer_activism</span>
+                            Comunitario
+                        </span>
+                    </div>
+                    <div class="student-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill blue" style="width: 80%;"></div>
+                        </div>
+                        <span class="progress-text">64 / 80 hrs</span>
+                    </div>
+                </div>
+                <button class="btn-chat" onclick="abrirChat('Diego Gómez')" title="Enviar mensaje">
+                    <span class="material-symbols-outlined">chat</span>
+                </button>
+            </div>
+
+            <div class="student-card" data-brigada="comunitario">
+                <div class="student-avatar" style="background: linear-gradient(135deg, #fbbf24, #d97706);">IC</div>
+                <div class="student-info">
+                    <h3>Isabel Castro</h3>
+                    <div class="student-meta">
+                        <span class="student-brigada-tag tag-comunitario">
+                            <span class="material-symbols-outlined" style="font-size:12px;">volunteer_activism</span>
+                            Comunitario
+                        </span>
+                    </div>
+                    <div class="student-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill blue" style="width: 35%;"></div>
+                        </div>
+                        <span class="progress-text">28 / 80 hrs</span>
+                    </div>
+                </div>
+                <button class="btn-chat" onclick="abrirChat('Isabel Castro')" title="Enviar mensaje">
+                    <span class="material-symbols-outlined">chat</span>
+                </button>
+            </div>
+
+            <div class="student-card" data-brigada="comunitario">
+                <div class="student-avatar" style="background: linear-gradient(135deg, #38bdf8, #0284c7);">JM</div>
+                <div class="student-info">
+                    <h3>Javier Morales</h3>
+                    <div class="student-meta">
+                        <span class="student-brigada-tag tag-comunitario">
+                            <span class="material-symbols-outlined" style="font-size:12px;">volunteer_activism</span>
+                            Comunitario
+                        </span>
+                    </div>
+                    <div class="student-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill green" style="width: 100%;"></div>
+                        </div>
+                        <span class="progress-text" style="color:#059669;">80 / 80 hrs ✓</span>
+                    </div>
+                </div>
+                <button class="btn-chat" onclick="abrirChat('Javier Morales')" title="Enviar mensaje">
+                    <span class="material-symbols-outlined">chat</span>
+                </button>
+            </div>
+
+            <div class="student-card" data-brigada="comunitario">
+                <div class="student-avatar" style="background: linear-gradient(135deg, #f472b6, #db2777);">KN</div>
+                <div class="student-info">
+                    <h3>Karina Navarro</h3>
+                    <div class="student-meta">
+                        <span class="student-brigada-tag tag-comunitario">
+                            <span class="material-symbols-outlined" style="font-size:12px;">volunteer_activism</span>
+                            Comunitario
+                        </span>
+                    </div>
+                    <div class="student-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill blue" style="width: 60%;"></div>
+                        </div>
+                        <span class="progress-text">48 / 80 hrs</span>
+                    </div>
+                </div>
+                <button class="btn-chat" onclick="abrirChat('Karina Navarro')" title="Enviar mensaje">
+                    <span class="material-symbols-outlined">chat</span>
+                </button>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- BOTTOM NAV BAR -->
+    <nav class="bottom-nav">
+        <button class="bottom-nav-item" onclick="window.location.href='/maestro/dashboard'">
+            <span class="material-symbols-outlined">dashboard</span>
+            Dashboard
+        </button>
+        <button class="bottom-nav-item active" onclick="window.location.href='/maestro/estudiantes'">
+            <span class="material-symbols-outlined">groups</span>
+            Estudiantes
+        </button>
+        <button class="bottom-nav-item" onclick="window.location.href='/maestro/tecnico'">
+            <span class="material-symbols-outlined">engineering</span>
+            Técnico
+        </button>
+        <button class="bottom-nav-item" onclick="window.location.href='/maestro/mensajes'">
+            <span class="material-symbols-outlined">chat</span>
+            Mensajes
+        </button>
+    </nav>
+
+    <script>
+        // Filtrar estudiantes por brigada
+        function filtrarEstudiantes(filtro, btn) {
+            // Actualizar chips activos
+            document.querySelectorAll('.filtro-chip').forEach(chip => {
+                chip.classList.remove('active');
             });
-            card.addEventListener('touchend', () => {
-                card.classList.remove('scale-[0.98]');
+            btn.classList.add('active');
+
+            // Filtrar cards
+            const cards = document.querySelectorAll('.student-card');
+            cards.forEach(card => {
+                if (filtro === 'todos' || card.dataset.brigada === filtro) {
+                    card.style.display = 'flex';
+                    // Animación de entrada
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(10px)';
+                    setTimeout(() => {
+                        card.style.transition = 'all 0.3s ease';
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }, 50);
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Abrir chat con estudiante
+        function abrirChat(nombre) {
+            alert('💬 Abriendo chat con ' + nombre + '...\n(Redirigiendo a /maestro/mensajes)');
+            // window.location.href = '/maestro/mensajes?chat=' + encodeURIComponent(nombre);
+        }
+
+        // Animación de entrada al cargar
+        document.addEventListener('DOMContentLoaded', () => {
+            const cards = document.querySelectorAll('.student-card');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    card.style.transition = 'all 0.4s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 80);
             });
         });
     </script>
 
-
-
-
-</body></html>
+</body>
+</html>
