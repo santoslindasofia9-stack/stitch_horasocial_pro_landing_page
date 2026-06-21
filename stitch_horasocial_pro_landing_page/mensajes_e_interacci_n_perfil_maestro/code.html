@@ -1,5 +1,4 @@
-
-html_content = '''<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="utf-8">
@@ -121,22 +120,131 @@ html_content = '''<!DOCTYPE html>
         }
         .custom-scrollbar::-webkit-scrollbar { width: 4px; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 10px; }
-        .chat-bubble-received { border-radius: 4px 20px 20px 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.02); }
-        .chat-bubble-sent { border-radius: 20px 20px 4px 20px; }
+        
+        /* Chat bubbles */
+        .chat-bubble-received { 
+            border-radius: 4px 20px 20px 20px; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.02); 
+        }
+        .chat-bubble-sent { 
+            border-radius: 20px 20px 4px 20px; 
+        }
+        
+        /* Animations */
         .slide-in-right { animation: slideInRight 0.3s ease-out forwards; }
         .slide-out-right { animation: slideOutRight 0.3s ease-in forwards; }
         .fade-in { animation: fadeIn 0.2s ease-out forwards; }
         @keyframes slideInRight { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
         @keyframes slideOutRight { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+        
         .typing-dot { animation: typingBounce 1.4s infinite ease-in-out both; }
         .typing-dot:nth-child(1) { animation-delay: -0.32s; }
         .typing-dot:nth-child(2) { animation-delay: -0.16s; }
         @keyframes typingBounce { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
+        
         .contact-item { transition: all 0.2s ease; }
         .contact-item:active { transform: scale(0.98); }
         .message-input:focus { outline: none; }
         .back-btn:active { transform: scale(0.92); }
+        
+        /* Fix for chat area */
+        .chat-messages-area {
+            flex: 1;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            padding: 16px;
+            background: #f8fafc;
+        }
+        
+        .message-group {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            max-width: 80%;
+            animation: fadeIn 0.3s ease;
+        }
+        .message-group.sent { align-self: flex-end; }
+        .message-group.received { align-self: flex-start; }
+        
+        .message-bubble {
+            padding: 12px 16px;
+            font-size: 14px;
+            line-height: 1.5;
+            word-wrap: break-word;
+        }
+        .message-group.sent .message-bubble {
+            background: linear-gradient(135deg, #0ea5e9, #0284c7);
+            color: #fff;
+            border-radius: 20px 20px 4px 20px;
+            box-shadow: 0 4px 12px rgba(14, 165, 233, 0.3);
+        }
+        .message-group.received .message-bubble {
+            background: #ffffff;
+            color: #334155;
+            border: 1px solid #e2e8f0;
+            border-radius: 4px 20px 20px 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+        .message-time {
+            font-size: 11px;
+            color: #94a3b8;
+            align-self: flex-end;
+            padding: 0 4px;
+        }
+        .message-group.sent .message-time { color: rgba(255,255,255,0.7); }
+        
+        .date-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin: 8px 0;
+        }
+        .date-divider::before,
+        .date-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #e2e8f0;
+            max-width: 100px;
+        }
+        .date-divider span {
+            font-size: 11px;
+            color: #94a3b8;
+            font-weight: 500;
+            white-space: nowrap;
+            background: #f8fafc;
+            padding: 4px 12px;
+            border-radius: 20px;
+        }
+        
+        .typing-indicator {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            padding: 12px 16px;
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            border-bottom-left-radius: 4px;
+            align-self: flex-start;
+            margin-bottom: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            width: fit-content;
+        }
+        .typing-indicator-dot {
+            width: 7px;
+            height: 7px;
+            background: #94a3b8;
+            border-radius: 50%;
+            animation: typingBounce 1.4s infinite ease-in-out;
+        }
+        .typing-indicator-dot:nth-child(1) { animation-delay: 0s; }
+        .typing-indicator-dot:nth-child(2) { animation-delay: 0.2s; }
+        .typing-indicator-dot:nth-child(3) { animation-delay: 0.4s; }
     </style>
 </head>
 <body class="font-body-md text-on-surface h-screen flex flex-col relative">
@@ -340,10 +448,10 @@ html_content = '''<!DOCTYPE html>
             </div>
         </div>
 
-        <!-- ====== PANTALLA 2: CHAT INDIVIDUAL ====== -->
+        <!-- ====== PANTALLA 2: CHAT INDIVIDUAL CORREGIDO ====== -->
         <div id="chat-screen" class="hidden flex-col h-full bg-white/50">
             <!-- Chat Header -->
-            <div class="px-4 py-3 bg-white/80 backdrop-blur-md flex items-center justify-between border-b border-outline-variant/20 shadow-sm">
+            <div class="px-4 py-3 bg-white/80 backdrop-blur-md flex items-center justify-between border-b border-outline-variant/20 shadow-sm flex-shrink-0">
                 <div class="flex items-center gap-3">
                     <button onclick="backToList()" class="back-btn w-9 h-9 flex items-center justify-center rounded-full hover:bg-surface-container transition-colors">
                         <span class="material-symbols-outlined text-on-surface">arrow_back</span>
@@ -394,12 +502,8 @@ html_content = '''<!DOCTYPE html>
                 </button>
             </div>
 
-            <!-- Messages Area -->
-            <div class="flex-1 overflow-y-auto p-4 flex flex-col gap-3 custom-scrollbar" id="message-container">
-                <!-- Fecha -->
-                <div class="flex justify-center my-2">
-                    <span class="text-[11px] text-outline bg-surface-container-low px-3 py-1 rounded-full">Hoy</span>
-                </div>
+            <!-- Messages Area CORREGIDO -->
+            <div class="chat-messages-area custom-scrollbar" id="message-container">
                 <!-- Messages se cargan dinámicamente -->
             </div>
 
@@ -407,16 +511,16 @@ html_content = '''<!DOCTYPE html>
             <div id="typing-indicator" class="hidden px-4 py-2">
                 <div class="flex items-center gap-2">
                     <div class="w-8 h-8 rounded-full bg-gradient-to-br from-pink-400 to-rose-600 flex items-center justify-center text-white text-[10px] font-bold">VT</div>
-                    <div class="bg-white px-4 py-3 rounded-2xl rounded-tl-none shadow-sm flex items-center gap-1">
-                        <div class="w-2 h-2 bg-outline rounded-full typing-dot"></div>
-                        <div class="w-2 h-2 bg-outline rounded-full typing-dot"></div>
-                        <div class="w-2 h-2 bg-outline rounded-full typing-dot"></div>
+                    <div class="typing-indicator">
+                        <div class="typing-indicator-dot"></div>
+                        <div class="typing-indicator-dot"></div>
+                        <div class="typing-indicator-dot"></div>
                     </div>
                 </div>
             </div>
 
             <!-- Input Area -->
-            <div class="px-4 py-3 bg-white border-t border-outline-variant/30 flex items-center gap-2">
+            <div class="px-4 py-3 bg-white border-t border-outline-variant/30 flex items-center gap-2 flex-shrink-0">
                 <button class="w-10 h-10 flex items-center justify-center text-outline hover:bg-surface-container rounded-full transition-colors">
                     <span class="material-symbols-outlined">attach_file</span>
                 </button>
@@ -617,8 +721,8 @@ html_content = '''<!DOCTYPE html>
         function renderMessages() {
             const container = document.getElementById('message-container');
             container.innerHTML = `
-                <div class="flex justify-center my-3">
-                    <span class="text-[11px] text-outline bg-surface-container-low px-3 py-1 rounded-full">Hoy</span>
+                <div class="date-divider">
+                    <span>Hoy</span>
                 </div>
             `;
 
@@ -633,25 +737,19 @@ html_content = '''<!DOCTYPE html>
                     `;
                 } else if (msg.type === 'received') {
                     container.innerHTML += `
-                        <div class="flex gap-2 max-w-[85%] fade-in" style="animation-delay: ${index * 0.05}s">
-                            <div class="w-8 h-8 rounded-full bg-gradient-to-br ${currentChat.gradient} flex items-center justify-center text-white text-[10px] font-bold flex-shrink-0 self-end">
-                                ${currentChat.initials}
-                            </div>
-                            <div class="chat-bubble-received bg-white p-3 text-[14px] leading-relaxed text-on-surface shadow-sm">
+                        <div class="message-group received fade-in" style="animation-delay: ${index * 0.05}s">
+                            <div class="message-bubble">
                                 ${msg.text}
-                                <div class="text-[10px] text-outline mt-1 text-right">${msg.time}</div>
+                                <div class="message-time">${msg.time}</div>
                             </div>
                         </div>
                     `;
                 } else {
                     container.innerHTML += `
-                        <div class="flex flex-col items-end gap-1 max-w-[85%] self-end fade-in" style="animation-delay: ${index * 0.05}s">
-                            <div class="chat-bubble-sent bg-primary text-white p-3 text-[14px] leading-relaxed shadow-md">
+                        <div class="message-group sent fade-in" style="animation-delay: ${index * 0.05}s">
+                            <div class="message-bubble">
                                 ${msg.text}
-                                <div class="flex items-center justify-end gap-1 text-[10px] text-secondary-fixed mt-1">
-                                    ${msg.time} 
-                                    <span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">${msg.read ? 'done_all' : 'done'}</span>
-                                </div>
+                                <div class="message-time">${msg.time}</div>
                             </div>
                         </div>
                     `;
@@ -785,11 +883,4 @@ html_content = '''<!DOCTYPE html>
         updateUnreadBadge();
     </script>
 </body>
-</html>'''
-
-# Save to file
-with open('/mnt/agents/output/mensajes.html', 'w', encoding='utf-8') as f:
-    f.write(html_content)
-
-print("Archivo guardado exitosamente")
-print(f"Tamaño: {len(html_content)} caracteres")
+</html>
