@@ -843,24 +843,24 @@
 
         <!-- BOTTOM NAVIGATION BAR -->
         <nav class="bottom-nav">
-    <a href="/admin/dashboard" class="nav-item">
-        <span class="material-symbols-outlined nav-icon">dashboard</span>
-        <span class="nav-label">Dashboard</span>
-    </a>
-    <a href="/admin/docentes" class="nav-item">
-        <span class="material-symbols-outlined nav-icon">group</span>
-        <span class="nav-label">Docentes</span>
-    </a>
-    <a href="/admin/alertas" class="nav-item">
-        <span class="material-symbols-outlined nav-icon">school</span>
-        <span class="nav-label">Estudiantes</span>
-    </a>
-    <a href="/admin/mensajes" class="nav-item active">
-        <span class="material-symbols-outlined nav-icon">mail</span>
-        <span class="nav-label">Mensajes</span>
-        <span class="nav-badge"></span>
-    </a>
-</nav>
+            <a href="/admin/dashboard" class="nav-item" onclick="setActiveNav(this)">
+                <span class="material-symbols-outlined nav-icon">dashboard</span>
+                <span class="nav-label">Dashboard</span>
+            </a>
+            <a href="/admin/docentes" class="nav-item" onclick="setActiveNav(this)">
+                <span class="material-symbols-outlined nav-icon">group</span>
+                <span class="nav-label">Docentes</span>
+            </a>
+            <a href="/admin/alertas" class="nav-item" onclick="setActiveNav(this)">
+                <span class="material-symbols-outlined nav-icon">school</span>
+                <span class="nav-label">Estudiantes</span>
+            </a>
+            <a href="/admin/mensajes" class="nav-item active" onclick="setActiveNav(this)">
+                <span class="material-symbols-outlined nav-icon">mail</span>
+                <span class="nav-label">Mensajes</span>
+                <span class="nav-badge"></span>
+            </a>
+        </nav>
     </div>
 
     <script>
