@@ -12,27 +12,8 @@
     .material-symbols-outlined {
         font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
     }
-    .material-symbols-outlined.filled {
-        font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-    }
-    .glass-card {
-        background: rgba(255, 255, 255, 0.8);
-        backdrop-filter: blur(12px);
-        border: 1px solid rgba(255, 255, 255, 0.3);
-    }
-    .bento-grid {
-        display: grid;
-        grid-template-columns: repeat(12, 1fr);
-        gap: 24px;
-    }
-    @media (max-width: 768px) {
-        .bento-grid {
-            display: flex;
-            flex-direction: column;
-        }
-    }
     
-    /* Bottom Nav - Estilo mejorado */
+    /* BOTTOM NAV - EXACTO como imagen 9 */
     .bottom-nav {
         position: fixed;
         bottom: 0;
@@ -40,12 +21,12 @@
         right: 0;
         z-index: 50;
         background: #ffffff;
-        border-top: 1px solid #e2e8f0;
         padding: 8px 16px 16px;
         display: grid;
         grid-template-columns: repeat(4, 1fr);
         gap: 8px;
-        box-shadow: 0 -4px 20px rgba(15, 23, 42, 0.08);
+        box-shadow: 0 -4px 20px rgba(15, 23, 42, 0.05);
+        border-radius: 24px 24px 0 0;
     }
     .bottom-nav-item {
         display: flex;
@@ -55,39 +36,37 @@
         padding: 8px 4px;
         border-radius: 12px;
         text-decoration: none;
-        color: #64748b;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        color: #0f172a;
+        transition: all 0.2s ease;
+        border: 2px dashed rgba(14, 165, 233, 0.3);
         position: relative;
     }
     .bottom-nav-item.active {
-        background: linear-gradient(135deg, #e0f2fe 0%, #dbeafe 100%);
+        background: #e0f2fe;
         color: #0ea5e9;
-        transform: translateY(-4px);
-        box-shadow: 0 4px 12px rgba(14, 165, 233, 0.25);
+        border: 2px dashed rgba(14, 165, 233, 0.5);
     }
     .bottom-nav-item.active .nav-icon {
         font-variation-settings: 'FILL' 1, 'wght' 400;
     }
+    .bottom-nav-item:not(.active) {
+        border-color: transparent;
+    }
     .bottom-nav-item:not(.active):hover {
-        background: #f1f5f9;
-        color: #334155;
+        background: #f8fafc;
     }
-    .bottom-nav-item .nav-label {
-        font-size: 11px;
-        font-weight: 600;
-        margin-top: 4px;
-        letter-spacing: 0.02em;
-    }
-    .bottom-nav-item .nav-icon {
+    .nav-icon {
         font-size: 24px;
-        transition: transform 0.2s;
+        margin-bottom: 2px;
     }
-    .bottom-nav-item:active .nav-icon {
-        transform: scale(0.9);
+    .nav-label {
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.02em;
     }
     .nav-badge {
         position: absolute;
-        top: 2px;
+        top: 4px;
         right: 8px;
         width: 8px;
         height: 8px;
@@ -100,10 +79,9 @@
     .sidebar-item {
         transition: all 0.2s ease;
         cursor: pointer;
-        position: relative;
     }
     .sidebar-item.active {
-        background: linear-gradient(135deg, #e0f2fe 0%, #dbeafe 100%);
+        background: #e0f2fe;
         color: #0ea5e9;
     }
     .sidebar-item.active .material-symbols-outlined {
@@ -113,26 +91,19 @@
         background: #f1f5f9;
     }
     
-    /* Hover effects */
     .hover-lift {
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        transition: all 0.3s ease;
     }
     .hover-lift:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 12px 32px rgba(0,0,0,0.12);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.1);
     }
     
     .btn-press:active {
-        transform: scale(0.96);
+        transform: scale(0.95);
     }
     
-    /* Scrollbar */
-    ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-track { background: #f1f5f9; }
-    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
-    ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
-    
-    /* Modal para gráfico */
+    /* Modal */
     .modal-overlay {
         position: fixed;
         inset: 0;
@@ -142,12 +113,9 @@
         display: none;
         align-items: center;
         justify-content: center;
-        opacity: 0;
-        transition: opacity 0.3s ease;
     }
     .modal-overlay.show {
         display: flex;
-        opacity: 1;
     }
     .modal-content {
         background: white;
@@ -157,12 +125,7 @@
         width: 90%;
         max-height: 80vh;
         overflow-y: auto;
-        transform: scale(0.9) translateY(20px);
-        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-    }
-    .modal-overlay.show .modal-content {
-        transform: scale(1) translateY(0);
     }
     
     /* Bar chart */
@@ -186,12 +149,8 @@
         max-width: 60px;
         background: linear-gradient(to top, #0ea5e9, #38bdf8);
         border-radius: 8px 8px 4px 4px;
-        transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        transition: all 0.6s ease;
         position: relative;
-    }
-    .bar:hover {
-        background: linear-gradient(to top, #0284c7, #0ea5e9);
-        filter: brightness(1.1);
     }
     .bar-label {
         font-size: 12px;
@@ -203,7 +162,7 @@
         top: -24px;
         left: 50%;
         transform: translateX(-50%);
-        font-size: 13px;
+        font-size: 12px;
         font-weight: 700;
         color: #0f172a;
         background: #e0f2fe;
@@ -211,18 +170,7 @@
         border-radius: 6px;
     }
     
-    /* Animación de entrada para excusas */
-    @keyframes slideIn {
-        from { opacity: 0; transform: translateX(20px); }
-        to { opacity: 1; transform: translateX(0); }
-    }
-    .excusa-card {
-        animation: slideIn 0.4s ease forwards;
-    }
-    .excusa-card:nth-child(1) { animation-delay: 0.1s; }
-    .excusa-card:nth-child(2) { animation-delay: 0.2s; }
-    
-    /* Toast notification */
+    /* Toast */
     .toast {
         position: fixed;
         top: 20px;
@@ -236,37 +184,24 @@
         align-items: center;
         gap: 8px;
         box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-        animation: slideInRight 0.4s ease;
-    }
-    @keyframes slideInRight {
-        from { transform: translateX(100px); opacity: 0; }
-        to { transform: translateX(0); opacity: 1; }
     }
     .toast.success {
         background: #dcfce7;
         color: #166534;
-        border: 1px solid #86efac;
     }
     .toast.error {
         background: #fee2e2;
         color: #991b1b;
-        border: 1px solid #fca5a5;
     }
     
-    /* Estadísticas animadas */
-    .stat-number {
-        font-variant-numeric: tabular-nums;
-        transition: all 0.3s ease;
-    }
-    
-    /* Excusa aceptada/rechazada */
+    /* Excusa status */
     .excusa-status {
-        padding: 4px 12px;
-        border-radius: 20px;
-        font-size: 12px;
+        padding: 8px 16px;
+        border-radius: 8px;
+        font-size: 13px;
         font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
+        text-align: center;
+        width: 100%;
     }
     .excusa-status.aceptada {
         background: #dcfce7;
@@ -283,65 +218,31 @@
         theme: {
             extend: {
                 "colors": {
-                    "on-error": "#ffffff",
-                    "tertiary-fixed-dim": "#7bd0ff",
                     "primary": "#0F172A",
                     "secondary": "#0EA5E9",
-                    "on-secondary-fixed-variant": "#004c6e",
-                    "outline-variant": "#c6c6cd",
-                    "surface-container": "#eceef0",
-                    "primary-container": "#131b2e",
-                    "surface-bright": "#f7f9fb",
-                    "secondary-container": "#e0f2fe",
-                    "on-error-container": "#93000a",
-                    "on-secondary-container": "#004666",
-                    "surface-dim": "#d8dadc",
-                    "on-tertiary": "#ffffff",
-                    "on-surface": "#191c1e",
-                    "on-tertiary-fixed": "#001e2c",
-                    "inverse-on-surface": "#eff1f3",
-                    "on-surface-variant": "#45464d",
-                    "on-primary-fixed-variant": "#3f465c",
-                    "on-primary-fixed": "#131b2e",
-                    "surface-tint": "#565e74",
-                    "tertiary-container": "#001e2c",
-                    "on-primary": "#ffffff",
-                    "surface-variant": "#e0e3e5",
                     "error": "#ba1a1a",
-                    "on-secondary": "#ffffff",
-                    "inverse-primary": "#bec6e0",
-                    "surface-container-high": "#e6e8ea",
-                    "surface-container-highest": "#e0e3e5",
-                    "on-secondary-fixed": "#001e2f",
-                    "secondary-fixed": "#c9e6ff",
-                    "primary-fixed": "#dae2fd",
-                    "tertiary": "#000000",
-                    "error-container": "#ffdad6",
-                    "inverse-surface": "#2d3133",
-                    "on-tertiary-container": "#008ebf",
-                    "surface-container-lowest": "#ffffff",
-                    "primary-fixed-dim": "#bec6e0",
-                    "on-background": "#191c1e",
-                    "surface-container-low": "#f2f4f6",
-                    "on-primary-container": "#7c839b",
-                    "tertiary-fixed": "#c4e7ff",
-                    "secondary-fixed-dim": "#89ceff",
                     "background": "#f8fafc",
-                    "on-tertiary-fixed-variant": "#004c69",
                     "surface": "#f7f9fb",
-                    "outline": "#76777d"
+                    "on-surface": "#191c1e",
+                    "on-surface-variant": "#45464d",
+                    "surface-variant": "#e0e3e5",
+                    "surface-container": "#eceef0",
+                    "surface-container-low": "#f2f4f6",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container-high": "#e6e8ea",
+                    "secondary-container": "#e0f2fe",
+                    "on-secondary-container": "#004666",
+                    "error-container": "#ffdad6",
+                    "on-error-container": "#93000a",
+                    "outline": "#76777d",
+                    "outline-variant": "#c6c6cd"
                 },
                 "borderRadius": {
-                    "DEFAULT": "0.25rem",
                     "lg": "1rem",
-                    "xl": "0.75rem",
-                    "full": "9999px"
+                    "xl": "0.75rem"
                 },
                 "spacing": {
                     "margin-desktop": "48px",
-                    "unit": "4px",
-                    "xs": "4px",
-                    "xl": "32px",
                     "margin-mobile": "16px",
                     "lg": "24px",
                     "md": "16px",
@@ -349,26 +250,14 @@
                     "gutter": "24px"
                 },
                 "fontFamily": {
-                    "headline-lg-mobile": ["Plus Jakarta Sans"],
-                    "body-md": ["Inter"],
-                    "display-lg": ["Plus Jakarta Sans"],
-                    "body-lg": ["Inter"],
-                    "label-sm": ["Inter"],
                     "headline-sm": ["Plus Jakarta Sans"],
                     "label-md": ["Inter"],
-                    "headline-md": ["Plus Jakarta Sans"],
-                    "headline-lg": ["Plus Jakarta Sans"]
+                    "label-sm": ["Inter"]
                 },
                 "fontSize": {
-                    "headline-lg-mobile": ["28px", {"lineHeight": "1.2", "fontWeight": "600"}],
-                    "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
-                    "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
-                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
-                    "label-sm": ["12px", {"lineHeight": "1.2", "fontWeight": "600"}],
                     "headline-sm": ["20px", {"lineHeight": "1.4", "fontWeight": "600"}],
                     "label-md": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.01em", "fontWeight": "500"}],
-                    "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
-                    "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}]
+                    "label-sm": ["12px", {"lineHeight": "1.2", "fontWeight": "600"}]
                 }
             },
         },
@@ -377,252 +266,231 @@
 </head>
 <body class="bg-background text-on-surface font-body-md min-h-screen pb-28 md:pl-20">
 
-<!-- Toast Notification -->
+<!-- Toast -->
 <div id="toast" class="toast"></div>
 
-<!-- Modal para Gráfico -->
+<!-- Modal Gráfico -->
 <div id="chartModal" class="modal-overlay" onclick="closeModal(event)">
     <div class="modal-content" onclick="event.stopPropagation()">
         <div class="flex justify-between items-center mb-6">
-            <h2 class="font-headline-md text-headline-md font-bold text-on-surface">Horas de Servicio Social - 2026</h2>
-            <button onclick="closeModal()" class="p-2 hover:bg-surface-variant rounded-full transition-colors">
+            <h2 class="font-headline-sm text-headline-sm font-bold">Horas de Servicio Social - 2026</h2>
+            <button onclick="closeModal()" class="p-2 hover:bg-surface-variant rounded-full">
                 <span class="material-symbols-outlined">close</span>
             </button>
         </div>
-        <div class="bar-chart" id="barChart">
-            <!-- Se genera dinámicamente -->
-        </div>
+        <div class="bar-chart" id="barChart"></div>
         <div class="mt-6 grid grid-cols-3 gap-4 text-center">
             <div class="bg-surface-container-low p-4 rounded-xl">
                 <p class="text-label-sm text-on-surface-variant mb-1">Total Anual</p>
-                <p class="font-headline-md font-bold text-primary">14,976 h</p>
+                <p class="font-bold text-primary text-lg">14,976 h</p>
             </div>
             <div class="bg-surface-container-low p-4 rounded-xl">
                 <p class="text-label-sm text-on-surface-variant mb-1">Promedio Mensual</p>
-                <p class="font-headline-md font-bold text-secondary">1,248 h</p>
+                <p class="font-bold text-secondary text-lg">1,248 h</p>
             </div>
             <div class="bg-surface-container-low p-4 rounded-xl">
                 <p class="text-label-sm text-on-surface-variant mb-1">Estudiantes Activos</p>
-                <p class="font-headline-md font-bold text-tertiary">342</p>
+                <p class="font-bold text-tertiary text-lg">342</p>
             </div>
         </div>
     </div>
 </div>
 
 <!-- TopAppBar -->
-<header class="bg-surface dark:bg-surface-dim shadow-sm w-full top-0 sticky z-40 flex justify-between items-center px-margin-mobile md:px-margin-desktop py-sm">
-<div class="flex items-center gap-2">
-<span class="material-symbols-outlined text-primary text-[32px]">school</span>
-<span class="font-headline-sm text-headline-sm font-extrabold tracking-tight text-on-surface">EduServe Pro</span>
-</div>
-<div class="flex items-center gap-3">
-<div class="text-right hidden md:block">
-<p class="font-label-md text-on-surface font-bold">Coordinadora Carolina Rojas</p>
-<p class="text-label-sm text-on-surface-variant">Administrador Senior</p>
-</div>
-<div class="relative">
-<img alt="User Avatar" class="w-10 h-10 rounded-full border-2 border-secondary object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC2a3doQcYz7YW2YfF68HVbOvJ0y2UEpVIz_a1cdaOKDVUxSxGCUp8vcnpothWg82RQjdLADzsR4HcF9LcPVsvyJvQJtAwi_8o9nq47jRNCo_Y8XOyqXvlFSLrjV8PckkMvsJapiYfkCKzK9bv-uHzDS3C1nM2wbIxXIm-fBz1Ygc0ezuWNXCHIpcLFTq_5skl6y8h9aoN8xy-msY3KWtXyYLqUH4fx7FGE71bDInKsmHX2PaOIYf48mgicFJJrgOhAli8rttZwQwLJ">
-</div>
-</div>
+<header class="bg-surface shadow-sm w-full sticky top-0 z-40 flex justify-between items-center px-margin-mobile md:px-margin-desktop py-sm">
+    <div class="flex items-center gap-2">
+        <span class="material-symbols-outlined text-primary text-[32px]">school</span>
+        <span class="font-headline-sm text-headline-sm font-extrabold tracking-tight">EduServe Pro</span>
+    </div>
+    <div class="flex items-center gap-3">
+        <div class="text-right hidden md:block">
+            <p class="font-label-md font-bold">Coordinadora Carolina Rojas</p>
+            <p class="text-label-sm text-on-surface-variant">Administrador Senior</p>
+        </div>
+        <img class="w-10 h-10 rounded-full border-2 border-secondary object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC2a3doQcYz7YW2YfF68HVbOvJ0y2UEpVIz_a1cdaOKDVUxSxGCUp8vcnpothWg82RQjdLADzsR4HcF9LcPVsvyJvQJtAwi_8o9nq47jRNCo_Y8XOyqXvlFSLrjV8PckkMvsJapiYfkCKzK9bv-uHzDS3C1nM2wbIxXIm-fBz1Ygc0ezuWNXCHIpcLFTq_5skl6y8h9aoN8xy-msY3KWtXyYLqUH4fx7FGE71bDInKsmHX2PaOIYf48mgicFJJrgOhAli8rttZwQwLJ">
+    </div>
 </header>
 
 <main class="max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop mt-lg">
-<!-- Welcome Banner -->
+
+<!-- Banner -->
 <section class="mb-lg">
-<div class="relative overflow-hidden bg-gradient-to-r from-primary to-slate-700 rounded-2xl p-lg text-white shadow-lg hover-lift cursor-pointer">
-<div class="relative z-10">
-<h1 class="font-comfortaa text-headline-md md:text-headline-lg font-bold mb-2">Bitácora de Cambios y Novedades</h1>
-<p class="text-on-primary-container opacity-90 max-w-xl">Supervisa y valida las actividades de servicio social en tiempo real. Mantén la integridad académica y la eficiencia administrativa.</p>
-</div>
-<div class="absolute right-[-20px] bottom-[-20px] opacity-10">
-<span class="material-symbols-outlined text-[180px]">settings_applications</span>
-</div>
-</div>
+    <div class="relative overflow-hidden bg-gradient-to-r from-primary to-slate-700 rounded-2xl p-lg text-white shadow-lg">
+        <div class="relative z-10">
+            <h1 class="font-comfortaa text-headline-sm font-bold mb-2">Bitácora de Cambios y Novedades</h1>
+            <p class="opacity-90 max-w-xl text-sm">Supervisa y valida las actividades de servicio social en tiempo real.</p>
+        </div>
+        <div class="absolute right-[-20px] bottom-[-20px] opacity-10">
+            <span class="material-symbols-outlined text-[180px]">settings_applications</span>
+        </div>
+    </div>
 </section>
 
-<!-- Metric Cards -->
+<!-- Métricas -->
 <section class="grid grid-cols-1 md:grid-cols-3 gap-gutter mb-lg">
-<div class="bg-surface-container-lowest p-md rounded-2xl shadow-sm border-l-4 border-error flex items-center justify-between hover-lift cursor-pointer" onclick="filterByType('excusa')">
-<div>
-<p class="text-label-md text-on-surface-variant mb-1">Excusas por Validar</p>
-<p class="font-headline-md text-error stat-number" id="statExcusas">3</p>
-</div>
-<div class="w-12 h-12 bg-error-container flex items-center justify-center rounded-full">
-<span class="material-symbols-outlined text-on-error-container">notification_important</span>
-</div>
-</div>
-<div class="bg-surface-container-lowest p-md rounded-2xl shadow-sm border-l-4 border-secondary flex items-center justify-between hover-lift cursor-pointer" onclick="filterByType('horario')">
-<div>
-<p class="text-label-md text-on-surface-variant mb-1">Cambios de Horarios</p>
-<p class="font-headline-md text-secondary stat-number" id="statHorarios">2</p>
-</div>
-<div class="w-12 h-12 bg-secondary-container flex items-center justify-center rounded-full">
-<span class="material-symbols-outlined text-secondary">schedule</span>
-</div>
-</div>
-<div class="bg-surface-container-lowest p-md rounded-2xl shadow-sm border-l-4 border-outline flex items-center justify-between hover-lift cursor-pointer" onclick="filterByType('alerta')">
-<div>
-<p class="text-label-md text-on-surface-variant mb-1">Alertas de Profesores</p>
-<p class="font-headline-md text-on-surface-variant stat-number" id="statAlertas">1</p>
-</div>
-<div class="w-12 h-12 bg-surface-variant flex items-center justify-center rounded-full">
-<span class="material-symbols-outlined text-outline">report</span>
-</div>
-</div>
+    <div class="bg-surface-container-lowest p-md rounded-2xl shadow-sm border-l-4 border-error flex items-center justify-between hover-lift cursor-pointer">
+        <div>
+            <p class="text-label-md text-on-surface-variant mb-1">Excusas por Validar</p>
+            <p class="font-headline-sm text-error" id="statExcusas">3</p>
+        </div>
+        <div class="w-12 h-12 bg-error-container flex items-center justify-center rounded-full">
+            <span class="material-symbols-outlined text-on-error-container">notification_important</span>
+        </div>
+    </div>
+    <div class="bg-surface-container-lowest p-md rounded-2xl shadow-sm border-l-4 border-secondary flex items-center justify-between hover-lift cursor-pointer">
+        <div>
+            <p class="text-label-md text-on-surface-variant mb-1">Cambios de Horarios</p>
+            <p class="font-headline-sm text-secondary">2</p>
+        </div>
+        <div class="w-12 h-12 bg-secondary-container flex items-center justify-center rounded-full">
+            <span class="material-symbols-outlined text-secondary">schedule</span>
+        </div>
+    </div>
+    <div class="bg-surface-container-lowest p-md rounded-2xl shadow-sm border-l-4 border-outline flex items-center justify-between hover-lift cursor-pointer">
+        <div>
+            <p class="text-label-md text-on-surface-variant mb-1">Alertas de Profesores</p>
+            <p class="font-headline-sm text-on-surface-variant">1</p>
+        </div>
+        <div class="w-12 h-12 bg-surface-variant flex items-center justify-center rounded-full">
+            <span class="material-symbols-outlined text-outline">report</span>
+        </div>
+    </div>
 </section>
 
 <div class="bento-grid">
-<!-- Main Content (70%) -->
-<div class="col-span-12 md:col-span-8 flex flex-col gap-gutter">
-<div class="bg-surface-container-lowest rounded-2xl shadow-sm p-lg min-h-[500px]">
-<div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-lg gap-4">
-<h2 class="font-headline-sm text-headline-sm font-bold text-on-surface">Bitácora de Actividades Recientes</h2>
-<div class="flex bg-surface-container p-1 rounded-xl">
-<button class="px-4 py-2 rounded-lg text-label-sm font-bold bg-white shadow-sm text-primary transition-all tab-btn active" onclick="filterActivities('todos', this)">Todos</button>
-<button class="px-4 py-2 rounded-lg text-label-sm font-medium text-on-surface-variant hover:text-primary transition-all tab-btn" onclick="filterActivities('docentes', this)">Docentes</button>
-<button class="px-4 py-2 rounded-lg text-label-sm font-medium text-on-surface-variant hover:text-primary transition-all tab-btn" onclick="filterActivities('estudiantes', this)">Estudiantes</button>
-</div>
-</div>
-<!-- Activities List -->
-<div class="space-y-sm" id="activities-list">
-<!-- Activity Item 1 -->
-<div class="flex items-center p-md border-b border-surface-variant hover:bg-surface-container-low transition-colors rounded-xl cursor-pointer activity-item" data-type="docente">
-<div class="w-10 h-10 bg-secondary-container rounded-full flex items-center justify-center mr-md">
-<span class="material-symbols-outlined text-secondary">edit_calendar</span>
-</div>
-<div class="flex-grow">
-<p class="text-label-md font-bold text-on-surface">Prof. Ricardo Méndez</p>
-<p class="text-label-sm text-on-surface-variant">Modificó horario de práctica en Biblioteca Central.</p>
-</div>
-<div class="text-right">
-<span class="px-3 py-1 bg-secondary-container text-on-secondary-container text-[10px] font-bold rounded-full uppercase tracking-wider">DOCENTE</span>
-<p class="text-[11px] text-outline mt-1 italic">Hace 15 min</p>
-</div>
-</div>
-<!-- Activity Item 2 -->
-<div class="flex items-center p-md border-b border-surface-variant hover:bg-surface-container-low transition-colors rounded-xl cursor-pointer activity-item" data-type="estudiante">
-<div class="w-10 h-10 bg-error-container rounded-full flex items-center justify-center mr-md">
-<span class="material-symbols-outlined text-error">assignment_late</span>
-</div>
-<div class="flex-grow">
-<p class="text-label-md font-bold text-on-surface">Mariana López</p>
-<p class="text-label-sm text-on-surface-variant">Subió excusa médica por inasistencia al comedor.</p>
-</div>
-<div class="text-right">
-<span class="px-3 py-1 bg-error-container text-on-error-container text-[10px] font-bold rounded-full uppercase tracking-wider">EXCUSA</span>
-<p class="text-[11px] text-outline mt-1 italic">Hace 1 h</p>
-</div>
-</div>
-<!-- Activity Item 3 -->
-<div class="flex items-center p-md border-b border-surface-variant hover:bg-surface-container-low transition-colors rounded-xl cursor-pointer activity-item" data-type="estudiante">
-<div class="w-10 h-10 bg-surface-variant rounded-full flex items-center justify-center mr-md">
-<span class="material-symbols-outlined text-on-surface-variant">person_add</span>
-</div>
-<div class="flex-grow">
-<p class="text-label-md font-bold text-on-surface">Esteban Quito</p>
-<p class="text-label-sm text-on-surface-variant">Nuevo registro de estudiante para Servicio Social.</p>
-</div>
-<div class="text-right">
-<span class="px-3 py-1 bg-surface-container-high text-on-surface-variant text-[10px] font-bold rounded-full uppercase tracking-wider">ESTUDIANTE</span>
-<p class="text-[11px] text-outline mt-1 italic">Hace 2 h</p>
-</div>
-</div>
-</div>
-</div>
+    <!-- Actividades -->
+    <div class="col-span-12 md:col-span-8 flex flex-col gap-gutter">
+        <div class="bg-surface-container-lowest rounded-2xl shadow-sm p-lg min-h-[500px]">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-lg gap-4">
+                <h2 class="font-headline-sm text-headline-sm font-bold">Bitácora de Actividades Recientes</h2>
+                <div class="flex bg-surface-container p-1 rounded-xl">
+                    <button class="px-4 py-2 rounded-lg text-label-sm font-bold bg-white shadow-sm text-primary tab-btn active" onclick="filterActivities('todos', this)">Todos</button>
+                    <button class="px-4 py-2 rounded-lg text-label-sm font-medium text-on-surface-variant tab-btn" onclick="filterActivities('docentes', this)">Docentes</button>
+                    <button class="px-4 py-2 rounded-lg text-label-sm font-medium text-on-surface-variant tab-btn" onclick="filterActivities('estudiantes', this)">Estudiantes</button>
+                </div>
+            </div>
+            <div class="space-y-sm" id="activities-list">
+                <div class="flex items-center p-md border-b border-surface-variant hover:bg-surface-container-low rounded-xl activity-item" data-type="docente">
+                    <div class="w-10 h-10 bg-secondary-container rounded-full flex items-center justify-center mr-md">
+                        <span class="material-symbols-outlined text-secondary">edit_calendar</span>
+                    </div>
+                    <div class="flex-grow">
+                        <p class="font-bold text-sm">Prof. Ricardo Méndez</p>
+                        <p class="text-xs text-on-surface-variant">Modificó horario de práctica en Biblioteca Central.</p>
+                    </div>
+                    <div class="text-right">
+                        <span class="px-3 py-1 bg-secondary-container text-on-secondary-container text-[10px] font-bold rounded-full">DOCENTE</span>
+                        <p class="text-[11px] text-outline mt-1 italic">Hace 15 min</p>
+                    </div>
+                </div>
+                <div class="flex items-center p-md border-b border-surface-variant hover:bg-surface-container-low rounded-xl activity-item" data-type="estudiante">
+                    <div class="w-10 h-10 bg-error-container rounded-full flex items-center justify-center mr-md">
+                        <span class="material-symbols-outlined text-error">assignment_late</span>
+                    </div>
+                    <div class="flex-grow">
+                        <p class="font-bold text-sm">Mariana López</p>
+                        <p class="text-xs text-on-surface-variant">Subió excusa médica por inasistencia al comedor.</p>
+                    </div>
+                    <div class="text-right">
+                        <span class="px-3 py-1 bg-error-container text-on-error-container text-[10px] font-bold rounded-full">EXCUSA</span>
+                        <p class="text-[11px] text-outline mt-1 italic">Hace 1 h</p>
+                    </div>
+                </div>
+                <div class="flex items-center p-md border-b border-surface-variant hover:bg-surface-container-low rounded-xl activity-item" data-type="estudiante">
+                    <div class="w-10 h-10 bg-surface-variant rounded-full flex items-center justify-center mr-md">
+                        <span class="material-symbols-outlined text-on-surface-variant">person_add</span>
+                    </div>
+                    <div class="flex-grow">
+                        <p class="font-bold text-sm">Esteban Quito</p>
+                        <p class="text-xs text-on-surface-variant">Nuevo registro de estudiante para Servicio Social.</p>
+                    </div>
+                    <div class="text-right">
+                        <span class="px-3 py-1 bg-surface-container-high text-on-surface-variant text-[10px] font-bold rounded-full">ESTUDIANTE</span>
+                        <p class="text-[11px] text-outline mt-1 italic">Hace 2 h</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="col-span-12 md:col-span-4 flex flex-col gap-gutter">
+        <!-- Excusas -->
+        <div class="bg-surface-container-lowest rounded-2xl shadow-sm p-lg">
+            <div class="flex items-center justify-between mb-md">
+                <h2 class="font-headline-sm text-headline-sm font-bold">Excusas Pendientes</h2>
+                <span class="bg-error text-white text-[10px] font-bold px-2 py-0.5 rounded-full" id="badgeExcusas">2</span>
+            </div>
+            <div class="space-y-md" id="excusasContainer">
+                <!-- Excusa 1 -->
+                <div class="bg-surface-container-low p-md rounded-xl border border-surface-variant" id="excusa-1">
+                    <div class="flex justify-between items-start mb-2">
+                        <div>
+                            <p class="font-bold text-sm">Juan Pérez</p>
+                            <p class="text-xs text-on-surface-variant">Grado 11-A • 24 Oct 2023</p>
+                        </div>
+                        <span class="material-symbols-outlined text-secondary cursor-pointer">picture_as_pdf</span>
+                    </div>
+                    <div class="bg-white/50 p-2 rounded-md border-l-2 border-secondary italic text-xs text-on-surface-variant mb-3">
+                        "Cita odontológica programada de urgencia."
+                    </div>
+                    <div class="grid grid-cols-2 gap-2" id="buttons-1">
+                        <button onclick="aceptarExcusa(1)" class="bg-primary text-white py-2 rounded-lg text-sm font-bold hover:bg-slate-800 btn-press transition-all">Aceptar</button>
+                        <button onclick="rechazarExcusa(1)" class="bg-white border border-outline-variant text-on-surface-variant py-2 rounded-lg text-sm font-bold hover:bg-surface-variant btn-press transition-all">Rechazar</button>
+                    </div>
+                </div>
+                <!-- Excusa 2 -->
+                <div class="bg-surface-container-low p-md rounded-xl border border-surface-variant" id="excusa-2">
+                    <div class="flex justify-between items-start mb-2">
+                        <div>
+                            <p class="font-bold text-sm">Sofía Ramírez</p>
+                            <p class="text-xs text-on-surface-variant">Grado 10-C • 23 Oct 2023</p>
+                        </div>
+                        <span class="material-symbols-outlined text-secondary cursor-pointer">picture_as_pdf</span>
+                    </div>
+                    <div class="bg-white/50 p-2 rounded-md border-l-2 border-secondary italic text-xs text-on-surface-variant mb-3">
+                        "Incapacidad médica por cuadro viral."
+                    </div>
+                    <div class="grid grid-cols-2 gap-2" id="buttons-2">
+                        <button onclick="aceptarExcusa(2)" class="bg-primary text-white py-2 rounded-lg text-sm font-bold hover:bg-slate-800 btn-press transition-all">Aceptar</button>
+                        <button onclick="rechazarExcusa(2)" class="bg-white border border-outline-variant text-on-surface-variant py-2 rounded-lg text-sm font-bold hover:bg-surface-variant btn-press transition-all">Rechazar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Horas - Clickable -->
+        <div class="bg-gradient-to-br from-primary via-slate-800 to-slate-900 text-white rounded-2xl p-lg relative overflow-hidden h-44 flex flex-col justify-end cursor-pointer hover-lift" onclick="openChartModal()">
+            <div class="absolute inset-0 opacity-20">
+                <svg class="w-full h-full" viewBox="0 0 200 100" preserveAspectRatio="none">
+                    <polyline fill="none" stroke="#38bdf8" stroke-width="2" points="0,80 30,60 60,70 90,40 120,50 150,30 180,35 200,20"/>
+                </svg>
+            </div>
+            <div class="relative z-10">
+                <p class="text-xs uppercase tracking-widest opacity-70 mb-1">Horas Totales Mes</p>
+                <p class="font-bold text-2xl">1,248 <span class="text-base font-normal opacity-70">h</span></p>
+                <p class="text-xs opacity-60 mt-1 flex items-center gap-1">
+                    <span class="material-symbols-outlined text-[14px]">trending_up</span>
+                    +12% vs mes anterior
+                </p>
+            </div>
+            <div class="absolute bottom-4 right-4 opacity-40">
+                <span class="material-symbols-outlined text-[20px]">open_in_full</span>
+            </div>
+        </div>
+    </div>
 </div>
 
-<!-- Sidebar/Right Block (30%) -->
-<div class="col-span-12 md:col-span-4 flex flex-col gap-gutter">
-<div class="bg-surface-container-lowest rounded-2xl shadow-sm p-lg">
-<div class="flex items-center justify-between mb-md">
-<h2 class="font-headline-sm text-headline-sm font-bold text-on-surface">Excusas Pendientes</h2>
-<span class="bg-error text-white text-[10px] font-bold px-2 py-0.5 rounded-full" id="badgeExcusas">3</span>
-</div>
-<!-- Excusas Container -->
-<div class="space-y-md" id="excusasContainer">
-<!-- Excusa Card 1 -->
-<div class="excusa-card bg-surface-container-low p-md rounded-xl border border-surface-variant flex flex-col gap-3" id="excusa-1">
-<div class="flex justify-between items-start">
-<div>
-<p class="text-label-md font-bold text-on-surface">Juan Pérez</p>
-<p class="text-label-sm text-on-surface-variant">Grado 11-A • 24 Oct 2023</p>
-</div>
-<span class="material-symbols-outlined text-secondary cursor-pointer hover:scale-110 transition-transform">picture_as_pdf</span>
-</div>
-<div class="bg-white/50 p-sm rounded-md border-l-2 border-secondary italic text-label-sm text-on-surface-variant">
-                            "Cita odontológica programada de urgencia."
-                        </div>
-<div class="grid grid-cols-2 gap-sm pt-2" id="buttons-1">
-<button onclick="aceptarExcusa(1)" class="bg-primary text-white py-2 rounded-lg font-label-md hover:bg-slate-800 btn-press transition-all flex items-center justify-center gap-1">
-<span class="material-symbols-outlined text-[18px]">check</span>Aceptar
-</button>
-<button onclick="rechazarExcusa(1)" class="bg-white border border-outline-variant text-on-surface-variant py-2 rounded-lg font-label-md hover:bg-surface-variant btn-press transition-all flex items-center justify-center gap-1">
-<span class="material-symbols-outlined text-[18px]">close</span>Rechazar
-</button>
-</div>
-</div>
-<!-- Excusa Card 2 -->
-<div class="excusa-card bg-surface-container-low p-md rounded-xl border border-surface-variant flex flex-col gap-3" id="excusa-2">
-<div class="flex justify-between items-start">
-<div>
-<p class="text-label-md font-bold text-on-surface">Sofía Ramírez</p>
-<p class="text-label-sm text-on-surface-variant">Grado 10-C • 23 Oct 2023</p>
-</div>
-<span class="material-symbols-outlined text-secondary cursor-pointer hover:scale-110 transition-transform">picture_as_pdf</span>
-</div>
-<div class="bg-white/50 p-sm rounded-md border-l-2 border-secondary italic text-label-sm text-on-surface-variant">
-                            "Incapacidad médica por cuadro viral."
-                        </div>
-<div class="grid grid-cols-2 gap-sm pt-2" id="buttons-2">
-<button onclick="aceptarExcusa(2)" class="bg-primary text-white py-2 rounded-lg font-label-md hover:bg-slate-800 btn-press transition-all flex items-center justify-center gap-1">
-<span class="material-symbols-outlined text-[18px]">check</span>Aceptar
-</button>
-<button onclick="rechazarExcusa(2)" class="bg-white border border-outline-variant text-on-surface-variant py-2 rounded-lg font-label-md hover:bg-surface-variant btn-press transition-all flex items-center justify-center gap-1">
-<span class="material-symbols-outlined text-[18px]">close</span>Rechazar
-</button>
-</div>
-</div>
-</div>
-<button class="w-full mt-lg text-secondary font-label-md hover:underline flex items-center justify-center gap-1 btn-press">
-                    Ver todas las solicitudes
-                    <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
-</button>
-</div>
-<!-- Horas Totales - Mejorado -->
-<div class="bg-gradient-to-br from-primary via-slate-800 to-slate-900 text-white rounded-2xl p-lg relative overflow-hidden h-48 flex flex-col justify-end cursor-pointer hover-lift" onclick="openChartModal()">
-<div class="absolute inset-0 opacity-20">
-<svg class="w-full h-full" viewBox="0 0 200 100" preserveAspectRatio="none">
-<polyline fill="none" stroke="#38bdf8" stroke-width="2" points="0,80 30,60 60,70 90,40 120,50 150,30 180,35 200,20"/>
-</svg>
-</div>
-<div class="relative z-10">
-<p class="text-label-sm uppercase tracking-widest opacity-70 mb-1">Horas Totales Mes</p>
-<p class="font-headline-lg font-bold text-3xl">1,248 <span class="text-lg font-normal opacity-70">h</span></p>
-<p class="text-label-sm opacity-60 mt-2 flex items-center gap-1">
-<span class="material-symbols-outlined text-[16px]">trending_up</span>
-+12% vs mes anterior
-</p>
-</div>
-<div class="absolute top-4 right-4 text-secondary opacity-30">
-<span class="material-symbols-outlined text-[64px]">bar_chart</span>
-</div>
-<div class="absolute bottom-4 right-4">
-<span class="material-symbols-outlined text-[20px] opacity-60">open_in_full</span>
-</div>
-</div>
-</div>
-</div>
-
-<!-- Logout Button -->
-<div class="mt-8 mb-4 px-margin-mobile md:px-0">
+<!-- Cerrar Sesión -->
+<div class="mt-8 mb-4">
     <button onclick="logout()" class="w-full flex items-center justify-center gap-2 py-4 px-6 border border-outline rounded-xl text-on-surface-variant font-medium hover:bg-surface-variant/50 hover:text-error transition-colors btn-press">
         <span class="material-symbols-outlined">logout</span>
-        <span class="font-label-md">Cerrar Sesión</span>
+        <span class="text-sm font-bold">Cerrar Sesión</span>
     </button>
 </div>
 </main>
 
-<!-- BottomNavBar - Mobile (Estilo mejorado) -->
+<!-- BOTTOM NAV - EXACTO como imagen 9 -->
 <nav class="bottom-nav md:hidden">
     <a href="/admin/dashboard" class="bottom-nav-item active">
         <span class="material-symbols-outlined nav-icon">dashboard</span>
@@ -658,26 +526,25 @@
         <span class="material-symbols-outlined text-[28px]">mail</span>
         <div class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></div>
     </div>
-    <div class="mt-auto sidebar-item p-3 rounded-xl text-on-surface-variant hover:text-error transition-colors" onclick="logout()">
+    <div class="mt-auto sidebar-item p-3 rounded-xl text-on-surface-variant hover:text-error" onclick="logout()">
         <span class="material-symbols-outlined text-[28px]">logout</span>
     </div>
 </div>
 
 <script>
-    // Datos para el gráfico
+    // Datos gráfico
     const chartData = [
-        { month: 'Ene', value: 980, label: '980h' },
-        { month: 'Feb', value: 1120, label: '1,120h' },
-        { month: 'Mar', value: 1050, label: '1,050h' },
-        { month: 'Abr', value: 1248, label: '1,248h' },
-        { month: 'May', value: 1180, label: '1,180h' },
-        { month: 'Jun', value: 1350, label: '1,350h' }
+        { month: 'Ene', value: 980 },
+        { month: 'Feb', value: 1120 },
+        { month: 'Mar', value: 1050 },
+        { month: 'Abr', value: 1248 },
+        { month: 'May', value: 1180 },
+        { month: 'Jun', value: 1350 }
     ];
     
-    // Estado de excusas
-    let excusasPendientes = 2;
+    let excusasCount = 2;
     
-    // Tab filtering
+    // Filter tabs
     function filterActivities(type, btn) {
         document.querySelectorAll('.tab-btn').forEach(b => {
             b.classList.remove('bg-white', 'shadow-sm', 'text-primary', 'active');
@@ -686,13 +553,8 @@
         btn.classList.add('bg-white', 'shadow-sm', 'text-primary', 'active');
         btn.classList.remove('text-on-surface-variant');
         
-        const items = document.querySelectorAll('.activity-item');
-        items.forEach(item => {
-            if (type === 'todos') {
-                item.style.display = 'flex';
-            } else {
-                item.style.display = item.dataset.type === type ? 'flex' : 'none';
-            }
+        document.querySelectorAll('.activity-item').forEach(item => {
+            item.style.display = type === 'todos' || item.dataset.type === type ? 'flex' : 'none';
         });
     }
     
@@ -700,96 +562,66 @@
     function aceptarExcusa(id) {
         const card = document.getElementById(`excusa-${id}`);
         const buttons = document.getElementById(`buttons-${id}`);
-        
-        buttons.innerHTML = `<span class="excusa-status aceptada w-full text-center py-2">✓ Aceptada</span>`;
-        
-        // Animación de salida
-        setTimeout(() => {
-            card.style.transition = 'all 0.5s ease';
-            card.style.opacity = '0';
-            card.style.transform = 'translateX(100px)';
-            setTimeout(() => {
-                card.remove();
-                updateContadores();
-            }, 500);
-        }, 800);
-        
+        buttons.innerHTML = `<div class="excusa-status aceptada">✓ Excusa Aceptada</div>`;
         showToast('Excusa aceptada correctamente', 'success');
+        setTimeout(() => removeExcusa(card), 1000);
     }
     
     // Rechazar excusa
     function rechazarExcusa(id) {
         const card = document.getElementById(`excusa-${id}`);
         const buttons = document.getElementById(`buttons-${id}`);
-        
-        buttons.innerHTML = `<span class="excusa-status rechazada w-full text-center py-2">✗ Rechazada</span>`;
-        
-        setTimeout(() => {
-            card.style.transition = 'all 0.5s ease';
-            card.style.opacity = '0';
-            card.style.transform = 'translateX(100px)';
-            setTimeout(() => {
-                card.remove();
-                updateContadores();
-            }, 500);
-        }, 800);
-        
+        buttons.innerHTML = `<div class="excusa-status rechazada">✗ Excusa Rechazada</div>`;
         showToast('Excusa rechazada', 'error');
+        setTimeout(() => removeExcusa(card), 1000);
     }
     
-    // Actualizar contadores
-    function updateContadores() {
-        excusasPendientes--;
-        document.getElementById('statExcusas').textContent = excusasPendientes;
-        document.getElementById('badgeExcusas').textContent = excusasPendientes;
-        
-        if (excusasPendientes === 0) {
-            document.getElementById('excusasContainer').innerHTML = `
-                <div class="text-center py-8 text-on-surface-variant">
-                    <span class="material-symbols-outlined text-[48px] opacity-30">inbox</span>
-                    <p class="mt-2 text-label-sm">No hay excusas pendientes</p>
-                </div>
-            `;
-        }
+    // Remover excusa con animación
+    function removeExcusa(card) {
+        card.style.transition = 'all 0.5s ease';
+        card.style.opacity = '0';
+        card.style.transform = 'translateX(50px)';
+        setTimeout(() => {
+            card.remove();
+            excusasCount--;
+            document.getElementById('statExcusas').textContent = excusasCount;
+            document.getElementById('badgeExcusas').textContent = excusasCount;
+            if (excusasCount === 0) {
+                document.getElementById('excusasContainer').innerHTML = `
+                    <div class="text-center py-8 text-on-surface-variant">
+                        <span class="material-symbols-outlined text-[48px] opacity-30">inbox</span>
+                        <p class="mt-2 text-xs">No hay excusas pendientes</p>
+                    </div>
+                `;
+            }
+        }, 500);
     }
     
-    // Toast notification
+    // Toast
     function showToast(message, type) {
         const toast = document.getElementById('toast');
         toast.textContent = message;
         toast.className = `toast ${type}`;
         toast.style.display = 'flex';
-        
-        setTimeout(() => {
-            toast.style.display = 'none';
-        }, 3000);
+        setTimeout(() => toast.style.display = 'none', 3000);
     }
     
-    // Modal del gráfico
+    // Modal gráfico
     function openChartModal() {
         const modal = document.getElementById('chartModal');
         const chart = document.getElementById('barChart');
-        
-        // Generar barras
         const maxValue = Math.max(...chartData.map(d => d.value));
+        
         chart.innerHTML = chartData.map(d => `
             <div class="bar-item">
                 <div class="bar" style="height: ${(d.value / maxValue * 100)}%">
-                    <span class="bar-value">${d.label}</span>
+                    <span class="bar-value">${d.value}h</span>
                 </div>
                 <span class="bar-label">${d.month}</span>
             </div>
         `).join('');
         
-        // Animar barras
         modal.classList.add('show');
-        setTimeout(() => {
-            document.querySelectorAll('.bar').forEach((bar, i) => {
-                setTimeout(() => {
-                    bar.style.transform = 'scaleY(1)';
-                }, i * 100);
-            });
-        }, 300);
     }
     
     function closeModal(event) {
@@ -809,34 +641,6 @@
             window.location.href = '/seleccion-rol';
         }
     }
-    
-    // Filter by type (click en tarjetas)
-    function filterByType(type) {
-        showToast(`Filtrando por: ${type}`, 'success');
-    }
-    
-    // Micro-interactions
-    document.querySelectorAll('button').forEach(btn => {
-        btn.addEventListener('mousedown', () => {
-            btn.classList.add('scale-95');
-        });
-        btn.addEventListener('mouseup', () => {
-            btn.classList.remove('scale-95');
-        });
-    });
-    
-    // Animación de entrada de estadísticas
-    window.addEventListener('load', () => {
-        document.querySelectorAll('.stat-number').forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(10px)';
-            setTimeout(() => {
-                el.style.transition = 'all 0.6s ease';
-                el.style.opacity = '1';
-                el.style.transform = 'translateY(0)';
-            }, 300);
-        });
-    });
 </script>
 </body>
-</html>ml>
+</html>
