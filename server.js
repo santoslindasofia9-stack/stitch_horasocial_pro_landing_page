@@ -275,5 +275,8 @@ app.get('/admin/mensajes', (req, res) => {
 app.listen(PORT, () => {
     console.log(`Servidor de Horas Sociales corriendo en http://localhost:${PORT}`);
 });
+app.get('/admin/alertas', (req, res) => {
+    res.sendFile(path.join(__dirname, 'stitch_horasocial_pro_landing_page', 'control_de_estudiantes_y_alertas_admin_versi_n_corregida', 'code.html'));
+});
 
 module.exports = app;
