@@ -758,7 +758,7 @@
      Estilo exacto como imagen 6
      ============================================ -->
 <nav class="bottom-navbar">
-    <a href="dashboard_admin.html" class="bottom-nav-item active" onclick="setActiveNav(this)">
+    <a href="/admin/dashboard" class="bottom-nav-item active" onclick="setActiveNav(this)">
         <span class="material-symbols-outlined nav-icon filled">dashboard</span>
         <span class="nav-label">Dashboard</span>
     </a>
@@ -766,14 +766,15 @@
         <span class="material-symbols-outlined nav-icon">group</span>
         <span class="nav-label">Docentes</span>
     </a>
-    <a href="#" class="bottom-nav-item" onclick="setActiveNav(this); return false;">
+    <a href="/admin/alertas" class="bottom-nav-item" onclick="setActiveNav(this)">
         <span class="material-symbols-outlined nav-icon">school</span>
         <span class="nav-label">Estudiantes</span>
     </a>
-   <a href="/admin/alertas" class="bottom-nav-item" onclick="setActiveNav(this)">
-    <span class="material-symbols-outlined nav-icon">school</span>
-    <span class="nav-label">Estudiantes</span>
-</a>
+    <a href="/admin/mensajes" class="bottom-nav-item relative" onclick="setActiveNav(this)">
+        <span class="material-symbols-outlined nav-icon">mail</span>
+        <span class="nav-label">Mensajes</span>
+        <span class="nav-badge"></span>
+    </a>
 </nav>
 
 <script>
