@@ -311,11 +311,7 @@
         function handleLogin(event) {
             event.preventDefault();
             const username = document.getElementById('login-username').value;
-            const password = document.getElementById('password-input').value;
-            
             console.log("Iniciando sesión como administrador:", username);
-            
-            // Redirección directa al dashboard
             window.location.href = '/admin/dashboard';
         }
 
