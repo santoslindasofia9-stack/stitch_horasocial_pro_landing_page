@@ -256,12 +256,11 @@ app.get('/maestro/mensajes', (req, res) => {
     res.sendFile(path.join(__dirname, 'stitch_horasocial_pro_landing_page', 'mensajes_e_interacci_n_perfil_maestro', 'code.html'));
 });
 
-// ✅ AGREGADO: Ruta para el dashboard del admin (archivo HTML generado)
+// ✅ RUTAS ADMIN - ACTUALIZADAS CON NUEVOS ARCHIVOS HTML
 app.get('/admin/dashboard', (req, res) => {
     res.sendFile(path.join(__dirname, 'dashboard_admin.html'));
 });
 
-// ✅ AGREGADO: Ruta para la pantalla de docentes (archivo HTML generado)
 app.get('/admin/docentes', (req, res) => {
     res.sendFile(path.join(__dirname, 'docentes.html'));
 });
