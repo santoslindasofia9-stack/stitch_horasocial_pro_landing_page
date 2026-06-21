@@ -20,4 +20,13 @@
     { "src": "/", "dest": "server.js" },
     { "src": "/(.*)", "dest": "server.js" }
   ]
+}{
+  "version": 2,
+  "routes": [
+    { "src": "/admin/dashboard", "dest": "/stitch_horasocial_pro_landing_page/dashboard_administrador_control_y_gesti_n_central/code.html" },
+    { "src": "/admin/docentes", "dest": "/stitch_horasocial_pro_landing_page/coordinaci_n_y_ajuste_de_docentes_admin/code.html" },
+    { "src": "/admin/alertas", "dest": "/stitch_horasocial_pro_landing_page/control_de_estudiantes_y_alertas_admin_versi_n_corregida/code.html" },
+    { "src": "/admin/mensajes", "dest": "/stitch_horasocial_pro_landing_page/chat_con_maestro_soporte_de_inasistencia_1/code.html" },
+    { "src": "/(.*)", "dest": "/stitch_horasocial_pro_landing_page/bienvenido_a_horasocial_pro_2/code.html" }
+  ]
 }
