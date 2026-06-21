@@ -21,3 +21,9 @@
     { "source": "/(.*)", "destination": "/server.js" }
   ]
 }
+{
+  "version": 2,
+  "routes": [
+    { "src": "/admin/mensajes", "dest": "/api/mensajes.js" }
+  ]
+}
