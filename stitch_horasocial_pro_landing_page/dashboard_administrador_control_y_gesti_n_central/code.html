@@ -13,7 +13,7 @@
         font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
     }
     
-    /* BOTTOM NAV - EXACTO como imagen 9 */
+    /* BOTTOM NAV - Estilo exacto como imagen 1 */
     .bottom-nav {
         position: fixed;
         bottom: 0;
@@ -103,7 +103,7 @@
         transform: scale(0.95);
     }
     
-    /* Modal */
+    /* Modales */
     .modal-overlay {
         position: fixed;
         inset: 0;
@@ -113,9 +113,12 @@
         display: none;
         align-items: center;
         justify-content: center;
+        opacity: 0;
+        transition: opacity 0.3s ease;
     }
     .modal-overlay.show {
         display: flex;
+        opacity: 1;
     }
     .modal-content {
         background: white;
@@ -126,6 +129,11 @@
         max-height: 80vh;
         overflow-y: auto;
         box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        transform: translateY(20px);
+        transition: transform 0.3s ease;
+    }
+    .modal-overlay.show .modal-content {
+        transform: translateY(0);
     }
     
     /* Bar chart */
@@ -211,6 +219,55 @@
         background: #fee2e2;
         color: #991b1b;
     }
+    
+    /* Animaciones */
+    @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-in {
+        animation: fadeInUp 0.4s ease forwards;
+    }
+    
+    /* Tab pills */
+    .tab-pill {
+        transition: all 0.2s ease;
+    }
+    .tab-pill.active {
+        background: white;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    
+    /* Reportes */
+    .reporte-item {
+        transition: all 0.2s ease;
+        border-left: 3px solid transparent;
+    }
+    .reporte-item:hover {
+        background: #f8fafc;
+        border-left-color: #0ea5e9;
+    }
+    
+    /* Progress bar */
+    .progress-bar {
+        height: 8px;
+        border-radius: 4px;
+        background: #e2e8f0;
+        overflow: hidden;
+    }
+    .progress-fill {
+        height: 100%;
+        border-radius: 4px;
+        background: linear-gradient(90deg, #0ea5e9, #38bdf8);
+        transition: width 0.6s ease;
+    }
+    
+    /* Smooth scroll */
+    html { scroll-behavior: smooth; }
+    
+    /* Hide scrollbar for modal */
+    .modal-content::-webkit-scrollbar { width: 6px; }
+    .modal-content::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
 </style>
 <script id="tailwind-config">
     tailwind.config = {
@@ -269,12 +326,12 @@
 <!-- Toast -->
 <div id="toast" class="toast"></div>
 
-<!-- Modal Gráfico -->
-<div id="chartModal" class="modal-overlay" onclick="closeModal(event)">
+<!-- Modal Gráfico Horas -->
+<div id="chartModal" class="modal-overlay" onclick="closeModal(event, 'chartModal')">
     <div class="modal-content" onclick="event.stopPropagation()">
         <div class="flex justify-between items-center mb-6">
             <h2 class="font-headline-sm text-headline-sm font-bold">Horas de Servicio Social - 2026</h2>
-            <button onclick="closeModal()" class="p-2 hover:bg-surface-variant rounded-full">
+            <button onclick="closeModal(null, 'chartModal')" class="p-2 hover:bg-surface-variant rounded-full transition-colors">
                 <span class="material-symbols-outlined">close</span>
             </button>
         </div>
@@ -292,6 +349,99 @@
                 <p class="text-label-sm text-on-surface-variant mb-1">Estudiantes Activos</p>
                 <p class="font-bold text-tertiary text-lg">342</p>
             </div>
+        </div>
+        <div class="mt-6 bg-surface-container-low p-4 rounded-xl">
+            <div class="flex justify-between items-center mb-2">
+                <p class="text-sm font-bold text-primary">Progreso del Mes (Junio)</p>
+                <p class="text-sm font-bold text-secondary">1,248 / 1,500 h</p>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 83%"></div>
+            </div>
+            <p class="text-xs text-on-surface-variant mt-2">83% del objetivo mensual completado</p>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Reportes -->
+<div id="reportesModal" class="modal-overlay" onclick="closeModal(event, 'reportesModal')">
+    <div class="modal-content" onclick="event.stopPropagation()">
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="font-headline-sm text-headline-sm font-bold">Reportes y Alertas</h2>
+            <button onclick="closeModal(null, 'reportesModal')" class="p-2 hover:bg-surface-variant rounded-full transition-colors">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+        </div>
+        <div class="space-y-3" id="reportesList">
+            <div class="reporte-item p-4 bg-surface-container-low rounded-xl cursor-pointer" onclick="showReporteDetail('alerta')">
+                <div class="flex items-start gap-3">
+                    <div class="w-10 h-10 bg-error-container rounded-full flex items-center justify-center shrink-0">
+                        <span class="material-symbols-outlined text-error">warning</span>
+                    </div>
+                    <div class="flex-grow">
+                        <p class="font-bold text-sm text-error">Alerta de Inasistencia</p>
+                        <p class="text-xs text-on-surface-variant mt-1">Prof. Ricardo Méndez reportó 3 estudiantes ausentes sin justificación en el turno de la mañana.</p>
+                        <p class="text-[11px] text-outline mt-2">Hace 2 horas</p>
+                    </div>
+                    <span class="material-symbols-outlined text-on-surface-variant">chevron_right</span>
+                </div>
+            </div>
+            <div class="reporte-item p-4 bg-surface-container-low rounded-xl cursor-pointer" onclick="showReporteDetail('cambio')">
+                <div class="flex items-start gap-3">
+                    <div class="w-10 h-10 bg-secondary-container rounded-full flex items-center justify-center shrink-0">
+                        <span class="material-symbols-outlined text-secondary">schedule</span>
+                    </div>
+                    <div class="flex-grow">
+                        <p class="font-bold text-sm text-secondary">Cambio de Horario Solicitado</p>
+                        <p class="text-xs text-on-surface-variant mt-1">Prof. Ana García solicita cambiar el horario de práctica de Biblioteca a Laboratorio.</p>
+                        <p class="text-[11px] text-outline mt-2">Hace 5 horas</p>
+                    </div>
+                    <span class="material-symbols-outlined text-on-surface-variant">chevron_right</span>
+                </div>
+            </div>
+            <div class="reporte-item p-4 bg-surface-container-low rounded-xl cursor-pointer" onclick="showReporteDetail('incidente')">
+                <div class="flex items-start gap-3">
+                    <div class="w-10 h-10 bg-surface-variant rounded-full flex items-center justify-center shrink-0">
+                        <span class="material-symbols-outlined text-on-surface-variant">report</span>
+                    </div>
+                    <div class="flex-grow">
+                        <p class="font-bold text-sm text-on-surface-variant">Reporte de Incidente</p>
+                        <p class="text-xs text-on-surface-variant mt-1">Se reportó un problema técnico en el sistema de registro de horas del comedor.</p>
+                        <p class="text-[11px] text-outline mt-2">Hace 1 día</p>
+                    </div>
+                    <span class="material-symbols-outlined text-on-surface-variant">chevron_right</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Detalle Reporte -->
+<div id="reporteDetailModal" class="modal-overlay" onclick="closeModal(event, 'reporteDetailModal')">
+    <div class="modal-content" onclick="event.stopPropagation()">
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="font-headline-sm text-headline-sm font-bold" id="reporteDetailTitle">Detalle del Reporte</h2>
+            <button onclick="closeModal(null, 'reporteDetailModal')" class="p-2 hover:bg-surface-variant rounded-full transition-colors">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+        </div>
+        <div id="reporteDetailContent" class="space-y-4">
+            <!-- Se llena dinámicamente -->
+        </div>
+    </div>
+</div>
+
+<!-- Modal Todas las Excusas -->
+<div id="todasExcusasModal" class="modal-overlay" onclick="closeModal(event, 'todasExcusasModal')">
+    <div class="modal-content" onclick="event.stopPropagation()" style="max-width: 700px;">
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="font-headline-sm text-headline-sm font-bold">Todas las Solicitudes</h2>
+            <button onclick="closeModal(null, 'todasExcusasModal')" class="p-2 hover:bg-surface-variant rounded-full transition-colors">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+        </div>
+        <div class="space-y-4" id="todasExcusasList">
+            <!-- Se llena dinámicamente -->
         </div>
     </div>
 </div>
@@ -315,7 +465,7 @@
 
 <!-- Banner -->
 <section class="mb-lg">
-    <div class="relative overflow-hidden bg-gradient-to-r from-primary to-slate-700 rounded-2xl p-lg text-white shadow-lg">
+    <div class="relative overflow-hidden bg-gradient-to-r from-primary to-slate-700 rounded-2xl p-lg text-white shadow-lg hover-lift cursor-pointer">
         <div class="relative z-10">
             <h1 class="font-comfortaa text-headline-sm font-bold mb-2">Bitácora de Cambios y Novedades</h1>
             <p class="opacity-90 max-w-xl text-sm">Supervisa y valida las actividades de servicio social en tiempo real.</p>
@@ -326,9 +476,9 @@
     </div>
 </section>
 
-<!-- Métricas -->
+<!-- Métricas - Clickables -->
 <section class="grid grid-cols-1 md:grid-cols-3 gap-gutter mb-lg">
-    <div class="bg-surface-container-lowest p-md rounded-2xl shadow-sm border-l-4 border-error flex items-center justify-between hover-lift cursor-pointer">
+    <div class="bg-surface-container-lowest p-md rounded-2xl shadow-sm border-l-4 border-error flex items-center justify-between hover-lift cursor-pointer" onclick="openReportesModal()">
         <div>
             <p class="text-label-md text-on-surface-variant mb-1">Excusas por Validar</p>
             <p class="font-headline-sm text-error" id="statExcusas">3</p>
@@ -337,7 +487,7 @@
             <span class="material-symbols-outlined text-on-error-container">notification_important</span>
         </div>
     </div>
-    <div class="bg-surface-container-lowest p-md rounded-2xl shadow-sm border-l-4 border-secondary flex items-center justify-between hover-lift cursor-pointer">
+    <div class="bg-surface-container-lowest p-md rounded-2xl shadow-sm border-l-4 border-secondary flex items-center justify-between hover-lift cursor-pointer" onclick="openReportesModal()">
         <div>
             <p class="text-label-md text-on-surface-variant mb-1">Cambios de Horarios</p>
             <p class="font-headline-sm text-secondary">2</p>
@@ -346,7 +496,7 @@
             <span class="material-symbols-outlined text-secondary">schedule</span>
         </div>
     </div>
-    <div class="bg-surface-container-lowest p-md rounded-2xl shadow-sm border-l-4 border-outline flex items-center justify-between hover-lift cursor-pointer">
+    <div class="bg-surface-container-lowest p-md rounded-2xl shadow-sm border-l-4 border-outline flex items-center justify-between hover-lift cursor-pointer" onclick="openReportesModal()">
         <div>
             <p class="text-label-md text-on-surface-variant mb-1">Alertas de Profesores</p>
             <p class="font-headline-sm text-on-surface-variant">1</p>
@@ -357,56 +507,82 @@
     </div>
 </section>
 
-<div class="bento-grid">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
     <!-- Actividades -->
-    <div class="col-span-12 md:col-span-8 flex flex-col gap-gutter">
+    <div class="md:col-span-8 flex flex-col gap-gutter">
         <div class="bg-surface-container-lowest rounded-2xl shadow-sm p-lg min-h-[500px]">
             <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-lg gap-4">
                 <h2 class="font-headline-sm text-headline-sm font-bold">Bitácora de Actividades Recientes</h2>
                 <div class="flex bg-surface-container p-1 rounded-xl">
-                    <button class="px-4 py-2 rounded-lg text-label-sm font-bold bg-white shadow-sm text-primary tab-btn active" onclick="filterActivities('todos', this)">Todos</button>
-                    <button class="px-4 py-2 rounded-lg text-label-sm font-medium text-on-surface-variant tab-btn" onclick="filterActivities('docentes', this)">Docentes</button>
-                    <button class="px-4 py-2 rounded-lg text-label-sm font-medium text-on-surface-variant tab-btn" onclick="filterActivities('estudiantes', this)">Estudiantes</button>
+                    <button class="px-4 py-2 rounded-lg text-label-sm font-bold bg-white shadow-sm text-primary tab-pill active" onclick="filterActivities('todos', this)">Todos</button>
+                    <button class="px-4 py-2 rounded-lg text-label-sm font-medium text-on-surface-variant tab-pill" onclick="filterActivities('docente', this)">Docentes</button>
+                    <button class="px-4 py-2 rounded-lg text-label-sm font-medium text-on-surface-variant tab-pill" onclick="filterActivities('estudiante', this)">Estudiantes</button>
                 </div>
             </div>
             <div class="space-y-sm" id="activities-list">
-                <div class="flex items-center p-md border-b border-surface-variant hover:bg-surface-container-low rounded-xl activity-item" data-type="docente">
-                    <div class="w-10 h-10 bg-secondary-container rounded-full flex items-center justify-center mr-md">
+                <div class="flex items-center p-md border-b border-surface-variant hover:bg-surface-container-low rounded-xl activity-item animate-fade-in" data-type="docente" style="animation-delay: 0.05s">
+                    <div class="w-10 h-10 bg-secondary-container rounded-full flex items-center justify-center mr-md shrink-0">
                         <span class="material-symbols-outlined text-secondary">edit_calendar</span>
                     </div>
                     <div class="flex-grow">
                         <p class="font-bold text-sm">Prof. Ricardo Méndez</p>
                         <p class="text-xs text-on-surface-variant">Modificó horario de práctica en Biblioteca Central.</p>
                     </div>
-                    <div class="text-right">
+                    <div class="text-right shrink-0">
                         <span class="px-3 py-1 bg-secondary-container text-on-secondary-container text-[10px] font-bold rounded-full">DOCENTE</span>
                         <p class="text-[11px] text-outline mt-1 italic">Hace 15 min</p>
                     </div>
                 </div>
-                <div class="flex items-center p-md border-b border-surface-variant hover:bg-surface-container-low rounded-xl activity-item" data-type="estudiante">
-                    <div class="w-10 h-10 bg-error-container rounded-full flex items-center justify-center mr-md">
+                <div class="flex items-center p-md border-b border-surface-variant hover:bg-surface-container-low rounded-xl activity-item animate-fade-in" data-type="estudiante" style="animation-delay: 0.1s">
+                    <div class="w-10 h-10 bg-error-container rounded-full flex items-center justify-center mr-md shrink-0">
                         <span class="material-symbols-outlined text-error">assignment_late</span>
                     </div>
                     <div class="flex-grow">
                         <p class="font-bold text-sm">Mariana López</p>
                         <p class="text-xs text-on-surface-variant">Subió excusa médica por inasistencia al comedor.</p>
                     </div>
-                    <div class="text-right">
+                    <div class="text-right shrink-0">
                         <span class="px-3 py-1 bg-error-container text-on-error-container text-[10px] font-bold rounded-full">EXCUSA</span>
                         <p class="text-[11px] text-outline mt-1 italic">Hace 1 h</p>
                     </div>
                 </div>
-                <div class="flex items-center p-md border-b border-surface-variant hover:bg-surface-container-low rounded-xl activity-item" data-type="estudiante">
-                    <div class="w-10 h-10 bg-surface-variant rounded-full flex items-center justify-center mr-md">
+                <div class="flex items-center p-md border-b border-surface-variant hover:bg-surface-container-low rounded-xl activity-item animate-fade-in" data-type="estudiante" style="animation-delay: 0.15s">
+                    <div class="w-10 h-10 bg-surface-variant rounded-full flex items-center justify-center mr-md shrink-0">
                         <span class="material-symbols-outlined text-on-surface-variant">person_add</span>
                     </div>
                     <div class="flex-grow">
                         <p class="font-bold text-sm">Esteban Quito</p>
                         <p class="text-xs text-on-surface-variant">Nuevo registro de estudiante para Servicio Social.</p>
                     </div>
-                    <div class="text-right">
+                    <div class="text-right shrink-0">
                         <span class="px-3 py-1 bg-surface-container-high text-on-surface-variant text-[10px] font-bold rounded-full">ESTUDIANTE</span>
                         <p class="text-[11px] text-outline mt-1 italic">Hace 2 h</p>
+                    </div>
+                </div>
+                <div class="flex items-center p-md border-b border-surface-variant hover:bg-surface-container-low rounded-xl activity-item animate-fade-in" data-type="docente" style="animation-delay: 0.2s">
+                    <div class="w-10 h-10 bg-secondary-container rounded-full flex items-center justify-center mr-md shrink-0">
+                        <span class="material-symbols-outlined text-secondary">menu_book</span>
+                    </div>
+                    <div class="flex-grow">
+                        <p class="font-bold text-sm">Prof. Ana García</p>
+                        <p class="text-xs text-on-surface-variant">Actualizó material de estudio para Laboratorio de Química.</p>
+                    </div>
+                    <div class="text-right shrink-0">
+                        <span class="px-3 py-1 bg-secondary-container text-on-secondary-container text-[10px] font-bold rounded-full">DOCENTE</span>
+                        <p class="text-[11px] text-outline mt-1 italic">Hace 3 h</p>
+                    </div>
+                </div>
+                <div class="flex items-center p-md border-b border-surface-variant hover:bg-surface-container-low rounded-xl activity-item animate-fade-in" data-type="estudiante" style="animation-delay: 0.25s">
+                    <div class="w-10 h-10 bg-surface-variant rounded-full flex items-center justify-center mr-md shrink-0">
+                        <span class="material-symbols-outlined text-on-surface-variant">check_circle</span>
+                    </div>
+                    <div class="flex-grow">
+                        <p class="font-bold text-sm">Carlos Ruiz</p>
+                        <p class="text-xs text-on-surface-variant">Completó 40 horas de servicio social en Biblioteca.</p>
+                    </div>
+                    <div class="text-right shrink-0">
+                        <span class="px-3 py-1 bg-surface-container-high text-on-surface-variant text-[10px] font-bold rounded-full">ESTUDIANTE</span>
+                        <p class="text-[11px] text-outline mt-1 italic">Hace 4 h</p>
                     </div>
                 </div>
             </div>
@@ -414,52 +590,73 @@
     </div>
 
     <!-- Sidebar -->
-    <div class="col-span-12 md:col-span-4 flex flex-col gap-gutter">
+    <div class="md:col-span-4 flex flex-col gap-gutter">
         <!-- Excusas -->
         <div class="bg-surface-container-lowest rounded-2xl shadow-sm p-lg">
             <div class="flex items-center justify-between mb-md">
                 <h2 class="font-headline-sm text-headline-sm font-bold">Excusas Pendientes</h2>
-                <span class="bg-error text-white text-[10px] font-bold px-2 py-0.5 rounded-full" id="badgeExcusas">2</span>
+                <span class="bg-error text-white text-[10px] font-bold px-2 py-0.5 rounded-full" id="badgeExcusas">3</span>
             </div>
             <div class="space-y-md" id="excusasContainer">
                 <!-- Excusa 1 -->
-                <div class="bg-surface-container-low p-md rounded-xl border border-surface-variant" id="excusa-1">
+                <div class="bg-surface-container-low p-md rounded-xl border border-surface-variant animate-fade-in" id="excusa-1" style="animation-delay: 0.05s">
                     <div class="flex justify-between items-start mb-2">
                         <div>
                             <p class="font-bold text-sm">Juan Pérez</p>
                             <p class="text-xs text-on-surface-variant">Grado 11-A • 24 Oct 2023</p>
                         </div>
-                        <span class="material-symbols-outlined text-secondary cursor-pointer">picture_as_pdf</span>
+                        <span class="material-symbols-outlined text-secondary cursor-pointer hover:scale-110 transition-transform">picture_as_pdf</span>
                     </div>
-                    <div class="bg-white/50 p-2 rounded-md border-l-2 border-secondary italic text-xs text-on-surface-variant mb-3">
+                    <div class="bg-white/50 p-3 rounded-md border-l-2 border-secondary italic text-xs text-on-surface-variant mb-3">
                         "Cita odontológica programada de urgencia."
                     </div>
                     <div class="grid grid-cols-2 gap-2" id="buttons-1">
-                        <button onclick="aceptarExcusa(1)" class="bg-primary text-white py-2 rounded-lg text-sm font-bold hover:bg-slate-800 btn-press transition-all">Aceptar</button>
-                        <button onclick="rechazarExcusa(1)" class="bg-white border border-outline-variant text-on-surface-variant py-2 rounded-lg text-sm font-bold hover:bg-surface-variant btn-press transition-all">Rechazar</button>
+                        <button onclick="aceptarExcusa(1)" class="bg-primary text-white py-2.5 rounded-lg text-sm font-bold hover:bg-slate-800 btn-press transition-all">Aceptar</button>
+                        <button onclick="rechazarExcusa(1)" class="bg-white border border-outline-variant text-on-surface-variant py-2.5 rounded-lg text-sm font-bold hover:bg-surface-variant btn-press transition-all">Rechazar</button>
                     </div>
                 </div>
                 <!-- Excusa 2 -->
-                <div class="bg-surface-container-low p-md rounded-xl border border-surface-variant" id="excusa-2">
+                <div class="bg-surface-container-low p-md rounded-xl border border-surface-variant animate-fade-in" id="excusa-2" style="animation-delay: 0.1s">
                     <div class="flex justify-between items-start mb-2">
                         <div>
                             <p class="font-bold text-sm">Sofía Ramírez</p>
                             <p class="text-xs text-on-surface-variant">Grado 10-C • 23 Oct 2023</p>
                         </div>
-                        <span class="material-symbols-outlined text-secondary cursor-pointer">picture_as_pdf</span>
+                        <span class="material-symbols-outlined text-secondary cursor-pointer hover:scale-110 transition-transform">picture_as_pdf</span>
                     </div>
-                    <div class="bg-white/50 p-2 rounded-md border-l-2 border-secondary italic text-xs text-on-surface-variant mb-3">
+                    <div class="bg-white/50 p-3 rounded-md border-l-2 border-secondary italic text-xs text-on-surface-variant mb-3">
                         "Incapacidad médica por cuadro viral."
                     </div>
                     <div class="grid grid-cols-2 gap-2" id="buttons-2">
-                        <button onclick="aceptarExcusa(2)" class="bg-primary text-white py-2 rounded-lg text-sm font-bold hover:bg-slate-800 btn-press transition-all">Aceptar</button>
-                        <button onclick="rechazarExcusa(2)" class="bg-white border border-outline-variant text-on-surface-variant py-2 rounded-lg text-sm font-bold hover:bg-surface-variant btn-press transition-all">Rechazar</button>
+                        <button onclick="aceptarExcusa(2)" class="bg-primary text-white py-2.5 rounded-lg text-sm font-bold hover:bg-slate-800 btn-press transition-all">Aceptar</button>
+                        <button onclick="rechazarExcusa(2)" class="bg-white border border-outline-variant text-on-surface-variant py-2.5 rounded-lg text-sm font-bold hover:bg-surface-variant btn-press transition-all">Rechazar</button>
+                    </div>
+                </div>
+                <!-- Excusa 3 -->
+                <div class="bg-surface-container-low p-md rounded-xl border border-surface-variant animate-fade-in" id="excusa-3" style="animation-delay: 0.15s">
+                    <div class="flex justify-between items-start mb-2">
+                        <div>
+                            <p class="font-bold text-sm">Diego Fernández</p>
+                            <p class="text-xs text-on-surface-variant">Grado 11-B • 22 Oct 2023</p>
+                        </div>
+                        <span class="material-symbols-outlined text-secondary cursor-pointer hover:scale-110 transition-transform">picture_as_pdf</span>
+                    </div>
+                    <div class="bg-white/50 p-3 rounded-md border-l-2 border-secondary italic text-xs text-on-surface-variant mb-3">
+                        "Compromiso familiar de última hora."
+                    </div>
+                    <div class="grid grid-cols-2 gap-2" id="buttons-3">
+                        <button onclick="aceptarExcusa(3)" class="bg-primary text-white py-2.5 rounded-lg text-sm font-bold hover:bg-slate-800 btn-press transition-all">Aceptar</button>
+                        <button onclick="rechazarExcusa(3)" class="bg-white border border-outline-variant text-on-surface-variant py-2.5 rounded-lg text-sm font-bold hover:bg-surface-variant btn-press transition-all">Rechazar</button>
                     </div>
                 </div>
             </div>
+            <button onclick="verTodasLasExcusas()" class="w-full mt-4 py-3 text-secondary text-sm font-bold hover:bg-secondary-container rounded-xl transition-colors flex items-center justify-center gap-1">
+                Ver todas las solicitudes 
+                <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+            </button>
         </div>
 
-        <!-- Horas - Clickable -->
+        <!-- Horas Totales - Clickable -->
         <div class="bg-gradient-to-br from-primary via-slate-800 to-slate-900 text-white rounded-2xl p-lg relative overflow-hidden h-44 flex flex-col justify-end cursor-pointer hover-lift" onclick="openChartModal()">
             <div class="absolute inset-0 opacity-20">
                 <svg class="w-full h-full" viewBox="0 0 200 100" preserveAspectRatio="none">
@@ -490,7 +687,7 @@
 </div>
 </main>
 
-<!-- BOTTOM NAV - EXACTO como imagen 9 -->
+<!-- BOTTOM NAV - Estilo exacto como imagen 1 -->
 <nav class="bottom-nav md:hidden">
     <a href="/admin/dashboard" class="bottom-nav-item active">
         <span class="material-symbols-outlined nav-icon">dashboard</span>
@@ -532,7 +729,7 @@
 </div>
 
 <script>
-    // Datos gráfico
+    // Datos del gráfico
     const chartData = [
         { month: 'Ene', value: 980 },
         { month: 'Feb', value: 1120 },
@@ -542,19 +739,41 @@
         { month: 'Jun', value: 1350 }
     ];
     
-    let excusasCount = 2;
+    // Datos de todas las excusas
+    const todasLasExcusas = [
+        { id: 1, nombre: 'Juan Pérez', grado: '11-A', fecha: '24 Oct 2023', motivo: 'Cita odontológica programada de urgencia.', estado: 'pendiente' },
+        { id: 2, nombre: 'Sofía Ramírez', grado: '10-C', fecha: '23 Oct 2023', motivo: 'Incapacidad médica por cuadro viral.', estado: 'pendiente' },
+        { id: 3, nombre: 'Diego Fernández', grado: '11-B', fecha: '22 Oct 2023', motivo: 'Compromiso familiar de última hora.', estado: 'pendiente' },
+        { id: 4, nombre: 'Laura Martínez', grado: '10-A', fecha: '21 Oct 2023', motivo: 'Transporte público en huelga.', estado: 'aceptada' },
+        { id: 5, nombre: 'Andrés Castro', grado: '11-C', fecha: '20 Oct 2023', motivo: 'Problema de salud familiar.', estado: 'rechazada' },
+        { id: 6, nombre: 'Valentina Gómez', grado: '10-B', fecha: '19 Oct 2023', motivo: 'Evento académico externo.', estado: 'pendiente' }
+    ];
     
-    // Filter tabs
+    let excusasCount = 3;
+    
+    // Filter tabs - Funciona correctamente
     function filterActivities(type, btn) {
-        document.querySelectorAll('.tab-btn').forEach(b => {
-            b.classList.remove('bg-white', 'shadow-sm', 'text-primary', 'active');
-            b.classList.add('text-on-surface-variant');
+        document.querySelectorAll('.tab-pill').forEach(b => {
+            b.classList.remove('bg-white', 'shadow-sm', 'text-primary', 'active', 'font-bold');
+            b.classList.add('text-on-surface-variant', 'font-medium');
         });
-        btn.classList.add('bg-white', 'shadow-sm', 'text-primary', 'active');
-        btn.classList.remove('text-on-surface-variant');
+        btn.classList.add('bg-white', 'shadow-sm', 'text-primary', 'active', 'font-bold');
+        btn.classList.remove('text-on-surface-variant', 'font-medium');
         
         document.querySelectorAll('.activity-item').forEach(item => {
-            item.style.display = type === 'todos' || item.dataset.type === type ? 'flex' : 'none';
+            if (type === 'todos') {
+                item.style.display = 'flex';
+                item.style.animation = 'none';
+                item.offsetHeight; // trigger reflow
+                item.style.animation = 'fadeInUp 0.4s ease forwards';
+            } else {
+                item.style.display = item.dataset.type === type ? 'flex' : 'none';
+                if (item.dataset.type === type) {
+                    item.style.animation = 'none';
+                    item.offsetHeight;
+                    item.style.animation = 'fadeInUp 0.4s ease forwards';
+                }
+            }
         });
     }
     
@@ -562,18 +781,18 @@
     function aceptarExcusa(id) {
         const card = document.getElementById(`excusa-${id}`);
         const buttons = document.getElementById(`buttons-${id}`);
-        buttons.innerHTML = `<div class="excusa-status aceptada">✓ Excusa Aceptada</div>`;
-        showToast('Excusa aceptada correctamente', 'success');
-        setTimeout(() => removeExcusa(card), 1000);
+        buttons.innerHTML = `<div class="excusa-status aceptada flex items-center justify-center gap-2"><span class="material-symbols-outlined text-[16px]">check_circle</span> Excusa Aceptada</div>`;
+        showToast('✓ Excusa aceptada correctamente', 'success');
+        setTimeout(() => removeExcusa(card), 1500);
     }
     
     // Rechazar excusa
     function rechazarExcusa(id) {
         const card = document.getElementById(`excusa-${id}`);
         const buttons = document.getElementById(`buttons-${id}`);
-        buttons.innerHTML = `<div class="excusa-status rechazada">✗ Excusa Rechazada</div>`;
-        showToast('Excusa rechazada', 'error');
-        setTimeout(() => removeExcusa(card), 1000);
+        buttons.innerHTML = `<div class="excusa-status rechazada flex items-center justify-center gap-2"><span class="material-symbols-outlined text-[16px]">cancel</span> Excusa Rechazada</div>`;
+        showToast('✗ Excusa rechazada', 'error');
+        setTimeout(() => removeExcusa(card), 1500);
     }
     
     // Remover excusa con animación
@@ -588,7 +807,7 @@
             document.getElementById('badgeExcusas').textContent = excusasCount;
             if (excusasCount === 0) {
                 document.getElementById('excusasContainer').innerHTML = `
-                    <div class="text-center py-8 text-on-surface-variant">
+                    <div class="text-center py-8 text-on-surface-variant animate-fade-in">
                         <span class="material-symbols-outlined text-[48px] opacity-30">inbox</span>
                         <p class="mt-2 text-xs">No hay excusas pendientes</p>
                     </div>
@@ -597,23 +816,61 @@
         }, 500);
     }
     
+    // Ver todas las excusas
+    function verTodasLasExcusas() {
+        const list = document.getElementById('todasExcusasList');
+        list.innerHTML = todasLasExcusas.map((excusa, index) => {
+            let statusBadge = '';
+            if (excusa.estado === 'pendiente') {
+                statusBadge = '<span class="px-2 py-1 bg-error-container text-on-error-container text-[10px] font-bold rounded-full">PENDIENTE</span>';
+            } else if (excusa.estado === 'aceptada') {
+                statusBadge = '<span class="px-2 py-1 bg-green-100 text-green-700 text-[10px] font-bold rounded-full">ACEPTADA</span>';
+            } else {
+                statusBadge = '<span class="px-2 py-1 bg-red-100 text-red-700 text-[10px] font-bold rounded-full">RECHAZADA</span>';
+            }
+            
+            return `
+                <div class="bg-surface-container-low p-4 rounded-xl border border-surface-variant animate-fade-in" style="animation-delay: ${index * 0.05}s">
+                    <div class="flex justify-between items-start mb-2">
+                        <div>
+                            <p class="font-bold text-sm">${excusa.nombre}</p>
+                            <p class="text-xs text-on-surface-variant">Grado ${excusa.grado} • ${excusa.fecha}</p>
+                        </div>
+                        ${statusBadge}
+                    </div>
+                    <div class="bg-white/50 p-3 rounded-md border-l-2 border-secondary italic text-xs text-on-surface-variant">
+                        "${excusa.motivo}"
+                    </div>
+                </div>
+            `;
+        }).join('');
+        
+        document.getElementById('todasExcusasModal').classList.add('show');
+    }
+    
     // Toast
     function showToast(message, type) {
         const toast = document.getElementById('toast');
-        toast.textContent = message;
+        toast.innerHTML = `<span class="material-symbols-outlined text-[18px]">${type === 'success' ? 'check_circle' : 'cancel'}</span> ${message}`;
         toast.className = `toast ${type}`;
         toast.style.display = 'flex';
-        setTimeout(() => toast.style.display = 'none', 3000);
+        setTimeout(() => {
+            toast.style.opacity = '0';
+            setTimeout(() => {
+                toast.style.display = 'none';
+                toast.style.opacity = '1';
+            }, 300);
+        }, 3000);
     }
     
-    // Modal gráfico
+    // Modal gráfico horas
     function openChartModal() {
         const modal = document.getElementById('chartModal');
         const chart = document.getElementById('barChart');
         const maxValue = Math.max(...chartData.map(d => d.value));
         
-        chart.innerHTML = chartData.map(d => `
-            <div class="bar-item">
+        chart.innerHTML = chartData.map((d, i) => `
+            <div class="bar-item animate-fade-in" style="animation-delay: ${i * 0.1}s">
                 <div class="bar" style="height: ${(d.value / maxValue * 100)}%">
                     <span class="bar-value">${d.value}h</span>
                 </div>
@@ -624,11 +881,117 @@
         modal.classList.add('show');
     }
     
-    function closeModal(event) {
-        if (!event || event.target.id === 'chartModal') {
-            document.getElementById('chartModal').classList.remove('show');
+    // Modal reportes
+    function openReportesModal() {
+        document.getElementById('reportesModal').classList.add('show');
+    }
+    
+    // Detalle de reporte
+    function showReporteDetail(tipo) {
+        const modal = document.getElementById('reporteDetailModal');
+        const title = document.getElementById('reporteDetailTitle');
+        const content = document.getElementById('reporteDetailContent');
+        
+        const detalles = {
+            alerta: {
+                title: 'Alerta de Inasistencia',
+                content: `
+                    <div class="bg-error-container p-4 rounded-xl mb-4">
+                        <p class="text-sm font-bold text-on-error-container mb-2">Detalles del Reporte</p>
+                        <p class="text-xs text-on-error-container">Prof. Ricardo Méndez reportó 3 estudiantes ausentes sin justificación durante el turno de la mañana en el área de Biblioteca Central.</p>
+                    </div>
+                    <div class="space-y-2">
+                        <p class="text-sm font-bold text-primary">Estudiantes reportados:</p>
+                        <div class="bg-surface-container-low p-3 rounded-lg flex justify-between items-center">
+                            <span class="text-sm">Carlos Ruiz - Grado 10-A</span>
+                            <span class="text-xs text-error font-bold">Sin excusa</span>
+                        </div>
+                        <div class="bg-surface-container-low p-3 rounded-lg flex justify-between items-center">
+                            <span class="text-sm">Ana Torres - Grado 11-B</span>
+                            <span class="text-xs text-error font-bold">Sin excusa</span>
+                        </div>
+                        <div class="bg-surface-container-low p-3 rounded-lg flex justify-between items-center">
+                            <span class="text-sm">Luis Herrera - Grado 10-C</span>
+                            <span class="text-xs text-error font-bold">Sin excusa</span>
+                        </div>
+                    </div>
+                    <div class="mt-4 flex gap-2">
+                        <button onclick="closeModal(null, 'reporteDetailModal')" class="flex-1 bg-primary text-white py-2.5 rounded-lg text-sm font-bold hover:bg-slate-800 transition-colors">Marcar como atendido</button>
+                        <button onclick="closeModal(null, 'reporteDetailModal')" class="flex-1 bg-white border border-outline-variant text-on-surface-variant py-2.5 rounded-lg text-sm font-bold hover:bg-surface-variant transition-colors">Cerrar</button>
+                    </div>
+                `
+            },
+            cambio: {
+                title: 'Cambio de Horario Solicitado',
+                content: `
+                    <div class="bg-secondary-container p-4 rounded-xl mb-4">
+                        <p class="text-sm font-bold text-on-secondary-container mb-2">Solicitud de Cambio</p>
+                        <p class="text-xs text-on-secondary-container">Prof. Ana García solicita reprogramar el horario de práctica de Biblioteca Central a Laboratorio de Ciencias debido a mantenimiento del área.</p>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4 mb-4">
+                        <div class="bg-surface-container-low p-3 rounded-lg">
+                            <p class="text-[10px] text-on-surface-variant uppercase">Horario Actual</p>
+                            <p class="text-sm font-bold text-primary">Lunes 8:00 - 10:00</p>
+                            <p class="text-xs text-on-surface-variant">Biblioteca Central</p>
+                        </div>
+                        <div class="bg-surface-container-low p-3 rounded-lg border-2 border-secondary">
+                            <p class="text-[10px] text-secondary uppercase">Horario Solicitado</p>
+                            <p class="text-sm font-bold text-primary">Martes 10:00 - 12:00</p>
+                            <p class="text-xs text-on-surface-variant">Laboratorio de Ciencias</p>
+                        </div>
+                    </div>
+                    <div class="mt-4 flex gap-2">
+                        <button onclick="showToast('Cambio aprobado', 'success'); closeModal(null, 'reporteDetailModal')" class="flex-1 bg-secondary text-white py-2.5 rounded-lg text-sm font-bold hover:bg-sky-600 transition-colors">Aprobar Cambio</button>
+                        <button onclick="closeModal(null, 'reporteDetailModal')" class="flex-1 bg-white border border-outline-variant text-on-surface-variant py-2.5 rounded-lg text-sm font-bold hover:bg-surface-variant transition-colors">Rechazar</button>
+                    </div>
+                `
+            },
+            incidente: {
+                title: 'Reporte de Incidente',
+                content: `
+                    <div class="bg-surface-variant p-4 rounded-xl mb-4">
+                        <p class="text-sm font-bold text-on-surface-variant mb-2">Descripción del Incidente</p>
+                        <p class="text-xs text-on-surface-variant">Se detectó un fallo en el sistema de registro de horas del comedor estudiantil. Los estudiantes no pueden registrar sus horas de servicio desde ayer a las 14:00.</p>
+                    </div>
+                    <div class="bg-surface-container-low p-4 rounded-xl mb-4">
+                        <p class="text-sm font-bold text-primary mb-2">Estado del Sistema</p>
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="w-3 h-3 bg-error rounded-full animate-pulse"></span>
+                            <span class="text-sm text-error font-bold">Fuera de servicio</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill bg-error" style="width: 30%"></div>
+                        </div>
+                        <p class="text-xs text-on-surface-variant mt-1">30% de funcionalidad restaurada</p>
+                    </div>
+                    <div class="mt-4 flex gap-2">
+                        <button onclick="showToast('Técnico notificado', 'success'); closeModal(null, 'reporteDetailModal')" class="flex-1 bg-primary text-white py-2.5 rounded-lg text-sm font-bold hover:bg-slate-800 transition-colors">Notificar al Técnico</button>
+                        <button onclick="closeModal(null, 'reporteDetailModal')" class="flex-1 bg-white border border-outline-variant text-on-surface-variant py-2.5 rounded-lg text-sm font-bold hover:bg-surface-variant transition-colors">Cerrar</button>
+                    </div>
+                `
+            }
+        };
+        
+        title.textContent = detalles[tipo].title;
+        content.innerHTML = detalles[tipo].content;
+        modal.classList.add('show');
+    }
+    
+    // Cerrar modal
+    function closeModal(event, modalId) {
+        if (!event || event.target.id === modalId) {
+            document.getElementById(modalId).classList.remove('show');
         }
     }
+    
+    // Cerrar con ESC
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            document.querySelectorAll('.modal-overlay.show').forEach(modal => {
+                modal.classList.remove('show');
+            });
+        }
+    });
     
     // Navigation
     function navigateTo(url) {
