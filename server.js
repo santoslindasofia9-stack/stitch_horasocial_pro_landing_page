@@ -269,7 +269,7 @@ app.get('/admin/alertas', (req, res) => {
 });
 
 app.get('/admin/mensajes', (req, res) => {
-    res.sendFile(path.join(__dirname, 'stitch_horasocial_pro_landing_page', 'mensajer_a_y_canales_admin_horasocial_pro_2', 'code.html'));
+    res.sendFile(path.join(__dirname, 'stitch_horasocial_pro_landing_page', 'chat_con_maestro_soporte_de_inasistencia_1', 'code.html'));
 });
 
 app.listen(PORT, () => {
