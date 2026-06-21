@@ -272,24 +272,4 @@ app.get('/admin/mensajes', (req, res) => {
     res.sendFile(path.join(__dirname, 'stitch_horasocial_pro_landing_page', 'chat_con_maestro_soporte_de_inasistencia_1', 'code.html'));
 });
 
-
-app.get('/admin/alertas', (req, res) => {
-    res.sendFile(path.join(__dirname, 'stitch_horasocial_pro_landing_page', 'control_de_estudiantes_y_alertas_admin_versi_n_corregida', 'code.html'));
-});
-app.get('/admin/dashboard', (req, res) => {
-    res.sendFile(path.join(__dirname, 'dashboard.html'));
-});
-
-app.get('/admin/docentes', (req, res) => {
-    res.sendFile(path.join(__dirname, 'docentes.html'));
-});
-
-app.get('/admin/alertas', (req, res) => {
-    res.sendFile(path.join(__dirname, 'alertas.html'));
-});
-
-app.get('/admin/mensajes', (req, res) => {
-    res.sendFile(path.join(__dirname, 'mensajes.html'));
-});
-
 module.exports = app;
